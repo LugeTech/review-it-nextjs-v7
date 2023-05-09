@@ -10,7 +10,7 @@ const Links: FC<LinksProps> = ({ directionOfLinks, showHome }) => {
     const links = [
         {
             name: 'Write a Review',
-            link: '/writeareview'
+            link: '/'
         },
         {
             name: 'Businesses',
