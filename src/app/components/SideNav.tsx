@@ -9,7 +9,7 @@ const SideNav = () => {
     const [isOpen, setIsOpen] = useRecoilState(showVerticalNav); //switch to atom
     return (
 
-        <div className={`flex flex-1 flex-col shadow-2xl sidebar fixed inset-y-0 w-52  bg-mycolours-light  dark:bg-mycolours-dark transition-all duration-300 transform ${isOpen ? 'translate-x-0' : '-translate-x-52'}`}>
+        <div className={` z-10 flex flex-1 flex-col shadow-2xl sidebar fixed inset-y-0 w-52  bg-mycolours-light  dark:bg-mycolours-dark transition-all duration-300 transform ${isOpen ? 'translate-x-0' : '-translate-x-52'}`}>
             <div className="flex justify-end">
                 <AiOutlineCloseSquare className=" cursor-pointer text-2xl text-mycolours-dark dark:text-mycolours-light" onClick={() => { setIsOpen(false)}} />
             </div>
