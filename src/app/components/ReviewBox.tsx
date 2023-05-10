@@ -1,8 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { Rating } from '@smastrom/react-rating'
-import { useRecoilState } from 'recoil'
-import { ratingStyle } from './recoil/atoms'
 import { Review, User, Comment, Product } from "../tools/Interfaces"
 import Image from 'next/image';
 import Votes from './Votes'
@@ -17,14 +15,14 @@ interface ReviewBoxProps {
 
 
 const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review, users: users, comments: comments, products: products }) => {
-    const [styleForRating, setStyleForRating] = useRecoilState(ratingStyle)
+    // const [styleForRating, setStyleForRating] = useRecoilState(ratingStyle)
     const [rating, setRating] = useState(review.rating) // Initial value
 
-    // const styleForRating = {
-    //     itemShapes: Heart,
-    //     activeFillColor: '#F18C8E',
-    //     inactiveFillColor: '#c8c9ca'
-    // }
+    const styleForRating = {
+        itemShapes: Heart,
+        activeFillColor: '#F18C8E',
+        inactiveFillColor: '#c8c9ca'
+    }
 
 
     const ratingChanged = (newRating: number) => {

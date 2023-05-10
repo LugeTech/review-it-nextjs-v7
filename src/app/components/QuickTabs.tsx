@@ -1,11 +1,11 @@
-'use client'
-import { useState } from 'react'
+
+
 import { MdFastfood, MdDeliveryDining, MdOutlineElectricalServices, MdBusinessCenter, MdOtherHouses, MdOutlineLocalTaxi } from 'react-icons/md'
 import { IoMdCar } from 'react-icons/io'
 import { GiClothes } from 'react-icons/gi'
 
 const QuickTabs = () => {
-    const [categories] = useState([
+    const categories = [
         { name: 'Fast Food', icon: <MdFastfood /> },
         { name: 'Car Rental', icon: <IoMdCar /> },
         { name: 'Delivery Service', icon: <MdDeliveryDining /> },
@@ -14,7 +14,7 @@ const QuickTabs = () => {
         { name: 'Real Estate', icon: <MdOtherHouses /> },
         { name: 'Clothing Store', icon: <GiClothes /> },
         { name: 'Taxi Service', icon: <MdOutlineLocalTaxi /> },
-    ])
+    ]
 
     // this component will be quick search little clickable cards categories for the home page
     return (

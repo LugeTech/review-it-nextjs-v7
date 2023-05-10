@@ -4,7 +4,7 @@ import { Review, User, Comment, Product } from "./tools/Interfaces"
 import Welcome from "./components/Welcome"
 import QuickTabs from './components/QuickTabs'
 import TopReviews from './components/TopReviews'
-
+import FetchData from './components/FetchData'
 
 export default function Home() {
 
@@ -125,6 +125,8 @@ const products: Product[] = [
                                 {/* business of the day */}
                                 <div className='flex flex-1 flex-row flex-wrap justify-start text-md mt-1 mb-2 items-center '>
                                     <p className="text-mycolours-dark dark:text-mycolours-light">Business of the day</p>
+                                    {/* @ts-expect-error Async Server Component */}
+                                    <FetchData params={"2"} />
                                 </div >
                                 <div className='w-1/2 float-right'>
                                     

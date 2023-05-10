@@ -21,4 +21,5 @@ const Votes: React.FC<VotesProps> = ({ review }) => {
     )
 }
 
+
 export default Votes

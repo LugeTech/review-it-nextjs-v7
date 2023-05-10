@@ -7,6 +7,7 @@ const WriteAReview = () => {
         <div className="flex flex-1  flex-col bg-mycolours-light dark:bg-mycolours-dark ">
             {/* <QuickReview /> */}
             <CreateReviews />
+            
         </div>
     )
 }
