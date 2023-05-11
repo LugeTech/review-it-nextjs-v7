@@ -1,5 +1,4 @@
 import {Review} from '@/app/tools/Interfaces'
-import ReviewModel from '@/app/tools/ReviewModel'
   interface Props {
     params: {
         id: string

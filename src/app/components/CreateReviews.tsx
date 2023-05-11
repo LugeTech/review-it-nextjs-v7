@@ -99,11 +99,6 @@ const CreateReviews = () => {
           <label htmlFor="title">Title:</label>
           <input type="text" id="title" name="title" onChange={handleChange} />
         </div>
-
-        {/* <div>
-                    <label htmlFor="body">Body:</label>
-                    <input type="text" id="body" name="body" onChange={handleChange} />
-                </div> */}
         <div>
           <label htmlFor="rating">Rating:</label>
           <input
