@@ -44,7 +44,7 @@ function Nav() {
         <>
             <SideNav />
 
-            <nav className={" flex bg-mycolours-c4 border-gray-200 sm:px-1 py-1 dark:bg-mycolours-dark min-w-full shadow-xl"}>
+            <nav className={" flex bg-mycolours-light border-gray-200 sm:px-1 py-1 dark:bg-mycolours-dark min-w-full"}>
                 <div className="container flex flex-wrap items-center justify-between mx-auto">
                     <div className="ml-2 md:hidden flex">
                         <BiMenu className="text-mycolours-dark text-3xl mr-4 dark:text-mycolours-light hover:text-4xl hover:cursor-pointer transition-all" onClick={toggleSidebar} />
