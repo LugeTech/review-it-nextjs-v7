@@ -1,5 +1,5 @@
-import { Review } from '@/app/tools/Interfaces'
-import client from '../tools/mongo'
+import { Review } from '@/app/util/Interfaces'
+import client from '../util/mongo'
 
 interface Props {
     params: {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const page = async ({ params }: Props) => {
- 
+
     let reviewsData
     try {
         if (typeof process.env.REVIEW_COLLECTION === 'string') {

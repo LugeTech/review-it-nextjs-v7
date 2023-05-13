@@ -1,5 +1,5 @@
-import { Review } from '@/app/tools/Interfaces'
-import client from '../tools/mongo'
+import { Review } from '@/app/util/Interfaces'
+import client from '../util/mongo'
 
 export async function addReview(review: Review) {
     let reviewsData

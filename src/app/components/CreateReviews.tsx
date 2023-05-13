@@ -1,4 +1,4 @@
-import { Review } from "../tools/Interfaces";
+import { Review } from "../util/Interfaces";
 import "react-quill/dist/quill.snow.css";
 import parse from "html-react-parser";
 import { lazy, Suspense, useState } from "react";

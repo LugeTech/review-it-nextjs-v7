@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Rating } from '@smastrom/react-rating'
-import { Review, User, Comment, Product } from "../tools/Interfaces"
+import { Review, User, Comment, Product } from "../util/Interfaces"
 import Image from 'next/image';
 import Votes from './Votes'
 import { Heart } from '@smastrom/react-rating'

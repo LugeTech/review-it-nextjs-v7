@@ -1,6 +1,6 @@
 
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi'
-import { Review } from '../tools/Interfaces'
+import { Review } from '../util/Interfaces'
 
 interface VotesProps {
     review: Review

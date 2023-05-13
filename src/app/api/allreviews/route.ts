@@ -1,6 +1,5 @@
-import client from "@/app/util/mongo";
-import { NextResponse } from "next/server";
-
+import { NextResponse } from 'next/server';
+import client from '@/app/util/mongo'
 
 export async function POST(request: Request) { // get a review using post body
     const body = await request.json();
@@ -9,13 +8,21 @@ export async function POST(request: Request) { // get a review using post body
         if (typeof process.env.REVIEWS_COLLECTION === 'string') {
             const database = client.db(process.env.DATABASE);
             const collection = database.collection(process.env.REVIEWS_COLLECTION);
-            collection.find({ rating: 3 })
-            // console.log('This is reviews data', reviewsData)
-            // return NextResponse.json(reviewsData);
+            const reviews = await collection.find({}).toArray()
+            return NextResponse.json({
+                success: true,
+                status: 200,
+                data: reviews
+            })
         }
     }
     catch (error) {
         await client.close();
-        console.log(error);
+        return NextResponse.json({
+            success: true,
+            status: 500,
+            data: error
+        })
     }
+
 }

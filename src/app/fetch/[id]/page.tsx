@@ -1,17 +1,17 @@
-import {Review} from '@/app/tools/Interfaces'
-  interface Props {
+import { iReview } from '@/app/util/Interfaces'
+interface Props {
     params: {
         id: string
     }
 }
 
 
-const page = async ({params}: Props) => {
+const page = async ({ params }: Props) => {
 
 
 
     const response = await fetch('http://localhost:8000/db/getallreviews', { cache: 'no-store' })
-    const {reviews}:{reviews:Review[]} = await response.json()
+    const { reviews }: { reviews: iReview[] } = await response.json()
     console.log(reviews)
     return (
         <div>

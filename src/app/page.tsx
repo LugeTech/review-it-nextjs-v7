@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { faker } from "@faker-js/faker"
-import { Review, User, Comment, Product } from "./tools/Interfaces"
+import { Review, User, Comment, Product } from "./util/Interfaces"
 import Welcome from "./components/Welcome"
 import QuickTabs from './components/QuickTabs'
 import TopReviews from './components/TopReviews'
@@ -8,111 +8,111 @@ import FetchData from './components/FetchData'
 
 export default function Home() {
 
-  const reviews: Review[] = [
-    {
-        _id: '1',
-        productId: '1',
-        userId: '1',
-        rating: 4,
-        title: faker.lorem.sentence(),
-        body: faker.lorem.sentences(),
-        date: new Date(),
-        helpfulVotes: faker.datatype.number(),
-        unhelpfulVotes: faker.datatype.number(),
-        comments: [
-            {
-                id: '1',
-                userId: '3',
-                body: faker.lorem.sentences(),
-                date: new Date(),
-            }
-        ]
-    },
-    {
-        _id: '2',
-        productId: '2',
-        userId: '2',
-        rating: 5,
-        title: faker.lorem.sentence(),
-        body: faker.lorem.sentences(),
-        date: new Date(),
-        helpfulVotes: faker.datatype.number(),
-        unhelpfulVotes: faker.datatype.number(),
-        comments: [
-            {
-                id: '2',
-                userId: '4',
-                body: faker.lorem.sentences(),
-                date: new Date(),
-            }
-        ]
+    const reviews: Review[] = [
+        {
+            _id: '1',
+            productId: '1',
+            userId: '1',
+            rating: 4,
+            title: faker.lorem.sentence(),
+            body: faker.lorem.sentences(),
+            date: new Date(),
+            helpfulVotes: faker.datatype.number(),
+            unhelpfulVotes: faker.datatype.number(),
+            comments: [
+                {
+                    id: '1',
+                    userId: '3',
+                    body: faker.lorem.sentences(),
+                    date: new Date(),
+                }
+            ]
+        },
+        {
+            _id: '2',
+            productId: '2',
+            userId: '2',
+            rating: 5,
+            title: faker.lorem.sentence(),
+            body: faker.lorem.sentences(),
+            date: new Date(),
+            helpfulVotes: faker.datatype.number(),
+            unhelpfulVotes: faker.datatype.number(),
+            comments: [
+                {
+                    id: '2',
+                    userId: '4',
+                    body: faker.lorem.sentences(),
+                    date: new Date(),
+                }
+            ]
 
-    }
+        }
 
-]
+    ]
 
-const users: User[] = [
-    {
-        id: '1',
-        name: faker.name.firstName(),
-        email: faker.internet.email(),
-        avatar: "/logo.png",
-    },
-    {
-        id: '2',
-        name: faker.name.firstName(),
-        email: faker.internet.email(),
-        avatar: "/logo.png",
-    },
-    {
-        id: '3',
-        name: faker.name.firstName(),
-        email: faker.internet.email(),
-        avatar: "/logo.png",
-    },
-    {
-        id: '4',
-        name: faker.name.firstName(),
-        email: faker.internet.email(),
-        avatar: "/logo.png",
-    }
-]
+    const users: User[] = [
+        {
+            id: '1',
+            name: faker.name.firstName(),
+            email: faker.internet.email(),
+            avatar: "/logo.png",
+        },
+        {
+            id: '2',
+            name: faker.name.firstName(),
+            email: faker.internet.email(),
+            avatar: "/logo.png",
+        },
+        {
+            id: '3',
+            name: faker.name.firstName(),
+            email: faker.internet.email(),
+            avatar: "/logo.png",
+        },
+        {
+            id: '4',
+            name: faker.name.firstName(),
+            email: faker.internet.email(),
+            avatar: "/logo.png",
+        }
+    ]
 
-const comments: Comment[] = [
-    {
-        id: '1',
-        userId: '3',
-        body: faker.lorem.sentence(9),
-        date: new Date(),
-    },
-    {
-        id: '2',
-        userId: '4',
-        body: faker.lorem.sentence(9),
-        date: new Date(),
-    }
-]
-const products: Product[] = [
-    {
-        id: '1',
-        name: faker.commerce.productName(),
-        price: 234,
-        image: "/logo.png",
-        description: faker.lorem.sentence(),
+    const comments: Comment[] = [
+        {
+            id: '1',
+            userId: '3',
+            body: faker.lorem.sentence(9),
+            date: new Date(),
+        },
+        {
+            id: '2',
+            userId: '4',
+            body: faker.lorem.sentence(9),
+            date: new Date(),
+        }
+    ]
+    const products: Product[] = [
+        {
+            id: '1',
+            name: faker.commerce.productName(),
+            price: 234,
+            image: "/logo.png",
+            description: faker.lorem.sentence(),
 
-    
-    },
-    {
-        id: '2',
-        name: faker.commerce.productName(),
-        price: 542,
-        image: "/logo.png",
-        description: faker.lorem.sentence(),
-    }
-]
-  
-  return (
-    <div>
+
+        },
+        {
+            id: '2',
+            name: faker.commerce.productName(),
+            price: 542,
+            image: "/logo.png",
+            description: faker.lorem.sentence(),
+        }
+    ]
+
+    return (
+        <div>
             <div className="flex-1">
                 <div className="flex flex-1 flex-col justify-center" >
                     <div className="flex flex-1 flex-row">
@@ -129,7 +129,7 @@ const products: Product[] = [
                                     <FetchData params={"2"} />
                                 </div >
                                 <div className='w-1/2 float-right'>
-                                    
+
                                     <TopReviews reviews={reviews} products={products} users={users} comments={comments} />
                                 </div>
                             </div>
@@ -139,5 +139,5 @@ const products: Product[] = [
                 </div>
             </div>
         </div>
-  )
+    )
 }
