@@ -1,6 +1,6 @@
-export interface iReview {
 
-  product: string; // identifier for the product being reviewed
+export interface iReview {
+product: string; // identifier for the product being reviewed
   user: string; // identifier for the user who wrote the review
   rating: number; // a number between 1 and 5 indicating the rating for the product
   title: string; // the title of the review

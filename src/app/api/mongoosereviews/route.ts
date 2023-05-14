@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
-// import client from '@/app/util/mongo'
 import Review from '@/app/util/models/Review';
-// import { iReview } from '@/app/util/Interfaces';
-import connectMongoose from '../../util/mongooseConnect'
+import connectMongoose from '../../util/mongooseConnect';
 import mongoose from 'mongoose';
 import { iReview } from '@/app/util/Interfaces';
 
@@ -48,7 +46,7 @@ export async function POST(request: Request) {
             success: true,
             status: 200,
             data: result
-        });
+        }); 
     } catch (error) {
         console.error(error);
         return NextResponse.json({
