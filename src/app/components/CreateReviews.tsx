@@ -1,4 +1,4 @@
-import { Review } from "../util/Interfaces";
+import { iReview } from "../util/Interfaces";
 import "react-quill/dist/quill.snow.css";
 import parse from "html-react-parser";
 import { lazy, Suspense, useState } from "react";
@@ -27,16 +27,16 @@ const formats = [
 
 const CreateReviews = () => {
   const [quillValue, setQuillValue] = useState("");
-  const [reviewData, setReviewData] = useState<Review>({
+  const [reviewData, setReviewData] = useState<iReview>({
     body: "",
     comments: [],
     date: undefined,
     helpfulVotes: 0,
-    productId: "",
+    product: "",
     rating: 1,
     title: "",
     unhelpfulVotes: 0,
-    userId: "",
+    user: "",
   });
 
   // const queryClient = useQueryClient();
@@ -58,7 +58,7 @@ const CreateReviews = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setReviewData((prevData): Review => ({ ...prevData, [name]: value }));
+    setReviewData((prevData): iReview => ({ ...prevData, [name]: value }));
   };
 
   // const { mutate, isLoading, isError, isSuccess } = useMutation(sendToServer, {

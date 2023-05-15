@@ -1,12 +1,13 @@
 'use client'
-import CreateReviews from "../components/CreateReviews";
+// import CreateReviews from "../components/CreateReviews";
 
 
 const WriteAReview = () => {
     return (
         <div className="flex flex-1  flex-col bg-mycolours-light dark:bg-mycolours-dark ">
+            Hello
             {/* <QuickReview /> */}
-            <CreateReviews />
+            {/* <CreateReviews /> */}
             
         </div>
     )

@@ -2,7 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Nav from './components/Nav'
 const inter = Inter({ subsets: ['latin'] })
-import RecoilProvider from './util/RecoilProvider'
+import RecoilProvider from './util/recoil/RecoilProvider'
 import '@smastrom/react-rating/style.css'
 
 

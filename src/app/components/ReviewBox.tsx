@@ -1,16 +1,16 @@
 'use client'
 import { useState } from 'react'
 import { Rating } from '@smastrom/react-rating'
-import { Review, User, Comment, Product } from "../util/Interfaces"
+import { iReview, iUser, iComment, iProduct } from "../util/Interfaces"
 import Image from 'next/image';
 import Votes from './Votes'
 import { Heart } from '@smastrom/react-rating'
 
 interface ReviewBoxProps {
-    review: Review;
-    users: User[];
-    comments: Comment[];
-    products: Product[];
+    review: iReview;
+    users: iUser[];
+    comments: iComment[];
+    products: iProduct[];
 }
 
 
@@ -37,9 +37,9 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review, users: users, com
                         <div >
                             <div onClick={() => { }} className='cursor-pointer'>
                                 <div className="flex flex-col justify-start items-center">
-                                    {review?.userId ? <Image src={users.find(user => user.id === review.userId)?.avatar!} alt="avatar" width={60} height={60} className=" flex rounded-full" /> : null}
-                                    <p>{users.find(user => user.id === review.userId)?.name} reviewed </p>
-                                    <p className=" font-bold">{products.find(product => product.id === review.productId)?.name}</p>
+                                    {review?.user ? <Image src={users.find(user => user._id === review.user)?.avatar!} alt="avatar" width={60} height={60} className=" flex rounded-full" /> : null}
+                                    <p>{users.find(user => user._id === review.user)?.firstName} reviewed </p>
+                                    <p className=" font-bold">{products.find(product => product._id === review.product)?.name}</p>
                                 </div>
                                 <div className=" font-semibold flex flex-col gap-2 justify-start items-start pt-3">
                                     {review.title.length > 30 ? review.title.slice(0, 30) + '...' : review.title}
@@ -58,7 +58,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review, users: users, com
                 <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2">
                     <div className="">
                         {/* will di this calculation in a useState above */}
-                        {review?.title ? <Image src={users.find(user => user.id === review.comments[0].userId)?.avatar!} alt="avatar" width={60} height={60} className=" flex rounded-full" /> : null}
+                        {review?.title ? <Image src={users.find(user => user._id === review.comments[0].userId)?.avatar!} alt="avatar" width={60} height={60} className=" flex rounded-full" /> : null}
                     </div>
                     <div className="flex flex-col">
                         {comments.find(comment => comment.userId === review.comments[0].userId)?.body.slice(0, 90) + '... read more'}

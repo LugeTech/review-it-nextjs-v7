@@ -1,13 +1,13 @@
 
-import { Review, User, Comment, Product } from "../util/Interfaces"
+import { iReview, iUser, iComment, iProduct } from "../util/Interfaces"
 
 import ReviewBox from './ReviewBox'
 
 interface TopReviewsProps {
-    reviews: Review[];
-    users: User[];
-    products: Product[];
-    comments: Comment[];
+    reviews: iReview[];
+    users: iUser[];
+    products: iProduct[];
+    comments: iComment[];
 }
 
 
@@ -15,7 +15,7 @@ interface TopReviewsProps {
 
 const TopReviews: React.FC<TopReviewsProps> = ({ reviews, users, products, comments }) => {
     return (
-        <>
+        <div className="flex flex-col w-full justify-center items-center">
             <h1 className=" flex flex-1 justify-center mt-2 text-xl font-bold text-mycolours-dark dark:text-mycolours-light">Top Reviews</h1>
             <div className='flex justify-between flex-col sm:flex-row gap-1'>
 
@@ -26,7 +26,7 @@ const TopReviews: React.FC<TopReviewsProps> = ({ reviews, users, products, comme
                 })
                 }
             </div>
-        </>
+        </div>
     )
 }
 

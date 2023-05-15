@@ -1,5 +1,5 @@
 import { Schema, model, models } from 'mongoose';
-import { iReview, iUser, iComment, iProduct } from '../util/Interfaces'
+import { iReview, iUser, iComment, iProduct } from '../Interfaces'
 
 //comment
 const reviewSchema = new Schema<iReview>({

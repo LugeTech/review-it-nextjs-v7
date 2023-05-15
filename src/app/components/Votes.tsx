@@ -1,9 +1,9 @@
 
 import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi'
-import { Review } from '../util/Interfaces'
+import { iReview } from '../util/Interfaces'
 
 interface VotesProps {
-    review: Review
+    review: iReview
 }
 
 const Votes: React.FC<VotesProps> = ({ review }) => {
@@ -11,11 +11,11 @@ const Votes: React.FC<VotesProps> = ({ review }) => {
         <div className=" flex flex-row gap-4">
             <div className="flex items-center gap-1">
                 <FiThumbsUp className="text-green-500" />
-                <h6 className=" font-normal tracking-tight ">{review.helpfulVotes}</h6>
+                <h6 className=" text-xs font-light tracking-tight ">{review.helpfulVotes}</h6>
             </div>
             <div className="flex items-center gap-1">
                 <FiThumbsDown className="text-red-500" />
-                <h6 className=" font-normal tracking-tight ">{review.unhelpfulVotes}</h6>
+                <h6 className=" text-xs font-light tracking-tight ">{review.unhelpfulVotes}</h6>
             </div>
         </div>
     )

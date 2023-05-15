@@ -1,18 +1,18 @@
 import Image from 'next/image'
 import { faker } from "@faker-js/faker"
-import { Review, User, Comment, Product } from "./util/Interfaces"
+import { iReview, iUser, iComment, iProduct } from "./util/Interfaces"
 import Welcome from "./components/Welcome"
 import QuickTabs from './components/QuickTabs'
 import TopReviews from './components/TopReviews'
-import FetchData from './components/FetchData'
+import FetchBusinessOfTheDay from './components/FetchBusinessOfTheDay'
 
 export default function Home() {
 
-    const reviews: Review[] = [
+    const reviews: iReview[] = [
         {
             _id: '1',
-            productId: '1',
-            userId: '1',
+            product: '1',
+            user: '1',
             rating: 4,
             title: faker.lorem.sentence(),
             body: faker.lorem.sentences(),
@@ -21,7 +21,7 @@ export default function Home() {
             unhelpfulVotes: faker.datatype.number(),
             comments: [
                 {
-                    id: '1',
+                    _id: '1',
                     userId: '3',
                     body: faker.lorem.sentences(),
                     date: new Date(),
@@ -30,8 +30,8 @@ export default function Home() {
         },
         {
             _id: '2',
-            productId: '2',
-            userId: '2',
+            product: '2',
+            user: '2',
             rating: 5,
             title: faker.lorem.sentence(),
             body: faker.lorem.sentences(),
@@ -40,7 +40,7 @@ export default function Home() {
             unhelpfulVotes: faker.datatype.number(),
             comments: [
                 {
-                    id: '2',
+                    _id: '2',
                     userId: '4',
                     body: faker.lorem.sentences(),
                     date: new Date(),
@@ -51,93 +51,96 @@ export default function Home() {
 
     ]
 
-    const users: User[] = [
+    const users: iUser[] = [
         {
-            id: '1',
-            name: faker.name.firstName(),
+            _id: '1',
+            firstName: faker.name.firstName(),
+            lastName: faker.name.lastName(),
             email: faker.internet.email(),
             avatar: "/logo.png",
         },
         {
-            id: '2',
-            name: faker.name.firstName(),
+            _id: '2',
+            firstName: faker.name.firstName(),
+            lastName: faker.name.lastName(),
             email: faker.internet.email(),
             avatar: "/logo.png",
         },
         {
-            id: '3',
-            name: faker.name.firstName(),
+            _id: '3',
+            firstName: faker.name.firstName(),
+            lastName: faker.name.lastName(),
             email: faker.internet.email(),
             avatar: "/logo.png",
         },
         {
-            id: '4',
-            name: faker.name.firstName(),
+            _id: '4',
+            firstName: faker.name.firstName(),
+            lastName: faker.name.lastName(),
             email: faker.internet.email(),
             avatar: "/logo.png",
         }
     ]
 
-    const comments: Comment[] = [
+    const comments: iComment[] = [
         {
-            id: '1',
+            _id: '1',
             userId: '3',
             body: faker.lorem.sentence(9),
             date: new Date(),
         },
         {
-            id: '2',
+            _id: '2',
             userId: '4',
             body: faker.lorem.sentence(9),
             date: new Date(),
         }
     ]
-    const products: Product[] = [
+    const products: iProduct[] = [
         {
-            id: '1',
+            _id: '1',
             name: faker.commerce.productName(),
             price: 234,
-            image: "/logo.png",
+            images: ["/logo.png"],
             description: faker.lorem.sentence(),
 
 
         },
         {
-            id: '2',
+            _id: '2',
             name: faker.commerce.productName(),
             price: 542,
-            image: "/logo.png",
+            images: ["/logo.png"],
             description: faker.lorem.sentence(),
         }
     ]
 
     return (
-        <div>
-            <div className="flex-1">
-                <div className="flex flex-1 flex-col justify-center" >
-                    <div className="flex flex-1 flex-row">
-                        <Welcome />
-                    </div>
-                    <div className="flex flex-1 flex-col justify-center">
-                        <QuickTabs />
-                        <div className='flex flex-col mt-4 flex-1'>
-                            <div className="flex flex-row justify-center">
-                                {/* business of the day */}
-                                <div className='flex flex-1 flex-row flex-wrap justify-start text-md mt-1 mb-2 items-center '>
-                                    <p className="text-mycolours-dark dark:text-mycolours-light">Business of the day</p>
-                                    {/* @ts-expect-error Async Server Component */}
-                                    <FetchData params={"2"} />
-                                </div >
-                                <div className='w-1/2 float-right'>
+        <div className="flex flex-1 flex-col justify-center" >
+            <div className="flex flex-1 flex-row">
+                <Welcome />
+            </div>
+            <div className="flex flex-1 flex-col justify-center">
+                <QuickTabs />
+                <div className='flex flex-col mt-4 flex-1'>
+                    <div className="flex flex-col justify-center">
 
-                                    <TopReviews reviews={reviews} products={products} users={users} comments={comments} />
-                                </div>
-                            </div>
+                        <div className='w-full flex flex-row'>
+
+                            <TopReviews reviews={reviews} products={products} users={users} comments={comments} />
                         </div>
+                        {/* business of the day */}
+                        <div className='flex flex-col justify-center w-full mt-4 mb-4'>
+                            <div className='flex justify-center items-center text-md mx-4'>
+                                {/* @ts-expect-error Async Server Component */}
+                                <FetchBusinessOfTheDay params={"2"} />
+                            </div>
+                        </div >
                     </div>
-
                 </div>
             </div>
+
         </div>
+
     )
 }

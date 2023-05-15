@@ -1,6 +1,7 @@
 
 export interface iReview {
-product: string; // identifier for the product being reviewed
+  _id?: string;
+  product: string; // identifier for the product being reviewed
   user: string; // identifier for the user who wrote the review
   rating: number; // a number between 1 and 5 indicating the rating for the product
   title: string; // the title of the review
@@ -14,7 +15,7 @@ product: string; // identifier for the product being reviewed
 }
 
 export interface iComment {
-
+  _id?: string;
   userId?: string; // identifier for the user who wrote the comment
   body: string; // the text of the comment
   date?: Date; // the date the comment was written
@@ -26,7 +27,7 @@ export interface iComment {
 }
 
 export interface iProduct {
-
+  _id?: string;
   name: string;
   description: string;
   price: number;
@@ -34,15 +35,16 @@ export interface iProduct {
 }
 
 export interface iUser {
-
+  _id?: string;
   firstName: string;
   lastName: string;
-  email: string;
-  avatar: string;
-  createdDate: Date;
+  email?: string;
+  avatar?: string;
+  createdDate?: Date;
 }
 
 export interface iImage {
+  _id?: string;
   url: string;
 }
 
