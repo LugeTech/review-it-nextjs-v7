@@ -1,9 +1,13 @@
+'use client';
 import { iReview } from "../util/Interfaces";
 import "react-quill/dist/quill.snow.css";
 import parse from "html-react-parser";
-import { lazy, Suspense, useState } from "react";
-import ReactQuill from "react-quill";
-// const ReactQuill = lazy(() => import('react-quill'))
+import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
+// import ReactQuill from "react-quill";
+// fixed build error here: https://stackoverflow.com/questions/73047747/error-referenceerror-document-is-not-defined-nextjs
+
+
 
 const modules = {
   toolbar: [
@@ -25,7 +29,7 @@ const formats = [
   "link",
 ];
 
-const CreateReviews = () => {
+const ReviewForm = () => {
   const [quillValue, setQuillValue] = useState("");
   const [reviewData, setReviewData] = useState<iReview>({
     body: "",
@@ -38,21 +42,36 @@ const CreateReviews = () => {
     unhelpfulVotes: 0,
     user: "",
   });
+  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
 
   // const queryClient = useQueryClient();
 
   const sendToServer = async () => {
-    // reviewData.body = quillValue;
-    // axios.post('http://localhost:8000/db/createreview', reviewData)
-    //     .then((response) => {
-    //         console.log(response.data);
-    //         // handle success
-    //     })
-    //     .catch((error) => {
-    //         console.log(error.response.data);
-    //         // handle error
-    //     });
+    reviewData.body = quillValue;
+    try {
+      const response = await fetch('http://localhost:3000/api/createreview', {
+        method: 'POST',
+        body: JSON.stringify(reviewData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log(responseData);
+        // handle success
+      } else {
+        const errorData = await response.json();
+        console.log(errorData);
+        // handle error
+      }
+    } catch (error) {
+      console.log(error);
+      // handle error
+    }
   };
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -72,8 +91,15 @@ const CreateReviews = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(e);
+    sendToServer()
+
     // mutate();
   };
+
+  // const handleOtherSubmit = async (data: FormData) => { 
+  //   console.log(data);
+
+  // }
 
   // if (isLoading) {
   //     return <div>Loading...</div>;
@@ -91,8 +117,7 @@ const CreateReviews = () => {
 
   return (
     <div className="flex flex-col md:flex-row gap-4 mt-8 p-4 flex-grow h-screen">
-      <form
-        onSubmit={handleSubmit}
+      <form onSubmit={handleSubmit}
         className="flex flex-col md:w-1/2 bg-gray-100 p-2 rounded-md md:max-w-screen h-[90%]"
       >
         <div>
@@ -142,5 +167,7 @@ const CreateReviews = () => {
       </div>
     </div>
   );
-};
-export default CreateReviews;
+}
+export default ReviewForm;
+
+

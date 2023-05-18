@@ -24,28 +24,33 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review, users: users, com
         inactiveFillColor: '#c8c9ca'
     }
 
-
     const ratingChanged = (newRating: number) => {
         setRating(newRating)
     };
 
     return (
-        <div className="sm:w-6/12  my-1 border border-gray-300 dark:border-gray-500 rounded-xl shadow-xl">
+        <div className="sm:w-6/12 my-1 border border-gray-300 dark:border-gray-500 rounded-xl shadow-xl">
             <div className="  block h-full max-w-sm gap-2 p-2 bg-mycolours-light dark:bg-mycolours-dark rounded-xl hover:bg-gray-100 dark:hover:bg-neutral-950">
                 <div className="flex flex-col justify-start items-center gap-1">
                     <div className="flex flex-1 flex-col w-full sm:ml-2 text-xs text-mycolours-dark dark:text-mycolours-light justify-start items-center ">
                         <div >
-                            <div onClick={() => { }} className='cursor-pointer'>
+                            <div onClick={() => { }} className=''>
                                 <div className="flex flex-col justify-start items-center">
+                                    {/* user image */}
                                     {review?.user ? <Image src={users.find(user => user._id === review.user)?.avatar!} alt="avatar" width={60} height={60} className=" flex rounded-full" /> : null}
+                                    {/* user name */}
                                     <p>{users.find(user => user._id === review.user)?.firstName} reviewed </p>
-                                    <p className=" font-bold">{products.find(product => product._id === review.product)?.name}</p>
+                                    {/* product name */}
+                                    <p onClick={() => { console.log(`product name clicked`)}} className=" sm:text-1xl text-lg cursor-pointer font-bold">{products.find(product => product._id === review.product)?.name}</p>
                                 </div>
                                 <div className=" font-semibold flex flex-col gap-2 justify-start items-start pt-3">
+                                    {/* review title */}
                                     {review.title.length > 30 ? review.title.slice(0, 30) + '...' : review.title}
                                 </div>
                                 <div className=" font-normal tracking-tight ">
+                                    {/* review body */}
                                     {review.body.slice(0, 90) + '... read more'}
+
                                     <Rating itemStyles={styleForRating} style={{ maxWidth: 100 }} value={rating} onChange={ratingChanged} />
                                 </div>
                             </div>

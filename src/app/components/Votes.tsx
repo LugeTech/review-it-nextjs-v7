@@ -11,11 +11,11 @@ const Votes: React.FC<VotesProps> = ({ review }) => {
         <div className=" flex flex-row gap-4">
             <div className="flex items-center gap-1">
                 <FiThumbsUp className="text-green-500" />
-                <h6 className=" text-xs font-light tracking-tight ">{review.helpfulVotes}</h6>
+                <p className=" text-xs font-light tracking-tight ">{review.helpfulVotes}</p>
             </div>
             <div className="flex items-center gap-1">
                 <FiThumbsDown className="text-red-500" />
-                <h6 className=" text-xs font-light tracking-tight ">{review.unhelpfulVotes}</h6>
+                <p className=" text-xs font-light tracking-tight ">{review.unhelpfulVotes}</p>
             </div>
         </div>
     )

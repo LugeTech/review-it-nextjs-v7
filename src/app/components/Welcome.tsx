@@ -1,7 +1,7 @@
 
 const Welcome = () => {
     return (
-        <div className=" flex flex-1 text-center flex-col bg-[url('https://res.cloudinary.com/dhglzlaqf/image/upload/v1680311568/book_y8ekbr.png')] bg-no-repeat bg-cover bg-center bg-blend-overlay bg-black/40 bg-fixed">
+        <div className=" flex flex-1 text-center flex-col bg-[url('https://res.cloudinary.com/dhglzlaqf/image/upload/c_fill,q_61,w_1331/v1680311568/book_y8ekbr.webp')] bg-no-repeat bg-cover bg-center bg-blend-overlay bg-black/40 bg-fixed">
             <div className="flex flex-1 justify-center flex-col">
                 {/* <Image src="/cove.jpg" alt="Picture of the author" width={500} height={500} /> */}
                 <h1 className=" mt-28 text-4xl font-black text-mycolours-c3">Welcome</h1>

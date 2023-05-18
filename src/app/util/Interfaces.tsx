@@ -38,7 +38,7 @@ export interface iUser {
   _id?: string;
   firstName: string;
   lastName: string;
-  email?: string;
+  email: string;
   avatar?: string;
   createdDate?: Date;
 }

@@ -1,7 +1,11 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import Nav from './components/Nav'
-const inter = Inter({ subsets: ['latin'] })
+const poppins = Poppins({
+  weight: ["400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  style: "normal",
+})
 import RecoilProvider from './util/recoil/RecoilProvider'
 import '@smastrom/react-rating/style.css'
 
@@ -16,7 +20,7 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
   return (
     <RecoilProvider>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={poppins.className}>
           <Nav />
 
           {children}

@@ -1,5 +1,4 @@
 
-
 import { MdFastfood, MdDeliveryDining, MdOutlineElectricalServices, MdBusinessCenter, MdOtherHouses, MdOutlineLocalTaxi } from 'react-icons/md'
 import { IoMdCar } from 'react-icons/io'
 import { GiClothes } from 'react-icons/gi'

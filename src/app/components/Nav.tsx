@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Links from './Links'
 import { BiMenu, BiLogIn, BiUserCircle, BiMenuAltRight, BiUserPlus } from 'react-icons/bi'
 import { useRecoilState } from 'recoil';
-import { showVerticalNav } from './recoil/atoms'
+import { showVerticalNav } from '@/app/util/recoil/atoms'
 import Link from 'next/link';
 import Image from 'next/image';
 import SideNav from './SideNav';

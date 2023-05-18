@@ -4,7 +4,7 @@ import { iReview, iUser, iComment, iProduct } from "./util/Interfaces"
 import Welcome from "./components/Welcome"
 import QuickTabs from './components/QuickTabs'
 import TopReviews from './components/TopReviews'
-import FetchBusinessOfTheDay from './components/FetchBusinessOfTheDay'
+// import FetchBusinessOfTheDay from './components/FetchBusinessOfTheDay'
 
 export default function Home() {
 
@@ -25,6 +25,7 @@ export default function Home() {
                     userId: '3',
                     body: faker.lorem.sentences(),
                     date: new Date(),
+
                 }
             ]
         },
@@ -57,28 +58,29 @@ export default function Home() {
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
             email: faker.internet.email(),
-            avatar: "/logo.png",
+            avatar: faker.image.avatar()
         },
         {
             _id: '2',
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
             email: faker.internet.email(),
-            avatar: "/logo.png",
+            avatar: faker.image.avatar()
+
         },
         {
             _id: '3',
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
             email: faker.internet.email(),
-            avatar: "/logo.png",
+            avatar: faker.image.avatar()
         },
         {
             _id: '4',
             firstName: faker.name.firstName(),
             lastName: faker.name.lastName(),
             email: faker.internet.email(),
-            avatar: "/logo.png",
+            avatar: faker.image.avatar()
         }
     ]
 
@@ -132,13 +134,13 @@ export default function Home() {
                         {/* business of the day */}
                         <div className='flex flex-col justify-center w-full mt-4 mb-4'>
                             <div className='flex justify-center items-center text-md mx-4'>
-                                {/* @ts-expect-error Async Server Component */}
-                                <FetchBusinessOfTheDay params={"2"} />
+
                             </div>
                         </div >
                     </div>
                 </div>
             </div>
+
 
         </div>
 

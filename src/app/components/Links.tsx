@@ -2,7 +2,7 @@
 import { FC } from "react";
 import Link from 'next/link'
 interface LinksProps {
-    directionOfLinks: string; // Update the type based on the expected prop type
+    directionOfLinks: string; 
     showHome?: boolean;
 }
 

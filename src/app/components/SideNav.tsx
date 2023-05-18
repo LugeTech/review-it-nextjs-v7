@@ -1,7 +1,7 @@
 'use client'
 import Links from "../components/Links"
 import { useRecoilState } from "recoil"
-import { showVerticalNav } from "./recoil/atoms"
+import { showVerticalNav } from '@/app/util/recoil/atoms'
 import { AiOutlineCloseSquare } from "react-icons/Ai"
 import { BiLogOut } from "react-icons/bi"
 

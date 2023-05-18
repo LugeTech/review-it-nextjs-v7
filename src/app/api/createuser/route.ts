@@ -1,25 +1,38 @@
 import { NextResponse } from 'next/server';
-
+import User from '@/app/util/models/User';
+import connectMongoose from '../../util/mongooseConnect'
+import mongoose from 'mongoose';
 import { iUser } from '@/app/util/Interfaces';
 
-export async function POST(request: Request) { // create a user using post body
+const connect = async () => {
+    if (mongoose.connection.readyState === 1) {
+        return;
+    }
+    await connectMongoose();
+}
 
-    const body: iUser = await request.json();
-    body.createdDate = new Date();
-    console.log(body) //sanitize this
+
+
+
+export async function POST(request: Request) {
+    await connect();
+    console.log('running create user');
     try {
-        if (typeof process.env.USERS_COLLECTION === 'string') {
-            // const database = client.db(process.env.DATABASE);
-            // const collection = database.collection(process.env.USERS_COLLECTION);
-            // const userData = await collection.insertOne(body);
-            // return NextResponse.json(userData);
-        }
+        const body: iUser = await request.json();
+        console.log('This is body', body);
+
+        const result: iUser = await User.create(body);
+        return NextResponse.json({
+            success: true,
+            status: 200,
+            data: result
+        });
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({
+            success: false,
+            status: 500,
+            data: error
+        });
     }
-    catch (error) {
-        // await client.close();
-        console.log(error);
-    }
-
-
-
 }
