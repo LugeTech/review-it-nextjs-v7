@@ -26,10 +26,15 @@
 // export default page
 
 
-const page = () => {
-    return (
-        <div>page</div>
-    )
+import { FC } from 'react'
+
+interface pageProps {
+  
+}
+
+const page: FC<pageProps> = ({ }) => {
+    
+  return <div>page</div>
 }
 
 export default page

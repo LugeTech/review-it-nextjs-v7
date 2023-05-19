@@ -16,13 +16,12 @@ export interface iReview {
 
 export interface iComment {
   _id?: string;
-  userId?: string; // identifier for the user who wrote the comment
+  user: string; // identifier for the user who wrote the comment
   body: string; // the text of the comment
-  date?: Date; // the date the comment was written
   helpfulVotes?: number; // the number of helpful votes the review has received
   unhelpfulVotes?: number; // the number of unhelpful votes the review has received
-  productId?: string; // identifier for the product the comment is on
-  reviewId?: string; // identifier for the review the comment is on
+  product?: string; // identifier for the product the comment is on
+  review?: string; // identifier for the review the comment is on
   createdDate?: Date;
 }
 
@@ -32,6 +31,7 @@ export interface iProduct {
   description: string;
   price: number;
   images: string[];
+  createdDate?: Date;
 }
 
 export interface iUser {

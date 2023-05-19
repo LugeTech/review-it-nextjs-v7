@@ -22,9 +22,9 @@ export default function Home() {
             comments: [
                 {
                     _id: '1',
-                    userId: '3',
+                    user: '3',
                     body: faker.lorem.sentences(),
-                    date: new Date(),
+                    createdDate: new Date(),
 
                 }
             ]
@@ -42,9 +42,9 @@ export default function Home() {
             comments: [
                 {
                     _id: '2',
-                    userId: '4',
+                    user: '4',
                     body: faker.lorem.sentences(),
-                    date: new Date(),
+                    createdDate: new Date(),
                 }
             ]
 
@@ -87,15 +87,15 @@ export default function Home() {
     const comments: iComment[] = [
         {
             _id: '1',
-            userId: '3',
+            user: '3',
             body: faker.lorem.sentence(9),
-            date: new Date(),
+            createdDate: new Date(),
         },
         {
             _id: '2',
-            userId: '4',
+            user: '4',
             body: faker.lorem.sentence(9),
-            date: new Date(),
+            createdDate: new Date(),
         }
     ]
     const products: iProduct[] = [
@@ -117,8 +117,9 @@ export default function Home() {
         }
     ]
 
+
     return (
-        <div className="flex flex-1 flex-col justify-center" >
+        <div className="flex flex-1 flex-col justify-center  bg-mycolours-light dark:bg-mycolours-dark dark:text-mycolours-light" >
             <div className="flex flex-1 flex-row">
                 <Welcome />
             </div>

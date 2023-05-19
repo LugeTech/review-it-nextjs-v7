@@ -47,7 +47,7 @@ function Nav() {
             <nav className={" flex bg-mycolours-light border-gray-200 sm:px-1 py-1 dark:bg-mycolours-dark min-w-full"}>
                 <div className="container flex flex-wrap items-center justify-between mx-auto">
                     <div className="ml-2 md:hidden flex">
-                        <BiMenu className="text-mycolours-dark text-3xl mr-4 dark:text-mycolours-light hover:text-4xl hover:cursor-pointer transition-all" onClick={toggleSidebar} />
+                        <BiMenu className="text-mycolours-dark text-3xl mr-4 dark:text-mycolours-light hover:text-mycolours-c1 duration-300 ease-linear transition-all hover:cursor-pointer " onClick={toggleSidebar} />
                     </div>
 
                     <div className="flex flex-row items-center justify-center align-middle">
@@ -62,7 +62,7 @@ function Nav() {
                                 height={30}
                             // className="animate-spin"
                             />
-                            <div className=" flex items-center justify-center text-center align-middle ml-2 self-center text-xl font-semibold  dark:text-mycolours-light hover:text-2xl transition-all">
+                            <div className=" flex items-center justify-center text-center align-middle ml-2 self-center text-xl font-semibold  dark:text-mycolours-light  hover:text-mycolours-c1 duration-300 ease-linear transition-all">
                                 [REVIEW IT]
                             </div>
                         </Link>
@@ -76,7 +76,7 @@ function Nav() {
                     {/* Login dropdown */}
                     <div className="relative group mr-2 ">
                         <div
-                            className="flex flex-row items-center cursor-pointer dropdown  dark:text-mycolours-light text-mycolours-dark text-2xl hover:text-3xl transition-all"
+                            className="flex flex-row items-center cursor-pointer dropdown  dark:text-mycolours-light text-mycolours-dark text-2xl  hover:text-mycolours-c1 duration-300 ease-linear transition-all"
                             onClick={() => setShowDropdown1(!showDropdown1)}
                         >
                             <BiMenuAltRight />
@@ -84,11 +84,11 @@ function Nav() {
                         </div>
 
                         <div
-                            className={`absolute bg-mycolours-c3 right-0 mt-2 py-2 w-32 rounded-lg shadow-xl z-10 ${showDropdown1 ? "block" : "hidden"
+                            className={`absolute bg-mycolours-light right-0 mt-2 py-2 w-32 rounded-lg shadow-xl z-10 ${showDropdown1 ? "block" : "hidden"
                                 } transition-all duration-300 ease-in-out dropdown`}>
                             <Link
                                 href="/"
-                                className="block px-2 py-2 hover:bg-mycolours-c4"
+                                className="block px-2 py-2  hover:bg-mycolours-c1 duration-300 ease-linear transition-all"
                             // onClick={handleLinkClick}
                             >
                                 <div className='flex flex-row gap-1'>
@@ -99,7 +99,7 @@ function Nav() {
 
                             <Link
                                 href="#"
-                                className="block px-2 py-2 hover:bg-gray-100"
+                                className="block px-2 py-2  hover:bg-mycolours-c1 duration-300 ease-linear transition-all"
                             // onClick={toggleSidebar}
                             >
                                 <div className='flex flex-row gap-1'>
