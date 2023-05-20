@@ -29,7 +29,6 @@ export interface iProduct {
   _id?: string;
   name: string;
   description: string;
-  price: number;
   images: string[];
   createdDate?: Date;
 }
@@ -47,6 +46,7 @@ export interface iImage {
   _id?: string;
   url: string;
 }
+
 
 
 

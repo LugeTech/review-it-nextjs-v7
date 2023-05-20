@@ -31,8 +31,6 @@ const page = async ({ params }: Props) => {
     }
 
 
-    console.log('heree', reviewsData.data);
-
     // await client.close();
     return (
         <div className='flex flex-col items-center justify-center'>

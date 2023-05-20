@@ -28,7 +28,8 @@
     "recoil": "^0.7.7",
     "recoil-persist": "^4.2.0",
     "tailwindcss": "3.3.2",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",

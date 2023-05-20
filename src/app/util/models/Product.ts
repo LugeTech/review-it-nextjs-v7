@@ -15,9 +15,7 @@ const productSchema = new Schema<iProduct>({
         type: String
     },
     images: [],
-    price: {
-        type: Number
-    },
+
 }, { strict: true })
 export default models.Product || model('Product', productSchema);
 

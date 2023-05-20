@@ -16,7 +16,7 @@ function Nav() {
         setIsOpen(!isOpen);
     }
 
-    // Close dropdown menu when login or signup is clicked
+    // Close dropdown menu when login or sign-up is clicked
     const handleLinkClick = () => {
         setShowDropdown1(false);
         // setShowDropdown2(false);

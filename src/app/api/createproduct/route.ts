@@ -1,37 +1,44 @@
-import { NextResponse } from 'next/server';
-import Product from '@/app/util/models/Review';
-import connectMongoose from '../../util/mongooseConnect'
-import mongoose from 'mongoose';
-import { iProduct } from '@/app/util/Interfaces';
+import { NextResponse } from "next/server";
+import Product from "@/app/util/models/Product";
+import connectMongoose from "../../util/mongooseConnect";
+import mongoose from "mongoose";
+import { iProduct } from "@/app/util/Interfaces";
+import { z } from "zod";
 
 const connect = async () => {
-    if (mongoose.connection.readyState === 1) {
-        return;
-    }
-    await connectMongoose();
-}
+  //checks for a connection
+  if (mongoose.connection.readyState === 1) {
+    return;
+  }
+  await connectMongoose();
+};
 
 connect();
 
-
 export async function POST(request: Request) {
-    console.log('running create review');
-    try {
-        const body: iProduct = await request.json();
-        console.log('This is body', body);
+  const ProductSchema = z.object({
+    //zod for verification
+    name: z.string(),
+    description: z.string(),
+    images: z.array(z.string()),
+  });
 
-        const result: iProduct = await Product.create(body);
-        return NextResponse.json({
-            success: true,
-            status: 200,
-            data: result
-        });
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({
-            success: false,
-            status: 500,
-            data: error
-        });
-    }
+  try {
+    const product = await request.json();
+    ProductSchema.parse(product); // if this fails the error from try catch will fire
+    const newProduct = new Product(product);
+    await newProduct.save();
+    return NextResponse.json({
+      success: true,
+      status: 200,
+      data: newProduct,
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({
+      success: false,
+      status: 500,
+      data: error,
+    });
+  }
 }
