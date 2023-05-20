@@ -31,6 +31,7 @@ const reviewSchema = new Schema<iReview>({
     unhelpfulVotes: {
         type: Number
     },
+    
 }, { strict: true })
 export default models.Review || model('Review', reviewSchema);
 

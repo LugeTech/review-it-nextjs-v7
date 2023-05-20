@@ -14,6 +14,9 @@ const productSchema = new Schema<iProduct>({
     description: {
         type: String
     },
+    address: {
+        type: String,
+      },
     images: [],
 
 }, { strict: true })

@@ -1,4 +1,3 @@
-
 export interface iReview {
   _id?: string;
   product: string; // identifier for the product being reviewed
@@ -12,6 +11,11 @@ export interface iReview {
   comments: iComment[]; // an array of comments on the review
   createdDate?: Date;
   images?: iImage[]; // an array of images on the review
+  confirmed?: boolean; // a boolean indicating whether the review has been confirmed
+  deleted?: boolean; // a boolean indicating whether the review has been deleted
+  deletedDate?: Date; // the date the review was deleted
+  deletedBy?: string; // the user who deleted the review
+  deletedReason?: string; // the reason the review was deleted
 }
 
 export interface iComment {
@@ -29,8 +33,25 @@ export interface iProduct {
   _id?: string;
   name: string;
   description: string;
-  images: string[];
+  images?: string[];
   createdDate?: Date;
+  address?: string;
+}
+export interface iItem {
+  _id?: string;
+  name: string;
+  description: string;
+  images?: string[];
+  createdDate?: Date;
+  address?: string;
+}
+export interface iService {
+  _id?: string;
+  name: string;
+  description: string;
+  images?: string[];
+  createdDate?: Date;
+  address?: string;
 }
 
 export interface iUser {
@@ -46,8 +67,3 @@ export interface iImage {
   _id?: string;
   url: string;
 }
-
-
-
-
-
