@@ -1,40 +1,27 @@
+import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
-import Item from "@/app/util/models/Item";
-import connectMongoose from "../../util/mongooseConnect";
-import mongoose from "mongoose";
-import { iItem } from "@/app/util/Interfaces";
-import { z } from "zod";
 
-const connect = async () => {
-  //checks for a connection
-  if (mongoose.connection.readyState === 1) {
-    return;
-  }
-  await connectMongoose();
-};
-
-connect();
+const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-  const itemSchema = z.object({
-    //zod for verification
-    name: z.string(),
-    description: z.string(),
-    images: z.array(z.string()),
-  });
-
   try {
-    const item: iItem = await request.json();
-    itemSchema.parse(item); // if this fails the error from try catch will fire
-    const newItem = new Item(item);
-    await newItem.save();
+    const item = await prisma.items.create({
+      data: {
+        address: "some address nt dueitunt ea sint dolor.",
+        description: "Deserunt temporrint esse sint laboris.",
+        images: ["an image link"],
+        name: "Some product name",
+        createdDate: new Date(),
+      },
+    });
+    console.log(item);
     return NextResponse.json({
       success: true,
       status: 200,
-      data: newItem,
+      data: item,
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return NextResponse.json({
       success: false,
       status: 500,
