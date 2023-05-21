@@ -56,8 +56,8 @@ export default function Home() {
         {
             _id: '1',
             firstName: faker.name.firstName(),
-            lastName: faker.name.lastName(),
             email: faker.internet.email(),
+            lastName: faker.name.lastName(),
             avatar: faker.image.avatar()
         },
         {
@@ -102,7 +102,6 @@ export default function Home() {
         {
             _id: '1',
             name: faker.commerce.productName(),
-            price: 234,
             images: ["/logo.png"],
             description: faker.lorem.sentence(),
 
@@ -111,7 +110,6 @@ export default function Home() {
         {
             _id: '2',
             name: faker.commerce.productName(),
-            price: 542,
             images: ["/logo.png"],
             description: faker.lorem.sentence(),
         }
