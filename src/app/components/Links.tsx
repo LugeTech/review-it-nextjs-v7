@@ -33,10 +33,10 @@ const Links: FC<LinksProps> = ({ directionOfLinks, showHome }) => {
         })
     }
     return (
-        <div className={`text-sm  text-center justify-center items-center rounded pl-4 pt-4 bg-transparent flex flex-row flex-1 ${directionOfLinks} w-full gap-8 text-mycolours-dark1 dark:text-mycolours-light `} >
+        <div className={`flex  ${directionOfLinks} `} >
             {links.map((link, index) => (
                 <Link href={link.link} key={index}>
-                    <p className=" hover:text-mycolours-c1 duration-300 dark:hover:bg-mycolours-dark2 px-4 transition-all ease-in-out rounded-lg">{link.name}</p>
+                    <li className=" hover:text-mycolours-c1 duration-300 px-4 transition-all ease-in-out rounded-lg">{link.name}</li>
                 </Link>
             ))}
         </div >

@@ -9,9 +9,6 @@ const nextConfig = {
           },
         ],
       },
-  experimental: {
-      serverComponentsExternalPackages: ["mongoose"],
-  },
   webpack: (config) => {
       config.experiments = {
           topLevelAwait: true,
@@ -24,4 +21,3 @@ const nextConfig = {
 
 module.exports = nextConfig
 
-//https://github.com/Automattic/mongoose/issues/13252
