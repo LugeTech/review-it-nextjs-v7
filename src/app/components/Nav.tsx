@@ -4,8 +4,6 @@ import Links from "./Links";
 import {
   BiMenu,
   BiLogIn,
-  BiUserCircle,
-  BiMenuAltRight,
   BiUserPlus,
 } from "react-icons/bi";
 import { useRecoilState } from "recoil";
@@ -52,7 +50,7 @@ function Nav() {
 
       <nav
         className={
-          " flex bg-mycolours-light border-gray-200 sm:px-1 py-1 dark:bg-mycolours-dark min-w-full"
+          " flex bg-mycolours-light  border-gray-200 sm:px-1 py-1 dark:bg-mycolours-dark min-w-full"
         }
       >
         <div className="container flex flex-wrap items-center justify-between mx-auto">
@@ -73,7 +71,7 @@ function Nav() {
                 alt="logo"
                 width={30}
                 height={30}
-                // className="animate-spin"
+                className="hidden md:flex"
               />
               <div className=" flex items-center justify-center text-center align-middle ml-2 self-center text-xl font-semibold  dark:text-mycolours-light  hover:text-mycolours-c1 duration-300 ease-linear transition-all">
                 [REVIEW IT]
@@ -88,41 +86,9 @@ function Nav() {
 
           {/* Login dropdown */}
           <div className="relative group mr-2 ">
-            <div
-              className="flex flex-row items-center cursor-pointer dropdown  dark:text-mycolours-light text-mycolours-dark text-2xl  hover:text-mycolours-c1 duration-300 ease-linear transition-all"
-              // onClick={() => setShowDropdown1(!showDropdown1)}
+            <div className="flex flex-row items-center cursor-pointer dropdown  dark:text-mycolours-light text-mycolours-dark text-2xl  hover:text-mycolours-c1 duration-300 ease-linear transition-all"
             >
-              {/* <BiMenuAltRight />
-                            <BiUserCircle /> */}
               <UserButton />
-            </div>
-
-            <div
-              className={`absolute bg-mycolours-light right-0 mt-2 py-2 w-32 rounded-lg shadow-xl z-10 ${
-                showDropdown1 ? "block" : "hidden"
-              } transition-all duration-300 ease-in-out dropdown`}
-            >
-              <Link
-                href="/"
-                className="block px-2 py-2  hover:bg-mycolours-c1 duration-300 ease-linear transition-all"
-                // onClick={handleLinkClick}
-              >
-                <div className="flex flex-row gap-1">
-                  <BiLogIn className="text-2xl text-mycolours-dark" />
-                  Login
-                </div>
-              </Link>
-
-              <Link
-                href="#"
-                className="block px-2 py-2  hover:bg-mycolours-c1 duration-300 ease-linear transition-all"
-                // onClick={toggleSidebar}
-              >
-                <div className="flex flex-row gap-1">
-                  <BiUserPlus className="text-2xl text-mycolours-dark" />
-                  Sign up
-                </div>
-              </Link>
             </div>
           </div>
         </div>
