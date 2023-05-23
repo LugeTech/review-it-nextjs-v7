@@ -9,8 +9,8 @@ const HeroSection = () => {
         fill
         className="fixed inset-0 object-cover object-center"
         style={{ objectFit: "cover" }}
-        quality={100}
-        />
+        quality={80}
+      />
       <div className=" flex  justify-center items-center absolute top-0 left-0 right-0 bottom-0 text-center text-white bg-opacity-30 bg-mycolours-dark">
         <div className="flex flex-1 justify-center flex-col">
           <h1 className=" mt-28 text-4xl font-black text-mycolours-dark">
