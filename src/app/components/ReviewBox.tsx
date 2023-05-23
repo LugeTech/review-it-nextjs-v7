@@ -35,7 +35,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
 
   return (
     <div className="sm:w-6/12 my-1 border border-gray-300 dark:border-gray-500 rounded-xl shadow-xl">
-      <div className="  block h-full max-w-sm gap-2 p-2 bg-mycolours-light dark:bg-mycolours-dark rounded-xl hover:bg-gray-100 dark:hover:bg-neutral-950">
+      <div className="  block h-full max-w-sm gap-2 p-2 bg-mycolours-light dark:bg-mycolours-dark rounded-xl hover:bg-gray-100  dark:hover:bg-black">
         <div className="flex flex-col justify-start items-center gap-1">
           <div className="flex flex-1 flex-col w-full sm:ml-2 text-xs text-mycolours-dark dark:text-mycolours-light justify-start items-center ">
             <div>
