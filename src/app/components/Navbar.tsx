@@ -1,15 +1,15 @@
-import Links from "./Links";
-import Link from "next/link";
-import Image from "next/image";
+import Links from "./SideLinks";
 import { UserButton } from "@clerk/nextjs";
 import HomeLink from "./HomeLink";
+import TopLinks from "./TopLinks";
+import SideLinks from "./SideLinks";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
-        <div className="w-full navbar bg-base-100">
+        <div className="w-full navbar bg-base-100 z-10">
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
@@ -32,7 +32,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             <div className="flex-none hidden lg:block">
               <div className="hidden md:flex flex-1 font-semibold items-center justify-center text-center">
                 <ul className="menu menu-horizontal">
-                  <Links directionOfLinks="flex-row" />
+                  <TopLinks />
                 </ul>
               </div>
             </div>
@@ -43,18 +43,12 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         </div>
         {children}
       </div>
-      <div className="drawer-side">
+      <div className="drawer-side ">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-        <div className="menu p-4 w-80 bg-base-100">
-          <div>
-            <div className="flex flex-row items-center justify-center align-middle mb-4">
-              <HomeLink />
-            </div>
-          </div>
-          <ul>
-          <Links directionOfLinks="flex-col" />
-          </ul>
-        </div>
+        <ul className="menu p-4 w-64 bg-base-100">
+          <HomeLink />
+          <SideLinks />
+        </ul>
       </div>
     </div>
   );
