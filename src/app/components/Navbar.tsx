@@ -9,7 +9,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
-        <div className="w-full navbar bg-base-300">
+        <div className="w-full navbar bg-base-100">
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
@@ -35,7 +35,6 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
                   <Links directionOfLinks="flex-row" />
                 </ul>
               </div>
-              H
             </div>
           </div>
           <div className="mx-2">
@@ -46,14 +45,16 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 bg-base-100">
+        <div className="menu p-4 w-80 bg-base-100">
           <div>
             <div className="flex flex-row items-center justify-center align-middle mb-4">
               <HomeLink />
             </div>
           </div>
+          <ul>
           <Links directionOfLinks="flex-col" />
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   );

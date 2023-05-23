@@ -23,7 +23,7 @@ const QuickTabs = () => {
                 <div className=" overflow-x-auto whitespace-nowrap ">
                     {categories.map((category, index) => (
                         <div className="inline-block mb-2" key={index}>
-                            <div className=' text-2xl hover:bg-white dark:hover:bg-neutral-950 cursor-pointer  flex flex-col bg-transparent rounded justify-around items-center p-2 transition-all ease-in-out'>
+                            <div className=' text-2xl hover:bg-white dark:hover:bg-black cursor-pointer  flex flex-col bg-transparent rounded justify-around items-center p-2 transition-all ease-in-out'>
                                 {category.icon}
                                 <p className=" text-xs">{category.name}</p>
                             </div>

@@ -4,6 +4,7 @@ import { iReview, iUser, iComment, iProduct } from "./util/Interfaces"
 import Welcome from "./components/Welcome"
 import QuickTabs from './components/QuickTabs'
 import TopReviews from './components/TopReviews'
+import HeroSection from './components/HeroSection'
 // import FetchBusinessOfTheDay from './components/FetchBusinessOfTheDay'
 
 export default function Home() {
@@ -119,7 +120,7 @@ export default function Home() {
     return (
         <div className="flex flex-1 flex-col justify-center  bg-mycolours-light dark:bg-mycolours-dark dark:text-mycolours-light" >
             <div className="flex flex-1 flex-row">
-                <Welcome />
+                <HeroSection />
             </div>
             <div className="flex flex-1 flex-col justify-center">
                 <QuickTabs />
