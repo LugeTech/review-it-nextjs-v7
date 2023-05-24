@@ -13,6 +13,7 @@ const Welcome = () => {
                             <div className=" flex sm:flex-row  flex-col w-full ">
                                 <form className="flex flex-1 justify-center w-full">
                                     <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                    <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                     <div className="relative w-full">
                                         <input type="search" id="default-search" className="block w-full p-4 pl-10 text-sm text-black border border-gray-300 rounded-lg bg-gray-50 focus:ring-mycolours-c4 focus:border-mycolours-c4 dark:bg-mycolours-dark dark:border-mycolours-c5 dark:placeholder-mycolours-c4 dark:text-mycolours-light dark:focus:ring-mycolours-c5 dark:focus:border-mycolours-c3" placeholder='Company | Service | Product...' required />
                                         <button type="submit" className="text-white dark:text-black  absolute right-2.5 bottom-2.5 bg-mycolours-dark hover:bg-mycolours-c5 focus:ring-4 focus:outline-none focus:ring-mycolours-c3 font-medium rounded-lg text-sm px-4 py-2 dark:bg-mycolours-light dark:hover:bg-mycolours-c5 dark:focus:ring-mycolours-c2">Search</button>

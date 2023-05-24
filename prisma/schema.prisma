@@ -7,52 +7,61 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model items {
+model Item {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   address     String
   createdDate DateTime @default(now())
   description String
   images      String[]
   name        String
+  reviews     Review[]
 }
 
-model products {
+model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   address     String
   createdDate DateTime @default(now())
   description String
   images      String[]
   name        String
+  reviews     Review[]
 }
 
-model reviews {
+model Review {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   body           String
   comments       String
   createdDate    DateTime @default(now())
   helpfulVotes   Int
-  product        String
+  product        Product? @relation(fields: [productId], references: [id])
+  item           Item?    @relation(fields: [itemId], references: [id])
+  service        Service? @relation(fields: [serviceId], references: [id])
   rating         Int
   title          String
   unhelpfulVotes Int
-  user           String
+  user           User    @relation(fields: [userId], references: [id])
+  productId      String?  @db.ObjectId
+  itemId         String?  @db.ObjectId
+  serviceId      String?  @db.ObjectId
+  userId         String   @db.ObjectId
 }
 
-model services {
+model Service {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   address     String
   createdDate DateTime @default(now())
   description String
   images      String[]
   name        String
+  reviews     Review[]
 }
 
-model users {
+model User {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   avatar      String?
   createdDate DateTime @default(now())
   email       String   @unique(map: "email_1")
   firstName   String
   lastName    String
+  reviews     Review[]
 }
-

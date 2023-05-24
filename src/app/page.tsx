@@ -5,6 +5,7 @@ import Welcome from "./components/Welcome";
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
+import Token from "./components/Token";
 
 export default function Home() {
   const reviews: iReview[] = [
@@ -129,6 +130,7 @@ export default function Home() {
             <div className="flex flex-col justify-center w-full mt-4 mb-4">
               <div className="flex justify-center items-center text-md mx-4"></div>
             </div>
+            <Token />
           </div>
         </div>
       </div>

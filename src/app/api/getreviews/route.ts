@@ -5,8 +5,9 @@ import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
+  console.log('first')
   try {
-    const allUsers = await prisma.users.findMany();
+    const allUsers = await prisma.review.findMany();
     console.log(allUsers);
     return NextResponse.json({
       success: true,

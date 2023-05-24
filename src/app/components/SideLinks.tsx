@@ -9,12 +9,16 @@ interface LinksProps {
 const Links: FC<LinksProps> = ({ showHome }) => {
   const links = [
     {
+      name: "Home",
+      link: "/",
+    },
+    {
       name: "Write a Review",
       link: "/createreview",
     },
     {
       name: "Businesses",
-      link: "/",
+      link: "/fetch",
     },
     {
       name: "Services",
@@ -24,16 +28,14 @@ const Links: FC<LinksProps> = ({ showHome }) => {
       name: "My Reviews",
       link: "/",
     },
+    {
+      name: "My Profile",
+      link: "/user",
+    },
   ];
 
-  if (showHome) {
-    links.unshift({
-      name: "Home",
-      link: "/",
-    });
-  }
   return (
-    <div className={`flex flex-col min-h-screen`}>
+    <div className={`flex flex-col min-h-screen mt-8`}>
       {links.map((link, index) => (
         <Link href={link.link} key={index}>
           <li className=" hover:text-mycolours-c1 hover:bg-slate-100 duration-300 px-4 transition-all ease-in-out rounded-lg gap-3 py-2">

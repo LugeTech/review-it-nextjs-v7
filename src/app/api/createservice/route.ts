@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   try {
-    const item = await prisma.services.create({
+    const item = await prisma.service.create({
       data: {
         address: "some address nt dueitunt ea sint dolor.",
         description: "Deserunt temporrint esse sint laboris.",
