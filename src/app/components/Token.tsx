@@ -10,7 +10,7 @@ export default function Token() {
   const run = async () => {
     const token = await getToken({ template: "4000" });
     token && setJwtToken(token);
-    const data: any = await fetch("http://localhost:3000/api/getreviews", {
+    const data: any = await fetch("/api/getreviews", {
       method: "POST",
       cache: "no-store",
       headers: {
