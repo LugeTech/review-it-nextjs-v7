@@ -32,13 +32,13 @@ model Review {
   body           String
   comments       String?
   createdDate    DateTime @default(now())
-  helpfulVotes   Int
+  helpfulVotes   Int?
   product        Product? @relation(fields: [productId], references: [id])
   item           Item?    @relation(fields: [itemId], references: [id])
   service        Service? @relation(fields: [serviceId], references: [id])
   rating         Int
   title          String
-  unhelpfulVotes Int
+  unhelpfulVotes Int?
   user           User     @relation(fields: [userId], references: [id])
   productId      String?  @db.ObjectId
   itemId         String?  @db.ObjectId
@@ -58,6 +58,7 @@ model Service {
 
 model User {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userName    String   @unique
   avatar      String?
   createdDate DateTime @default(now())
   email       String   @unique
@@ -65,6 +66,7 @@ model User {
   lastName    String
   profile     Profile?
   Review      Review[]
+  clerkUserId String
 }
 
 model Profile {
