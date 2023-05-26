@@ -27,6 +27,8 @@ interface UserDATA {
 
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
+  const body = await request.json();
+  console.log(body);
   try {
     let user = null;
 
@@ -80,10 +82,10 @@ export async function POST(request: NextRequest) {
     // Create a new review entry in the database
     const review = await prisma.review.create({
       data: {
-        body: "this is the body 3",
-        comments: "this is a comment it is a string for now 3",
-        rating: 1,
-        title: "this is the title",
+        body: body.body,
+        comments: body.comments,
+        rating: body.rating,
+        title: body.title,
         userId: clerkUser.publicMetadata.id as unknown as string,
         createdDate: new Date(),
       },
