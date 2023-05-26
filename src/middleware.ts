@@ -3,7 +3,7 @@ import { api } from "@/app/util/CONST";
 import { clerkClient } from "@clerk/nextjs/server";
 
 export default authMiddleware({
-  publicRoutes: ["/"],
+  publicRoutes: ["/", "/api/get/"],
   // async afterAuth(auth, req, evt) {
   //   if (auth.userId) {
   //     console.log(

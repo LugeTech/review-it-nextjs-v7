@@ -22,7 +22,6 @@ model Item {
   website     String[]
   comments    String[]
   rating      Int?     @default(0)
-  isPublic    Boolean  @default(true)
   hasOwner    Boolean
   owner       User?    @relation(fields: [ownerId], references: [id])
   ownerId     String?  @db.ObjectId
@@ -39,10 +38,11 @@ model Review {
   unhelpfulVotes Int?     @default(0)
   item           Item?    @relation(fields: [itemId], references: [id])
   user           User?    @relation(fields: [userId], references: [id])
-  itemId         String?   @db.ObjectId
-  userId         String?   @db.ObjectId
+  itemId         String?  @db.ObjectId
+  userId         String?  @db.ObjectId
   isVerified     Boolean?
   verifiedBy     String?
+  isPublic       Boolean  @default(true)
   images         String[]
   videos         String[]
   links          String[]

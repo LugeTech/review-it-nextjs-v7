@@ -28,15 +28,14 @@ interface UserDATA {
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  console.log(body);
   try {
-    let user = null;
-
     // Extracting session claims from the request
     const { sessionClaims } = getAuth(request);
-
     // Casting the session claims to UserDATA type
     const clerkUserData = sessionClaims as unknown as UserDATA;
+
+    let user = null;
+    let clerkUser = null;
 
     // Logging the user data received
     console.log(
@@ -62,23 +61,22 @@ export async function POST(request: NextRequest) {
       });
 
       // Update the user metadata in the Clerk user object
-      const clerkUser = await clerkClient.users.updateUser(
-        clerkUserData.userId,
-        {
-          publicMetadata: { userInDb: true, id: user.id },
-        }
-      );
+      clerkUser = await clerkClient.users.updateUser(clerkUserData.userId, {
+        publicMetadata: { userInDb: true, id: user.id }, // this is mongodb id
+      });
 
       // Logging the Clerk user information after adding to MongoDB
       console.log(
         "user added to mongodb, this is the new clerk user info",
         clerkUser
       );
-    }
+    } //end of long if
 
-    // Retrieve the Clerk user information
-    const clerkUser = await clerkClient.users.getUser(user!.clerkUserId);
-    console.log(clerkUser);
+    // Retrieve the Clerk user information if the user was already in db
+    if (clerkUser === null) {
+      clerkUser = await clerkClient.users.getUser(clerkUserData.userId);
+      console.log(clerkUser);
+    }
     // Create a new review entry in the database
     const review = await prisma.review.create({
       data: {
