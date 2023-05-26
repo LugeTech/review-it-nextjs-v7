@@ -9,51 +9,43 @@ datasource db {
 
 model Item {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  address     String
+  address     String?
   createdDate DateTime @default(now())
   description String
   images      String[]
   name        String
   reviews     Review[]
-}
-
-model Product {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  address     String
-  createdDate DateTime @default(now())
-  description String
-  images      String[]
-  name        String
-  reviews     Review[]
+  tags        String[]
+  openingHrs  String?
+  closingHrs  String?
+  telephone   String?
+  website     String[]
+  comments    String[]
+  rating      Int?     @default(0)
+  isPublic    Boolean  @default(true)
+  hasOwner    Boolean
+  owner       User?    @relation(fields: [ownerId], references: [id])
+  ownerId     String?  @db.ObjectId
 }
 
 model Review {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   body           String
-  comments       String?
+  comments       String[]
   createdDate    DateTime @default(now())
-  helpfulVotes   Int?
-  product        Product? @relation(fields: [productId], references: [id])
-  item           Item?    @relation(fields: [itemId], references: [id])
-  service        Service? @relation(fields: [serviceId], references: [id])
+  helpfulVotes   Int?     @default(0)
   rating         Int
   title          String
-  unhelpfulVotes Int?
-  user           User     @relation(fields: [userId], references: [id])
-  productId      String?  @db.ObjectId
-  itemId         String?  @db.ObjectId
-  serviceId      String?  @db.ObjectId
-  userId         String   @db.ObjectId
-}
-
-model Service {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  address     String
-  createdDate DateTime @default(now())
-  description String
-  images      String[]
-  name        String
-  reviews     Review[]
+  unhelpfulVotes Int?     @default(0)
+  item           Item?    @relation(fields: [itemId], references: [id])
+  user           User?    @relation(fields: [userId], references: [id])
+  itemId         String?   @db.ObjectId
+  userId         String?   @db.ObjectId
+  isVerified     Boolean?
+  verifiedBy     String?
+  images         String[]
+  videos         String[]
+  links          String[]
 }
 
 model User {
@@ -65,8 +57,9 @@ model User {
   firstName   String
   lastName    String
   profile     Profile?
-  Review      Review[]
+  review      Review[]
   clerkUserId String
+  item        Item[]
 }
 
 model Profile {
