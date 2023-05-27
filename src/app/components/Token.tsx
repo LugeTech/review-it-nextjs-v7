@@ -10,7 +10,6 @@ export default function Token() {
   const run = async () => {
     const token = await getToken({ template: "4000" });
     token && setJwtToken(token);
-
   };
 
   useEffect(() => {
