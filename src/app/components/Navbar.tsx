@@ -1,12 +1,12 @@
 import Links from "./SideLinks";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import HomeLink from "./HomeLink";
 import TopLinks from "./TopLinks";
 import SideLinks from "./SideLinks";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="drawer">
+    <div className="drawer sticky top-0 z-20">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         <div className="w-full navbar bg-base-100 z-10">
@@ -30,7 +30,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
           <div className="flex-1 px-2 mx-2">
             <HomeLink />
             <div className="flex-none hidden lg:block">
-              <div className="hidden md:flex flex-1 font-semibold items-center justify-center text-center">
+              <div className="hidden md:flex flex-1 font-normal items-center justify-center text-center">
                 <ul className="menu menu-horizontal">
                   <TopLinks />
                 </ul>
@@ -38,7 +38,14 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
           <div className="mx-2">
-            <UserButton />
+            <SignedIn>
+              {/* Mount the UserButton component */}
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              {/* Signed out users get sign in button */}
+              <SignInButton />
+            </SignedOut>
           </div>
         </div>
         {children}

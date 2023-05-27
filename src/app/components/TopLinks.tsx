@@ -12,7 +12,7 @@ const Links: FC<LinksProps> = ({ showHome }) => {
     },
     {
       name: "Businesses",
-      link: "/",
+      link: "/fetch",
     },
     {
       name: "Services",

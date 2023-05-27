@@ -7,52 +7,64 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model items {
+model Item {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  address     String
+  address     String?
   createdDate DateTime @default(now())
   description String
   images      String[]
   name        String
+  reviews     Review[]
+  tags        String[]
+  openingHrs  String?
+  closingHrs  String?
+  telephone   String?
+  website     String[]
+  comments    String[]
+  rating      Int?     @default(0)
+  hasOwner    Boolean
+  owner       User?    @relation(fields: [ownerId], references: [id])
+  ownerId     String?  @db.ObjectId
 }
 
-model products {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  address     String
-  createdDate DateTime @default(now())
-  description String
-  images      String[]
-  name        String
-}
-
-model reviews {
+model Review {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   body           String
-  comments       String
+  comments       String[]
   createdDate    DateTime @default(now())
-  helpfulVotes   Int
-  product        String
+  helpfulVotes   Int?     @default(0)
   rating         Int
   title          String
-  unhelpfulVotes Int
-  user           String
+  unhelpfulVotes Int?     @default(0)
+  item           Item?    @relation(fields: [itemId], references: [id])
+  user           User?    @relation(fields: [userId], references: [id])
+  itemId         String?  @db.ObjectId
+  userId         String?  @db.ObjectId
+  isVerified     Boolean?
+  verifiedBy     String?
+  isPublic       Boolean  @default(true)
+  images         String[]
+  videos         String[]
+  links          String[]
 }
 
-model services {
+model User {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  address     String
-  createdDate DateTime @default(now())
-  description String
-  images      String[]
-  name        String
-}
-
-model users {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userName    String   @unique
   avatar      String?
   createdDate DateTime @default(now())
-  email       String   @unique(map: "email_1")
+  email       String   @unique
   firstName   String
   lastName    String
+  profile     Profile?
+  review      Review[]
+  clerkUserId String
+  item        Item[]
 }
 
+model Profile {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  bio    String
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+}

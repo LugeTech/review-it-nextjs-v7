@@ -2,7 +2,7 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import Navbar from "./components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
-import RecoilProvider from "./util/recoil/RecoilProvider";
+import QueryProvider from "@/app/util/QueryProvider";
 import "@smastrom/react-rating/style.css";
 
 const poppins = Poppins({
@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <RecoilProvider>
+    <QueryProvider>
       <ClerkProvider>
         <html lang="en">
           <body className={poppins.className}>
@@ -30,6 +30,6 @@ export default function RootLayout({
           </body>
         </html>
       </ClerkProvider>
-    </RecoilProvider>
+    </QueryProvider>
   );
 }

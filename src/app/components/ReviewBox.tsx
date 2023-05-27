@@ -20,14 +20,8 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   comments: comments,
   products: products,
 }) => {
-  // const [styleForRating, setStyleForRating] = useRecoilState(ratingStyle)
   const [rating, setRating] = useState(review.rating); // Initial value
 
-  // const styleForRating = {
-  //     itemShapes: Heart,
-  //     activeFillColor: '#F18C8E',
-  //     inactiveFillColor: '#c8c9ca'
-  // }
 
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
