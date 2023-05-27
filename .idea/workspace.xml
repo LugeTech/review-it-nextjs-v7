@@ -50,7 +50,7 @@
       <workItem from="1685150122210" duration="1313000" />
       <workItem from="1685152746832" duration="1625000" />
       <workItem from="1685156832500" duration="1453000" />
-      <workItem from="1685159652456" duration="3147000" />
+      <workItem from="1685159652456" duration="3900000" />
     </task>
     <task id="LOCAL-00001" summary="error and loading pages for /">
       <created>1685150362076</created>
@@ -66,7 +66,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685164174140</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="pushing to main to test amplify">
+      <created>1685165184343</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1685165184343</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
