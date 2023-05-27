@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { faker } from "@faker-js/faker";
 import { iReview, iUser, iComment, iProduct } from "./util/Interfaces";
-import Welcome from "./components/Welcome";
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
 import Token from "./components/Token";
+import { Suspense } from "react";
 
 export default function Home() {
   const reviews: iReview[] = [

@@ -5,7 +5,7 @@ import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 
 // Initializing Prisma client
-const prisma = new PrismaClient();
+const prisma = new PrismaClient() ;
 
 // Interface representing user data
 interface UserDATA {
