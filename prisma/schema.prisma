@@ -14,17 +14,16 @@ model Item {
   description String
   images      String[]
   name        String
-  reviews     Review[]
   tags        String[]
   openingHrs  String?
   closingHrs  String?
   telephone   String?
   website     String[]
-  comments    String[]
   rating      Int?     @default(0)
-  hasOwner    Boolean
+  hasOwner    Boolean?
   owner       User?    @relation(fields: [ownerId], references: [id])
   ownerId     String?  @db.ObjectId
+  reviews     Review[]
 }
 
 model Review {

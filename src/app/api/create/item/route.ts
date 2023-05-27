@@ -38,31 +38,35 @@ export async function POST(request: NextRequest) {
 
     // Logging the user data received
     console.log(
-      "create review api just got hit with this user data",
+      "create item api just got hit with this user data (claims)",
       clerkUserData
     );
+
+
     let clerkUser = null;
     // Checking if the user already exists in the database
     if (!(await userInDb(clerkUserData.userId))) {
       clerkUser = await addUserToDb(clerkUserData) // person created
     } else {
+
+
       // Retrieve the Clerk user information if the user was already in db
       clerkUser = await clerkClient.users.getUser(clerkUserData.userId);
       console.log('user was already in the db',clerkUser);
     }
-    // Create a new review entry in the database
-    const review = await prisma.review.create({
-      data: body,
+    // Create a new item entry in the database
+    const item = await prisma.item.create({
+      data: body, //might have to use zod to check if the data is valid
     });
 
     // Logging a success message
-    console.log("user created!");
+    console.log("item created!");
 
     // Returning the response as JSON
     return NextResponse.json({
       success: true,
       status: 200,
-      data: review,
+      data: item,
     });
   } catch (error) {
     // Handling errors and returning error response
