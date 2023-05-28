@@ -4,7 +4,7 @@ import {NextResponse, NextRequest} from "next/server";
 import {clerkClient, getAuth} from "@clerk/nextjs/server";
 import {userInDb} from "@/app/util/userInDb";
 import {addUserToDb} from "@/app/util/addUserToDb";
-
+import {SentDataReviewAndItem} from "@/app/util/Interfaces";
 // Initializing Prisma client
 const prisma = new PrismaClient();
 
@@ -26,35 +26,38 @@ interface UserDATA {
     userName: string;
 }
 
+
+
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
-    const body = await request.json();
-    let clerkUser = null;
+    const sentDataReviewAndItem = await request.json() as SentDataReviewAndItem;
+    let clerkUserData = null;
     try {
         // Extracting session claims from the request
         const {sessionClaims} = getAuth(request);
         // Casting the session claims to UserDATA type
-        const clerkUserData = sessionClaims as unknown as UserDATA;
+        const clerkClaimsData = sessionClaims as unknown as UserDATA;
         // Logging the user data received
         console.log(
-            "create review api just got hit with this user data",
-            clerkUserData
+            "create review api just got hit with this claims data",
+            clerkClaimsData
         );
 
         // Checking if the user already exists in the database
-        if (!(await userInDb(clerkUserData.userId))) {
-            clerkUser = await addUserToDb(clerkUserData) // person created
+        if (!(await userInDb(clerkClaimsData.userId))) {
+            clerkUserData = await addUserToDb(clerkClaimsData) // person created
+
         } else {
             // Retrieve the Clerk user information if the user was already in db
-            clerkUser = await clerkClient.users.getUser(clerkUserData.userId);
-            console.log('user was already in the db', clerkUser);
+            clerkUserData = await clerkClient.users.getUser(clerkClaimsData.userId);
+            console.log('user was already in the db', clerkUserData);
         }
 
         // check if item is in db
-        if (body.item.itemSelected) {
+        if (sentDataReviewAndItem.item.itemSelected) {
             const item = await prisma.item.findUnique({
                 where: {
-                    id: body.itemId
+                    id: sentDataReviewAndItem.itemId
                 }
             })
             if (!item) {
@@ -65,10 +68,20 @@ export async function POST(request: NextRequest) {
                 });
             } else {
                 // item exists
-                body.userId = clerkUser.publicMetadata.id as unknown as string
+                sentDataReviewAndItem.userId = clerkUserData.publicMetadata.id as unknown as string
                 // Create a new review entry in the database
                 const review = await prisma.review.create({
-                    data: body.review, // will need to deserialize the data to get only what is needed
+                    data: {
+                        body: sentDataReviewAndItem.body,
+                        rating: sentDataReviewAndItem.rating,
+                        userId: sentDataReviewAndItem.publicMetadata!.id as unknown as string,
+                        title: sentDataReviewAndItem.title,
+                        itemId: sentDataReviewAndItem.itemId,
+                        createdDate: sentDataReviewAndItem.createdDate,
+                        images: sentDataReviewAndItem.images,
+                        videos: sentDataReviewAndItem.videos,
+                        links: sentDataReviewAndItem.links,
+                    },
                 });
 
                 // Logging a success message
@@ -84,14 +97,38 @@ export async function POST(request: NextRequest) {
         } else {
             // create a new item
             const item = await prisma.item.create({
-                data: body.item
+                data: {
+                    name: sentDataReviewAndItem.item.name,
+                    description: sentDataReviewAndItem.item.description,
+                    createdDate: sentDataReviewAndItem.item.createdDate,
+                    images: sentDataReviewAndItem.item.images,
+                    videos: sentDataReviewAndItem.item.videos,
+                    links: sentDataReviewAndItem.item.links,
+                    tags: sentDataReviewAndItem.item.tags,
+                    openingHrs: sentDataReviewAndItem.item.openingHrs,
+                    closingHrs: sentDataReviewAndItem.item.closingHrs,
+                    address: sentDataReviewAndItem.item.address,
+                    telephone: sentDataReviewAndItem.item.telephone,
+                    website: sentDataReviewAndItem.item.website,
+
+                }
             });
 
-            body.itemId = item.id
-            body.userId = clerkUser.publicMetadata.id as unknown as string
+            sentDataReviewAndItem.itemId = item.id
+            sentDataReviewAndItem.userId = clerkUserData.publicMetadata.id as unknown as string
             // Create a new review entry in the database
             const review = await prisma.review.create({
-                data: body,
+                data: {
+                    body: sentDataReviewAndItem.body,
+                    rating: sentDataReviewAndItem.rating,
+                    userId: sentDataReviewAndItem.userId,
+                    title: sentDataReviewAndItem.title,
+                    itemId: sentDataReviewAndItem.itemId,
+                    createdDate: sentDataReviewAndItem.createdDate,
+                    images: sentDataReviewAndItem.images,
+                    videos: sentDataReviewAndItem.videos,
+                    links: sentDataReviewAndItem.links,
+                },
             });
 
             // Logging a success message

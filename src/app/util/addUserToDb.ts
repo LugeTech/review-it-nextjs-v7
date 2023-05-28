@@ -1,8 +1,6 @@
 // Importing necessary modules and packages
 import { PrismaClient } from "@prisma/client";
-import { NextResponse, NextRequest } from "next/server";
-import { clerkClient, getAuth } from "@clerk/nextjs/server";
-import { userInDb } from "@/app/util/userInDb";
+import { clerkClient } from "@clerk/nextjs/server";
 
 
 // Initializing Prisma client
@@ -49,7 +47,7 @@ export const addUserToDb = async (clerkUserData: UserDATA) => {
 
     // Logging the Clerk user information after adding to MongoDB
     console.log(
-        "user added to mongodb, this is the new clerk user info",
+        "user added to mongodb, this is the new clerk user info-",
         clerkUser
     );
     return clerkUser

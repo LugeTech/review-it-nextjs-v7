@@ -24,6 +24,7 @@ interface UserDATA {
   sub: string;
   userId: string;
   userName: string;
+  metadata: {userInDb: boolean, id: string}
 }
 
 // Exporting the POST function that handles the API request
@@ -76,6 +77,12 @@ export async function POST(request: NextRequest) {
 
     // Logging a message if the user already exists in the database
     console.log("user already in db skipped upsert");
+    return NextResponse.json({
+      success: true,
+      status: 200,
+
+      data: `${clerkUserData.userName} "already in db skipped upsert"`,
+    });
   } catch (error) {
     // Handling errors and returning error response
     console.log(error);

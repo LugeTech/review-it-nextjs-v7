@@ -4,12 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="refactor db check for user + create item">
+    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="review flow - create user in db - create review + item - success">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/create/item/route.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/create/review/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/create/review/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/create/user/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/create/user/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/get/reviews/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/get/reviews/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/sign-in/[[...sign-in]]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sign-in/[[...sign-in]]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/sign-up/[[...sign-up]]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sign-up/[[...sign-up]]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/ReviewForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/ReviewForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/SideLinks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/SideLinks.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Token.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Token.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/TopLinks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/TopLinks.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/util/Interfaces.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/util/Interfaces.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/util/addUserToDb.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/util/addUserToDb.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/util/userInDb.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/util/userInDb.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +42,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="2QJiCLVyDP60RL535vAl12noRH8" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -46,7 +62,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
-    "settings.editor.selected.configurable": "editing.templates",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "/Users/kentaylor/Developer/Javascript Projects/Review It/review-it-nextjs-v7-remake/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -74,7 +91,12 @@
       <workItem from="1685198897377" duration="3673000" />
       <workItem from="1685208246253" duration="2980000" />
       <workItem from="1685220066342" duration="1220000" />
-      <workItem from="1685221298636" duration="4754000" />
+      <workItem from="1685221298636" duration="4802000" />
+      <workItem from="1685239647166" duration="4159000" />
+      <workItem from="1685244036936" duration="43000" />
+      <workItem from="1685244083068" duration="115000" />
+      <workItem from="1685244417596" duration="3087000" />
+      <workItem from="1685276411012" duration="10017000" />
     </task>
     <task id="LOCAL-00001" summary="error and loading pages for /">
       <created>1685150362076</created>
@@ -118,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685189734377</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="working on items+user+review creation. 80% done">
+      <created>1685233539284</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1685233539284</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +169,8 @@
     <MESSAGE value="pushing to main to test amplify" />
     <MESSAGE value="upd" />
     <MESSAGE value="refactor db check for user + create item" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor db check for user + create item" />
+    <MESSAGE value="working on items+user+review creation. 80% done" />
+    <MESSAGE value="review flow - create user in db - create review + item - success" />
+    <option name="LAST_COMMIT_MESSAGE" value="review flow - create user in db - create review + item - success" />
   </component>
 </project>
