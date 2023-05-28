@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="upd">
-      <change afterPath="$PROJECT_DIR$/src/app/api/create/item/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/util/addUserToDb.ts" afterDir="false" />
+    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="refactor db check for user + create item">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/create/review/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/create/review/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sign-in/[[...sign-in]]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sign-in/[[...sign-in]]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sign-up/[[...sign-up]]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sign-up/[[...sign-up]]/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +46,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "settings.editor.selected.configurable": "editing.templates",
     "ts.external.directory.path": "/Users/kentaylor/Developer/Javascript Projects/Review It/review-it-nextjs-v7-remake/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -71,7 +70,11 @@
       <workItem from="1685156832500" duration="1453000" />
       <workItem from="1685159652456" duration="6299000" />
       <workItem from="1685168922699" duration="2679000" />
-      <workItem from="1685184769446" duration="4795000" />
+      <workItem from="1685184769446" duration="5470000" />
+      <workItem from="1685198897377" duration="3673000" />
+      <workItem from="1685208246253" duration="2980000" />
+      <workItem from="1685220066342" duration="1220000" />
+      <workItem from="1685221298636" duration="4754000" />
     </task>
     <task id="LOCAL-00001" summary="error and loading pages for /">
       <created>1685150362076</created>
@@ -108,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685165796410</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="refactor db check for user + create item">
+      <created>1685189734377</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1685189734377</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +139,7 @@
     <MESSAGE value="error and loading pages for /" />
     <MESSAGE value="pushing to main to test amplify" />
     <MESSAGE value="upd" />
-    <option name="LAST_COMMIT_MESSAGE" value="upd" />
+    <MESSAGE value="refactor db check for user + create item" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor db check for user + create item" />
   </component>
 </project>

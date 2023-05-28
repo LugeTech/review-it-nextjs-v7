@@ -1,5 +1,5 @@
 import Links from "./SideLinks";
-import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import {UserButton, SignedIn, SignedOut, SignInButton, SignUpButton} from "@clerk/nextjs";
 import HomeLink from "./HomeLink";
 import TopLinks from "./TopLinks";
 import SideLinks from "./SideLinks";
@@ -44,7 +44,11 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             </SignedIn>
             <SignedOut>
               {/* Signed out users get sign in button */}
+              <span className="flex gap-0.5 hover:text-mycolours-c1 duration-300 ease-linear transition-all">
               <SignInButton />
+                /
+              <SignUpButton/>
+                </span>
             </SignedOut>
           </div>
         </div>
