@@ -13,6 +13,8 @@ model Item {
   createdDate DateTime @default(now())
   description String
   images      String[]
+  videos      String[]
+  links       String[]
   name        String
   tags        String[]
   openingHrs  String?

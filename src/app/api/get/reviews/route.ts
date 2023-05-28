@@ -4,29 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(request: NextRequest) {
-  try {
-    const reviews = await prisma.review.findMany({
-      include: {
-        user: true,
-        item: true,
-      },
-    });
-    console.log(reviews);
-    return NextResponse.json({
-      success: true,
-      status: 200,
-      data: reviews,
-    });
-  } catch (error) {
-    console.log(error);
-    return NextResponse.json({
-      success: false,
-      status: 500,
-      data: error,
-    });
-  }
-}
 
 export async function POST(request: NextRequest) {
   interface Body {
@@ -36,9 +13,7 @@ export async function POST(request: NextRequest) {
   console.log(body);
   try {
     const reviews = await prisma.review.findMany({
-      where: {
-        isPublic: body.isPublic,
-      },
+      where: body,
       include: {
         user: true,
         item: true,
@@ -48,14 +23,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       status: 200,
+      dataLength: reviews.length,
       data: reviews,
     });
   } catch (error) {
-    console.log(error);
+    let e = error as Error;
     return NextResponse.json({
       success: false,
       status: 500,
-      data: error,
+      data: e.message.slice(0, 500) + '...'
     });
   }
 }
