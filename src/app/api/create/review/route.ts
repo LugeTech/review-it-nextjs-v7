@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
                 });
             } else {
                 // item exists
-                sentDataReviewAndItem.userId = clerkUserData.publicMetadata.id as unknown as string
+                sentDataReviewAndItem.userId = await clerkUserData.publicMetadata.id as unknown as string
                 // Create a new review entry in the database
                 const review = await prisma.review.create({
                     data: {
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
                         rating: sentDataReviewAndItem.rating,
                         userId: sentDataReviewAndItem.publicMetadata!.id as unknown as string,
                         title: sentDataReviewAndItem.title,
-                        itemId: sentDataReviewAndItem.itemId,
+                        itemId: sentDataReviewAndItem.itemId!,
                         createdDate: sentDataReviewAndItem.createdDate,
                         images: sentDataReviewAndItem.images,
                         videos: sentDataReviewAndItem.videos,
@@ -110,6 +110,7 @@ export async function POST(request: NextRequest) {
                     address: sentDataReviewAndItem.item.address,
                     telephone: sentDataReviewAndItem.item.telephone,
                     website: sentDataReviewAndItem.item.website,
+                    createdById: await clerkUserData.publicMetadata.id as unknown as string,
 
                 }
             });
