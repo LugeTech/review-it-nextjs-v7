@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="review flow - create user in db - create review + item - success">
+    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="item created by userId implimemted. @@unique not working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/create/review/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/create/review/route.ts" afterDir="false" />
@@ -83,7 +83,7 @@
       <workItem from="1685244417596" duration="3087000" />
       <workItem from="1685276411012" duration="10160000" />
       <workItem from="1685316309683" duration="1293000" />
-      <workItem from="1685333105356" duration="4431000" />
+      <workItem from="1685333105356" duration="9412000" />
     </task>
     <task id="LOCAL-00001" summary="error and loading pages for /">
       <created>1685150362076</created>
@@ -148,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685298053993</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="item created by userId implimemted. @@unique not working">
+      <created>1685338448068</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1685338448069</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +179,7 @@
     <MESSAGE value="refactor db check for user + create item" />
     <MESSAGE value="working on items+user+review creation. 80% done" />
     <MESSAGE value="review flow - create user in db - create review + item - success" />
-    <option name="LAST_COMMIT_MESSAGE" value="review flow - create user in db - create review + item - success" />
+    <MESSAGE value="item created by userId implimemted. @@unique not working" />
+    <option name="LAST_COMMIT_MESSAGE" value="item created by userId implimemted. @@unique not working" />
   </component>
 </project>

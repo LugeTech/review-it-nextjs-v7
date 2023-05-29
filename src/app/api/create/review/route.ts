@@ -38,10 +38,10 @@ export async function POST(request: NextRequest) {
         // Casting the session claims to UserDATA type
         const clerkClaimsData = sessionClaims as unknown as UserDATA;
         // Logging the user data received
-        console.log(
-            "create review api just got hit with this claims data",
-            clerkClaimsData
-        );
+        //console.log(
+        //     "create review api just got hit with this claims data",
+        //     clerkClaimsData
+        // );
 
         // Checking if the user already exists in the database
         if (!(await userInDb(clerkClaimsData.userId))) {
@@ -50,14 +50,16 @@ export async function POST(request: NextRequest) {
         } else {
             // Retrieve the Clerk user information if the user was already in db
             clerkUserData = await clerkClient.users.getUser(clerkClaimsData.userId);
-            console.log('user was already in the db', clerkUserData);
+            //console.log('user was already in the db', clerkUserData);
         }
 
         // check if item is in db
         if (sentDataReviewAndItem.item.itemSelected) {
+            console.log("about to check for item in db")
+
             const item = await prisma.item.findUnique({
                 where: {
-                    id: sentDataReviewAndItem.itemId
+                    id: sentDataReviewAndItem.item.itemId
                 }
             })
             if (!item) {
@@ -68,15 +70,19 @@ export async function POST(request: NextRequest) {
                 });
             } else {
                 // item exists
+                console.log("item exists", item)
+                console.log("this is the public meta id", clerkUserData.publicMetadata.id)
+
+
                 sentDataReviewAndItem.userId = await clerkUserData.publicMetadata.id as unknown as string
                 // Create a new review entry in the database
                 const review = await prisma.review.create({
                     data: {
                         body: sentDataReviewAndItem.body,
                         rating: sentDataReviewAndItem.rating,
-                        userId: sentDataReviewAndItem.publicMetadata!.id as unknown as string,
+                        userId: sentDataReviewAndItem.userId,
                         title: sentDataReviewAndItem.title,
-                        itemId: sentDataReviewAndItem.itemId!,
+                        itemId: item.id,
                         createdDate: sentDataReviewAndItem.createdDate,
                         images: sentDataReviewAndItem.images,
                         videos: sentDataReviewAndItem.videos,
@@ -85,7 +91,7 @@ export async function POST(request: NextRequest) {
                 });
 
                 // Logging a success message
-                console.log("review created with item from db");
+                //console.log("review created with item from db");
 
                 // Returning the response as JSON
                 return NextResponse.json({
@@ -133,7 +139,7 @@ export async function POST(request: NextRequest) {
             });
 
             // Logging a success message
-            console.log("review created with new item");
+            //console.log("review created with new item");
 
             // Returning the response as JSON
             return NextResponse.json({
@@ -143,12 +149,11 @@ export async function POST(request: NextRequest) {
             });
         }
     } catch (error) {
-        // Handling errors and returning error response
-        console.log(error);
+        let e = error as Error;
         return NextResponse.json({
             success: false,
             status: 500,
-            data: error,
+            data: e.message.slice(0, 500) + '...'
         });
     }
 }

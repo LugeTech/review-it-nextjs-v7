@@ -49,7 +49,7 @@ model Review {
   videos         String[]
   links          String[]
 
-  @@unique([title, userId, itemId])
+  @@unique(fields: [title, userId, itemId], name: "unique_review", map: "unique_review")
 }
 
 model User {
