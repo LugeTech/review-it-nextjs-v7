@@ -1,12 +1,13 @@
+// noinspection SpellCheckingInspection
+
 import { FC } from "react";
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
 import Version from "./Version";
 interface LinksProps {
   showHome?: boolean;
 }
 
-const Links: FC<LinksProps> = ({ showHome }) => {
+const Links: FC<LinksProps> = () => {
   const links = [
     {
       name: "Home",

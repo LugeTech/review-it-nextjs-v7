@@ -47,7 +47,7 @@ const ReviewForm = () => {
     setRating(newRating);
 
     function addRating(rating: number) {
-      // not sure if this is necessary but it should be the safest way. test before making simpler
+      // not sure if this is necessary, but it should be the safest way. test before making simpler
       setReviewData((prevData): iReview => ({ ...prevData, rating: rating }));
     }
 
@@ -87,7 +87,7 @@ const ReviewForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(reviewData);
-    sendToServer()
+    await sendToServer()
   };
 
   return (

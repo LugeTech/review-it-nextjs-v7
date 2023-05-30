@@ -4,7 +4,6 @@ import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
 export default function Token() {
-  const [data, setData] = useState();
   const [jwtToken, setJwtToken] = useState<String>();
   const { getToken } = useAuth();
   const run = async () => {
@@ -14,7 +13,7 @@ export default function Token() {
 
   useEffect(() => {
     run();
-  }, []);
+  });
   console.log(jwtToken);
 
   return (

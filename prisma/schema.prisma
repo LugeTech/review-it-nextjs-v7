@@ -13,18 +13,21 @@ model Item {
   createdDate DateTime @default(now())
   description String
   images      String[]
-  name        String
-  reviews     Review[]
+  videos      String[]
+  links       String[]
+  name        String   @unique
   tags        String[]
   openingHrs  String?
   closingHrs  String?
   telephone   String?
   website     String[]
-  comments    String[]
   rating      Int?     @default(0)
-  hasOwner    Boolean
-  owner       User?    @relation(fields: [ownerId], references: [id])
+  hasOwner    Boolean?
   ownerId     String?  @db.ObjectId
+  reviews     Review[]
+  createdBy   User?    @relation(fields: [createdById], references: [id])
+  createdById String   @db.ObjectId
+  isDeleted   Boolean? @default(false)
 }
 
 model Review {
@@ -38,14 +41,18 @@ model Review {
   unhelpfulVotes Int?     @default(0)
   item           Item?    @relation(fields: [itemId], references: [id])
   user           User?    @relation(fields: [userId], references: [id])
-  itemId         String?  @db.ObjectId
-  userId         String?  @db.ObjectId
+  itemId         String   @db.ObjectId
+  userId         String   @db.ObjectId
   isVerified     Boolean?
   verifiedBy     String?
   isPublic       Boolean  @default(true)
   images         String[]
   videos         String[]
   links          String[]
+  createdBy      String?
+  isDeleted      Boolean? @default(false)
+
+  @@unique(fields: [title, userId, itemId], name: "unique_review", map: "unique_review")
 }
 
 model User {
@@ -56,15 +63,8 @@ model User {
   email       String   @unique
   firstName   String
   lastName    String
-  profile     Profile?
   review      Review[]
   clerkUserId String
   item        Item[]
-}
-
-model Profile {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  bio    String
-  userId String @unique @db.ObjectId
-  user   User   @relation(fields: [userId], references: [id])
+  isDeleted   Boolean? @default(false)
 }

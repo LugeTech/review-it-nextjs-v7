@@ -4,17 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="pushing to main to test amplify" />
+    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="refactored create review with bard">
+      <change beforePath="$PROJECT_DIR$/src/app/api/create/review/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/create/review/route.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="false" />
+    <option name="myAllFileTypesSelected" value="true" />
+    <option name="mySelectedFileTypes">
+      <set />
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="2QJiCLVyDP60RL535vAl12noRH8" />
   <component name="ProjectViewState">
@@ -27,17 +39,23 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "prisma-branch",
-    "last_opened_file_path": "/Users/kentaylor/Developer/Javascript Projects/Review It/review-it-nextjs-v7-remake",
+    "last_opened_file_path": "/Users/kentaylor/Developer/Javascript Projects/Review It/review-it-nextjs-v7-remake/src/app/api/create/item",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
     "ts.external.directory.path": "/Users/kentaylor/Developer/Javascript Projects/Review It/review-it-nextjs-v7-remake/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/api/create/item" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -50,7 +68,22 @@
       <workItem from="1685150122210" duration="1313000" />
       <workItem from="1685152746832" duration="1625000" />
       <workItem from="1685156832500" duration="1453000" />
-      <workItem from="1685159652456" duration="3900000" />
+      <workItem from="1685159652456" duration="6299000" />
+      <workItem from="1685168922699" duration="2679000" />
+      <workItem from="1685184769446" duration="5470000" />
+      <workItem from="1685198897377" duration="3673000" />
+      <workItem from="1685208246253" duration="2980000" />
+      <workItem from="1685220066342" duration="1220000" />
+      <workItem from="1685221298636" duration="4802000" />
+      <workItem from="1685239647166" duration="4159000" />
+      <workItem from="1685244036936" duration="43000" />
+      <workItem from="1685244083068" duration="115000" />
+      <workItem from="1685244417596" duration="3087000" />
+      <workItem from="1685276411012" duration="10160000" />
+      <workItem from="1685316309683" duration="1293000" />
+      <workItem from="1685333105356" duration="15907000" />
+      <workItem from="1685450434070" duration="1365000" />
+      <workItem from="1685452292343" duration="3272000" />
     </task>
     <task id="LOCAL-00001" summary="error and loading pages for /">
       <created>1685150362076</created>
@@ -73,7 +106,70 @@
       <option name="project" value="LOCAL" />
       <updated>1685165184343</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="pushing to main to test amplify">
+      <created>1685165263303</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1685165263303</updated>
+    </task>
+    <task id="LOCAL-00005" summary="upd">
+      <created>1685165796410</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1685165796410</updated>
+    </task>
+    <task id="LOCAL-00006" summary="refactor db check for user + create item">
+      <created>1685189734377</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1685189734377</updated>
+    </task>
+    <task id="LOCAL-00007" summary="working on items+user+review creation. 80% done">
+      <created>1685233539284</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1685233539284</updated>
+    </task>
+    <task id="LOCAL-00008" summary="review flow - create user in db - create review + item - success">
+      <created>1685297955052</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1685297955052</updated>
+    </task>
+    <task id="LOCAL-00009" summary="review flow - create user in db - create review + item - success">
+      <created>1685298053993</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1685298053993</updated>
+    </task>
+    <task id="LOCAL-00010" summary="item created by userId implimemted. @@unique not working">
+      <created>1685338448068</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1685338448069</updated>
+    </task>
+    <task id="LOCAL-00011" summary="wont allow same item from same user with same title">
+      <created>1685383893350</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1685383893350</updated>
+    </task>
+    <task id="LOCAL-00012" summary="refactored create review with bard">
+      <created>1685458492693</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1685458492693</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,6 +189,13 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="error and loading pages for /" />
     <MESSAGE value="pushing to main to test amplify" />
-    <option name="LAST_COMMIT_MESSAGE" value="pushing to main to test amplify" />
+    <MESSAGE value="upd" />
+    <MESSAGE value="refactor db check for user + create item" />
+    <MESSAGE value="working on items+user+review creation. 80% done" />
+    <MESSAGE value="review flow - create user in db - create review + item - success" />
+    <MESSAGE value="item created by userId implimemted. @@unique not working" />
+    <MESSAGE value="wont allow same item from same user with same title" />
+    <MESSAGE value="refactored create review with bard" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored create review with bard" />
   </component>
 </project>

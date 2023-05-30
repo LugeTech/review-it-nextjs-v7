@@ -8,7 +8,7 @@ const Links: FC<LinksProps> = ({ showHome }) => {
   const links = [
     {
       name: "Write a Review",
-      link: "/createreview",
+      link: "/createReview",
     },
     {
       name: "Businesses",

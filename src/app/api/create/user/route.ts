@@ -24,6 +24,7 @@ interface UserDATA {
   sub: string;
   userId: string;
   userName: string;
+  metadata: {userInDb: boolean, id: string}
 }
 
 // Exporting the POST function that handles the API request
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
 
     // Checking if the user already exists in the database
     if (!(await userInDb(clerkUserData.userId))) {
-      // If the user doesn't exist, create a new user entry in the database
+      // If the user doesn't exist, create a new user entry in the database using the Clerk user data
       const user = await prisma.user.upsert({
         where: { email: clerkUserData.email },
         update: {},
@@ -76,6 +77,12 @@ export async function POST(request: NextRequest) {
 
     // Logging a message if the user already exists in the database
     console.log("user already in db skipped upsert");
+    return NextResponse.json({
+      success: true,
+      status: 200,
+
+      data: `${clerkUserData.userName} "already in db skipped upsert"`,
+    });
   } catch (error) {
     // Handling errors and returning error response
     console.log(error);
