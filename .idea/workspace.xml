@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="wont allow same item from same user with same title">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="refactored create review with bard">
       <change beforePath="$PROJECT_DIR$/src/app/api/create/review/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/create/review/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/create/user/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/create/user/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/error.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/loading.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/loading.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +83,7 @@
       <workItem from="1685316309683" duration="1293000" />
       <workItem from="1685333105356" duration="15907000" />
       <workItem from="1685450434070" duration="1365000" />
-      <workItem from="1685452292343" duration="2929000" />
+      <workItem from="1685452292343" duration="3272000" />
     </task>
     <task id="LOCAL-00001" summary="error and loading pages for /">
       <created>1685150362076</created>
@@ -168,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685383893350</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="refactored create review with bard">
+      <created>1685458492693</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1685458492693</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,6 +195,7 @@
     <MESSAGE value="review flow - create user in db - create review + item - success" />
     <MESSAGE value="item created by userId implimemted. @@unique not working" />
     <MESSAGE value="wont allow same item from same user with same title" />
-    <option name="LAST_COMMIT_MESSAGE" value="wont allow same item from same user with same title" />
+    <MESSAGE value="refactored create review with bard" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored create review with bard" />
   </component>
 </project>

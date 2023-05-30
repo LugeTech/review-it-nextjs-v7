@@ -1,3 +1,4 @@
+// Importing necessary modules and packages
 import { PrismaClient } from "@prisma/client";
 import { NextResponse, NextRequest } from "next/server";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
@@ -29,7 +30,7 @@ interface UserDATA {
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
   // Get the review data from the request body
-  const sentDataReviewAndItem: SentDataReviewAndItem = await request.json();
+  const sentDataReviewAndItem: SentDataReviewAndItem = (await request.json());
 
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
@@ -107,21 +108,21 @@ export async function POST(request: NextRequest) {
           telephone: sentDataReviewAndItem.item.telephone,
           website: sentDataReviewAndItem.item.website,
           createdById: (await clerkUserData.publicMetadata
-          .id) as unknown as string,
+            .id) as unknown as string,
         },
       });
 
-      // Update the `sentDataReviewAndItem` variable with the new item ID
       sentDataReviewAndItem.itemId = item.id;
-
-      // The item is now in the database, so create a new review entry
+      sentDataReviewAndItem.userId = clerkUserData.publicMetadata
+        .id as unknown as string;
+      // The item is in the database, so create a new review entry
       const review = await prisma.review.create({
         data: {
           body: sentDataReviewAndItem.body,
           rating: sentDataReviewAndItem.rating,
           userId: sentDataReviewAndItem.userId,
           title: sentDataReviewAndItem.title,
-          itemId: sentDataReviewAndItem.itemId,
+          itemId: item.id,
           createdDate: sentDataReviewAndItem.createdDate,
           images: sentDataReviewAndItem.images,
           videos: sentDataReviewAndItem.videos,
