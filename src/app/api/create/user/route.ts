@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 
     // Checking if the user already exists in the database
     if (!(await userInDb(clerkUserData.userId))) {
-      // If the user doesn't exist, create a new user entry in the database
+      // If the user doesn't exist, create a new user entry in the database using the Clerk user data
       const user = await prisma.user.upsert({
         where: { email: clerkUserData.email },
         update: {},

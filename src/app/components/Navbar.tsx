@@ -43,14 +43,12 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
           <div className="mx-2">
             <SignedIn>
               {/* Mount the UserButton component */}
-              <UserButton />
+              {<UserButton/>|| <Skeleton/>}
             </SignedIn>
             <SignedOut>
               {/* Sign-ed out users get sign in button */}
               <span className="flex gap-0.5 hover:text-mycolours-c1 duration-300 ease-linear transition-all">
-              <SignInButton />
-                /
-              <SignUpButton/> || <Skeleton />
+             {<SignInButton/> || <Skeleton/>}
                 </span>
             </SignedOut>
           </div>

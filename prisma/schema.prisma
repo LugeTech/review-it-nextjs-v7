@@ -27,6 +27,7 @@ model Item {
   reviews     Review[]
   createdBy   User?    @relation(fields: [createdById], references: [id])
   createdById String   @db.ObjectId
+  isDeleted   Boolean? @default(false)
 }
 
 model Review {
@@ -48,6 +49,8 @@ model Review {
   images         String[]
   videos         String[]
   links          String[]
+  createdBy      String?
+  isDeleted      Boolean? @default(false)
 
   @@unique(fields: [title, userId, itemId], name: "unique_review", map: "unique_review")
 }
@@ -60,15 +63,8 @@ model User {
   email       String   @unique
   firstName   String
   lastName    String
-  profile     Profile?
   review      Review[]
   clerkUserId String
   item        Item[]
-}
-
-model Profile {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  bio    String
-  userId String @unique @db.ObjectId
-  user   User   @relation(fields: [userId], references: [id])
+  isDeleted   Boolean? @default(false)
 }
