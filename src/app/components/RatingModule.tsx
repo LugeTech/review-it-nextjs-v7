@@ -3,10 +3,10 @@
 import { Rating } from '@smastrom/react-rating'
 import {styleForRating} from '@/app/util/CONST'
 
-const RatingModule = ({name, rating, ratingChanged }: {name: string, rating: number, ratingChanged: (rating: number) => void }) => {
+const RatingModule = ({name, rating, ratingChanged, size=100 }: {name: string, rating: number, ratingChanged: (rating: number) => void, size: number }) => {
     return (
         <div>
-            <Rating itemStyles={styleForRating} style={{ maxWidth: 100 }} value={rating} onChange={ratingChanged} />
+            <Rating itemStyles={styleForRating} style={{ maxWidth: size }} value={rating} onChange={ratingChanged} />
         </div>
     )
 }
