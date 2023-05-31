@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="refactored create review with bard">
+    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="relled back the bard refactor 😅">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/create/review/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/create/review/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/get/reviews/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/get/reviews/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/RatingModule.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/RatingModule.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/ReviewForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/ReviewForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sign-up/[[...sign-up]]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sign-up/[[...sign-up]]/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +54,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "pnpm",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "ts.external.directory.path": "/Users/kentaylor/Developer/Javascript Projects/Review It/review-it-nextjs-v7-remake/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -83,7 +91,9 @@
       <workItem from="1685316309683" duration="1293000" />
       <workItem from="1685333105356" duration="15907000" />
       <workItem from="1685450434070" duration="1365000" />
-      <workItem from="1685452292343" duration="3272000" />
+      <workItem from="1685452292343" duration="3590000" />
+      <workItem from="1685470038546" duration="5558000" />
+      <workItem from="1685524974080" duration="4231000" />
     </task>
     <task id="LOCAL-00001" summary="error and loading pages for /">
       <created>1685150362076</created>
@@ -169,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685458492693</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="relled back the bard refactor 😅">
+      <created>1685458930222</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1685458930222</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,6 +213,7 @@
     <MESSAGE value="item created by userId implimemted. @@unique not working" />
     <MESSAGE value="wont allow same item from same user with same title" />
     <MESSAGE value="refactored create review with bard" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored create review with bard" />
+    <MESSAGE value="relled back the bard refactor " />
+    <option name="LAST_COMMIT_MESSAGE" value="relled back the bard refactor " />
   </component>
 </project>
