@@ -40,7 +40,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
               </div>
             </div>
           </div>
-          <div className="mx-2">
+          <div className="mx-4">
             <SignedIn>
               {/* Mount the UserButton component */}
               {<UserButton/>|| <Skeleton/>}
