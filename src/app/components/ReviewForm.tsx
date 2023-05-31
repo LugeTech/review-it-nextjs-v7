@@ -96,6 +96,19 @@ const ReviewForm = () => {
         onSubmit={handleSubmit}
         className="flex flex-col md:w-1/2 bg-gray-100 p-2 rounded-md md:max-w-screen h-[90%]"
       >
+        <div className=" flex justify-start items-center mb-4 gap-2">
+          <label htmlFor="rating" className="text-normal font-bold">
+            Rating:
+          </label>
+
+          <RatingModule
+            name="rating"
+            rating={rating}
+            ratingChanged={ratingChanged}
+            size={200}
+
+          />
+        </div>
         <div className="mb-4">
           <label htmlFor="title" className="text-sm font-bold">
             Product
@@ -118,17 +131,6 @@ const ReviewForm = () => {
             name="title"
             onChange={handleChange}
             className="border border-gray-300 rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
-        </div>
-        <div className=" flex justify-start items-center mb-4 gap-2">
-          <label htmlFor="rating" className="text-sm font-bold">
-            Rating:
-          </label>
-
-          <RatingModule
-            name="rating"
-            rating={rating}
-            ratingChanged={ratingChanged}
           />
         </div>
 
