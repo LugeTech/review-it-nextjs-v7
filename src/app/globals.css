@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.editor-font-size .ql-editor {
+  font-size: 16px; /* Adjust the font size as needed quill */
+}

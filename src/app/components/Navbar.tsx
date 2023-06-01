@@ -47,7 +47,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             </SignedIn>
             <SignedOut>
               {/* Sign-ed out users get sign in button */}
-              <span className="flex gap-0.5 hover:text-mycolours-c1 duration-300 ease-linear transition-all">
+              <span className="flex gap-0.5 hover:text-myTheme-c1 duration-300 ease-linear transition-all">
              {<SignInButton/> || <Skeleton/>}
                 </span>
             </SignedOut>

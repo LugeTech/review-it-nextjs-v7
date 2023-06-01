@@ -21,5 +21,6 @@
     "terminal.ansiRed": "#2A5491",
     "terminal.ansiWhite": "#9EA7A6",
     "terminal.ansiYellow": "#A03B1E"
-  }
+  },
+  "dotenv.enableAutocloaking": true
 }

@@ -108,7 +108,7 @@ const ReviewForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="title" className="text-sm font-bold">
-            Title:
+            Title your experience:
           </label>
           <input
             type="text"
@@ -120,19 +120,17 @@ const ReviewForm = () => {
         </div>
         {/* Quill */}
         <div className="mt-4">
-          <label htmlFor="rating" className="font-semibold text-base ">
+          <label htmlFor="rating" className="font-semibold text-base mb-2">
             Tell us more about your experience
           </label>
           <ReactQuill
             theme="snow"
             value={quillValue}
             onChange={setQuillValue}
-            className="h-[200px] mb-4 bg-white text-3xl"
+            className="h-[200px] mb-4 bg-white editor-font-size"
             modules={modules}
             formats={formats}
             placeholder="Write something..."
-            // value={reviewData.body}
-            // onChange={setQuillValue}
           />
         </div>
         {/* <div className="mb-4">
@@ -171,7 +169,10 @@ const ReviewForm = () => {
         {/* <div className="flex flex-col flex-1 bg-gray-100 p-2 rounded-md w-full h-[90%] overflow-auto"> */}
         <h2 className="text-sm font-bold mb-2 text-center">Preview!</h2>
         <div className="flex flex-1 flex-col p-4 overflow-scroll bg-slate-200">
-          {parse(quillValue)}
+          <h1 className=" font-bold underline text-center">
+            {parse(reviewData.title)}
+          </h1>
+          <p>{parse(quillValue)}</p>
         </div>
         {/* </div> */}
       </div>

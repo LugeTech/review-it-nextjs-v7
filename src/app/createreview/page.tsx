@@ -4,7 +4,7 @@ import ReviewForm from "../components/ReviewForm";
 
 export default function CreateReview() {
     return (
-        <div className="flex flex-1  flex-col bg-mycolours-light dark:bg-mycolours-dark ">
+        <div className="flex flex-1  flex-col bg-myTheme-light dark:bg-myTheme-neutral ">
             <ReviewForm />
 
         </div>
