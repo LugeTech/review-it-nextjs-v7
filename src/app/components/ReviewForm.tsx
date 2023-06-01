@@ -5,6 +5,8 @@ import parse from "html-react-parser";
 import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import RatingModule from "./RatingModule";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 // import ReactQuill from "react-quill";
 // fixed build error here: https://stackoverflow.com/questions/73047747/error-referenceerror-document-is-not-defined-nextjs
 
@@ -24,6 +26,7 @@ const formats = [
 ];
 
 const ReviewForm = () => {
+  const [startDate, setStartDate] = useState(new Date());
   const [quillValue, setQuillValue] = useState("");
   const [reviewData, setReviewData] = useState<iReview>({
     body: "",
@@ -67,14 +70,10 @@ const ReviewForm = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData);
       } else {
         const errorData = await response.json();
-        console.log(errorData);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handleChange = (
@@ -86,17 +85,55 @@ const ReviewForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(reviewData);
-    await sendToServer()
+    await sendToServer();
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 mt-8 p-4 flex-grow h-screen">
+    <div className="flex flex-col md:flex-row gap-4 mt-2 p-4 flex-grow h-auto">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col md:w-1/2 bg-gray-100 p-2 rounded-md md:max-w-screen h-[90%]"
       >
+        <div className=" flex flex-col justify-center items-center mb-4 gap-2 border p-1 shadow-sm">
+          <label htmlFor="rating" className="w-full font-semibold text-base">
+            Rate your experience
+          </label>
+
+          <RatingModule
+            name="rating"
+            rating={rating}
+            ratingChanged={ratingChanged}
+            size={200}
+          />
+        </div>
         <div className="mb-4">
+          <label htmlFor="title" className="text-sm font-bold">
+            Title your experience:
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            onChange={handleChange}
+            className="border border-gray-300 rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+          />
+        </div>
+        {/* Quill */}
+        <div className="mt-4">
+          <label htmlFor="rating" className="font-semibold text-base mb-2">
+            Tell us more about your experience
+          </label>
+          <ReactQuill
+            theme="snow"
+            value={quillValue}
+            onChange={setQuillValue}
+            className="h-[200px] mb-4 bg-white editor-font-size"
+            modules={modules}
+            formats={formats}
+            placeholder="Write something..."
+          />
+        </div>
+        {/* <div className="mb-4">
           <label htmlFor="title" className="text-sm font-bold">
             Product
           </label>
@@ -107,58 +144,37 @@ const ReviewForm = () => {
             onChange={handleChange}
             className="border border-gray-300 rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="title" className="text-sm font-bold">
-            Title:
+        </div> */}
+        <div className="mt-14 mb-4">
+          <label htmlFor="date" className="text-sm font-bold">
+            When did your experience happen:
           </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            onChange={handleChange}
-            className="border border-gray-300 rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
-        </div>
-        <div className=" flex justify-start items-center mb-4 gap-2">
-          <label htmlFor="rating" className="text-sm font-bold">
-            Rating:
-          </label>
-
-          <RatingModule
-            name="rating"
-            rating={rating}
-            ratingChanged={ratingChanged}
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date!)}
+            className=" p-2 w-full text-center"
           />
         </div>
 
-        {/* Quill */}
-        <div className="max-h-fit">
-          <ReactQuill
-            theme="snow"
-            value={quillValue}
-            onChange={setQuillValue}
-            className="h-[60vh] mb-4"
-            modules={modules}
-            formats={formats}
-          />
-        </div>
         <button
           type="submit"
-          className="mt-8 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md"
+          className="mb-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md"
         >
           Submit Review
         </button>
       </form>
 
       {/* Preview */}
-      <div className="flex w-full md:w-1/2">
-        <div className="flex flex-col flex-1 bg-gray-100 p-2 rounded-md w-full h-[90%] overflow-auto">
-          <h2 className="text-sm font-bold mb-2">Preview!</h2>
-          <div className="my-4 overflow-auto bg-slate-200">
-            {parse(quillValue)}
-          </div>
+      <div className="flex flex-col flex-1 w-full md:w-1/2 bg-slate-100 h-[90%]">
+        {/* <div className="flex flex-col flex-1 bg-gray-100 p-2 rounded-md w-full h-[90%] overflow-auto"> */}
+        <h2 className="text-sm font-bold mb-2 text-center">Preview!</h2>
+        <div className="flex flex-1 flex-col p-4 overflow-scroll bg-slate-200">
+          <h1 className=" font-bold underline text-center">
+            {parse(reviewData.title)}
+          </h1>
+          <p>{parse(quillValue)}</p>
         </div>
+        {/* </div> */}
       </div>
     </div>
   );

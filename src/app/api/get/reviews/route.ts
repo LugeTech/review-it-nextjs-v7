@@ -4,22 +4,23 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-
 export async function POST(request: NextRequest) {
   interface Body {
     isPublic: boolean;
+    include: {
+      user: boolean;
+      item: boolean;
+    };
   }
   const body: Body = await request.json();
-  console.log(body);
   try {
     const reviews = await prisma.review.findMany({
-      where: body,
+      where: { isPublic: true },
       include: {
-        user: true,
-        item: true,
+        user: body.include.user,
+        item: body.include.item,
       },
     });
-    console.log(reviews);
     return NextResponse.json({
       success: true,
       status: 200,
@@ -31,15 +32,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: false,
       status: 500,
-      data: e.message.slice(0, 500) + '...'
+      data: e.message.slice(0, 500) + "...",
     });
   }
 }
-
-//const users = await prisma.user.findMany()
-
-// {
-//   include: {
-//     user: true,
-//   },
-// })

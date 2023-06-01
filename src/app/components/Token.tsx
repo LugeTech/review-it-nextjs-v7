@@ -17,7 +17,8 @@ export default function Token() {
   console.log(jwtToken);
 
   return (
-    <div className=" w-screen h-full flex flex-wrap justify-center items-center">
+    <div className=" w-screen h-full flex flex-col justify-center items-center">
+      <p>token in console </p>
       <p>token in console </p>
     </div>
   );

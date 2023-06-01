@@ -17,9 +17,9 @@ const QuickTabs = () => {
 
     // this component will be quick search little clickable cards categories for the home page
     return (
-        <div className='  bg-mycolours-light dark:bg-mycolours-dark dark:text-mycolours-light'>
+        <div className='  bg-myTheme-light dark:bg-myTheme-dark dark:text-myTheme-light'>
             <p className='flex pr-2 justify-center items-center text-lg'>Quick Categories</p>
-            <div className="flex flex-1 flex-row justify-center w-full text-neutral-700 dark:text-mycolours-light shadow-lg rounded-lg ">
+            <div className="flex flex-1 flex-row justify-center w-full text-neutral-700 dark:text-myTheme-light shadow-lg rounded-lg ">
                 <div className=" overflow-x-auto whitespace-nowrap ">
                     {categories.map((category, index) => (
                         <div className="inline-block mb-2" key={index}>

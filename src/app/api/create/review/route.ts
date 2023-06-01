@@ -30,7 +30,7 @@ interface UserDATA {
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
   // Get the review data from the request body
-  const sentDataReviewAndItem: SentDataReviewAndItem = (await request.json());
+  const sentDataReviewAndItem: SentDataReviewAndItem = await request.json();
 
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
@@ -49,6 +49,17 @@ export async function POST(request: NextRequest) {
     } else {
       // If the user already exists, retrieve their data from the database
       clerkUserData = await clerkClient.users.getUser(clerkClaimsData.userId);
+      // then add publicMetaData.id to the sentDataReviewAndItem object
+      if (clerkUserData.publicMetadata.id !== undefined) {
+        sentDataReviewAndItem.userId = clerkUserData.publicMetadata
+          .id as string;
+      } else {
+        return NextResponse.json({
+          success: false,
+          status: 401,
+          data: "publicMetadata.id not found",
+        });
+      }
     }
 
     // Check if the item is in the database
@@ -68,7 +79,6 @@ export async function POST(request: NextRequest) {
           data: "item not found",
         });
       }
-
       // The item is in the database, so create a new review entry
       const review = await prisma.review.create({
         data: {
@@ -115,6 +125,7 @@ export async function POST(request: NextRequest) {
       sentDataReviewAndItem.itemId = item.id;
       sentDataReviewAndItem.userId = clerkUserData.publicMetadata
         .id as unknown as string;
+
       // The item is in the database, so create a new review entry
       const review = await prisma.review.create({
         data: {
@@ -144,7 +155,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: false,
       status: 500,
-      data: e.message.slice(0, 500) + "...",
+      data: e.message,
     });
   }
 }

@@ -110,7 +110,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-1 flex-col justify-center  bg-mycolours-light dark:bg-mycolours-dark dark:text-mycolours-light">
+    <div className="flex flex-1 flex-col justify-center  bg-myTheme-light dark:bg-myTheme-dark dark:text-myTheme-light">
       <div className="flex flex-1 flex-row">
         <HeroSection />
       </div>
