@@ -4,4 +4,6 @@
 
 .editor-font-size .ql-editor {
   font-size: 16px; /* Adjust the font size as needed quill */
+  padding: 8px;
+
 }
