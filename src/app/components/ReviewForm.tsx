@@ -96,20 +96,20 @@ const ReviewForm = () => {
     <div className="flex flex-col md:flex-row gap-4 p-4 flex-1 h-auto">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col md:w-1/2 bg-gray-100 dark:bg-myTheme-dark p-2 "
+        className="flex flex-col md:w-1/2 bg-gray-100 dark:bg-myTheme-dark p-4 "
       >
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
           <Image
             src={faker.image.business()}
             alt="avatar"
-            width={60}
-            height={60}
+            width={100}
+            height={100}
             className=""
           />
 
           <div className="flex flex-col text-xs">
-            <p>Business Name</p>
+            <p className="font-bold">Business Name</p>
             <p>www.business.com</p>
             <p>592-645274</p>
           </div>
@@ -184,7 +184,13 @@ const ReviewForm = () => {
           />
         </div>
 
-        <div className="flex">
+        <div className="flex gap-4">
+          <button
+            type="submit"
+            className=" bg-myTheme-primary hover:bg-myTheme-secondary text-white font-base p-2 rounded-md w-full"
+          >
+            Preview
+          </button>
           <button
             type="submit"
             className=" bg-myTheme-primary hover:bg-myTheme-secondary text-white font-base p-2 rounded-md w-full"
@@ -195,7 +201,7 @@ const ReviewForm = () => {
       </form>
 
       {/* Preview area */}
-      <div className="flex flex-col flex-1 dark:bg-myTheme-dark p-2 rounded-md w-full md:w-1/2 bg-slate-100 overflow-scroll h-[240px] md:h-[400px]">
+      <div className="hidden md:flex flex-col flex-1 dark:bg-myTheme-dark p-4 rounded-md w-full md:w-1/2 bg-slate-100 overflow-scroll h-[240px] md:h-[400px] ">
         <h2 className="text-sm font-bold mb-2 text-center">Preview!</h2>
         <div className="flex flex-1 flex-col p-4 max-h-full overflow-scroll bg-slate-200">
           <h1 className="font-bold underline text-center">
