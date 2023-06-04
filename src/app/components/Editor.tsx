@@ -49,15 +49,6 @@ export default function Editor({ onEditorValue }: EditorComponentProps) {
             <RichTextEditor.H3 />
             <RichTextEditor.H4 />
           </RichTextEditor.ControlsGroup>
-
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.BulletList />
-          </RichTextEditor.ControlsGroup>
-
-          <RichTextEditor.ControlsGroup>
-            <RichTextEditor.Link />
-            <RichTextEditor.Unlink />
-          </RichTextEditor.ControlsGroup>
         </RichTextEditor.Toolbar>
 
         <RichTextEditor.Content />

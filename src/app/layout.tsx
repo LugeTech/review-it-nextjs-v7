@@ -1,4 +1,4 @@
-import "./globals.css";
+import "@/app/globals.css";
 import { Poppins } from "next/font/google";
 import Navbar from "./components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";

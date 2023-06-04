@@ -1,6 +1,5 @@
 "use client";
 import { iReview } from "../util/Interfaces";
-import parse from "html-react-parser";
 import { useState } from "react";
 import RatingModule from "./RatingModule";
 import DatePicker from "react-datepicker";
@@ -73,7 +72,7 @@ const ReviewForm = () => {
     e.preventDefault();
     await sendToServer();
   };
-  console.log("user logged in", user?.username);
+  const businessImage = faker.image.business();
   return (
     <div className="flex flex-col lg:flex-row gap-4 flex-1 overflow-scroll ">
       <form
@@ -82,13 +81,7 @@ const ReviewForm = () => {
       >
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
-          <Image
-            src={faker.image.business()}
-            alt="avatar"
-            width={50}
-            height={50}
-            className=""
-          />
+          <Image src={businessImage} alt="avatar" width={50} height={50} />
 
           <div className="flex flex-col text-xs">
             <p className="font-bold">Business Name</p>
