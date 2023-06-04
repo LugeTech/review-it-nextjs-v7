@@ -1,5 +1,5 @@
 // noinspection GrazieInspection
-
+"use client";
 import {
   UserButton,
   SignedIn,
@@ -11,7 +11,6 @@ import HomeLink from "./HomeLink";
 import TopLinks from "./TopLinks";
 import SideLinks from "./SideLinks";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -51,11 +50,10 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
               {/* Mount the UserButton component */}
               {<UserButton /> || <Skeleton />}
             </SignedIn>
+
             <SignedOut>
               {/* Sign-ed out users get sign in button */}
-              <span className="flex gap-0.5 hover:text-myTheme-c1 duration-300 ease-linear transition-all">
-                {<SignInButton /> || <Skeleton />}
-              </span>
+              <SignInButton />
             </SignedOut>
           </div>
         </div>

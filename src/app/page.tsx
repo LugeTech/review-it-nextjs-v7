@@ -7,7 +7,9 @@ import HeroSection from "./components/HeroSection";
 import Token from "./components/Token";
 import { Suspense } from "react";
 
-export default function Home() {
+export const revalidate = 0;
+
+export default async function Home() {
   const reviews: iReview[] = [
     {
       _id: "1",

@@ -5,5 +5,19 @@
 .editor-font-size .ql-editor {
   font-size: 16px; /* Adjust the font size as needed quill */
   padding: 8px;
+}
 
+.mantine-RichTextEditor-content {
+  background-color: transparent;
+  @apply text-base dark:text-myTheme-light;
+  @apply h-full;
+}
+.mantine-RichTextEditor-root {
+  background-color: transparent;
+}
+.mantine-RichTextEditor-toolbar {
+  background-color: white;
+}
+.mantine-UnstyledButton-root {
+  @apply text-base dark:text-myTheme-light;
 }
