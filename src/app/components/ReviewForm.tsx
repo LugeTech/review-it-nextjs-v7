@@ -1,37 +1,19 @@
 "use client";
 import { iReview } from "../util/Interfaces";
-import "react-quill/dist/quill.snow.css";
-import parse from "html-react-parser";
-import { useMemo, useState } from "react";
-import dynamic from "next/dynamic";
+import { useState } from "react";
 import RatingModule from "./RatingModule";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useUser } from "@clerk/nextjs";
 import { faker } from "@faker-js/faker";
 import Image from "next/image";
-// import ReactQuill from "react-quill";
-// fixed build error here: https://stackoverflow.com/questions/73047747/error-referenceerror-document-is-not-defined-nextjs
-
-const modules = {
-  toolbar: [["bold", "italic", "underline", "strike"], ["link"], ["clean"]],
-};
-
-const formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "link",
-];
+import Editor from "./Editor";
+import EditorPreview from "./EditorPreview";
 
 const ReviewForm = () => {
   const { user } = useUser();
+  const [rating, setRating] = useState(1); // Initial value
   const [startDate, setStartDate] = useState(new Date());
-  const [quillValue, setQuillValue] = useState("");
   const [reviewData, setReviewData] = useState<iReview>({
     body: "",
     comments: [],
@@ -44,11 +26,10 @@ const ReviewForm = () => {
     user: "",
   });
 
-  const ReactQuill = useMemo(
-    () => dynamic(() => import("react-quill"), { ssr: false }),
-    []
-  );
-  const [rating, setRating] = useState(1); // Initial value
+  const handleEditorValue = (value: string) => {
+    setReviewData((prevData): iReview => ({ ...prevData, body: value }));
+    console.log(reviewData);
+  };
 
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
@@ -61,7 +42,6 @@ const ReviewForm = () => {
   };
 
   const sendToServer = async () => {
-    reviewData.body = quillValue;
     console.log(reviewData);
     return;
     try {
@@ -92,29 +72,24 @@ const ReviewForm = () => {
     e.preventDefault();
     await sendToServer();
   };
+  const businessImage = faker.image.business();
   return (
-    <div className="flex flex-col md:flex-row gap-4 p-4 flex-1 h-auto">
+    <div className="flex flex-col lg:flex-row gap-4 flex-1 overflow-scroll ">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col md:w-1/2 bg-gray-100 dark:bg-myTheme-dark p-2 "
+        className="flex flex-col lg:w-1/2 bg-myTheme-base-100 dark:bg-myTheme-dark p-4 h-full"
       >
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
-          <Image
-            src={faker.image.business()}
-            alt="avatar"
-            width={60}
-            height={60}
-            className=""
-          />
+          <Image src={businessImage} alt="avatar" width={50} height={50} />
 
           <div className="flex flex-col text-xs">
-            <p>Business Name</p>
+            <p className="font-bold">Business Name</p>
             <p>www.business.com</p>
             <p>592-645274</p>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center mb-2 gap-2 border dark:border-myTheme-dark2 p-1 shadow-sm">
+        <div className="flex flex-col justify-center items-center mb-2 border-b dark:border-myTheme-dark2 p-1 shadow-sm">
           <label htmlFor="rating" className="w-full text-base">
             Rate your experience
           </label>
@@ -122,11 +97,11 @@ const ReviewForm = () => {
             name="rating"
             rating={rating}
             ratingChanged={ratingChanged}
-            size={250}
+            size={220}
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-2">
           <label htmlFor="title" className="text-base">
             Title your experience:
           </label>
@@ -140,8 +115,8 @@ const ReviewForm = () => {
         </div>
 
         {/* date and trans # */}
-        <div className=" flex flex-row gap-4">
-          <div className="flex flex-1 flex-col">
+        <div className=" flex flex-row gap-4 mb-2">
+          <div className="flex flex-1 flex-col z-10">
             <label htmlFor="date" className="text-base">
               Happened when?
             </label>
@@ -150,7 +125,7 @@ const ReviewForm = () => {
               name="dateItHappened"
               selected={startDate}
               onChange={(date) => setStartDate(date!)}
-              className="border border-gray-300 rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className=" border border-gray-300 rounded-md px-3 py-2 mt-1 w-1/2 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
@@ -169,22 +144,21 @@ const ReviewForm = () => {
           </div>
         </div>
 
-        <div className="flex flex-col h-80 mt-2 w-full">
-          <label htmlFor="rating" className="text-base mb-2">
+        <div className="flex flex-col h-80 w-full mb-2">
+          {/* <label htmlFor="rating" className="text-base mb-2">
             Tell us more about your experience
-          </label>
-          <ReactQuill
-            // theme="snow"
-            value={quillValue}
-            onChange={setQuillValue}
-            className="h-[240px] bg-transparent editor-font-size"
-            modules={modules}
-            formats={formats}
-            placeholder="Write something..."
-          />
+          </label> */}
+          <Editor onEditorValue={handleEditorValue} />
         </div>
 
-        <div className="flex">
+        <div className="flex gap-4">
+          <button
+            type="button"
+            className=" bg-myTheme-accent hover:bg-myTheme-secondary text-white font-base p-2 rounded-md w-1/2"
+          >
+            Preview
+          </button>
+
           <button
             type="submit"
             className=" bg-myTheme-primary hover:bg-myTheme-secondary text-white font-base p-2 rounded-md w-full"
@@ -195,34 +169,8 @@ const ReviewForm = () => {
       </form>
 
       {/* Preview area */}
-      <div className="flex flex-col flex-1 dark:bg-myTheme-dark p-2 rounded-md w-full md:w-1/2 bg-slate-100 overflow-scroll h-[240px] md:h-[400px]">
-        <h2 className="text-sm font-bold mb-2 text-center">Preview!</h2>
-        <div className="flex flex-1 flex-col p-4 max-h-full overflow-scroll bg-slate-200">
-          <h1 className="font-bold underline text-center">
-            {parse(reviewData.title)}
-          </h1>
-
-          {reviewData.title && (
-            <div className="font-extralight text-xs italic no-underline pl-2 text-center">
-              by {user?.username}
-            </div>
-          )}
-
-          {reviewData.title && (
-            <div className="flex flex-row gap-2 justify-center mt-2">
-              <RatingModule
-                name="rating"
-                rating={rating}
-                ratingChanged={() => {
-                  alert("cnt change rating here");
-                }}
-                size={70}
-              />
-            </div>
-          )}
-
-          <div className=" text-start">{parse(quillValue)}</div>
-        </div>
+      <div className="hidden lg:flex flex-1 overflow-scroll">
+        <EditorPreview reviewData={reviewData} />
       </div>
     </div>
   );

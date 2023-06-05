@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-.editor-font-size .ql-editor {
-  font-size: 16px; /* Adjust the font size as needed quill */
-  padding: 8px;
-
+.mantine-RichTextEditor-content {
+  background-color: white;
+  @apply text-base dark:text-myTheme-light;
+}
+.mantine-RichTextEditor-root {
+  background-color: transparent;
+}
+.mantine-RichTextEditor-toolbar {
+  background-color: white;
+}
+.mantine-UnstyledButton-root {
+  @apply text-base dark:text-myTheme-light;
 }

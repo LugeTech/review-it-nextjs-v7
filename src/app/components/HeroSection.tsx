@@ -45,7 +45,7 @@ const HeroSection = () => {
                       />
                       <button
                         type="submit"
-                        className="text-white dark:text-black  absolute right-2.5 bottom-2.5 bg-myTheme-neutral hover:bg-myTheme-accent focus:ring-4 focus:outline-none focus:ring-myTheme-secondary font-medium rounded-lg text-sm px-4 py-2 dark:bg-myTheme-light dark:hover:bg-myTheme-accent dark:focus:ring-myTheme-secondary"
+                        className=" dark:text-white  absolute right-2.5 bottom-2.5 bg-myTheme-primary hover:bg-myTheme-accent focus:ring-4 focus:outline-none focus:ring-myTheme-secondary font-medium rounded-lg text-sm px-4 py-2  dark:hover:bg-myTheme-accent dark:focus:ring-myTheme-secondary"
                       >
                         Search
                       </button>
