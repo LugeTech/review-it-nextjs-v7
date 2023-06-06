@@ -1,6 +1,6 @@
 "use client";
 import { iReview } from "../util/Interfaces";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import RatingModule from "./RatingModule";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -125,7 +125,7 @@ const ReviewForm = () => {
               name="dateItHappened"
               selected={startDate}
               onChange={(date) => setStartDate(date!)}
-              className=" border border-gray-300 rounded-md px-3 py-2 mt-1 w-1/2 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className=" border border-gray-300 rounded-md px-3 py-2 mt-1 w-full md:w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
@@ -148,7 +148,9 @@ const ReviewForm = () => {
           {/* <label htmlFor="rating" className="text-base mb-2">
             Tell us more about your experience
           </label> */}
-          <Editor onEditorValue={handleEditorValue} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Editor onEditorValue={handleEditorValue} />
+          </Suspense>
         </div>
 
         <div className="flex gap-4">

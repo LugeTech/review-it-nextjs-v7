@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { faker } from "@faker-js/faker";
 import { iReview, iUser, iComment, iProduct } from "./util/Interfaces";
 import QuickTabs from "./components/QuickTabs";
