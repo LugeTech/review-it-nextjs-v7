@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 .mantine-RichTextEditor-content {
-  background-color: white;
-  @apply text-base dark:text-myTheme-light;
+  /* background-color: white; */
+  @apply text-base dark:text-myTheme-light h-full dark:bg-myTheme-dark;
 }
 .mantine-RichTextEditor-root {
-  background-color: transparent;
+  @apply dark:bg-myTheme-dark;
 }
 .mantine-RichTextEditor-toolbar {
-  background-color: white;
+  @apply dark:bg-myTheme-dark;
 }
 .mantine-UnstyledButton-root {
   @apply text-base dark:text-myTheme-light;

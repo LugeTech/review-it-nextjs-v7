@@ -1,5 +1,5 @@
 // noinspection GrazieInspection
-"use client";
+"use client"; // only way to stop the hydration error and i don't understand
 import HomeLink from "./HomeLink";
 import TopLinks from "./TopLinks";
 import SideLinks from "./SideLinks";

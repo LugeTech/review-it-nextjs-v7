@@ -27,7 +27,7 @@ const Links: FC<LinksProps> = () => {
     },
     {
       name: "My Reviews",
-      link: "/",
+      link: "/test",
     },
     {
       name: "My Profile",

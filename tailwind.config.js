@@ -10,21 +10,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        mycolours: {
-          dark: "#20272F",
-          dark1: "#21202f",
-          dark2: "#202f2f",
-          primary: "#2e8555",
-          secondary: "#4EC5F1",
-          light: "#eee",
-          grey: "#c8c9ca",
-          c1: "#F18C8E",
-          c2: "#F0B7A4",
-          c3: "#F1D1B5",
-          c4: "#568EA6",
-          c5: "#305F72",
-        },
-
         myTheme: {
           primary: "#6e9bd3",
           secondary: "#ba98f2",
@@ -40,11 +25,6 @@ module.exports = {
           dark2: "#202f2f",
           light: "#eee",
           grey: "#c8c9ca",
-          c1: "#F18C8E",
-          c2: "#F0B7A4",
-          c3: "#F1D1B5",
-          c4: "#568EA6",
-          c5: "#305F72",
         },
       },
     },

@@ -24,7 +24,7 @@ export default function Editor({ onEditorValue }: EditorComponentProps) {
     // triggered on every change
     onUpdate: ({ editor }) => {
       const htmlEditorContent = editor.getHTML();
-      console.log(htmlEditorContent);
+      // console.log(htmlEditorContent);
       onEditorValue(htmlEditorContent);
     },
   });

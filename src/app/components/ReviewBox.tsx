@@ -22,7 +22,6 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
 }) => {
   const [rating, setRating] = useState(review.rating); // Initial value
 
-
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
   };
@@ -74,14 +73,12 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 <div className=" font-normal tracking-tight ">
                   {/* review body */}
                   {review.body.slice(0, 90) + "... read more"}
-
-                  {/* <Rating itemStyles={styleForRating} style={{ maxWidth: 100 }} value={rating} onChange={ratingChanged} /> */}
-                  <RatingModule
-                    name="rating"
-                    rating={rating}
-                    ratingChanged={ratingChanged}
-                    size={100}
-                  />
+                    <RatingModule
+                      name="rating"
+                      rating={rating}
+                      ratingChanged={ratingChanged}
+                      size={100}
+                    />
                 </div>
               </div>
             </div>
