@@ -1,6 +1,6 @@
 "use client";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, Suspense, useState } from "react";
 import parse from "html-react-parser";
 import RatingModule from "./RatingModule";
 import { iReview } from "../util/Interfaces";
@@ -41,7 +41,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
   }
 
   return (
-    <>
+    <div className="flex flex-col w-full">
       <button
         type="button"
         onClick={openModal}
@@ -51,7 +51,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-50" onClose={closeModal}>
+        <Dialog as="div" className="relative z-50 w-full" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -65,7 +65,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <div className="flex min-h-full items-center justify-center p-4 text-center w-full">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -75,43 +75,40 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all flex flex-col flex-1 items-center justify-center">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
                     Preview
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <div className="flex flex-col flex-1 dark:bg-myTheme-dark p-4 rounded-md lg:w-1/2 bg-slate-100 overflow-scroll ">
-                      <div className="flex flex-1 flex-col p-4 overflow-scroll bg-slate-200">
-                        <h1 className="font-bold underline text-center">
-                          {parse(reviewData.title)}
-                        </h1>
+                  <div className="flex flex-col flex-1 w-full dark:bg-myTheme-dark p-4 rounded-md lg:w-3/4 bg-slate-100 overflow-scroll items-center justify-center">
+                    <h1 className="font-bold underline text-center ">
+                      {parse(reviewData.title)}
+                    </h1>
 
-                        {reviewData.title && (
-                          <div className="font-extralight text-xs italic no-underline pl-2 text-center">
-                            by {user?.username}
-                          </div>
-                        )}
-
-                        {reviewData.title && (
-                          <div className="flex flex-row gap-2 justify-center mt-2">
-                            <RatingModule
-                              name="rating"
-                              rating={reviewData.rating}
-                              ratingChanged={() => {
-                                alert("Can't change rating here");
-                              }}
-                              size={70}
-                            />
-                          </div>
-                        )}
-
-                        <div className=" text-start">
-                          {parse(reviewData.body, options)}
-                        </div>
+                    {reviewData.title && (
+                      <div className="font-extralight text-xs italic no-underline pl-2 text-center">
+                        by {user?.username}
                       </div>
+                    )}
+
+                    {reviewData.title && (
+                      <div className="flex flex-1 justify-center mt-2 mb-2">
+                        <Suspense fallback={<div>Loading...</div>}>
+                          {reviewData.rating}
+                          <RatingModule
+                            name="rating"
+                            rating={reviewData.rating}
+                            ratingChanged={() => {}}
+                            size={70}
+                          />
+                        </Suspense>
+                      </div>
+                    )}
+
+                    <div className=" text-start">
+                      {parse(reviewData.body, options)}
                     </div>
                   </div>
 
@@ -123,6 +120,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                     >
                       Close
                     </button>
+                    <div className="z-50"></div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -130,7 +128,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
           </div>
         </Dialog>
       </Transition>
-    </>
+    </div>
   );
 };
 

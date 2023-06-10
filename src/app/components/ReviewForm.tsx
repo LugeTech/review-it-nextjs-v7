@@ -28,7 +28,6 @@ const ReviewForm = () => {
 
   const handleEditorValue = (value: string) => {
     setReviewData((prevData): iReview => ({ ...prevData, body: value }));
-    console.log(reviewData);
   };
 
   const ratingChanged = (newRating: number) => {
@@ -42,7 +41,6 @@ const ReviewForm = () => {
   };
 
   const sendToServer = async () => {
-    console.log(reviewData);
     try {
       const response = await fetch("http://localhost:3000/api/createreview", {
         method: "POST",
@@ -73,9 +71,9 @@ const ReviewForm = () => {
   };
   const businessImage = faker.image.business();
 
-  function openModal(): void {
-    throw new Error("Function not implemented.");
-  }
+  // function openModal(): void {
+  //   throw new Error("Function not implemented.");
+  // }
 
   return (
     <div className="flex flex-col flex-1 overflow-scroll h-full md:w-3/4 lg:w-1/2 items-center mt-8 bg-myTheme-light dark:bg-myTheme-dark">
