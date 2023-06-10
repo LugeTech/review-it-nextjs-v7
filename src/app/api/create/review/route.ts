@@ -1,13 +1,10 @@
 // Importing necessary modules and packages
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/app/util/prismaClient";
 import { NextResponse, NextRequest } from "next/server";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
 import { SentDataReviewAndItem } from "@/app/util/Interfaces";
-
-// Initializing Prisma client
-const prisma = new PrismaClient();
 
 // Interface representing user data
 interface UserDATA {
@@ -25,12 +22,18 @@ interface UserDATA {
   sub: string;
   userId: string;
   userName: string;
+  metadata: {
+    id: string;
+    userInDb: boolean;
+  };
 }
 
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
+  console.log("create!!!");
   // Get the review data from the request body
   const sentDataReviewAndItem: SentDataReviewAndItem = await request.json();
+  console.log(request);
 
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
@@ -38,9 +41,12 @@ export async function POST(request: NextRequest) {
   try {
     // Extract the session claims from the request
     const { sessionClaims } = getAuth(request);
+    console.log(sessionClaims);
 
     // Cast the session claims to the `UserDATA` type
     const clerkClaimsData = sessionClaims as unknown as UserDATA;
+
+    // console.log(clerkClaimsData);
 
     // Check if the user already exists in the database
     if (!(await userInDb(clerkClaimsData.userId))) {
@@ -70,6 +76,7 @@ export async function POST(request: NextRequest) {
           id: sentDataReviewAndItem.item.itemId,
         },
       });
+      console.log("found the item in the db");
 
       // If the item is not in the database, return an error
       if (!item) {
@@ -79,12 +86,13 @@ export async function POST(request: NextRequest) {
           data: "item not found",
         });
       }
+      console.log(clerkClaimsData.userId);
       // The item is in the database, so create a new review entry
       const review = await prisma.review.create({
         data: {
           body: sentDataReviewAndItem.body,
           rating: sentDataReviewAndItem.rating,
-          userId: sentDataReviewAndItem.userId,
+          userId: clerkClaimsData.metadata.id,
           title: sentDataReviewAndItem.title,
           itemId: item.id,
           createdDate: sentDataReviewAndItem.createdDate,

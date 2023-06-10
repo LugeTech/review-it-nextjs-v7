@@ -73,12 +73,12 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 <div className=" font-normal tracking-tight ">
                   {/* review body */}
                   {review.body.slice(0, 90) + "... read more"}
-                    <RatingModule
-                      name="rating"
-                      rating={rating}
-                      ratingChanged={ratingChanged}
-                      size={100}
-                    />
+                  <RatingModule
+                    name="rating"
+                    rating={rating}
+                    ratingChanged={ratingChanged}
+                    size={"rating-sm"}
+                  />
                 </div>
               </div>
             </div>
@@ -86,10 +86,10 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
         </div>
 
         {/* Top comment */}
-        <div className="text-xs mt-2  text-gray-700 dark:text-gray-400 tracking-tighter font-semibold">
+        <div className="text-xs mt-2  text-gray-700 dark:text-gray-400 tracking-tighter font-semibold pl-1">
           Top Comment
         </div>
-        <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2">
+        <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2 pl-1">
           <div className="">
             {/* will di this calculation in a useState above */}
             {review?.title ? (

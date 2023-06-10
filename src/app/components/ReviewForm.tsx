@@ -1,40 +1,53 @@
 "use client";
-import { iReview } from "../util/Interfaces";
+import { SentDataReviewAndItem, iReview } from "../util/Interfaces";
 import { Suspense, useState } from "react";
 import RatingModule from "./RatingModule";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useUser } from "@clerk/nextjs";
+import { useUser, useAuth } from "@clerk/nextjs";
 import { faker } from "@faker-js/faker";
 import Image from "next/image";
 import Editor from "./Editor";
 import EditorPreview from "./EditorPreview";
 
 const ReviewForm = () => {
+  const { getToken } = useAuth();
   const { user } = useUser();
   const [rating, setRating] = useState(1); // Initial value
   const [startDate, setStartDate] = useState(new Date());
-  const [reviewData, setReviewData] = useState<iReview>({
+  const [reviewData, setReviewData] = useState<SentDataReviewAndItem>({
     body: "",
     comments: [],
-    date: undefined,
     helpfulVotes: 0,
-    product: "",
     rating: 1,
     title: "",
     unhelpfulVotes: 0,
-    user: "",
+    userId: user?.publicMetadata.id! as string,
+    item: {
+      itemSelected: true,
+      itemId: "64813f744fbbbd32cb390c16",
+      name: "ssd enclosure",
+      description: "default description",
+    },
+    images: [],
+    videos: [],
+    createdDate: new Date(),
+    links: [],
   });
 
   const handleEditorValue = (value: string) => {
-    setReviewData((prevData): iReview => ({ ...prevData, body: value }));
+    setReviewData(
+      (prevData): SentDataReviewAndItem => ({ ...prevData, body: value })
+    );
   };
 
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
     function addRating(rating: number) {
       // not sure if this is necessary, but it should be the safest way. test before making simpler
-      setReviewData((prevData): iReview => ({ ...prevData, rating: rating }));
+      setReviewData(
+        (prevData): SentDataReviewAndItem => ({ ...prevData, rating: rating })
+      );
     }
 
     addRating(newRating);
@@ -42,27 +55,41 @@ const ReviewForm = () => {
 
   const sendToServer = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/createreview", {
+      // const token = await getToken({ template: "4000" });
+      // if (token === null) {
+      //   throw new Error("no token");
+      // }
+      // console.log(token);
+
+      const response = await fetch("http://localhost:3000/api/create/review", {
         method: "POST",
         body: JSON.stringify(reviewData),
         headers: {
           "Content-Type": "application/json",
         },
       });
+      console.log("after fetch");
 
       if (response.ok) {
+        console.log("response ok", response);
         const responseData = await response.json();
+        console.log(responseData);
       } else {
         const errorData = await response.json();
+        console.log(errorData);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setReviewData((prevData): iReview => ({ ...prevData, [name]: value }));
+    setReviewData(
+      (prevData): SentDataReviewAndItem => ({ ...prevData, [name]: value })
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -76,7 +103,7 @@ const ReviewForm = () => {
   // }
 
   return (
-    <div className="flex flex-col flex-1 overflow-scroll h-full md:w-3/4 lg:w-1/2 items-center mt-8 bg-myTheme-light dark:bg-myTheme-dark">
+    <div className="flex flex-col flex-1 h-full md:w-3/4 lg:w-1/2 items-center mt-8 bg-myTheme-light dark:bg-myTheme-dark">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col p-4 h-full w-full rounded-md bg-myTheme-light dark:bg-myTheme-dark"
@@ -101,7 +128,7 @@ const ReviewForm = () => {
             name="rating"
             rating={rating}
             ratingChanged={ratingChanged}
-            size={220}
+            size={"rating-lg"}
           />
         </div>
 

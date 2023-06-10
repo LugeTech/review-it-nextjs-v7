@@ -1,7 +1,5 @@
 "use client";
-
-import { Rating } from "@smastrom/react-rating";
-import { styleForRating } from "@/app/util/CONST";
+import React from "react";
 
 const RatingModule = ({
   name,
@@ -15,33 +13,49 @@ const RatingModule = ({
   size: string;
 }) => {
   return (
-    <div>
-      {/* <Rating itemStyles={styleForRating} style={{ maxWidth: size }} value={rating} onChange={ratingChanged} /> */}
-      <div className={`rating gap-2 rating-lg ${size}`}>
+    <div className="flex flex-grow-0">
+      <div
+        className={`w-auto rating gap-2 ${size} items-center justify-center bg-myTheme-dark p-2 rounded-md `}
+      >
         <input
           type="radio"
-          name="rating-3"
+          name={name}
+          value={1}
           className="mask mask-star bg-red-400"
+          checked={rating === 1}
+          onChange={() => ratingChanged(1)}
         />
         <input
           type="radio"
-          name="rating-3"
+          name={name}
+          value={2}
           className="mask mask-star bg-orange-400"
+          checked={rating === 2}
+          onChange={() => ratingChanged(2)}
         />
         <input
           type="radio"
-          name="rating-3"
+          name={name}
+          value={3}
           className="mask mask-star bg-yellow-400"
+          checked={rating === 3}
+          onChange={() => ratingChanged(3)}
         />
         <input
           type="radio"
-          name="rating-3"
+          name={name}
+          value={4}
           className="mask mask-star bg-lime-400"
+          checked={rating === 4}
+          onChange={() => ratingChanged(4)}
         />
         <input
           type="radio"
-          name="rating-3"
+          name={name}
+          value={5}
           className="mask mask-star bg-green-400"
+          checked={rating === 5}
+          onChange={() => ratingChanged(5)}
         />
       </div>
     </div>

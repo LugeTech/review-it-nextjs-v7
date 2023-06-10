@@ -6,7 +6,7 @@ import HeroSection from "./components/HeroSection";
 import Token from "./components/Token";
 import { Suspense } from "react";
 
-export const revalidate = 0;
+export const revalidate = 30;
 
 export default async function Home() {
   const reviews: iReview[] = [
