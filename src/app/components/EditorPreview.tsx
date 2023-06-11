@@ -96,12 +96,11 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                     {reviewData.title && (
                       <div className="flex flex-1 justify-center mt-2 mb-2">
                         <Suspense fallback={<div>Loading...</div>}>
-                          {reviewData.rating}
                           <RatingModule
                             name="rating"
                             rating={reviewData.rating}
                             ratingChanged={() => {}}
-                            size={"rating-sm"}
+                            size={"rating-xs"}
                           />
                         </Suspense>
                       </div>

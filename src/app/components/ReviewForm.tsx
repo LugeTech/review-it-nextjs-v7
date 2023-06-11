@@ -137,6 +137,7 @@ const ReviewForm = () => {
             Title your experience:
           </label>
           <input
+            placeholder="Be creative"
             type="text"
             id="title"
             name="title"
