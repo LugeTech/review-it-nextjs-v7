@@ -4,7 +4,6 @@ import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
 import Token from "./components/Token";
-import { Suspense } from "react";
 
 export const revalidate = 30;
 

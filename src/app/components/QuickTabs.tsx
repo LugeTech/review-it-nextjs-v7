@@ -28,13 +28,10 @@ const QuickTabs = () => {
         Quick Categories
       </p>
       <div className="flex flex-1 flex-row justify-center w-full text-neutral-700 dark:text-myTheme-light shadow-lg rounded-lg ">
-        <div className=" overflow-x-auto whitespace-nowrap ">
+        <div className=" overflow-x-scroll whitespace-nowrap ">
           {categories.map((category, index) => (
-            <div className="inline-block mb-2" key={index}>
-              <div
-                onClick={() => {}}
-                className=" text-2xl hover:bg-white dark:hover:bg-black cursor-pointer  flex flex-col bg-transparent rounded justify-around items-center p-2 transition-all ease-in-out"
-              >
+            <div className="inline-block mb-2 " key={index}>
+              <div className=" text-2xl hover:bg-white dark:hover:bg-black cursor-pointer  flex flex-col bg-transparent rounded justify-around items-center p-2 transition-all ease-in-out">
                 {category.icon}
                 <p className=" text-xs">{category.name}</p>
               </div>
