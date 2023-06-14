@@ -53,7 +53,7 @@ const SearchSuggestions = () => {
                 onClick={() => handleSuggestionClick(suggestion)}
               >
                 <p className="text-gray-500 text-base font-normal">
-                  {suggestion.text.slice(0, 40)}
+                  {suggestion.text}
                 </p>
                 <div className=" w-full">
                   <p className="text-gray-400 text-sm font-extralight">

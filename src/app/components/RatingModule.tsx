@@ -29,7 +29,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={2}
-          className="mask mask-star bg-orange-400"
+          className="mask mask-star bg-orange-500"
           checked={rating === 2}
           onChange={() => ratingChanged(2)}
         />
@@ -53,7 +53,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={5}
-          className="mask mask-star bg-green-400"
+          className="mask mask-star bg-green-500"
           checked={rating === 5}
           onChange={() => ratingChanged(5)}
         />

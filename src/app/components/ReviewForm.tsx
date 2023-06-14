@@ -9,6 +9,7 @@ import { faker } from "@faker-js/faker";
 import Image from "next/image";
 import Editor from "./Editor";
 import EditorPreview from "./EditorPreview";
+import { apiUrl } from "../util/apiUrl";
 
 const ReviewForm = () => {
   const { getToken } = useAuth();
@@ -61,7 +62,7 @@ const ReviewForm = () => {
       // }
       // console.log(token);
 
-      const response = await fetch("http://localhost:3000/api/create/review", {
+      const response = await fetch(`${apiUrl}/create/review`, {
         method: "POST",
         body: JSON.stringify(reviewData),
         headers: {

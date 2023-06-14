@@ -30,19 +30,14 @@ interface UserDATA {
 
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
-  console.log("create!!!");
   // Get the review data from the request body
   const sentDataReviewAndItem: SentDataReviewAndItem = await request.json();
-  console.log(request);
 
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
-
   try {
     // Extract the session claims from the request
     const { sessionClaims } = getAuth(request);
-    console.log(sessionClaims);
-
     // Cast the session claims to the `UserDATA` type
     const clerkClaimsData = sessionClaims as unknown as UserDATA;
 
@@ -86,7 +81,6 @@ export async function POST(request: NextRequest) {
           data: "item not found",
         });
       }
-      console.log(clerkClaimsData.userId);
       // The item is in the database, so create a new review entry
       const review = await prisma.review.create({
         data: {

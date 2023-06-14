@@ -22,8 +22,8 @@ const Links: FC<LinksProps> = () => {
       link: "/fetch",
     },
     {
-      name: "Services",
-      link: "/",
+      name: "Search",
+      link: "/search",
     },
     {
       name: "My Reviews",

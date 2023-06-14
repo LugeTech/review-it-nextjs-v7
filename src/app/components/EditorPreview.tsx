@@ -82,7 +82,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                   >
                     Preview
                   </Dialog.Title>
-                  <div className="flex flex-col flex-1 w-full dark:bg-myTheme-dark p-4 rounded-md lg:w-3/4 bg-slate-100 overflow-scroll items-center justify-center">
+                  <div className="flex flex-col flex-1 w-full dark:bg-myTheme-dark p-4 rounded-md lg:w-3/4 bg-white overflow-scroll items-center justify-center">
                     <h1 className="font-bold underline text-center ">
                       {parse(reviewData.title)}
                     </h1>
@@ -114,7 +114,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
                       Close
