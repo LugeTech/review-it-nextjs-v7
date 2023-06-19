@@ -107,7 +107,7 @@ const ReviewForm = () => {
     <div className="flex flex-col flex-1 h-full md:w-3/4 lg:w-1/2 items-center mt-8 bg-myTheme-light dark:bg-myTheme-dark">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col p-4 h-full w-full rounded-md bg-myTheme-light dark:bg-myTheme-dark"
+        className="flex flex-col p-4 h-full w-full rounded-md bg-white dark:bg-myTheme-dark"
       >
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
