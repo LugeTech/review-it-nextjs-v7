@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="relled back the bard refactor 😅">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/create/review/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/create/review/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/EditorPreview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/EditorPreview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/RatingModule.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/RatingModule.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/ReviewBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/ReviewBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/ReviewForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/ReviewForm.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="5b389e5b-677b-49c8-bdd4-8cf89aa29c63" name="Changes" comment="relled back the bard refactor 😅" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,24 +24,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "prisma-branch",
-    "last_opened_file_path": "/Users/kentaylor/Developer/Javascript Projects/Review It/review-it-nextjs-v7-remake",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "pnpm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "ts.external.directory.path": "/Users/kentaylor/Developer/Javascript Projects/Review It/review-it-nextjs-v7-remake/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;prisma-branch&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/kentaylor/Developer/Javascript Projects/Review It/review-it-nextjs-v7-remake&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/kentaylor/Developer/Javascript Projects/Review It/review-it-nextjs-v7-remake/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/app/api/create/item" />
@@ -85,6 +78,7 @@
       <workItem from="1685470038546" duration="5558000" />
       <workItem from="1685524974080" duration="4231000" />
       <workItem from="1686418374684" duration="701000" />
+      <workItem from="1687481872094" duration="7000" />
     </task>
     <task id="LOCAL-00001" summary="error and loading pages for /">
       <created>1685150362076</created>
