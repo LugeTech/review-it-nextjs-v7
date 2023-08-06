@@ -1,8 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
+import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   interface Body {
@@ -12,6 +9,7 @@ export async function POST(request: NextRequest) {
       item: boolean;
     };
   }
+
   const body: Body = await request.json();
   try {
     const reviews = await prisma.review.findMany({

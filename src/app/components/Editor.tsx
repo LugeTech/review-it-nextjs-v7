@@ -24,16 +24,13 @@ export default function Editor({ onEditorValue }: EditorComponentProps) {
     // triggered on every change
     onUpdate: ({ editor }) => {
       const htmlEditorContent = editor.getHTML();
-      console.log(htmlEditorContent);
+      // console.log(htmlEditorContent);
       onEditorValue(htmlEditorContent);
     },
   });
   return (
     <div>
-      <RichTextEditor
-        editor={editor}
-        className=" h-[280px] overflow-scroll bg-white"
-      >
+      <RichTextEditor editor={editor} className=" h-[280px] overflow-scroll">
         <RichTextEditor.Toolbar sticky>
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.Bold />

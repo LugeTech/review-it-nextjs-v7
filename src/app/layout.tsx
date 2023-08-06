@@ -2,8 +2,7 @@ import "@/app/globals.css";
 import { Poppins } from "next/font/google";
 import Navbar from "./components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
-import "@smastrom/react-rating/style.css";
-
+import QueryProvider from "./util/QueryProvider";
 const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
@@ -23,11 +22,13 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={poppins.className}>
-          <Navbar>{children}</Navbar>
-        </body>
-      </html>
+      <QueryProvider>
+        <html lang="en">
+          <body className={poppins.className}>
+            <Navbar>{children}</Navbar>
+          </body>
+        </html>
+      </QueryProvider>
     </ClerkProvider>
   );
 }

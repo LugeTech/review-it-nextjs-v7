@@ -1,16 +1,11 @@
 // noinspection GrazieInspection
-"use client";
-import {
-  UserButton,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-} from "@clerk/nextjs";
+"use client"; // only way to stop the hydration error and i don't understand
 import HomeLink from "./HomeLink";
 import TopLinks from "./TopLinks";
 import SideLinks from "./SideLinks";
-import Skeleton from "react-loading-skeleton";
+import NavbarAuth from "./NavbarAuth";
+import { Suspense } from "react";
+import Image from "next/image";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -46,15 +41,13 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
           <div className="mx-4">
-            <SignedIn>
-              {/* Mount the UserButton component */}
-              {<UserButton /> || <Skeleton />}
-            </SignedIn>
-
-            <SignedOut>
-              {/* Sign-ed out users get sign in button */}
-              <SignInButton />
-            </SignedOut>
+            <Suspense
+              fallback={
+                <Image src="/logo.png" alt="loading" width={50} height={50} />
+              }
+            >
+              <NavbarAuth />
+            </Suspense>
           </div>
         </div>
         {children}

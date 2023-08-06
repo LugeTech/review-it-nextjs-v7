@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { iReview, iUser, iComment, iProduct } from "../util/Interfaces";
 
 import ReviewBox from "./ReviewBox";

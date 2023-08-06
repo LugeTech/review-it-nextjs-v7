@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { Rating } from "@smastrom/react-rating";
 import { iReview, iUser, iComment, iProduct } from "../util/Interfaces";
 import Image from "next/image";
 import Votes from "./Votes";
@@ -22,14 +21,13 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
 }) => {
   const [rating, setRating] = useState(review.rating); // Initial value
 
-
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
   };
 
   return (
     <div className="sm:w-6/12 my-1 border border-gray-300 dark:border-gray-500 rounded-xl shadow-xl">
-      <div className="  block h-full max-w-sm gap-2 p-2 bg-myTheme-light dark:bg-myTheme-dark rounded-xl hover:bg-gray-100  dark:hover:bg-black">
+      <div className="  block h-full max-w-sm gap-2 p-2 bg-myTheme-light dark:bg-myTheme-dark rounded-xl hover:bg-gray-100  dark:hover:bg-black cursor-pointer">
         <div className="flex flex-col justify-start items-center gap-1">
           <div className="flex flex-1 flex-col w-full sm:ml-2 text-xs text-myTheme-dark dark:text-myTheme-light justify-start items-center ">
             <div>
@@ -74,13 +72,11 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 <div className=" font-normal tracking-tight ">
                   {/* review body */}
                   {review.body.slice(0, 90) + "... read more"}
-
-                  {/* <Rating itemStyles={styleForRating} style={{ maxWidth: 100 }} value={rating} onChange={ratingChanged} /> */}
                   <RatingModule
                     name="rating"
                     rating={rating}
                     ratingChanged={ratingChanged}
-                    size={100}
+                    size={"rating-sm"}
                   />
                 </div>
               </div>
@@ -89,10 +85,10 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
         </div>
 
         {/* Top comment */}
-        <div className="text-xs mt-2  text-gray-700 dark:text-gray-400 tracking-tighter font-semibold">
+        <div className="text-xs mt-2  text-gray-700 dark:text-gray-400 tracking-tighter font-semibold pl-1">
           Top Comment
         </div>
-        <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2">
+        <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2 pl-1">
           <div className="">
             {/* will di this calculation in a useState above */}
             {review?.title ? (

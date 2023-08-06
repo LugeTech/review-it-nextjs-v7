@@ -1,6 +1,6 @@
 "use client";
 
-import LoadingSpinner from "./components/LoadingSpinner";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.

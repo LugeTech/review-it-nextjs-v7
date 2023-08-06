@@ -1,13 +1,11 @@
-import Image from "next/image";
 import { faker } from "@faker-js/faker";
 import { iReview, iUser, iComment, iProduct } from "./util/Interfaces";
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
 import Token from "./components/Token";
-import { Suspense } from "react";
 
-export const revalidate = 0;
+export const revalidate = 30;
 
 export default async function Home() {
   const reviews: iReview[] = [
@@ -132,7 +130,7 @@ export default async function Home() {
             <div className="flex flex-col justify-center w-full mt-4 mb-4">
               <div className="flex justify-center items-center text-md mx-4"></div>
             </div>
-            <Token />
+            {/* <Token /> */}
           </div>
         </div>
       </div>

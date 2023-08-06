@@ -18,7 +18,7 @@ const HeroSection = () => {
             Welcome
           </h1>
           <div className=" flex flex-1 justify-center ">
-            <div className="flex flex-col h-[300px] sm:h-[400px] w-11/12 sm:w-7/12">
+            <div className="flex flex-col h-[300px] sm:h-[300px] w-11/12 sm:w-7/12">
               <p className="text-xl mt-1 font-normal pb-1 text-myTheme-light">
                 Review It is a website where you can share and read reviews on
                 anything.

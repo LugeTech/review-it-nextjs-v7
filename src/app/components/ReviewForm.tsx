@@ -1,71 +1,96 @@
 "use client";
-import { iReview } from "../util/Interfaces";
-import { useState } from "react";
+import { SentDataReviewAndItem, iReview } from "../util/Interfaces";
+import { Suspense, useState } from "react";
 import RatingModule from "./RatingModule";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useUser } from "@clerk/nextjs";
+import { useUser, useAuth } from "@clerk/nextjs";
 import { faker } from "@faker-js/faker";
 import Image from "next/image";
 import Editor from "./Editor";
 import EditorPreview from "./EditorPreview";
+import { apiUrl } from "../util/apiUrl";
 
 const ReviewForm = () => {
+  const { getToken } = useAuth();
   const { user } = useUser();
   const [rating, setRating] = useState(1); // Initial value
   const [startDate, setStartDate] = useState(new Date());
-  const [reviewData, setReviewData] = useState<iReview>({
+  const [reviewData, setReviewData] = useState<SentDataReviewAndItem>({
     body: "",
     comments: [],
-    date: undefined,
     helpfulVotes: 0,
-    product: "",
     rating: 1,
     title: "",
     unhelpfulVotes: 0,
-    user: "",
+    userId: user?.publicMetadata.id! as string,
+    item: {
+      itemSelected: true,
+      itemId: "64813f744fbbbd32cb390c16",
+      name: "ssd enclosure",
+      description: "default description",
+    },
+    images: [],
+    videos: [],
+    createdDate: new Date(),
+    links: [],
   });
 
   const handleEditorValue = (value: string) => {
-    setReviewData((prevData): iReview => ({ ...prevData, body: value }));
-    console.log(reviewData);
+    setReviewData(
+      (prevData): SentDataReviewAndItem => ({ ...prevData, body: value })
+    );
   };
 
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
     function addRating(rating: number) {
       // not sure if this is necessary, but it should be the safest way. test before making simpler
-      setReviewData((prevData): iReview => ({ ...prevData, rating: rating }));
+      setReviewData(
+        (prevData): SentDataReviewAndItem => ({ ...prevData, rating: rating })
+      );
     }
 
     addRating(newRating);
   };
 
   const sendToServer = async () => {
-    console.log(reviewData);
-    return;
     try {
-      const response = await fetch("http://localhost:3000/api/createreview", {
+      // const token = await getToken({ template: "4000" });
+      // if (token === null) {
+      //   throw new Error("no token");
+      // }
+      // console.log(token);
+
+      const response = await fetch(`${apiUrl}/create/review`, {
         method: "POST",
         body: JSON.stringify(reviewData),
         headers: {
           "Content-Type": "application/json",
         },
       });
+      console.log("after fetch");
 
       if (response.ok) {
+        console.log("response ok", response);
         const responseData = await response.json();
+        console.log(responseData);
       } else {
         const errorData = await response.json();
+        console.log(errorData);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setReviewData((prevData): iReview => ({ ...prevData, [name]: value }));
+    setReviewData(
+      (prevData): SentDataReviewAndItem => ({ ...prevData, [name]: value })
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -73,16 +98,20 @@ const ReviewForm = () => {
     await sendToServer();
   };
   const businessImage = faker.image.business();
+
+  // function openModal(): void {
+  //   throw new Error("Function not implemented.");
+  // }
+
   return (
-    <div className="flex flex-col lg:flex-row gap-4 flex-1 overflow-scroll ">
+    <div className="flex flex-col flex-1 h-full md:w-3/4 lg:w-1/2 items-center mt-8 bg-myTheme-light dark:bg-myTheme-dark">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col lg:w-1/2 bg-myTheme-base-100 dark:bg-myTheme-dark p-4 h-full"
+        className="flex flex-col p-4 h-full w-full rounded-md bg-white dark:bg-myTheme-dark"
       >
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
           <Image src={businessImage} alt="avatar" width={50} height={50} />
-
           <div className="flex flex-col text-xs">
             <p className="font-bold">Business Name</p>
             <p>www.business.com</p>
@@ -90,14 +119,17 @@ const ReviewForm = () => {
           </div>
         </div>
         <div className="flex flex-col justify-center items-center mb-2 border-b dark:border-myTheme-dark2 p-1 shadow-sm">
-          <label htmlFor="rating" className="w-full text-base">
+          <label
+            htmlFor="rating"
+            className="flex w-full text-base justify-center items-center"
+          >
             Rate your experience
           </label>
           <RatingModule
             name="rating"
             rating={rating}
             ratingChanged={ratingChanged}
-            size={220}
+            size={"rating-lg"}
           />
         </div>
 
@@ -106,6 +138,7 @@ const ReviewForm = () => {
             Title your experience:
           </label>
           <input
+            placeholder="Be creative"
             type="text"
             id="title"
             name="title"
@@ -125,13 +158,13 @@ const ReviewForm = () => {
               name="dateItHappened"
               selected={startDate}
               onChange={(date) => setStartDate(date!)}
-              className=" border border-gray-300 rounded-md px-3 py-2 mt-1 w-1/2 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className=" border border-gray-300 rounded-md px-3 py-2 mt-1 w-full md:w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
           <div className="flex flex-1 flex-col">
             <label htmlFor="date" className="text-base">
-              Transaction #
+              Receipt #
             </label>
             <input
               placeholder="(optional)"
@@ -145,19 +178,16 @@ const ReviewForm = () => {
         </div>
 
         <div className="flex flex-col h-80 w-full mb-2">
-          {/* <label htmlFor="rating" className="text-base mb-2">
+          <label htmlFor="rating" className="text-base mb-2">
             Tell us more about your experience
-          </label> */}
+          </label>
           <Editor onEditorValue={handleEditorValue} />
         </div>
 
         <div className="flex gap-4">
-          <button
-            type="button"
-            className=" bg-myTheme-accent hover:bg-myTheme-secondary text-white font-base p-2 rounded-md w-1/2"
-          >
-            Preview
-          </button>
+          <div>
+            <EditorPreview reviewData={reviewData} />
+          </div>
 
           <button
             type="submit"
@@ -167,11 +197,6 @@ const ReviewForm = () => {
           </button>
         </div>
       </form>
-
-      {/* Preview area */}
-      <div className="hidden lg:flex flex-1 overflow-scroll">
-        <EditorPreview reviewData={reviewData} />
-      </div>
     </div>
   );
 };
