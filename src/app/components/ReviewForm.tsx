@@ -69,10 +69,9 @@ const ReviewForm = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log("after fetch");
 
       if (response.ok) {
-        console.log("response ok", response);
+        // console.log("response ok", response);
         const responseData = await response.json();
         console.log(responseData);
       } else {
@@ -104,10 +103,10 @@ const ReviewForm = () => {
   // }
 
   return (
-    <div className="flex flex-col flex-1 h-full md:w-3/4 lg:w-1/2 items-center mt-8 bg-myTheme-light dark:bg-myTheme-dark">
+    <div className="flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col p-4 h-full w-full rounded-md bg-white dark:bg-myTheme-dark"
+        className="flex flex-col p-4 h-full w-full rounded-md bg-white dark:bg-myTheme-dark overflow-y-auto"
       >
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">

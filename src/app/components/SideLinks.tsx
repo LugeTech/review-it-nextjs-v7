@@ -14,16 +14,16 @@ const Links: FC<LinksProps> = () => {
       link: "/",
     },
     {
+      name: "Search",
+      link: "/search",
+    },
+    {
       name: "Write a Review",
       link: "/createreview",
     },
     {
       name: "Businesses",
       link: "/fetch",
-    },
-    {
-      name: "Search",
-      link: "/search",
     },
     {
       name: "My Reviews",
@@ -36,7 +36,7 @@ const Links: FC<LinksProps> = () => {
   ];
 
   return (
-    <div className={`flex flex-col min-h-screen mt-8`}>
+    <div className={`flex flex-col mt-8`}>
       {links.map((link, index) => (
         <Link href={link.link} key={index}>
           <li className=" hover:text-myTheme-accent hover:bg-slate-100 duration-300 px-4 transition-all ease-in-out rounded-lg gap-3 py-2">

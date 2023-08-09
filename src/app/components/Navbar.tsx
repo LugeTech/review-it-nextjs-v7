@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="drawer sticky top-0 z-20">
+    <div className="drawer sticky top-0 ">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         <div className="w-full navbar bg-myTheme-light dark:bg-myTheme-dark z-10">
@@ -50,11 +50,13 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             </Suspense>
           </div>
         </div>
-        {children}
+        <div className=" flex flex-col w-full h-full overflow-y-auto">
+          {children}
+        </div>
       </div>
       <div className="drawer-side ">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-64 bg-base-100">
+        <ul className="menu p-4 w-64 bg-base-100 ">
           <HomeLink />
           <SideLinks />
         </ul>

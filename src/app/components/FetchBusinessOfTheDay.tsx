@@ -1,5 +1,5 @@
 import { iReview } from "@/app/util/Interfaces";
-import { api } from "@/app/util/apiUrl";
+import { apiUrl } from "@/app/util/apiUrl";
 interface Props {
   params: {
     id: string;

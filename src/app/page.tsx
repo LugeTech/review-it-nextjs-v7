@@ -118,7 +118,8 @@ export default async function Home() {
         <QuickTabs />
         <div className="flex flex-col mt-4 flex-1">
           <div className="flex flex-col justify-center">
-            <div className="w-full flex flex-row">
+            {/* this is the top reviews container*/}
+            <div className="w-full flex flex-row px-2 sm:px-0">
               <TopReviews
                 reviews={reviews}
                 products={products}
@@ -128,7 +129,7 @@ export default async function Home() {
             </div>
             {/* business of the day */}
             <div className="flex flex-col justify-center w-full mt-4 mb-4">
-              <div className="flex justify-center items-center text-md mx-4"></div>
+              <div className="flex justify-center items-center text-md mx-4">Business of the day goes here</div>
             </div>
             {/* <Token /> */}
           </div>
