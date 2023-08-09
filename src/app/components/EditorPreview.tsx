@@ -41,7 +41,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
   }
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex  w-full">
       <button
         type="button"
         onClick={openModal}
@@ -99,7 +99,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                           <RatingModule
                             name="rating"
                             rating={reviewData.rating}
-                            ratingChanged={() => {}}
+                            ratingChanged={() => { }}
                             size={"rating-xs"}
                           />
                         </Suspense>

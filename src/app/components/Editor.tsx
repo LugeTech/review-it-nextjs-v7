@@ -30,7 +30,7 @@ export default function Editor({ onEditorValue }: EditorComponentProps) {
   });
   return (
     <div>
-      <RichTextEditor editor={editor} className=" h-[280px] overflow-scroll">
+      <RichTextEditor editor={editor} >
         <RichTextEditor.Toolbar sticky>
           <RichTextEditor.ControlsGroup>
             <RichTextEditor.Bold />

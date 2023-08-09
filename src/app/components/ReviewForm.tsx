@@ -10,12 +10,14 @@ import Image from "next/image";
 import Editor from "./Editor";
 import EditorPreview from "./EditorPreview";
 import { apiUrl } from "../util/apiUrl";
+import DisplayError from "@/app/components/DisplayError"
 
 const ReviewForm = () => {
   const { getToken } = useAuth();
   const { user } = useUser();
   const [rating, setRating] = useState(1); // Initial value
   const [startDate, setStartDate] = useState(new Date());
+  const [error, setError] = useState<string | null>(null);
   const [reviewData, setReviewData] = useState<SentDataReviewAndItem>({
     body: "",
     comments: [],
@@ -26,7 +28,7 @@ const ReviewForm = () => {
     userId: user?.publicMetadata.id! as string,
     item: {
       itemSelected: true,
-      itemId: "64813f744fbbbd32cb390c16",
+      itemId: "64d3dda9b69290d83f60f9ad",
       name: "ssd enclosure",
       description: "default description",
     },
@@ -37,9 +39,17 @@ const ReviewForm = () => {
   });
 
   const handleEditorValue = (value: string) => {
+    if (value === "" || value === "<p></p>") {
+      setReviewData(
+        (prevData): SentDataReviewAndItem => ({ ...prevData, body: "" })
+      );
+
+      return;
+    }
     setReviewData(
       (prevData): SentDataReviewAndItem => ({ ...prevData, body: value })
     );
+    setError((prevError) => (prevError = null));
   };
 
   const ratingChanged = (newRating: number) => {
@@ -56,7 +66,8 @@ const ReviewForm = () => {
 
   const sendToServer = async () => {
     try {
-      // const token = await getToken({ template: "4000" });
+      // const token = aw
+      // ait getToken({ template: "4000" });
       // if (token === null) {
       //   throw new Error("no token");
       // }
@@ -79,7 +90,9 @@ const ReviewForm = () => {
         console.log(errorData);
       }
     } catch (error) {
-      console.log(error);
+      let err = error as Error;
+      setError((prevError) => (prevError = err.message));
+      console.log(err);
     }
   };
 
@@ -94,6 +107,16 @@ const ReviewForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.currentTarget.checkValidity()
+    if (!e.currentTarget.checkValidity()) {
+      setError("Please fill out all fields");
+      return;
+    }
+    if (reviewData.body === "" || reviewData.body === null) {
+      setError((prevError) => (prevError = "body empty" + ''));
+      console.log("body is empty");
+      return;
+    }
     await sendToServer();
   };
   const businessImage = faker.image.business();
@@ -137,6 +160,7 @@ const ReviewForm = () => {
             Title your experience:
           </label>
           <input
+            required={true}
             placeholder="Be creative"
             type="text"
             id="title"
@@ -176,7 +200,7 @@ const ReviewForm = () => {
           </div>
         </div>
 
-        <div className="flex flex-col h-80 w-full mb-2">
+        <div className="flex flex-col  w-full mb-2">
           <label htmlFor="rating" className="text-base mb-2">
             Tell us more about your experience
           </label>
@@ -196,6 +220,8 @@ const ReviewForm = () => {
           </button>
         </div>
       </form>
+      <DisplayError error={error} />
+
     </div>
   );
 };

@@ -9,7 +9,7 @@ interface Props {
 const page = async ({ params }: Props) => {
   let reviewsData = null;
   try {
-    reviewsData = await fetch(api + "/getreviews", {
+    reviewsData = await fetch(apiUrl + "/getreviews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
