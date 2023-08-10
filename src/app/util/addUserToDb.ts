@@ -34,7 +34,7 @@ export const addUserToDb = async (clerkUserData: UserDATA) => {
       avatar: clerkUserData.avatar,
       email: clerkUserData.email,
       firstName: clerkUserData.firstName,
-      lastName: clerkUserData.lastName,
+      lastName: clerkUserData.lastName || "",
       createdDate: new Date(),
       clerkUserId: clerkUserData.userId,
     },
