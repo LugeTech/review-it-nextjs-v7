@@ -30,41 +30,56 @@ model Item {
   isDeleted   Boolean? @default(false)
 }
 
-model Review {
+model Comments {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   body           String
-  comments       String[]
   createdDate    DateTime @default(now())
   helpfulVotes   Int?     @default(0)
+  unhelpfulVotes Int?     @default(0)
+  review         Review?  @relation(fields: [reviewId], references: [id])
+  user           User?    @relation(fields: [userId], references: [id])
+  reviewId       String   @db.ObjectId
+  userId         String   @db.ObjectId
+  isDeleted      Boolean? @default(false)
+}
+
+model Review {
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  body           String
+  comments       String[]
+  createdDate    DateTime   @default(now())
+  helpfulVotes   Int?       @default(0)
   rating         Int
   title          String
-  unhelpfulVotes Int?     @default(0)
-  item           Item?    @relation(fields: [itemId], references: [id])
-  user           User?    @relation(fields: [userId], references: [id])
-  itemId         String   @db.ObjectId
-  userId         String   @db.ObjectId
+  unhelpfulVotes Int?       @default(0)
+  item           Item?      @relation(fields: [itemId], references: [id])
+  user           User?      @relation(fields: [userId], references: [id])
+  itemId         String     @db.ObjectId
+  userId         String     @db.ObjectId
   isVerified     Boolean?
   verifiedBy     String?
-  isPublic       Boolean  @default(true)
+  isPublic       Boolean    @default(true)
   images         String[]
   videos         String[]
   links          String[]
   createdBy      String?
-  isDeleted      Boolean? @default(false)
+  isDeleted      Boolean?   @default(false)
+  Comments       Comments[]
 
   @@unique(fields: [title, userId, itemId], name: "unique_review", map: "unique_review")
 }
 
 model User {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  userName    String   @unique
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  userName    String     @unique
   avatar      String?
-  createdDate DateTime @default(now())
-  email       String   @unique
+  createdDate DateTime   @default(now())
+  email       String     @unique
   firstName   String
   lastName    String
   review      Review[]
   clerkUserId String
   item        Item[]
-  isDeleted   Boolean? @default(false)
+  isDeleted   Boolean?   @default(false)
+  Comments    Comments[]
 }
