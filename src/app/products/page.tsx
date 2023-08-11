@@ -2,6 +2,7 @@
 import React from 'react'
 import { useQuery, } from "@tanstack/react-query";
 import { getReviews } from "@/app/util/serverFunctions"
+import ReviewBox from '../components/ReviewBox';
 const Page = () => {
 
   const { data, isLoading, isError, error } = useQuery({
