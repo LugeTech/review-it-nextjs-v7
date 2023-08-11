@@ -2,7 +2,7 @@
 import React from 'react'
 import { useQuery, } from "@tanstack/react-query";
 import { getReviews } from "@/app/util/serverFunctions"
-const page = () => {
+const Page = () => {
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["reviews"],
@@ -33,4 +33,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
