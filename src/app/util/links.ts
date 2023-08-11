@@ -13,6 +13,10 @@ export const sideLinks = [
     link: "/createreview",
   },
   {
+    name: "Products",
+    link: "/products",
+  },
+  {
     name: "Businesses",
     link: "/fetch",
   },

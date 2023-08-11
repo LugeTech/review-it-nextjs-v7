@@ -5,10 +5,9 @@ export async function POST(request: NextRequest) {
   console.log("POST /api/reviews");
   interface Body {
     isPublic: boolean;
-    include: {
-      user: boolean;
-      item: boolean;
-    };
+    user: boolean;
+    item: boolean;
+
   }
 
   const body: Body = await request.json();
@@ -17,8 +16,8 @@ export async function POST(request: NextRequest) {
     const reviews = await prisma.review.findMany({
       where: { isPublic: true },
       include: {
-        user: body.include.user,
-        item: body.include.item,
+        user: body.user,
+        item: body.item,
       },
     });
     console.log(reviews)
