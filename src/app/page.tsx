@@ -131,7 +131,7 @@ export default async function Home() {
             <div className="flex flex-col justify-center w-full mt-4 mb-4">
               <div className="flex justify-center items-center text-md mx-4">Business of the day goes here</div>
             </div>
-            {/* <Token /> */}
+            <Token />
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
+  console.log("POST /api/reviews");
   interface Body {
     isPublic: boolean;
     include: {
@@ -11,6 +12,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body: Body = await request.json();
+  console.log(body);
   try {
     const reviews = await prisma.review.findMany({
       where: { isPublic: true },
@@ -19,6 +21,7 @@ export async function POST(request: NextRequest) {
         item: body.include.item,
       },
     });
+    console.log(reviews)
     return NextResponse.json({
       success: true,
       status: 200,
