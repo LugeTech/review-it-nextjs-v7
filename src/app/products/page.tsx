@@ -18,7 +18,7 @@ const Page = () => {
     <div className='flex flex-col w-full p-2 sm:p-4'>
       <div className='flex flex-col w-full sm:flex-row justify-evenly items-center gap-2'>
 
-        <div className='flex flex-col  h-full w-1/4 justify-start items-center gap-2 '>
+        <div className='flex flex-col  h-full w-full sm:w-1/4 justify-start items-center gap-2 '>
           <ArrangeByPanel />
         </div>
 

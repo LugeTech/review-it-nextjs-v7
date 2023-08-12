@@ -6,17 +6,17 @@ export async function POST(request: NextRequest) {
   // interface Body {
   //   isPublic: boolean;
   //   user: boolean;
-  //   item: boolean;
+  //   product: boolean;
   //
   // }
 
   // const body: Body = await request.json();
   // console.log(body);
   try {
-    const products = await prisma.item.findMany({
+    const products = await prisma.product.findMany({
       // include: {
       //   user: body.user,
-      //   item: body.item,
+      //   product: body.product,
       // },
     });
     console.log(products);

@@ -72,7 +72,7 @@ export interface iImage {
   url: string;
 }
 
-export interface SentDataReviewAndItem {
+export interface SentDataReviewAndproduct {
   userId: string; // identifier for the user who wrote the review
   rating: number; // a number between 1 and 5 indicating the rating for the product
   title: string; // the title of the review
@@ -87,13 +87,13 @@ export interface SentDataReviewAndItem {
   deletedDate?: Date; // the date the review was deleted
   deletedBy?: string; // the user who deleted the review
   deletedReason?: string; // the reason the review was deleted
-  itemId?: string;
+  productId?: string;
   links?: string[];
   videos?: string[];
   publicMetadata?: { userInDb: boolean, id: string }
-  item: {
-    itemSelected: boolean;
-    itemId?: string;
+  product: {
+    productSelected: boolean;
+    productId?: string;
     name: string;
     description: string;
     images?: string[];
@@ -115,7 +115,7 @@ export interface SentDataReviewAndItem {
 
 }
 
-export interface ReviewUserAndItem {
+export interface ReviewUserAndproduct {
   id: string;
   body: string;
   comments: Comment[];
@@ -124,7 +124,7 @@ export interface ReviewUserAndItem {
   rating: number;
   title: string;
   unhelpfulVotes: number;
-  itemId: string;
+  productId: string;
   userId: string;
   isVerified: boolean | null;
   verifiedBy: string | null;
@@ -145,7 +145,7 @@ export interface ReviewUserAndItem {
     clerkUserId: string;
     isDeleted: boolean;
   };
-  item: {
+  product: {
     id: string;
     address: string | null;
     createdDate: string;

@@ -7,9 +7,9 @@ const ArrangeByPanel = () => {
         <p className='flex-1 text-center'>Arrange by rating</p>
       </div>
       <div className="btn-group flex w-full">
-        <button className="btn btn-active flex-1 ">3.0+</button>
-        <button className="btn flex-1">4.0+</button>
-        <button className="btn flex-1">4.5+</button>
+        <button className="btn flex-1 bg-myTheme-primary ">3.0+</button>
+        <button className="btn flex-1 bg-myTheme-primary">4.0+</button>
+        <button className="btn flex-1 bg-myTheme-primary">4.5+</button>
       </div>
     </div>
   )

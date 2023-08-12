@@ -2,11 +2,11 @@ import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  console.log("POST /api/reviews");
+  // console.log("POST /api/reviews");
   interface Body {
     isPublic: boolean;
     user: boolean;
-    item: boolean;
+    product: boolean;
 
   }
 
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       where: { isPublic: true },
       include: {
         user: body.user,
-        item: body.item,
+        product: body.product,
       },
     });
     console.log(reviews)

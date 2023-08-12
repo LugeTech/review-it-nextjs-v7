@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Item {
+model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   address     String?
   createdDate DateTime @default(now())
@@ -52,9 +52,9 @@ model Review {
   rating         Int
   title          String
   unhelpfulVotes Int?       @default(0)
-  item           Item?      @relation(fields: [itemId], references: [id])
+  product        Product?   @relation(fields: [productId], references: [id])
   user           User?      @relation(fields: [userId], references: [id])
-  itemId         String     @db.ObjectId
+  productId      String     @db.ObjectId
   userId         String     @db.ObjectId
   isVerified     Boolean?
   verifiedBy     String?
@@ -66,7 +66,7 @@ model Review {
   isDeleted      Boolean?   @default(false)
   Comments       Comments[]
 
-  @@unique(fields: [title, userId, itemId], name: "unique_review", map: "unique_review")
+  @@unique(fields: [title, userId, productId], name: "unique_review", map: "unique_review")
 }
 
 model User {
@@ -79,7 +79,7 @@ model User {
   lastName    String
   review      Review[]
   clerkUserId String
-  item        Item[]
+  product     Product[]
   isDeleted   Boolean?   @default(false)
   Comments    Comments[]
 }
