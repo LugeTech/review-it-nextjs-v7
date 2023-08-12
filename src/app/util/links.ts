@@ -44,6 +44,10 @@ export const topLinks = [
     link: "/",
   },
   {
+    name: "Products",
+    link: "/products",
+  },
+  {
     name: "My Reviews",
     link: "/",
   },

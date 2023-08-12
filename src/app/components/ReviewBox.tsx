@@ -31,7 +31,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
         <div className="flex flex-col justify-start items-center gap-1">
           <div className="flex flex-1 flex-col w-full sm:ml-2 text-xs text-myTheme-dark dark:text-myTheme-light justify-start items-center ">
             <div>
-              <div onClick={() => {}} className="">
+              <div onClick={() => { }} className="">
                 <div className="flex flex-col justify-start items-center">
                   {/* user image */}
                   {review?.user ? (
@@ -53,7 +53,6 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                   {/* product name */}
                   <p
                     onClick={() => {
-                      console.log(`product name clicked`);
                     }}
                     className=" sm:text-1xl text-lg cursor-pointer font-bold"
                   >

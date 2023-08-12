@@ -31,14 +31,6 @@ export interface iComment {
 
 export interface iProduct {
   id?: string;
-  name: string;
-  description: string;
-  images?: string[];
-  createdDate?: Date;
-  address?: string;
-}
-export interface iItem {
-  id?: string;
   address: string | null;
   createdDate: string;
   description: string;

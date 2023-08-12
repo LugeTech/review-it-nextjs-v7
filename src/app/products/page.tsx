@@ -1,36 +1,44 @@
 'use client'
-import React from 'react'
+import { iProduct } from '@/app/util/Interfaces';
+import { getProducts } from "@/app/util/serverFunctions";
 import { useQuery, } from "@tanstack/react-query";
-import { getReviews } from "@/app/util/serverFunctions"
-import { ReviewUserAndItem } from '@/app/util/Interfaces';
+import React from 'react';
 import ProductCard from '../components/ProductCard';
 const Page = () => {
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["reviews"],
-    queryFn: getReviews,
-  });
+    queryKey: ["products"],
+    queryFn: getProducts,
+  }) as any
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>{error?.toString()}</p>;
-  console.log(data)
+  const products = data?.data as iProduct[]
+  console.log('this is the data returned', data.data)
   return (
-    <div className='flex flex-col sm:max-w-5xl mx-auto p-2 sm:p-4'>
-      {data.data?.map((item: ReviewUserAndItem) => {
-        console.log(item)
-        return (
-          <div key={item.item.itemId} className='flex flex-col w-full bg-red-300 px-2 mx-auto mb-4 rounded-md'>
-            <ProductCard product={item.item} />
-            {/* <h3>{item.title}</h3> */}
-            {/* <p>{item.body}</p> */}
-            {/* <p>{item.rating}</p> */}
-            {/* <p>{`Rating ${item.rating}`}</p> */}
-            {/* <br /> */}
-          </div>
-        )
-      }
-      )
+    <div className='flex flex-col w-full p-2 sm:p-4'>
+      <div className='flex flex-col sm:flex-row justify-evenly items-center gap-2'>
 
-      }
+        <div className='flex flex-col justify-center items-center gap-2'>
+          <h2 className='text-2xl font-bold '>Products display settings</h2>
+          <h2 className='text-sm '>sort by and other thing</h2>
+        </div>
+
+        <div className='flex flex-col justify-between items-center gap-2'>
+          {products.map((product: iProduct) => {
+            console.log('this is the product', product)
+            return (
+              <ProductCard product={product} key={product.id} />
+            )
+          }
+          )
+
+          }
+        </div>
+        <div className='flex flex-col justify-center items-center gap-2'>
+          <h2 className='text-2xl font-bold'>Some other stuff</h2>
+          <h2 className='text-sm '>maybe ads or sponsored things</h2>
+        </div>
+      </div>
     </div>
   )
 }

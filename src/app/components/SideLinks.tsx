@@ -17,7 +17,6 @@ const Links = ({ onSideLinkClick }: { onSideLinkClick: () => void }) => {
         <Link href={link.link} key={index}>
           <li onClick={() => {
             onSideLinkClick(); // Close the drawer
-            console.log("clicked");
           }}
             className=" hover:text-myTheme-accent hover:bg-slate-100 duration-300 px-4 transition-all ease-in-out rounded-lg gap-3 py-2">
             {link.name}

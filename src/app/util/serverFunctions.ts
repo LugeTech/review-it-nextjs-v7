@@ -1,4 +1,4 @@
-import { iReview } from "@/app/util/Interfaces";
+import { iProduct, ReviewUserAndItem } from "@/app/util/Interfaces";
 export const getReviews = async () => {
 
   const include = {
@@ -6,7 +6,7 @@ export const getReviews = async () => {
     "item": true
   }
 
-  const tools = await fetch("http://localhost:3000/api/get/reviews", {
+  const reviewUserAndItem: ReviewUserAndItem = await fetch("http://localhost:3000/api/get/reviews", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,24 +14,20 @@ export const getReviews = async () => {
     body: JSON.stringify(include),
   }).then((res) => res.json()
   )
-  console.log(tools)
-  return tools;
+  console.log(reviewUserAndItem)
+  return reviewUserAndItem
 };
 
 
-// export const getToolDetail = async (id: string) => {
-//   const tool = await prisma.tools.findUnique({
-//     where: {
-//       id: id,
-//     },
-//   }) as unknown as iTool
-//
-//   return tool;
-// };
-//
-// export const writeToDb = async (data: any) => {
-//   const prismaResult = await prisma.tools.create({
-//     data: data,
-//   }) as unknown as iTool
-//   return prismaResult;
-// };
+
+export const getProducts = async () => {
+  const products: iProduct[] = await fetch("http://localhost:3000/api/get/products", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json()
+  )
+  console.log(products)
+  return products;
+};

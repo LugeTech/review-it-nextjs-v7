@@ -1,13 +1,13 @@
-import { iItem } from '@/app/util/Interfaces'; // Update with the actual path
+import { iProduct } from '@/app/util/Interfaces'; // Update with the actual path
 import Image from 'next/image';
 
 interface ProductCardProps {
-  product: iItem;
+  product: iProduct;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="flex flex-col bg-white rounded-lg shadow-md p-4">
+    <div className="flex flex-col w-full rounded-lg shadow-md p-4">
       <div className="flex justify-between items-center gap-2">
         {product.images && product.images.length > 0 && (
           <div className="mb-4">

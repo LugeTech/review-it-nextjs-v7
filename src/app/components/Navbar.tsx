@@ -12,7 +12,6 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleSideLinkClick = () => {
-    console.log("clicked");
     setIsDrawerOpen(false); // Close the drawer when a sidelink is clicked
   };
 
@@ -59,7 +58,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             </Suspense>
           </div>
         </div>
-        <div className=" flex flex-col w-full h-full overflow-y-auto">
+        <div className=" flex flex-col w-full h-full overflow-y-auto ">
           {children}
         </div>
       </div>
