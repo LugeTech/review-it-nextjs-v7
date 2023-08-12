@@ -1,5 +1,5 @@
 export interface iReview {
-  _id?: string;
+  id?: string;
   product: string; // identifier for the product being reviewed
   user: string; // identifier for the user who wrote the review
   rating: number; // a number between 1 and 5 indicating the rating for the product
@@ -19,7 +19,7 @@ export interface iReview {
 }
 
 export interface iComment {
-  _id?: string;
+  id?: string;
   user: string; // identifier for the user who wrote the comment
   body: string; // the text of the comment
   helpfulVotes?: number; // the number of helpful votes the review has received
@@ -30,7 +30,7 @@ export interface iComment {
 }
 
 export interface iProduct {
-  _id?: string;
+  id?: string;
   name: string;
   description: string;
   images?: string[];
@@ -38,15 +38,27 @@ export interface iProduct {
   address?: string;
 }
 export interface iItem {
-  _id?: string;
-  name: string;
+  id?: string;
+  address: string | null;
+  createdDate: string;
   description: string;
-  images?: string[];
-  createdDate?: Date;
-  address?: string;
+  images: string[];
+  videos: string[];
+  links: string[];
+  name: string;
+  tags: string[];
+  openingHrs: string | null;
+  closingHrs: string | null;
+  telephone: string | null;
+  website: string[];
+  rating: number;
+  hasOwner: boolean | null;
+  ownerId: string | null;
+  createdById: string;
+  isDeleted: boolean;
 }
 export interface iService {
-  _id?: string;
+  id?: string;
   name: string;
   description: string;
   images?: string[];
@@ -55,7 +67,7 @@ export interface iService {
 }
 
 export interface iUser {
-  _id?: string;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -64,7 +76,7 @@ export interface iUser {
 }
 
 export interface iImage {
-  _id?: string;
+  id?: string;
   url: string;
 }
 
@@ -86,8 +98,8 @@ export interface SentDataReviewAndItem {
   itemId?: string;
   links?: string[];
   videos?: string[];
-  publicMetadata?: {userInDb: boolean, id: string}
-  item:{
+  publicMetadata?: { userInDb: boolean, id: string }
+  item: {
     itemSelected: boolean;
     itemId?: string;
     name: string;
@@ -109,4 +121,56 @@ export interface SentDataReviewAndItem {
     links?: string[];
   }
 
+}
+
+export interface ReviewUserAndItem {
+  id: string;
+  body: string;
+  comments: Comment[];
+  createdDate: string;
+  helpfulVotes: number;
+  rating: number;
+  title: string;
+  unhelpfulVotes: number;
+  itemId: string;
+  userId: string;
+  isVerified: boolean | null;
+  verifiedBy: string | null;
+  isPublic: boolean;
+  images: string[];
+  videos: string[];
+  links: string[];
+  createdBy: string;
+  isDeleted: boolean;
+  user: {
+    id: string;
+    userName: string;
+    avatar: string;
+    createdDate: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    clerkUserId: string;
+    isDeleted: boolean;
+  };
+  item: {
+    id: string;
+    address: string | null;
+    createdDate: string;
+    description: string;
+    images: string[];
+    videos: string[];
+    links: string[];
+    name: string;
+    tags: string[];
+    openingHrs: string | null;
+    closingHrs: string | null;
+    telephone: string | null;
+    website: string[];
+    rating: number;
+    hasOwner: boolean | null;
+    ownerId: string | null;
+    createdById: string;
+    isDeleted: boolean;
+  };
 }
