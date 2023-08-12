@@ -2,7 +2,7 @@
 import { iProduct } from '@/app/util/Interfaces';
 import { getProducts } from "@/app/util/serverFunctions";
 import { useQuery, } from "@tanstack/react-query";
-import React from 'react';
+import ArrangeByPanel from '../components/ArrangeByPanel';
 import ProductCard from '../components/ProductCard';
 const Page = () => {
 
@@ -16,11 +16,10 @@ const Page = () => {
   console.log('this is the data returned', data.data)
   return (
     <div className='flex flex-col w-full p-2 sm:p-4'>
-      <div className='flex flex-col sm:flex-row justify-evenly items-center gap-2'>
+      <div className='flex flex-col w-full sm:flex-row justify-evenly items-center gap-2'>
 
-        <div className='flex flex-col justify-center items-center gap-2'>
-          <h2 className='text-2xl font-bold '>Products display settings</h2>
-          <h2 className='text-sm '>sort by and other thing</h2>
+        <div className='flex flex-col  h-full w-1/4 justify-start items-center gap-2 '>
+          <ArrangeByPanel />
         </div>
 
         <div className='flex flex-col justify-between items-center gap-2'>
