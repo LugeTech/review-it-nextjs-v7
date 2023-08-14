@@ -1,4 +1,4 @@
-
+// this is a comment
 import { iProduct } from '@/app/util/Interfaces'; // Update with the actual path
 import Image from 'next/image';
 import RatingModule from './RatingModule';
@@ -46,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             ratingChanged={ratingChanged}
             size={"rating-sm"}
           />
-          <p className="text-gray-500  text-xs md:text-base">ReviewIt Score: 2.9 | Reviews: 234</p>
+          <p className="text-gray-500  text-xs md:text-base">ReviewIt Score: 3.9 | Reviews: 234</p>
         </div>
       </div>
       <div className="flex justify-between items-center">
