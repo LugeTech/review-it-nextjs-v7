@@ -1,4 +1,3 @@
-// this is a comment
 import { iProduct } from '@/app/util/Interfaces'; // Update with the actual path
 import Image from 'next/image';
 import RatingModule from './RatingModule';
