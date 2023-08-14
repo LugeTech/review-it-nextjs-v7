@@ -72,7 +72,7 @@ export interface iImage {
   url: string;
 }
 
-export interface SentDataReviewAndproduct {
+export interface SentDataReviewAndProduct {
   userId: string; // identifier for the user who wrote the review
   rating: number; // a number between 1 and 5 indicating the rating for the product
   title: string; // the title of the review

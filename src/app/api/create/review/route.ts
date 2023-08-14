@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
-import { SentDataReviewAndproduct } from "@/app/util/Interfaces";
+import { SentDataReviewAndProduct } from "@/app/util/Interfaces";
 
 // Interface representing user data
 interface UserDATA {
@@ -31,7 +31,7 @@ interface UserDATA {
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
   // Get the review data from the request body
-  const sentDataReviewAndproduct: SentDataReviewAndproduct = await request.json();
+  const sentDataReviewAndproduct: SentDataReviewAndProduct = await request.json();
 
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;

@@ -1,5 +1,5 @@
 "use client";
-import { SentDataReviewAndItem, iReview } from "../util/Interfaces";
+import { SentDataReviewAndProduct, iReview } from "../util/Interfaces";
 import { Suspense, useState } from "react";
 import RatingModule from "./RatingModule";
 import DatePicker from "react-datepicker";
@@ -18,7 +18,7 @@ const ReviewForm = () => {
   const [rating, setRating] = useState(1); // Initial value
   const [startDate, setStartDate] = useState(new Date());
   const [error, setError] = useState<string | null>(null);
-  const [reviewData, setReviewData] = useState<SentDataReviewAndItem>({
+  const [reviewData, setReviewData] = useState<SentDataReviewAndProduct>({
     body: "",
     comments: [],
     helpfulVotes: 0,
@@ -26,9 +26,9 @@ const ReviewForm = () => {
     title: "",
     unhelpfulVotes: 0,
     userId: user?.publicMetadata.id! as string,
-    item: {
-      itemSelected: true,
-      itemId: "64d3dda9b69290d83f60f9ad",
+    product: {
+      productSelected: true,
+      productId: "64d3dda9b69290d83f60f9ad",
       name: "ssd enclosure",
       description: "default description",
     },
@@ -41,13 +41,13 @@ const ReviewForm = () => {
   const handleEditorValue = (value: string) => {
     if (value === "" || value === "<p></p>") {
       setReviewData(
-        (prevData): SentDataReviewAndItem => ({ ...prevData, body: "" })
+        (prevData): SentDataReviewAndProduct => ({ ...prevData, body: "" })
       );
 
       return;
     }
     setReviewData(
-      (prevData): SentDataReviewAndItem => ({ ...prevData, body: value })
+      (prevData): SentDataReviewAndProduct => ({ ...prevData, body: value })
     );
     setError((prevError) => (prevError = null));
   };
@@ -57,7 +57,7 @@ const ReviewForm = () => {
     function addRating(rating: number) {
       // not sure if this is necessary, but it should be the safest way. test before making simpler
       setReviewData(
-        (prevData): SentDataReviewAndItem => ({ ...prevData, rating: rating })
+        (prevData): SentDataReviewAndProduct => ({ ...prevData, rating: rating })
       );
     }
 
@@ -101,7 +101,7 @@ const ReviewForm = () => {
   ) => {
     const { name, value } = e.target;
     setReviewData(
-      (prevData): SentDataReviewAndItem => ({ ...prevData, [name]: value })
+      (prevData): SentDataReviewAndProduct => ({ ...prevData, [name]: value })
     );
   };
 
