@@ -13,8 +13,8 @@ export const sideLinks = [
     link: "/createreview",
   },
   {
-    name: "Products",
-    link: "/products",
+    name: "Browse",
+    link: "/browse",
   },
   {
     name: "Businesses",
@@ -44,8 +44,8 @@ export const topLinks = [
     link: "/",
   },
   {
-    name: "Products",
-    link: "/products",
+    name: "Browse",
+    link: "/browse",
   },
   {
     name: "My Reviews",
