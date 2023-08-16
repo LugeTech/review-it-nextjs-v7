@@ -5,8 +5,6 @@ import RatingModule from "./RatingModule";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useUser } from "@clerk/nextjs";
-import { faker } from "@faker-js/faker";
-import Image from "next/image";
 import Editor from "./Editor";
 import EditorPreview from "./EditorPreview";
 import { apiUrl } from "../util/apiUrl";
@@ -15,6 +13,8 @@ import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProduct } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
+
+
 const ReviewForm = ({ id }: { id: string }) => {
   // const { getToken } = useAuth();
   const { user } = useUser();
@@ -30,16 +30,17 @@ const ReviewForm = ({ id }: { id: string }) => {
     unhelpfulVotes: 0,
     userId: user?.publicMetadata.id! as string,
     product: {
-      productSelected: false,
-      productId: "64d3dda9b69290d83f60f9ad",
-      name: "Western Digital 1TB WD Blue SN550 NVMe Internal SSD",
-      description: "default description",
+      productSelected: id ? true : false,
+      productId: id,
+      name: "",
+      description: "",
     },
     images: [],
     videos: [],
     createdDate: new Date(),
     links: [],
   });
+  console.log('this is review data', reviewData)
 
   const handleEditorValue = (value: string) => {
     if (value === "" || value === "<p></p>") {
@@ -136,6 +137,8 @@ const ReviewForm = ({ id }: { id: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error - can't give more details cause error variable was taken</p>;
   const product = data?.data as iProduct
+
+
   return (
     <div className="flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
       <h1 className="text-2xl font-bold mb-2">Write a review</h1>
@@ -146,12 +149,6 @@ const ReviewForm = ({ id }: { id: string }) => {
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
           <ProductCard product={product} />
-          {/* <Image src={businessImage} alt="avatar" width={50} height={50} /> */}
-          {/* <div className="flex flex-col text-xs"> */}
-          {/*   <p className="font-bold">Business Name</p> */}
-          {/*   <p>www.business.com</p> */}
-          {/*   <p>592-645274</p> */}
-          {/* </div> */}
         </div>
         <div className="flex flex-col justify-center items-center mb-2 border-b dark:border-myTheme-dark2 p-1 shadow-sm">
           <label

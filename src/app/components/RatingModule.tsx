@@ -21,7 +21,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={1}
-          className="mask mask-star bg-red-400"
+          className="mask mask-star bg-white "
           checked={rating === 1}
           onChange={() => ratingChanged(1)}
         />
@@ -29,7 +29,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={2}
-          className="mask mask-star bg-orange-500"
+          className="mask mask-star bg-white"
           checked={rating === 2}
           onChange={() => ratingChanged(2)}
         />
@@ -37,7 +37,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={3}
-          className="mask mask-star bg-yellow-400"
+          className="mask mask-star bg-white"
           checked={rating === 3}
           onChange={() => ratingChanged(3)}
         />
@@ -45,7 +45,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={4}
-          className="mask mask-star bg-lime-400"
+          className="mask mask-star bg-white"
           checked={rating === 4}
           onChange={() => ratingChanged(4)}
         />
@@ -53,7 +53,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={5}
-          className="mask mask-star bg-green-500"
+          className="mask mask-star bg-white"
           checked={rating === 5}
           onChange={() => ratingChanged(5)}
         />

@@ -30,6 +30,7 @@ export const getProduct = async (id: string) => {
   )
   return product;
 };
+
 export const getProducts = async () => {
   const products: iProduct[] = await fetch(`${apiUrl}/get/products`, {
     method: "POST",

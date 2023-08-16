@@ -1,24 +1,15 @@
 import { prisma } from "@/app/util/prismaClient";
+import { iProduct } from "@/app/util/Interfaces";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  console.log("POST /api/products");
-  // interface Body {
-  //   isPublic: boolean;
-  //   user: boolean;
-  //   product: boolean;
-  //
-  // }
-
+  console.log(request.body);
   // const body: Body = await request.json();
   // console.log(body);
   try {
     const products = await prisma.product.findMany({
-      // include: {
-      //   user: body.user,
-      //   product: body.product,
-      // },
-    });
+    }) as unknown as iProduct[];
+
     console.log(products);
     return NextResponse.json({
       success: true,
@@ -28,6 +19,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     let e = error as Error;
+    console.log(e.message);
     return NextResponse.json({
       success: false,
       status: 500,
