@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {product.createdDate && (
           <p className="text-gray-400">
             {/* Created: {new Date(product.createdDate).toLocaleDateString()} */}
-            Apple
+            Write a Review
           </p>
         )}
         {product.address && (

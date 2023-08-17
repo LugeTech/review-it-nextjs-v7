@@ -29,16 +29,16 @@ const ReviewForm = ({ id }: { id: string }) => {
     title: "",
     unhelpfulVotes: 0,
     userId: user?.publicMetadata.id! as string,
+    images: [],
+    videos: [],
+    createdDate: new Date(),
+    links: [],
     product: {
       productSelected: id ? true : false,
       productId: id,
       name: "",
       description: "",
     },
-    images: [],
-    videos: [],
-    createdDate: new Date(),
-    links: [],
   });
   console.log('this is review data', reviewData)
 
