@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <YesNoAlert message={`Write your own ${rating} star Review?`} />
         </div>
       )}
-      <Link href={`/createreview/${product.id}`}>
+      <Link href={`/reviews/${product.id}`}>
         <div className="flex justify-start items-center gap-2">
           {product.images && product.images.length > 0 && (
             <div className="mb-4">
