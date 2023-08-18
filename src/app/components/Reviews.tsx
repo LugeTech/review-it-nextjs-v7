@@ -25,7 +25,11 @@ const Reviews = ({ id }: { id: string }) => {
           {/* space */}
         </div>
         <div className='flex flex-col lg:w-1/2 justify- items-center gap-2 bg-myTheme-base-100 rounded-lg'>
-          {reviews[1].title}
+          {reviews.map((review) => {
+            return (
+              <div>{review.title}</div>
+            )
+          })}
         </div>
 
       </div>
