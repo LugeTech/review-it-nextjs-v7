@@ -3,7 +3,6 @@ import { useState } from "react";
 import { iReview, iUser, iComment, iProduct } from "../util/Interfaces";
 import Image from "next/image";
 import Votes from "./Votes";
-// import { Heart } from '@smastrom/react-rating'
 import RatingModule from "@/app/components/RatingModule";
 
 interface ReviewBoxProps {
@@ -15,7 +14,6 @@ interface ReviewBoxProps {
 
 const ReviewBox: React.FC<ReviewBoxProps> = ({
   review: review,
-  users: users,
   comments: comments,
   products: products,
 }) => {

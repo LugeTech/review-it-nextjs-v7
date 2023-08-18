@@ -1,21 +1,24 @@
 export interface iReview {
-  id?: string;
-  product: string; // identifier for the product being reviewed
-  user: string; // identifier for the user who wrote the review
-  rating: number; // a number between 1 and 5 indicating the rating for the product
-  title: string; // the title of the review
-  body: string; // the main text of the review
-  date?: Date; // the date the review was written
-  helpfulVotes?: number; // the number of helpful votes the review has received
-  unhelpfulVotes?: number; // the number of unhelpful votes the review has received
-  comments: iComment[]; // an array of comments on the review
-  createdDate?: Date;
-  images?: iImage[]; // an array of images on the review
-  confirmed?: boolean; // a boolean indicating whether the review has been confirmed
-  deleted?: boolean; // a boolean indicating whether the review has been deleted
-  deletedDate?: Date; // the date the review was deleted
-  deletedBy?: string; // the user who deleted the review
-  deletedReason?: string; // the reason the review was deleted
+  id: string;
+  body: string;
+  createdDate: Date;
+  helpfulVotes?: number | null;
+  rating: number;
+  title: string;
+  unhelpfulVotes?: number | null;
+  product?: iProduct | null;
+  user?: iUser | null;
+  productId: string;
+  userId: string;
+  isVerified?: boolean | null;
+  verifiedBy?: string | null;
+  isPublic: boolean;
+  images: string[];
+  videos: string[];
+  links: string[];
+  createdBy?: string | null;
+  isDeleted?: boolean | null;
+  comments: iComment[];
 }
 
 export interface iComment {
