@@ -46,7 +46,6 @@ model Comments {
 model Review {
   id             String     @id @default(auto()) @map("_id") @db.ObjectId
   body           String
-  comments       String[]
   createdDate    DateTime   @default(now())
   helpfulVotes   Int?       @default(0)
   rating         Int
@@ -64,7 +63,7 @@ model Review {
   links          String[]
   createdBy      String?
   isDeleted      Boolean?   @default(false)
-  Comments       Comments[]
+  comments       Comments[]
 
   @@unique(fields: [title, userId, productId], name: "unique_review", map: "unique_review")
 }
