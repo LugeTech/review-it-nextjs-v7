@@ -33,7 +33,7 @@ const page = async ({ params }: Props) => {
       </h1>
       {reviewsData ? (
         <h1 className="flex flex-1 justify-center mt-2 text-sm  text-myTheme-dark dark:text-myTheme-light">
-          {JSON.stringify(reviewsData.data._id)}
+          {JSON.stringify(reviewsData.data.id)}
         </h1>
       ) : (
         <h1>Loading...</h1>

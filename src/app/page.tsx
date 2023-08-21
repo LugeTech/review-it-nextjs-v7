@@ -10,8 +10,8 @@ export const revalidate = 30;
 export default async function Home() {
   const reviews: iReview[] = [
     {
-      _id: "1",
-      product: "1",
+      id: "1",
+      productId: "1",
       user: "1",
       rating: 4,
       title: faker.lorem.sentence(),
@@ -21,7 +21,7 @@ export default async function Home() {
       unhelpfulVotes: faker.datatype.number(),
       comments: [
         {
-          _id: "1",
+          id: "1",
           user: "3",
           body: faker.lorem.sentences(),
           createdDate: new Date(),
@@ -29,8 +29,8 @@ export default async function Home() {
       ],
     },
     {
-      _id: "2",
-      product: "2",
+      id: "2",
+      productId: "2",
       user: "2",
       rating: 5,
       title: faker.lorem.sentence(),
@@ -40,7 +40,7 @@ export default async function Home() {
       unhelpfulVotes: faker.datatype.number(),
       comments: [
         {
-          _id: "2",
+          id: "2",
           user: "4",
           body: faker.lorem.sentences(),
           createdDate: new Date(),
@@ -51,28 +51,28 @@ export default async function Home() {
 
   const users: iUser[] = [
     {
-      _id: "1",
+      id: "1",
       firstName: faker.name.firstName(),
       email: faker.internet.email(),
       lastName: faker.name.lastName(),
       avatar: faker.image.avatar(),
     },
     {
-      _id: "2",
+      id: "2",
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       email: faker.internet.email(),
       avatar: faker.image.avatar(),
     },
     {
-      _id: "3",
+      id: "3",
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       email: faker.internet.email(),
       avatar: faker.image.avatar(),
     },
     {
-      _id: "4",
+      id: "4",
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       email: faker.internet.email(),
@@ -82,13 +82,13 @@ export default async function Home() {
 
   const comments: iComment[] = [
     {
-      _id: "1",
+      id: "1",
       user: "3",
       body: faker.lorem.sentence(9),
       createdDate: new Date(),
     },
     {
-      _id: "2",
+      id: "2",
       user: "4",
       body: faker.lorem.sentence(9),
       createdDate: new Date(),
@@ -96,13 +96,13 @@ export default async function Home() {
   ];
   const products: iProduct[] = [
     {
-      _id: "1",
+      id: "1",
       name: faker.commerce.productName(),
       images: ["/logo.png"],
       description: faker.lorem.sentence(),
     },
     {
-      _id: "2",
+      id: "2",
       name: faker.commerce.productName(),
       images: ["/logo.png"],
       description: faker.lorem.sentence(),

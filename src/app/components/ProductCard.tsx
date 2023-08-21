@@ -8,16 +8,19 @@ import YesNoAlert from './YesNoAlert';
 
 interface ProductCardProps {
   product: iProduct;
+  options: {
+    showLatestReview: boolean;
+  };
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   const [rating, setRating] = useState(0); // Initial value
   const [showModal, setShowModal] = useState(false);
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
     setShowModal(true);
   };
-  console.log(product.rating)
+  console.log(product)
   return (
     <div className="flex flex-col w-full rounded-lg shadow-md p-4">
       {showModal && (
@@ -60,7 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {product.address && (
           <p className="text-gray-400">{product.address}</p>
         )}
-        <Link href={'/products'} className="text-gray-400 underline">Latest Review</Link>
+        {options.showLatestReview && <Link href={'/products'} className="text-gray-400 underline">Latest Review</Link>}
       </div>
     </div>
   );
