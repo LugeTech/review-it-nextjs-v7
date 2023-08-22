@@ -1,6 +1,6 @@
 import { iReview } from "@/app/util/Interfaces";
 export function calculateAverageReviewRating(reviews: iReview[]) {
-  if (reviews.length === 0) return {};
+  if (reviews.length === 0) return null;
   const totalScore = reviews.reduce((acc, review) => acc + review.rating, 0);
 
   let averageRating = totalScore / reviews.length;

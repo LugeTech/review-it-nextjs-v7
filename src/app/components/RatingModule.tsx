@@ -3,7 +3,7 @@ import React from "react";
 
 const RatingModule = ({
   name,
-  rating,
+  rating = 1,
   ratingChanged,
   size = "rating-lg",
 }: {

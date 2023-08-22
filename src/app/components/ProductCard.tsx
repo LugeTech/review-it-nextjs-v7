@@ -34,8 +34,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   const reviews = data?.data as iReview[]
   if (isLoading) return <LoadingSpinner />
   if (isError) return <p>{error.message}</p>
-  let calculaterRating = calculateAverageReviewRating(reviews)
-  console.log(calculaterRating)
+  let calculatedRating = calculateAverageReviewRating(reviews)
+  console.log(calculatedRating)
   return (
     <div className="flex flex-col w-full rounded-lg shadow-md p-4">
       <Link href={`/reviews/${product.id}`} className='border-b-2 border-myTheme-neutral-100'>
@@ -60,14 +60,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
             <h2 className="text-xl font-semibold ">{product.name}</h2>
             {<RatingModule
               name={product.id!}
-              rating={calculaterRating.roundedRating}
+              rating={calculatedRating?.roundedRating!}
               ratingChanged={ratingChanged}
               size={options.size}
             />}
             <p className="text-gray-500  text-xs md:text-base">{
               reviews && reviews.length > 0 ?
-                calculaterRating.roundedRatingOneDecimalPlace : 'No Reviews Yet'
-            }</p>
+                calculatedRating?.roundedRatingOneDecimalPlace! : 'No Reviews Yet'
+            }
+              {
+                reviews && reviews.length > 0 ?
+                  ` (${calculatedRating?.numberOfReviews!} reviews)` : ''
+              }
+            </p>
           </div>
         </div>
       </Link>
