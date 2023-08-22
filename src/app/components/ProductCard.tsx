@@ -17,7 +17,11 @@ interface ProductCardProps {
     size: string;
   };
 }
-
+interface iCalculatedRating {
+  roundedRating: number;
+  roundedRatingOneDecimalPlace: number;
+  numberOfReviews: number;
+}
 const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   const [rating, setRating] = useState(0); // Initial value
   const [showModal, setShowModal] = useState(false);
@@ -31,11 +35,23 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
     queryFn: () => getReviews(product.id!),
     refetchOnWindowFocus: false,
   }) as any
+
   const reviews = data?.data as iReview[]
   if (isLoading) return <LoadingSpinner />
   if (isError) return <p>{error.message}</p>
-  let calculatedRating = calculateAverageReviewRating(reviews)
-  console.log(calculatedRating)
+  let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
+
+  let dynamicStyles: any = {};
+  if (roundedRating >= 4) {
+    dynamicStyles.backgroundColor = '#00FF00'; // Green background
+    dynamicStyles.color = '#006400'; // Dark green text
+  } else if (roundedRating === 3) {
+    dynamicStyles.backgroundColor = '#FFFF00'; // Yellow background
+    dynamicStyles.color = '#000000'; // Black text
+  } else if (roundedRating <= 2) {
+    dynamicStyles.backgroundColor = '#FF0000'; // Red background
+    dynamicStyles.color = '#FFFFFF'; // White text
+  }
   return (
     <div className="flex flex-col w-full rounded-lg shadow-md p-4">
       <Link href={`/reviews/${product.id}`} className='border-b-2 border-myTheme-neutral-100'>
@@ -60,19 +76,21 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
             <h2 className="text-xl font-semibold ">{product.name}</h2>
             {<RatingModule
               name={product.id!}
-              rating={calculatedRating?.roundedRating!}
+              rating={roundedRating!}
               ratingChanged={ratingChanged}
               size={options.size}
             />}
-            <p className="text-gray-500  text-xs md:text-base">{
-              reviews && reviews.length > 0 ?
-                calculatedRating?.roundedRatingOneDecimalPlace! : 'No Reviews Yet'
-            }
+            <span className={`mr-auto rounded flex items-start text-xs md:text-base`}
+              style={dynamicStyles}
+            >{
+                reviews && reviews.length > 0 ?
+                  roundedRatingOneDecimalPlace! : 'No Reviews Yet'
+              }
               {
                 reviews && reviews.length > 0 ?
-                  ` (${calculatedRating?.numberOfReviews!} reviews)` : ''
+                  ` (${numberOfReviews!} reviews)` : ''
               }
-            </p>
+            </span>
           </div>
         </div>
       </Link>

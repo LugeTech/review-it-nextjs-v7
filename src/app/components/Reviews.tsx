@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image';
 import { iReview } from '../util/Interfaces'
 import { useQuery } from '@tanstack/react-query';
 import { getReviews } from '../util/serverFunctions';
@@ -6,6 +7,8 @@ import LoadingSpinner from './LoadingSpinner';
 import ProductCard from './ProductCard';
 import DOMPurify from 'dompurify';
 import RatingModule from './RatingModule';
+import dayjs from 'dayjs';
+import 'dayjs/locale/en'; // Import the English locale
 
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
@@ -32,7 +35,7 @@ const Reviews = ({ productId }: { productId: string }) => {
         product={reviews[0].product!}
         options={productCardOptions}
       />
-      <div className="space-y-6">
+      <div className="space-y-6 mt-4">
         {reviews.map(review => (
           <div key={review.id} className="p-4 border rounded shadow-md">
             {/* const sanitizedHtmlContent = DOMPurify.sanitize(review.body); */}
@@ -40,8 +43,11 @@ const Reviews = ({ productId }: { productId: string }) => {
             <div className="flex items-center mb-2">
               {/* <img src={review.user.avatar} alt={review.user?.userName} className="w-8 h-8 rounded-full mr-2" /> */}
               <div>
-                <p className="font-semibold">{review.user?.firstName} {review.user?.lastName}</p>
-                <p className="text-gray-600">{review.createdDate.toString()}</p>
+                <div className='flex flex-row items-center justify-start'>
+                  <Image src={review.user?.avatar!} alt={review.user?.id!} width={32} height={32} className="rounded-full mr-2" />
+                  <p className="font-semibold">{review.user?.firstName} {review.user?.lastName}</p>
+                </div>
+                <p className="text-gray-600 text-xs">{dayjs(review.createdDate.toString()).format('MMMM D, YYYY h:mm A')}</p>
               </div>
             </div>
             <h2 className="text-lg font-semibold mb-2">{review.title}</h2>
