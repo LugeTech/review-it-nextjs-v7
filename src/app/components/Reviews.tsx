@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getReviews } from '../util/serverFunctions';
 import LoadingSpinner from './LoadingSpinner';
 import ProductCard from './ProductCard';
+import DOMPurify from 'dompurify';
+import RatingModule from './RatingModule';
 
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
@@ -14,6 +16,7 @@ const Reviews = ({ productId }: { productId: string }) => {
 
   const productCardOptions = {
     showLatestReview: false,
+    size: 'rating-md',
   }
 
   if (isLoading) return <LoadingSpinner />;
@@ -32,7 +35,7 @@ const Reviews = ({ productId }: { productId: string }) => {
       <div className="space-y-6">
         {reviews.map(review => (
           <div key={review.id} className="p-4 border rounded shadow-md">
-            const sanitizedHtmlContent = DOMPurify.sanitize(review.body);
+            {/* const sanitizedHtmlContent = DOMPurify.sanitize(review.body); */}
             {/* Review content */}
             <div className="flex items-center mb-2">
               {/* <img src={review.user.avatar} alt={review.user?.userName} className="w-8 h-8 rounded-full mr-2" /> */}
@@ -42,9 +45,17 @@ const Reviews = ({ productId }: { productId: string }) => {
               </div>
             </div>
             <h2 className="text-lg font-semibold mb-2">{review.title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: review.body }} className="mb-4" />
+            {/* Sanitize the review body */}
+            <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body) }} className="mb-4" />
+            {/* <div dangerouslySetInnerHTML={{ __html: review.body }} className="mb-4" /> */}
             <div className="flex items-center">
-              <p className="text-gray-600 mr-2">{review.rating} / 5 stars</p>
+              {/* <p className="text-gray-600 mr-2">{review.rating} / 5 stars</p> */}
+              <RatingModule
+                name={review.id!}
+                rating={review.rating}
+                ratingChanged={() => { }}
+                size={"rating-sm"}
+              />
               <div className="flex">
                 <button className="mr-2">
                   Helpful <span className="text-gray-600">({review.helpfulVotes})</span>

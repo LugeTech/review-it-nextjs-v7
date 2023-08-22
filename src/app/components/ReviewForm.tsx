@@ -40,7 +40,11 @@ const ReviewForm = ({ id }: { id: string }) => {
       description: "",
     },
   });
-  console.log('this is review data', reviewData)
+
+  const productCardOptions = {
+    showLatestReview: true,
+    size: 'rating-md'
+  }
 
   const handleEditorValue = (value: string) => {
     if (value === "" || value === "<p></p>") {
@@ -148,7 +152,7 @@ const ReviewForm = ({ id }: { id: string }) => {
       >
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
-          <ProductCard product={product} />
+          <ProductCard options={productCardOptions} product={product} />
         </div>
         <div className="flex flex-col justify-center items-center mb-2 border-b dark:border-myTheme-dark2 p-1 shadow-sm">
           <label

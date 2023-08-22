@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
   }
 
   const body: Body = await request.json();
-  console.log(body);
   try {
     const reviews = await prisma.review.findMany({
       where: { isPublic: body.isPublic, productId: body.id },
@@ -23,7 +22,6 @@ export async function POST(request: NextRequest) {
         // comments: body.comments,
       },
     });
-    console.log('this is the review found', reviews)
     return NextResponse.json({
       success: true,
       status: 200,

@@ -20,6 +20,7 @@ const Page = () => {
 
   const productCardOptions = {
     showLatestReview: true,
+    size: 'rating-md'
   }
 
   return (
