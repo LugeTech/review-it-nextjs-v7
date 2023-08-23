@@ -21,7 +21,6 @@ export async function POST(request: NextRequest) {
       //   product: body.product,
       // },
     });
-    console.log('found this product', product);
     return NextResponse.json({
       success: true,
       status: 200,

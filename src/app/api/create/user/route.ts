@@ -24,7 +24,7 @@ interface UserDATA {
   sub: string;
   userId: string;
   userName: string;
-  metadata: {userInDb: boolean, id: string}
+  metadata: { userInDb: boolean, id: string }
 }
 
 // Exporting the POST function that handles the API request
@@ -35,12 +35,6 @@ export async function POST(request: NextRequest) {
 
     // Casting the session claims to UserDATA type
     const clerkUserData = sessionClaims as unknown as UserDATA;
-
-    // Logging the user data received
-    console.log(
-      "create user api just got hit with this user data",
-      clerkUserData
-    );
 
     // Checking if the user already exists in the database
     if (!(await userInDb(clerkUserData.userId))) {
@@ -65,7 +59,6 @@ export async function POST(request: NextRequest) {
       });
 
       // Logging a success message after adding the user to MongoDB
-      console.log("user added to mongodb");
 
       // Returning the response as JSON
       return NextResponse.json({
@@ -76,7 +69,6 @@ export async function POST(request: NextRequest) {
     }
 
     // Logging a message if the user already exists in the database
-    console.log("user already in db skipped upsert");
     return NextResponse.json({
       success: true,
       status: 200,
