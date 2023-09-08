@@ -21,7 +21,9 @@ const Page = () => {
 
   const productCardOptions = {
     showLatestReview: true,
-    size: 'rating-md'
+    size: 'rating-md',
+    showWriteReview: true,
+    showClaimThisProduct: true
   }
 
   return (

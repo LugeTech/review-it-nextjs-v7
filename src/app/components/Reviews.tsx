@@ -20,6 +20,8 @@ const Reviews = ({ productId }: { productId: string }) => {
   const productCardOptions = {
     showLatestReview: false,
     size: 'rating-md',
+    showWriteReview: true,
+    showClaimThisProduct: true,
   }
 
   if (isLoading) return <LoadingSpinner />;

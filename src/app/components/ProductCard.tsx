@@ -16,6 +16,7 @@ interface ProductCardProps {
     showLatestReview: boolean;
     size: string;
     showWriteReview: boolean;
+    showClaimThisProduct: boolean;
   };
 }
 interface iCalculatedRating {
@@ -51,14 +52,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
 
   let dynamicStyles: any = {};
   if (roundedRating >= 4) {
-    dynamicStyles.backgroundColor = '#00FF00'; // Green background
-    dynamicStyles.color = '#006400'; // Dark green text
+    dynamicStyles.backgroundColor = '#00FF00';
+    dynamicStyles.color = '#006400';
   } else if (roundedRating === 3) {
-    dynamicStyles.backgroundColor = '#FFFF00'; // Yellow background
-    dynamicStyles.color = '#000000'; // Black text
+    dynamicStyles.backgroundColor = '#FFFF00';
+    dynamicStyles.color = '#000000';
   } else if (roundedRating <= 2) {
-    dynamicStyles.backgroundColor = '#FF0000'; // Red background
-    dynamicStyles.color = '#FFFFFF'; // White text
+    dynamicStyles.backgroundColor = '#FF0000';
+    dynamicStyles.color = '#FFFFFF';
   }
   return (
     <div className="flex flex-col w-full rounded-lg shadow-md p-4">
@@ -88,7 +89,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
               ratingChanged={ratingChanged}
               size={options.size}
             />}
-            <span className={`mr-auto rounded flex items-start text-xs md:text-base`}
+            <span className={`mr-auto rounded p-1 flex items-start text-xs md:text-base`}
               style={dynamicStyles}
             >{
                 reviews && reviews.length > 0 ?
@@ -102,17 +103,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
           </div>
         </div>
       </Link>
-      <div className="flex justify-between items-center">
-        {product.createdDate && (
+      <div className="flex text-sm justify-between items-center">
+        {options.showWriteReview ? (
           <p className="text-gray-400">
             {/* Created: {new Date(product.createdDate).toLocaleDateString()} */}
-            <Link href={`/createreview/${product.id}`}> Write a Review</Link>
+            <Link href={`/createreview/${product.id}`}> Write Review</Link>
           </p>
+        ) : 'Some other stat'}
+        {options.showClaimThisProduct && (
+          <p className="text-gray-400">{'Claim this product'}</p>
         )}
-        {product.address && (
-          <p className="text-gray-400">{product.address}</p>
-        )}
-        {options.showLatestReview && <Link href={'/products'} className="text-gray-400 ">Latest Review</Link>}
+        {options.showLatestReview && <Link href={'/products'} className="text-gray-400 ">Last Review</Link>}
       </div>
     </div>
   );
