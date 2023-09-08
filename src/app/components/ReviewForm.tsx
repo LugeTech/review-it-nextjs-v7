@@ -24,10 +24,8 @@ const ReviewForm = ({ id }: { id: string }) => {
   const [reviewData, setReviewData] = useState<SentDataReviewAndProduct>({
     body: "",
     comments: [],
-    helpfulVotes: 0,
     rating: 1,
     title: "",
-    unhelpfulVotes: 0,
     userId: user?.publicMetadata.id! as string,
     images: [],
     videos: [],
@@ -42,8 +40,9 @@ const ReviewForm = ({ id }: { id: string }) => {
   });
 
   const productCardOptions = {
-    showLatestReview: true,
-    size: 'rating-md'
+    showLatestReview: false,
+    size: 'rating-md',
+    showWriteReview: false,
   }
 
   const handleEditorValue = (value: string) => {

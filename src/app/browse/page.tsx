@@ -7,6 +7,7 @@ import { useQuery, } from "@tanstack/react-query";
 import ArrangeByPanel from '../components/ArrangeByPanel';
 import ProductCard from '../components/ProductCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import Token from '../components/Token';
 
 const Page = () => {
   const { data, isLoading, isError, error } = useQuery({
@@ -43,6 +44,7 @@ const Page = () => {
         {/*   <h2 className='text-sm '>maybe ads or sponsored things</h2> */}
         {/* </div> */}
       </div>
+      <Token />
     </div>
   )
 }

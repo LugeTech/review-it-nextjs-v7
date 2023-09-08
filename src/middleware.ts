@@ -2,6 +2,7 @@
 
 import { authMiddleware } from "@clerk/nextjs";
 
+console.log('hello from midleware thigfgfgfs')
 export default authMiddleware({
   publicRoutes: ["/"],
 });

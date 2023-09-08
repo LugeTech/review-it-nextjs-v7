@@ -1,4 +1,4 @@
-// import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import { iReview, iUser, iComment, iProduct } from "./util/Interfaces";
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";

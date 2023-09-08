@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   // console.log("POST /api/reviews");
+  // these variable names aren't good must update
   interface Body {
     isPublic: boolean;
     user: boolean;
@@ -11,7 +12,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body: Body = await request.json();
-  console.log(body);
+  // console.log(body);
   try {
     const reviews = await prisma.review.findMany({
       where: { isPublic: true },

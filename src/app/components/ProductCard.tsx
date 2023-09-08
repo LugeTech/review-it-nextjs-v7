@@ -15,6 +15,7 @@ interface ProductCardProps {
   options: {
     showLatestReview: boolean;
     size: string;
+    showWriteReview: boolean;
   };
 }
 interface iCalculatedRating {
@@ -37,6 +38,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   }) as any
 
   const reviews = data?.data as iReview[]
+  // remove any reviews that don't have a rating or is undefined
+  // const filteredReviews = reviews?.filter((review) => review.rating !== null && review.rating !== 0)
+  // console.log('filteredReviews', filteredReviews)
+  // return (
+  //   <div>
+  //   </div>
+  // )
   if (isLoading) return <LoadingSpinner />
   if (isError) return <p>{error.message}</p>
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
