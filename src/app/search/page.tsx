@@ -1,52 +1,56 @@
 'use client';
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import SearchBox from '@/app/components/SearchBox';
 import SearchResult from '@/app/components/SearchResult';
-
-const fakeData = [
-  { id: 1, name: 'John Doe', details: '123 Main St' },
-  { id: 2, name: 'Jane Smith', details: '456 Elm St' },
-  { id: 3, name: 'Alice Johnson', details: '789 Oak St' },
-  // Add more fake data here
-];
-interface iSearchResult {
-  id: number;
-  name: string;
-  details: string;
-}
+import ProductListLoader from '@/app/components/ProductListLoader'; // Import the loader component
+import { iProduct } from '@/app/util/Interfaces';
+// interface Product {
+//   id: number;
+//   name: string;
+//   details: string;
+// }
 
 const Search: React.FC = () => {
-  const [searchResults, setSearchResults] = useState(fakeData);
-  const [selectedResult, setSelectedResult] = useState<
-    iSearchResult | null
-  >(null);
+  const [searchResults, setSearchResults] = useState<iProduct[]>([]);
+  const [selectedResult, setSelectedResult] = useState<iProduct | null>(null);
+  const [results, setResults] = useState<iProduct[]>([]);
+
+  // Callback function to handle data loading completion
+  const handleDataLoaded = (data: iProduct[]) => {
+    console.log(data);
+    setSearchResults(data);
+  };
 
   const handleSearch = (query: string) => {
-    // Simulate querying the database
-    const results = fakeData.filter((result) =>
+    // Filter the data based on the user's search query
+    console.log(selectedResult);
+    const results = searchResults.filter((result) =>
       result.name.toLowerCase().includes(query.toLowerCase())
     );
-
-    setSearchResults(results);
+    setResults(results);
     setSelectedResult(null);
   };
 
-  const handleItemClick = (result: iSearchResult) => {
+  const handleItemClick = (result: iProduct) => {
     setSelectedResult(result);
   };
 
   return (
-    <div className="App">
+    <div className="">
       <h1>Search App</h1>
+      <Suspense >
+        <ProductListLoader />
+      </Suspense>
+
       <SearchBox onSearch={handleSearch} />
       <SearchResult
-        results={searchResults}
+        results={results}
         onItemClick={handleItemClick}
       />
       {selectedResult && (
         <div className="selected-result">
           <div className="top-layer">{selectedResult.name}</div>
-          <div className="bottom-layer">{selectedResult.details}</div>
+          <div className="bottom-layer">{selectedResult.id}</div>
         </div>
       )}
     </div>

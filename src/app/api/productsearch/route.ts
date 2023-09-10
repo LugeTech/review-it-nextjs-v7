@@ -1,3 +1,4 @@
+
 import { prisma } from "@/app/util/prismaClient";
 import { iProduct } from "@/app/util/Interfaces";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,6 +9,9 @@ export async function POST(request: NextRequest) {
   // console.log(body);
   try {
     const products = await prisma.product.findMany({
+      // where: {
+      //   productSelected: true,
+      // }
     }) as unknown as iProduct[];
 
     return NextResponse.json({

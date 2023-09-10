@@ -5,8 +5,8 @@ import { iProduct } from '@/app/util/Interfaces';
 import { getProducts } from "@/app/util/serverFunctions";
 import { useQuery, } from "@tanstack/react-query";
 import ArrangeByPanel from '../components/ArrangeByPanel';
-import ProductCard from '../components/ProductCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import ProductCard from '../components/ProductCard';
 import Token from '../components/Token';
 
 const Page = () => {

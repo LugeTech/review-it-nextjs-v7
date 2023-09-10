@@ -1,14 +1,9 @@
 import React from 'react';
-
-interface SearchResult {
-  id: number;
-  name: string;
-  details: string;
-}
+import { iProduct } from '../util/Interfaces';
 
 interface SearchResultsProps {
-  results: SearchResult[];
-  onItemClick: (result: SearchResult) => void;
+  results: iProduct[];
+  onItemClick: (result: iProduct) => void;
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({
@@ -24,7 +19,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
           className="cursor-pointer p-2 border hover:bg-gray-100"
         >
           <div className="text-xl font-bold">{result.name}</div>
-          <div className="text-sm font-light">{result.details}</div>
+          <div className="text-sm font-light">{result.id}</div>
         </li>
       ))}
     </ul>
