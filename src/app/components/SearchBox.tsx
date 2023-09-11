@@ -2,8 +2,10 @@ import React, { useState, useEffect, FC, ChangeEvent } from 'react';
 import { useAtom } from "jotai";
 import { allProductsStore } from "@/app/store/store";
 import { iProduct } from '../util/Interfaces';
+import SearchResults from './SearchResult';
 
 const SearchBox = () => {
+  const [searchResults, setSearchResults] = useState<iProduct[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
     null
@@ -14,7 +16,7 @@ const SearchBox = () => {
     const fp = products.filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    console.log('input change', fp)
+
     return fp;
   };
 
@@ -24,7 +26,8 @@ const SearchBox = () => {
     }
     const timeout = setTimeout(() => {
       // setAllProducts(filteredProducts(allProducts));
-      filteredProducts(allProducts)
+      console.log('typing timeout!')
+      setSearchResults(filteredProducts(allProducts));
     }, 1000); // 500ms delay
 
     setTypingTimeout(timeout);
@@ -37,19 +40,23 @@ const SearchBox = () => {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 0) {
-      // console.log('input change', filteredProducts(allProducts));
+      // );
     }
     setSearchTerm(e.target.value);
   };
 
+
   return (
-    <input
-      type="text"
-      placeholder="Search..."
-      value={searchTerm}
-      onChange={handleInputChange}
-      className="border p-2 rounded"
-    />
+    <div>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={handleInputChange}
+        className="border p-2 rounded"
+      />
+      <SearchResults results={searchResults} onItemClick={() => { }} />
+    </div>
   );
 };
 

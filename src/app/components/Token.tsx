@@ -13,7 +13,7 @@ export default function Token() {
   useEffect(() => {
     run();
   });
-  console.log(jwtToken);
+
 
   return (
     <div className=" w-screen h-full flex flex-col justify-center items-center">

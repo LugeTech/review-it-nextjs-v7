@@ -8,7 +8,7 @@ import { iProduct } from '@/app/util/Interfaces';
 //   id: number;
 //   name: string;
 //   details: string;
-// }
+1// }
 
 const Search: React.FC = () => {
   const [searchResults, setSearchResults] = useState<iProduct[]>([]);
@@ -37,12 +37,12 @@ const Search: React.FC = () => {
 
   return (
     <div className="">
-      <h1>Search App</h1>
-      <Suspense >
+      <h1>Search</h1>
+      <Suspense fallback={null} >
         <ProductListLoader />
       </Suspense>
 
-      <SearchBox onSearch={handleSearch} />
+      <SearchBox />
       <SearchResult
         results={results}
         onItemClick={handleItemClick}
