@@ -47,15 +47,15 @@ const SearchBox = () => {
 
 
   return (
-    <div>
+    <div className="flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
       <input
         type="text"
-        placeholder="Search..."
+        className="block w-full p-4 pl-4 text-sm text-black border border-gray-300 rounded-lg bg-gray-50 focus:ring-myTheme-neutral focus:border-myTheme-light dark:bg-myTheme-neutral dark:border-myTheme-grey-600 dark:placeholder-myTheme-light dark:text-myTheme-light dark:focus:ring-myTheme-secondary dark:focus:border-myTheme-light"
+        placeholder="Company | Service | Product..."
         value={searchTerm}
         onChange={handleInputChange}
-        className="border p-2 rounded"
       />
-      <SearchResults results={searchResults} onItemClick={() => { }} />
+      <SearchResults results={searchResults} />
     </div>
   );
 };

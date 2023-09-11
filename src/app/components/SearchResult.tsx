@@ -1,28 +1,25 @@
 import React from 'react';
 import { iProduct } from '../util/Interfaces';
+import Link from 'next/link';
+import ProductCardSlim from './ProductCardSlim';
 
 interface SearchResultsProps {
   results: iProduct[];
-  onItemClick: (result: iProduct) => void;
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({
   results,
-  onItemClick,
 }) => {
+  const productCardOptions = {
+    size: 'rating-sm',
+  }
+
   return (
-    <ul>
+    <div className=" mt-2 flex flex-col mx-auto justify-center items-center">
       {results.map((result) => (
-        <li
-          key={result.id}
-          onClick={() => onItemClick(result)}
-          className="cursor-pointer p-2 border hover:bg-gray-100"
-        >
-          <div className="text-xl font-bold">{result.name}</div>
-          <div className="text-sm font-light">{result.id}</div>
-        </li>
-      ))}
-    </ul>
+
+        <ProductCardSlim options={productCardOptions} product={result} key={result.id} />))}
+    </div>
   );
 };
 

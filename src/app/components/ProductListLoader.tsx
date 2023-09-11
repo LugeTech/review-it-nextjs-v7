@@ -23,7 +23,7 @@ const ProductListLoader = () => {
   }, [data]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading search engine...</div>;
   }
   if (isError) {
     return <div>{error.message}</div>;
