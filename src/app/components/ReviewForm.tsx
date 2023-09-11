@@ -43,6 +43,7 @@ const ReviewForm = ({ id }: { id: string }) => {
     showLatestReview: false,
     size: 'rating-md',
     showWriteReview: false,
+    showClaimThisProduct: true
   }
 
   const handleEditorValue = (value: string) => {

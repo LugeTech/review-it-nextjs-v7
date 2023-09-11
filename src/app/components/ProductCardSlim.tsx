@@ -20,19 +20,11 @@ interface iCalculatedRating {
   roundedRatingOneDecimalPlace: number;
   numberOfReviews: number;
 }
-const productCardOptions = {
-  showLatestReview: true,
-  size: 'rating-md',
-  showWriteReview: true,
-  showClaimThisProduct: true
-}
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   const [rating, setRating] = useState(0); // Initial value
-  const [showModal, setShowModal] = useState(false);
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
-    setShowModal(true);
   };
 
   const { data, isLoading, isError, error } = useQuery({
