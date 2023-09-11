@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["newsroom.gy", "img.clerk.com", "res.cloudinary.com", "cloudflare-ipfs.com", "loremflickr.com", "placehold.co", "images.clerk.dev"],
+    domains: ["i5.walmartimages.com", "newsroom.gy", "img.clerk.com", "res.cloudinary.com", "cloudflare-ipfs.com", "loremflickr.com", "placehold.co", "images.clerk.dev"],
   },
   experimental: {
     serverActions: true,

@@ -65,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
             </div>
           )}
           <div className="mb-1 flex flex-col gap-2">
-            <h2 className="text-lg font-semibold ">{product.name}</h2>
+            <h2 className="text-md font-semibold ">{product.name}</h2>
             {<RatingModule
               name={product.id!}
               rating={roundedRating!}
