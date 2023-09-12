@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
     dynamicStyles.color = '#FFFFFF';
   }
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md p-2">
+    <div className="flex flex-col w-full rounded-lg shadow-md p-2 bg-white">
       <Link href={`/reviews/${product.id}`} className=''>
         <div className="flex justify-start items-center gap-2">
           {product.images && product.images.length > 0 && (

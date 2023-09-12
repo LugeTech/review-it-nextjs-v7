@@ -62,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
     dynamicStyles.color = '#FFFFFF';
   }
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md p-4">
+    <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-white">
       <Link href={`/reviews/${product.id}`} className='border-b-2 border-myTheme-neutral-100'>
         {showModal && (
           <div className="fixed z-10 inset-0 overflow-y-auto">

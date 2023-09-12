@@ -17,8 +17,8 @@ export const sideLinks = [
     link: "/browse",
   },
   {
-    name: "Businesses",
-    link: "/fetch",
+    name: "Submit",
+    link: "/submit",
   },
   {
     name: "My Reviews",
@@ -32,24 +32,28 @@ export const sideLinks = [
 
 export const topLinks = [
   {
+    name: "Search",
+    link: "/search",
+  },
+  {
     name: "Write a Review",
     link: "/createreview",
-  },
-  {
-    name: "Businesses",
-    link: "/fetch",
-  },
-  {
-    name: "Services",
-    link: "/",
   },
   {
     name: "Browse",
     link: "/browse",
   },
   {
+    name: "Submit",
+    link: "/submit",
+  },
+  {
     name: "My Reviews",
-    link: "/",
+    link: "/test",
+  },
+  {
+    name: "My Profile",
+    link: "/user",
   },
 ];
 

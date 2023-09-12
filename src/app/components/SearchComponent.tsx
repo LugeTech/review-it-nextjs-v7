@@ -48,10 +48,10 @@ const SearchBox = () => {
 
 
   return (
-    <div className="flex flex-col h-full w-5/6 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
+    <div className="flex flex-col px-4 h-full w-full lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
       <input
         type="text"
-        className="block w-full p-4 pl-4 text-sm text-black border border-gray-300 rounded-lg bg-gray-50 focus:ring-myTheme-neutral focus:border-myTheme-light dark:bg-myTheme-neutral dark:border-myTheme-grey-600 dark:placeholder-myTheme-light dark:text-myTheme-light dark:focus:ring-myTheme-secondary dark:focus:border-myTheme-light"
+        className="block w-full py-4 pl-4 text-sm text-black border border-gray-300 rounded-lg bg-gray-50 focus:ring-myTheme-neutral focus:border-myTheme-light dark:bg-myTheme-neutral dark:border-myTheme-grey-600 dark:placeholder-myTheme-light dark:text-myTheme-light dark:focus:ring-myTheme-secondary dark:focus:border-myTheme-light"
         placeholder="Company | Service | Product..."
         value={searchTerm}
         onChange={handleInputChange}
