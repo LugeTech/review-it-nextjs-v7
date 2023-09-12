@@ -5,7 +5,7 @@ import { iProduct } from '@/app/util/Interfaces';
 const Search: React.FC = () => {
 
   return (
-    <div className="flex flex-col bg-myTheme-light dark:bg-myTheme-dark h-full w-full items-center justify-start">
+    <div className="flex flex-col pt-8 bg-myTheme-light dark:bg-myTheme-dark h-full w-full items-center justify-start">
       <SearchComponent />
       <ProductListLoader />
     </div>

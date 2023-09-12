@@ -23,12 +23,13 @@ module.exports = {
           dark: "#20272F",
           dark1: "#21202f",
           dark2: "#202f2f",
-          light: "#eee",
+          light: "#fff",
           grey: "#c8c9ca",
         },
       },
     },
   },
+  //light used to be eee
   plugins: [require("daisyui")],
   // daisyUI config (optional - here are the default values)
   daisyui: {
