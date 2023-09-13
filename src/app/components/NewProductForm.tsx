@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { iProduct } from '../util/Interfaces';
+import { resizeImage } from '../util/clientFunctions';
 
 
 const NewProductForm = () => {
@@ -27,6 +28,7 @@ const NewProductForm = () => {
 
   const [product, setProduct] = useState(initialProduct);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [productImage, setProductImage] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -49,8 +51,25 @@ const NewProductForm = () => {
 
       // You can also upload the selected image to your backend here if needed
       // Use the 'file' object to send to the server
+      // console.log('This is Product Image', productImage);
     }
   };
+
+  useEffect(() => {
+    console.log('This is Product Image top of useEffect', productImage);
+    if (imagePreview !== null) {
+      const run = async () => {
+        console.log('this is the imagePreview', imagePreview);
+        let resizedImage = await resizeImage(imagePreview as unknown as string);
+        return resizedImage as string;
+      };
+      run().then((smallFile) => {
+        // fileInputRef.current!.src = smallFile;
+        console.log('this is the resized image', smallFile);
+        setProductImage(smallFile);
+      });
+    }
+  }, [imagePreview]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,6 +87,12 @@ const NewProductForm = () => {
     }
   };
 
+  // let imageUploadReport = await c.uploader.upload(data.toolImage, {
+  //   resource_type: "image",
+  //   folder: "tools",
+  // });
+  // data.toolImage = imageUploadReport.secure_url;
+  //
   return (
     <div className="bg-white p-6 shadow-md rounded-lg flex flex-col w-full sm:px-2 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
       <h2 className="text-2xl font-semibold mb-4">Create New Product</h2>
