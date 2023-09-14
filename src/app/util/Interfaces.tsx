@@ -52,6 +52,7 @@ export interface iProduct {
   createdById: string;
   isDeleted: boolean;
 }
+
 export interface iService {
   id?: string;
   name: string;

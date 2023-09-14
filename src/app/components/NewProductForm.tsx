@@ -48,10 +48,6 @@ const NewProductForm = () => {
         setImagePreview(reader.result as string);
       };
       reader.readAsDataURL(file);
-
-      // You can also upload the selected image to your backend here if needed
-      // Use the 'file' object to send to the server
-      // console.log('This is Product Image', productImage);
     }
   };
 
@@ -87,12 +83,6 @@ const NewProductForm = () => {
     }
   };
 
-  // let imageUploadReport = await c.uploader.upload(data.toolImage, {
-  //   resource_type: "image",
-  //   folder: "tools",
-  // });
-  // data.toolImage = imageUploadReport.secure_url;
-  //
   return (
     <div className="bg-white p-6 shadow-md rounded-lg flex flex-col w-full sm:px-2 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
       <h2 className="text-2xl font-semibold mb-4">Create New Product</h2>

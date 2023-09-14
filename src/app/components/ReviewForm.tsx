@@ -74,13 +74,6 @@ const ReviewForm = ({ id }: { id: string }) => {
 
   const sendToServer = async () => {
     try {
-      // const token = aw
-      // ait getToken({ template: "4000" });
-      // if (token === null) {
-      //   throw new Error("no token");
-      // }
-      // console.log(token);
-
       const response = await fetch(`${apiUrl}/create/review`, {
         method: "POST",
         body: JSON.stringify(reviewData),
@@ -127,17 +120,13 @@ const ReviewForm = ({ id }: { id: string }) => {
     }
     await sendToServer();
   };
-  // const businessImage = faker.image.business();
-
-  // function openModal(): void {
-  //   throw new Error("Function not implemented.");
-  // }
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["product"],
     queryFn: () => getProduct(id),
     refetchOnWindowFocus: false,
   }) as any
+
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error - can't give more details cause error variable was taken</p>;
   const product = data?.data as iProduct

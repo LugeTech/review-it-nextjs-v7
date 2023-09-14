@@ -1,22 +1,22 @@
 import { iProduct, iReview, ReviewUserAndproduct } from "@/app/util/Interfaces";
 import { apiUrl } from "./apiUrl";
 
-export const getAllReviews = async () => {
-  const include = {
-    "user": true,
-    "product": true
-  }
-
-  const reviewUserAndproduct: ReviewUserAndproduct = await fetch(`${apiUrl}/get/all/reviews`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(include),
-  }).then((res) => res.json()
-  )
-  return reviewUserAndproduct
-};
+// export const getAllReviews = async () => {
+//   const include = {
+//     "user": true,
+//     "product": true
+//   }
+//
+//   const reviewUserAndproduct: ReviewUserAndproduct = await fetch(`${apiUrl}/get/all/reviews`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(include),
+//   }).then((res) => res.json()
+//   )
+//   return reviewUserAndproduct
+// };
 
 
 export const getReviews = async (id: string) => {
@@ -27,6 +27,7 @@ export const getReviews = async (id: string) => {
     product: true,
     comments: true,
   }
+
   const reviews: iReview[] = await fetch(`${apiUrl}/get/reviews`, {
     method: "POST",
     headers: {
