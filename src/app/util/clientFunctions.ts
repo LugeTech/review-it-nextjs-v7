@@ -6,7 +6,6 @@ export function resizeImage(
 ) {
 
   return new Promise((resolve) => {
-    console.log(base64Str);
     let img = new Image();
     img.src = base64Str;
     img.onload = () => {

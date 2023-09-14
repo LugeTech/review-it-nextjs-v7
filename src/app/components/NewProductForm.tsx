@@ -1,9 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { iProduct } from '../util/Interfaces';
 import { resizeImage } from '../util/clientFunctions';
-import { uploadImageToCloudinary } from '../util/cloudinaryFunctions';
+import { uploadImageToCloudinary } from '../util/uploadImageToCloudinary';
 
 const NewProductForm = () => {
   const initialProduct: iProduct = {
@@ -28,7 +28,7 @@ const NewProductForm = () => {
 
   const [product, setProduct] = useState(initialProduct);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [productImage, setProductImage] = useState<string | null>(null); //This is the smaller image
+  // const [productImage, setProductImage] = useState<string | null>(null); //This is the smaller image
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -50,6 +50,13 @@ const NewProductForm = () => {
       reader.readAsDataURL(file);
     }
   };
+  const triggerUploadImage = async (smallFile: string) => {
+    // if (!productImage) return;
+    console.log(smallFile);
+    let res = await uploadImageToCloudinary(smallFile);
+    setImageUrl(res.secure_url as string);
+    console.log(res);
+  }
 
   useEffect(() => {
     if (imagePreview !== null) {
@@ -59,11 +66,9 @@ const NewProductForm = () => {
       };
       run().then((smallFile) => {
         // fileInputRef.current!.src = smallFile;
-        setProductImage(smallFile);
-        uploadImageToCloudinary(smallFile).then((res: any) => {
-          console.log(res);
-          setImageUrl(res.secureUrl);
-        })
+        // setProductImage(smallFile);
+        triggerUploadImage(smallFile);
+
       });
     }
 
@@ -75,8 +80,8 @@ const NewProductForm = () => {
     try {
       // Send the form data to your backend service here using Axios or any other HTTP library
       // Replace 'YOUR_BACKEND_URL' with the actual URL of your backend service
-      const response = await axios.post('YOUR_BACKEND_URL', product);
-      const createdProduct: iProduct = response.data; // Assuming your backend returns the created product
+      // const response = await axios.post('YOUR_BACKEND_URL', product);
+      // const createdProduct: iProduct = response.data; // Assuming your backend returns the created product
       // onCreateProduct(createdProduct); // Notify the parent component about the new product
       setProduct(initialProduct); // Clear the form
       setImagePreview(null); // Clear the image preview
@@ -86,7 +91,7 @@ const NewProductForm = () => {
   };
 
   return (
-    <div className="bg-white p-6 shadow-md rounded-lg flex flex-col w-full sm:px-2 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
+    <div className="p-6 shadow-md rounded-lg flex flex-col w-full sm:px-2 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
       <h2 className="text-2xl font-semibold mb-4">Create New Product</h2>
       <form onSubmit={handleSubmit} className='flex flex-col w-full h-full rounded-md bg-white dark:bg-myTheme-dark'>
         <div className="mb-4">
