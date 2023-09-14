@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { iProduct } from '../util/Interfaces';
 import { resizeImage } from '../util/clientFunctions';
-
+import { uploadImageToCloudinary } from '../util/cloudinaryFunctions';
 
 const NewProductForm = () => {
   const initialProduct: iProduct = {
@@ -28,8 +28,8 @@ const NewProductForm = () => {
 
   const [product, setProduct] = useState(initialProduct);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [productImage, setProductImage] = useState<string | null>(null);
-
+  const [productImage, setProductImage] = useState<string | null>(null); //This is the smaller image
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -52,19 +52,21 @@ const NewProductForm = () => {
   };
 
   useEffect(() => {
-    console.log('This is Product Image top of useEffect', productImage);
     if (imagePreview !== null) {
       const run = async () => {
-        console.log('this is the imagePreview', imagePreview);
         let resizedImage = await resizeImage(imagePreview as unknown as string);
         return resizedImage as string;
       };
       run().then((smallFile) => {
         // fileInputRef.current!.src = smallFile;
-        console.log('this is the resized image', smallFile);
         setProductImage(smallFile);
+        uploadImageToCloudinary(smallFile).then((res: any) => {
+          console.log(res);
+          setImageUrl(res.secureUrl);
+        })
       });
     }
+
   }, [imagePreview]);
 
   const handleSubmit = async (e: React.FormEvent) => {
