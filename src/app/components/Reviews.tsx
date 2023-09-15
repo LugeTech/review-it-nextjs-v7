@@ -25,7 +25,6 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const reviews = data?.data as iReview[]
-  console.log('reviews', reviews)
   if (reviews.length === 0) return <Link href={`/createreview/${productId}`} className='text-center underline'>No reviews yet click here to add one</Link>
 
   return (

@@ -11,7 +11,6 @@ interface ReviewCardProps {
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const { user, createdDate, title, body, rating, helpfulVotes, unhelpfulVotes, comments } = review;
-  console.log('review', review)
 
   return (
     <div className="p-4 border rounded shadow-md mb-4">

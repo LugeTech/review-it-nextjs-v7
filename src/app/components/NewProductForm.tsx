@@ -38,7 +38,6 @@ const NewProductForm = (): JSX.Element => {
   ) => {
     const { name, value } = e.target;
 
-    console.log('changed', name, value);
 
     if (name === "tags") {
       // Split the input value by commas and trim whitespace
