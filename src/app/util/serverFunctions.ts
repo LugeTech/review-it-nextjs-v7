@@ -1,4 +1,4 @@
-import { iProduct, iReview, ReviewUserAndproduct } from "@/app/util/Interfaces";
+import { iProduct, iReview } from "@/app/util/Interfaces";
 import { apiUrl } from "./apiUrl";
 
 // export const getAllReviews = async () => {

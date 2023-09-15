@@ -1,18 +1,12 @@
 "use client"
-import Image from 'next/image';
 import { iReview } from '../util/Interfaces'
 import { useQuery } from '@tanstack/react-query';
 import { getReviews } from '../util/serverFunctions';
 import LoadingSpinner from './LoadingSpinner';
 import ProductCard from './ProductCard';
-import DOMPurify from 'dompurify';
-import RatingModule from './RatingModule';
-import dayjs from 'dayjs';
 import 'dayjs/locale/en'; // Import the English locale
 import ReviewCard from './ReviewCard';
-import { useAtom } from 'jotai';
-import { currentProductAtom } from '../store/store';
-
+import Link from 'next/link';
 
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
@@ -21,7 +15,6 @@ const Reviews = ({ productId }: { productId: string }) => {
     refetchOnWindowFocus: false,
   }) as any
 
-  const [currentProduct, setCurrentProduct] = useAtom(currentProductAtom);
   const productCardOptions = {
     showLatestReview: false,
     size: 'rating-md',
@@ -32,15 +25,17 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const reviews = data?.data as iReview[]
+  console.log('reviews', reviews)
+  if (reviews.length === 0) return <Link href={`/createreview/${productId}`} className='text-center underline'>No reviews yet click here to add one</Link>
 
   return (
     <div className='flex flex-col w-full p-2 md:px-28 sm:pt-8 bg-myTheme-light'>
       {/* <div>{reviews[0].product?.name} Reviews</div> */}
-      {currentProduct ? <ProductCard
+      <ProductCard
         // choosing the first review should be fine, just need to deal with 0 reviews
-        product={currentProduct}
+        product={reviews[0]?.product!}
         options={productCardOptions}
-      /> : <div>Something went wrong</div>}
+      />
       <div className='flex flex-col w-full lg:flex-row justify-evenly items-center gap-2'>
       </div>
       <div className="space-y-6 mt-4">

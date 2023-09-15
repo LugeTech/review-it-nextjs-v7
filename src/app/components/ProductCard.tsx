@@ -2,15 +2,15 @@
 import { iProduct, iReview } from '@/app/util/Interfaces'; // Update with the actual path
 import Image from 'next/image';
 import RatingModule from './RatingModule';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import YesNoAlert from './YesNoAlert';
 import { useQuery } from '@tanstack/react-query';
 import { getReviews } from '../util/serverFunctions';
 import { calculateAverageReviewRating } from '../util/calculateAverageReviewRating';
 import LoadingSpinner from './LoadingSpinner';
-import { useAtom } from "jotai";
-import { currentProductAtom } from "@/app/store/store";
+// import { useAtom } from "jotai";
+// import { currentProductAtom } from "@/app/store/store";
 
 interface ProductCardProps {
   product: iProduct;
@@ -29,13 +29,18 @@ interface iCalculatedRating {
 const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   const [rating, setRating] = useState(0); // Initial value
   const [showModal, setShowModal] = useState(false);
+  // const [currentProduct, setCurrentProduct] = useAtom(currentProductAtom);
+
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
     setShowModal(true);
   };
-  const [currentProduct, setCurrentProduct] = useAtom(currentProductAtom);
-  setCurrentProduct(product);
 
+  // useEffect(() => {
+  //   setCurrentProduct(null);
+  //
+  //   setCurrentProduct(product);
+  // }, [product]); // Run this effect whenever the 'product' prop changes
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["reviews", product.id],

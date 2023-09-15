@@ -71,7 +71,6 @@ const ReviewForm = ({ id }: { id: string }) => {
         (prevData): SentDataReviewAndProduct => ({ ...prevData, rating: rating })
       );
     }
-
     addRating(newRating);
   };
 

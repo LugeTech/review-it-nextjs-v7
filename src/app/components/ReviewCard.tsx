@@ -11,11 +11,12 @@ interface ReviewCardProps {
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const { user, createdDate, title, body, rating, helpfulVotes, unhelpfulVotes, comments } = review;
+  console.log('review', review)
 
   return (
     <div className="p-4 border rounded shadow-md mb-4">
       <div className="flex items-center mb-2">
-        <Image src={user?.avatar || '/default-avatar.png'} alt={user?.id} width={32} height={32} className="rounded-full mr-2" />
+        <Image src={user?.avatar || '/logo.png'} alt={user?.id!} width={32} height={32} className="rounded-full mr-2" />
         <div>
           <div className="flex items-center justify-start">
             <p className="font-semibold">{user?.firstName} {user?.lastName}</p>
