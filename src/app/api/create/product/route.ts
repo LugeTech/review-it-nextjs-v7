@@ -34,6 +34,8 @@ export async function POST(request: NextRequest) {
   // Get the review data from the request body
   const product: iProduct = await request.json();
 
+  console.log(product);
+
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
   let userIdFromClerk = null;
@@ -64,11 +66,13 @@ export async function POST(request: NextRequest) {
         });
       }
     }
+    console.log('about to create product')
 
-    const createdProduct = await prisma.product.create({
+    const createdProduct: iProduct = await prisma.product.create({
       data: {
         name: product.name,
         description: product.description,
+        display_image: product.display_image,
         createdDate: product.createdDate,
         images: product.images,
         videos: product.videos,

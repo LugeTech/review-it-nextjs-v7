@@ -15,7 +15,7 @@
     "@mantine/core": "^6.0.13",
     "@mantine/hooks": "^6.0.13",
     "@mantine/tiptap": "^6.0.13",
-    "@prisma/client": "5",
+    "@prisma/client": "latest",
     "@tabler/icons-react": "^2.21.0",
     "@tanstack/react-query": "^4.29.13",
     "@tiptap/extension-link": "^2.0.3",

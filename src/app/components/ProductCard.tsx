@@ -9,6 +9,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getReviews } from '../util/serverFunctions';
 import { calculateAverageReviewRating } from '../util/calculateAverageReviewRating';
 import LoadingSpinner from './LoadingSpinner';
+import { useAtom } from "jotai";
+import { currentProductAtom } from "@/app/store/store";
 
 interface ProductCardProps {
   product: iProduct;
@@ -31,6 +33,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
     setRating(newRating);
     setShowModal(true);
   };
+  const [currentProduct, setCurrentProduct] = useAtom(currentProductAtom);
+  setCurrentProduct(product);
+
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["reviews", product.id],
@@ -70,10 +75,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
           </div>
         )}
         <div className="flex justify-start items-center gap-2">
-          {product.images && product.images.length > 0 && (
+          {product.display_image && (
             <div className="mb-4">
               <Image
-                src={product.images[0]}
+                src={product.display_image}
                 alt={`${product.name} Image`}
                 className=" rounded-lg"
                 width={80}
@@ -113,7 +118,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
         {options.showClaimThisProduct && (
           <p className="text-gray-400">{'Claim this product'}</p>
         )}
-        {options.showLatestReview && <Link href={'/products'} className="text-gray-400 ">Last Review</Link>}
+        {options.showLatestReview && <Link href={'/products'} className="text-gray-400 hidden md:block">Last Review</Link>}
       </div>
     </div>
   );

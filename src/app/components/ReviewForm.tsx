@@ -13,6 +13,8 @@ import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProduct } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
+// import { useAtom } from "jotai";
+// import { currentProductAtom } from "../store/store";
 
 
 const ReviewForm = ({ id }: { id: string }) => {
@@ -39,6 +41,7 @@ const ReviewForm = ({ id }: { id: string }) => {
     },
   });
 
+  // const [currentProduct, setCurrentProduct] = useAtom(currentProductAtom);
   const productCardOptions = {
     showLatestReview: false,
     size: 'rating-md',

@@ -35,8 +35,9 @@ export interface iComment {
 export interface iProduct {
   id?: string;
   address: string | null;
-  createdDate: string;
+  createdDate: Date;
   description: string;
+  display_image: string;
   images: string[];
   videos: string[];
   links: string[];

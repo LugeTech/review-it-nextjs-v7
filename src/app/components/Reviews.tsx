@@ -10,6 +10,9 @@ import RatingModule from './RatingModule';
 import dayjs from 'dayjs';
 import 'dayjs/locale/en'; // Import the English locale
 import ReviewCard from './ReviewCard';
+import { useAtom } from 'jotai';
+import { currentProductAtom } from '../store/store';
+
 
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
@@ -18,6 +21,7 @@ const Reviews = ({ productId }: { productId: string }) => {
     refetchOnWindowFocus: false,
   }) as any
 
+  const [currentProduct, setCurrentProduct] = useAtom(currentProductAtom);
   const productCardOptions = {
     showLatestReview: false,
     size: 'rating-md',
@@ -28,16 +32,15 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const reviews = data?.data as iReview[]
-  console.log('this', reviews)
 
   return (
     <div className='flex flex-col w-full p-2 md:px-28 sm:pt-8 bg-myTheme-light'>
       {/* <div>{reviews[0].product?.name} Reviews</div> */}
-      <ProductCard
+      {currentProduct ? <ProductCard
         // choosing the first review should be fine, just need to deal with 0 reviews
-        product={reviews[0].product!}
+        product={currentProduct}
         options={productCardOptions}
-      />
+      /> : <div>Something went wrong</div>}
       <div className='flex flex-col w-full lg:flex-row justify-evenly items-center gap-2'>
       </div>
       <div className="space-y-6 mt-4">

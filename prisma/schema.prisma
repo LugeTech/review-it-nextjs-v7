@@ -8,26 +8,27 @@ datasource db {
 }
 
 model Product {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  address     String?
-  createdDate DateTime @default(now())
-  description String
-  images      String[]
-  videos      String[]
-  links       String[]
-  name        String   @unique
-  tags        String[]
-  openingHrs  String?
-  closingHrs  String?
-  telephone   String?
-  website     String[]
-  rating      Int?     @default(0)
-  hasOwner    Boolean?
-  ownerId     String?  @db.ObjectId
-  reviews     Review[]
-  createdBy   User?    @relation(fields: [createdById], references: [id])
-  createdById String   @db.ObjectId
-  isDeleted   Boolean? @default(false)
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  address       String?
+  createdDate   DateTime @default(now())
+  description   String
+  display_image String
+  images        String[]
+  videos        String[]
+  links         String[]
+  name          String   @unique
+  tags          String[]
+  openingHrs    String?
+  closingHrs    String?
+  telephone     String?
+  website       String[]
+  rating        Int      @default(0)
+  hasOwner      Boolean?
+  ownerId       String?  @db.ObjectId
+  reviews       Review[]
+  createdBy     User?    @relation(fields: [createdById], references: [id])
+  createdById   String   @db.ObjectId
+  isDeleted     Boolean  @default(false)
 }
 
 model Comments {
