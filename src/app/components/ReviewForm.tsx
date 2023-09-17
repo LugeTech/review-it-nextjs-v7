@@ -1,5 +1,5 @@
 "use client";
-import { SentDataReviewAndProduct, iProduct } from "../util/Interfaces";
+import { iReview, iProduct } from "../util/Interfaces";
 import { useState } from "react";
 import RatingModule from "./RatingModule";
 import DatePicker from "react-datepicker";
@@ -20,23 +20,23 @@ const ReviewForm = ({ id }: { id: string }) => {
   const [rating, setRating] = useState(1); // Initial value
   const [startDate, setStartDate] = useState(new Date());
   const [error, setError] = useState<string | null>(null);
-  const [reviewData, setReviewData] = useState<SentDataReviewAndProduct>({
+  const [reviewData, setReviewData] = useState<iReview>({
+    id: null,
     body: "",
-    comments: [],
+    createdDate: new Date(),
     rating: 1,
     title: "",
+    productId: id,
     userId: user?.publicMetadata.id! as string,
+    isVerified: null,
+    verifiedBy: null,
+    isPublic: true,
     images: [],
     videos: [],
-    createdDate: new Date(),
     links: [],
-    product: {
-      display_image: "",
-      productSelected: id ? true : false,
-      productId: id,
-      name: "",
-      description: "",
-    },
+    comments: [],
+    createdBy: user?.firstName + " " + user?.lastName,
+    isDeleted: false,
   });
 
   const productCardOptions = {
@@ -49,13 +49,13 @@ const ReviewForm = ({ id }: { id: string }) => {
   const handleEditorValue = (value: string) => {
     if (value === "" || value === "<p></p>") {
       setReviewData(
-        (prevData): SentDataReviewAndProduct => ({ ...prevData, body: "" })
+        (prevData): iReview => ({ ...prevData, body: "" })
       );
 
       return;
     }
     setReviewData(
-      (prevData): SentDataReviewAndProduct => ({ ...prevData, body: value })
+      (prevData): iReview => ({ ...prevData, body: value })
     );
     setError((prevError) => (prevError = null));
   };
@@ -65,7 +65,7 @@ const ReviewForm = ({ id }: { id: string }) => {
     function addRating(rating: number) {
       // not sure if this is necessary, but it should be the safest way. test before making simpler
       setReviewData(
-        (prevData): SentDataReviewAndProduct => ({ ...prevData, rating: rating })
+        (prevData): iReview => ({ ...prevData, rating: rating })
       );
     }
     addRating(newRating);
@@ -101,7 +101,7 @@ const ReviewForm = ({ id }: { id: string }) => {
   ) => {
     const { name, value } = e.target;
     setReviewData(
-      (prevData): SentDataReviewAndProduct => ({ ...prevData, [name]: value })
+      (prevData): iReview => ({ ...prevData, [name]: value })
     );
   };
 

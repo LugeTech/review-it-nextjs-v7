@@ -1,5 +1,5 @@
 export interface iReview {
-  id: string;
+  id: string | null;
   body: string;
   createdDate: Date;
   helpfulVotes?: number | null;
