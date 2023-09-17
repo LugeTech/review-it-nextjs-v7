@@ -23,13 +23,15 @@ export interface iReview {
 
 export interface iComment {
   id?: string;
-  user: string; // identifier for the user who wrote the comment
+  user?: iUser; // identifier for the user who wrote the comment
+  userId: string;
   body: string; // the text of the comment
   helpfulVotes?: number; // the number of helpful votes the review has received
   unhelpfulVotes?: number; // the number of unhelpful votes the review has received
-  product?: string; // identifier for the product the comment is on
-  review?: string; // identifier for the review the comment is on
+  review?: iReview; // identifier for the review the comment is on
+  reviewId: string;
   createdDate?: Date;
+  isDeleted?: boolean;
 }
 
 export interface iProduct {
@@ -97,6 +99,7 @@ export interface SentDataReviewAndProduct {
   videos?: string[];
   publicMetadata?: { userInDb: boolean, id: string }
   product: {
+    display_image: string
     productSelected: boolean;
     productId?: string;
     name: string;
@@ -171,3 +174,26 @@ export interface ReviewUserAndproduct {
     isDeleted: boolean;
   };
 }
+
+// Interface representing user data
+export interface UserDATA {
+  avatar?: string;
+  azp: string;
+  email: string;
+  exp: number;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  iat: number;
+  iss: string;
+  jti: string;
+  nbf: number;
+  sub: string;
+  userId: string;
+  userName: string;
+  metadata: {
+    id: string;
+    userInDb: boolean;
+  };
+}
+
