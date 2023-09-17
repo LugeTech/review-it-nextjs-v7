@@ -13,7 +13,8 @@ import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProduct } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
-
+import { useAtom } from "jotai";
+import { allProductsAtom } from "../store/store";
 
 const ReviewForm = ({ id }: { id: string }) => {
   const { user } = useUser();
@@ -38,6 +39,7 @@ const ReviewForm = ({ id }: { id: string }) => {
     createdBy: user?.firstName + " " + user?.lastName,
     isDeleted: false,
   });
+  const [products, setProducts] = useAtom(allProductsAtom);
 
   const productCardOptions = {
     showLatestReview: false,
@@ -120,16 +122,18 @@ const ReviewForm = ({ id }: { id: string }) => {
     await sendToServer();
   };
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["product"],
-    queryFn: () => getProduct(id),
-    refetchOnWindowFocus: false,
-  }) as any
+  // const { data, isLoading, isError } = useQuery({
+  //   queryKey: ["product"],
+  //   queryFn: () => getProduct(id),
+  //   refetchOnWindowFocus: false,
+  // }) as any
+  //
+  // if (isLoading) return <LoadingSpinner />;
+  // if (isError) return <p>fetch error - cannot give more details cause error variable was taken</p>;
+  // const product = data?.data as iProduct
+  // filter allPproductsatom for id variable and return product
 
-  if (isLoading) return <LoadingSpinner />;
-  if (isError) return <p>fetch error - cannot give more details cause error variable was taken</p>;
-  const product = data?.data as iProduct
-
+  const product = products?.find((product) => product.id === id)
 
   return (
     <div className="flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
@@ -140,7 +144,7 @@ const ReviewForm = ({ id }: { id: string }) => {
       >
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
-          <ProductCard options={productCardOptions} product={product} />
+          {product && <ProductCard options={productCardOptions} product={product} />}
         </div>
         <div className="flex flex-col justify-center items-center mb-2 border-b dark:border-myTheme-dark2 p-1 shadow-sm">
           <label

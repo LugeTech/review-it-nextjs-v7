@@ -8,25 +8,28 @@ import ArrangeByPanel from '../components/ArrangeByPanel';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ProductCard from '../components/ProductCard';
 import Token from '../components/Token';
-// import { useAtom } from 'jotai';
-// import { currentProductAtom } from '../store/store';
+import { useAtom } from 'jotai';
+import { allProductsAtom } from '../store/store';
+import { useEffect } from 'react';
 
 const Page = () => {
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
     refetchOnWindowFocus: false,
   }) as any
-  // const [currentProduct, setCurrentProduct] = useAtom(currentProductAtom);
 
+  const [currentProduct, setCurrentProduct] = useAtom(allProductsAtom);
 
-  // useEffect(() => {
-  //   setCurrentProduct(null);
-  // }, []); // Run this effect whenever the 'product' prop changes
+  useEffect(() => {
+    if (data?.data) setCurrentProduct(data.data);
+  }, [data?.data, setCurrentProduct]);
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
-  const products = data?.data as iProduct[]
+  const products: iProduct[] | undefined = data?.data as iProduct[]
+
 
 
   const productCardOptions = {
