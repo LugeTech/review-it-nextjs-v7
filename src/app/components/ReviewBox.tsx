@@ -3,7 +3,6 @@ import { useState } from "react";
 import { iReview, iUser, iComment, iProduct } from "../util/Interfaces";
 import Image from "next/image";
 import Votes from "./Votes";
-// import { Heart } from '@smastrom/react-rating'
 import RatingModule from "@/app/components/RatingModule";
 
 interface ReviewBoxProps {
@@ -15,7 +14,6 @@ interface ReviewBoxProps {
 
 const ReviewBox: React.FC<ReviewBoxProps> = ({
   review: review,
-  users: users,
   comments: comments,
   products: products,
 }) => {
@@ -31,13 +29,13 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
         <div className="flex flex-col justify-start items-center gap-1">
           <div className="flex flex-1 flex-col w-full sm:ml-2 text-xs text-myTheme-dark dark:text-myTheme-light justify-start items-center ">
             <div>
-              <div onClick={() => {}} className="">
+              <div onClick={() => { }} className="">
                 <div className="flex flex-col justify-start items-center">
                   {/* user image */}
                   {review?.user ? (
                     <Image
                       src={
-                        users.find((user) => user._id === review.user)?.avatar!
+                        users.find((user) => user.id === review.user)?.avatar!
                       }
                       alt="avatar"
                       width={60}
@@ -47,18 +45,17 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                   ) : null}
                   {/* user name */}
                   <p>
-                    {users.find((user) => user._id === review.user)?.firstName}{" "}
+                    {users.find((user) => user.id === review.user)?.firstName}{" "}
                     reviewed{" "}
                   </p>
                   {/* product name */}
                   <p
                     onClick={() => {
-                      console.log(`product name clicked`);
                     }}
                     className=" sm:text-1xl text-lg cursor-pointer font-bold"
                   >
                     {
-                      products.find((product) => product._id === review.product)
+                      products.find((product) => product.id === review.product)
                         ?.name
                     }
                   </p>
@@ -94,7 +91,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
             {review?.title ? (
               <Image
                 src={
-                  users.find((user) => user._id === review.comments[0].user)
+                  users.find((user) => user.id === review.comments[0].user)
                     ?.avatar!
                 }
                 alt="avatar"

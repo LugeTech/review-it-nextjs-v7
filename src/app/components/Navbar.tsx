@@ -6,11 +6,19 @@ import SideLinks from "./SideLinks";
 import NavbarAuth from "./NavbarAuth";
 import { Suspense } from "react";
 import Image from "next/image";
+import { useState } from "react";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const handleSideLinkClick = () => {
+    setIsDrawerOpen(false); // Close the drawer when a sidelink is clicked
+  };
+
   return (
     <div className="drawer sticky top-0 ">
-      <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+      <input id="my-drawer-3" type="checkbox" className="drawer-toggle" checked={isDrawerOpen}
+        onChange={() => setIsDrawerOpen(!isDrawerOpen)} />
       <div className="drawer-content flex flex-col">
         <div className="w-full navbar bg-myTheme-light dark:bg-myTheme-dark z-10">
           <div className="flex-none lg:hidden">
@@ -30,7 +38,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
               </svg>
             </label>
           </div>
-          <div className="flex-1 px-2 mx-2">
+          <div className="flex-1 mx-1">
             <HomeLink />
             <div className="flex-none hidden lg:block">
               <div className="hidden md:flex flex-1 font-normal items-center justify-center text-center ml-4">
@@ -50,7 +58,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             </Suspense>
           </div>
         </div>
-        <div className=" flex flex-col w-full h-full overflow-y-auto">
+        <div className=" flex flex-col w-full h-full overflow-y-auto ">
           {children}
         </div>
       </div>
@@ -58,7 +66,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
         <ul className="menu p-4 w-64 bg-base-100 ">
           <HomeLink />
-          <SideLinks />
+          <SideLinks onSideLinkClick={handleSideLinkClick} />
         </ul>
       </div>
     </div>

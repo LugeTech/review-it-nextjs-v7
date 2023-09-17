@@ -3,11 +3,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, Suspense, useState } from "react";
 import parse from "html-react-parser";
 import RatingModule from "./RatingModule";
-import { SentDataReviewAndItem } from "../util/Interfaces";
+import { SentDataReviewAndProduct } from "../util/Interfaces";
 import { useUser } from "@clerk/nextjs";
 
 interface editorPreviewProps {
-  reviewData: SentDataReviewAndItem;
+  reviewData: SentDataReviewAndProduct;
 }
 
 const EditorPreview = ({ reviewData }: editorPreviewProps) => {

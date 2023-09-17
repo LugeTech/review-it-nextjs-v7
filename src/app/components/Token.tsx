@@ -8,17 +8,17 @@ export default function Token() {
   const { getToken } = useAuth();
   const run = async () => {
     const token = await getToken({ template: "4000" });
-    token && setJwtToken(token);
+    // token && setJwtToken(token);
+    console.log(token);
   };
   useEffect(() => {
     run();
   });
-  console.log(jwtToken);
+
 
   return (
     <div className=" w-screen h-full flex flex-col justify-center items-center">
-      <p>token in console </p>
-      <p>token in console </p>
+      {/* <p>token in console </p> */}
     </div>
   );
 }

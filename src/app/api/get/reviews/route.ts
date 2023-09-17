@@ -1,30 +1,30 @@
+
 import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  console.log("POST /api/reviews");
+  // console.log("POST /api/reviews");
   interface Body {
+    id: string;
     isPublic: boolean;
     user: boolean;
-    item: boolean;
-
+    product: boolean;
+    comments: boolean;
   }
 
   const body: Body = await request.json();
-  console.log(body);
   try {
     const reviews = await prisma.review.findMany({
-      where: { isPublic: true },
+      where: { isPublic: body.isPublic, productId: body.id },
       include: {
         user: body.user,
-        item: body.item,
+        product: body.product,
+        // comments: body.comments,
       },
     });
-    console.log(reviews)
     return NextResponse.json({
       success: true,
       status: 200,
-      dataLength: reviews.length,
       data: reviews,
     });
   } catch (error) {

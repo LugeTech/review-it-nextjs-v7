@@ -17,5 +17,5 @@
 .mantine-TypographyStylesProvider-root
   .mantine-RichTextEditor-content
   .ProseMirror {
-  @apply h-[280px] overflow-scroll;
+  @apply h-[180px] overflow-scroll;
 }

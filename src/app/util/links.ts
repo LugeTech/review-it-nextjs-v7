@@ -13,12 +13,12 @@ export const sideLinks = [
     link: "/createreview",
   },
   {
-    name: "Products",
-    link: "/products",
+    name: "Browse",
+    link: "/browse",
   },
   {
-    name: "Businesses",
-    link: "/fetch",
+    name: "Submit",
+    link: "/submit",
   },
   {
     name: "My Reviews",
@@ -32,20 +32,28 @@ export const sideLinks = [
 
 export const topLinks = [
   {
+    name: "Search",
+    link: "/search",
+  },
+  {
     name: "Write a Review",
     link: "/createreview",
   },
   {
-    name: "Businesses",
-    link: "/fetch",
+    name: "Browse",
+    link: "/browse",
   },
   {
-    name: "Services",
-    link: "/",
+    name: "Submit",
+    link: "/submit",
   },
   {
     name: "My Reviews",
-    link: "/",
+    link: "/test",
+  },
+  {
+    name: "My Profile",
+    link: "/user",
   },
 ];
 

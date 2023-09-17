@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
-import { SentDataReviewAndItem } from "@/app/util/Interfaces";
+import { SentDataReviewAndProduct } from "@/app/util/Interfaces";
 
 // Interface representing user data
 interface UserDATA {
@@ -31,28 +31,41 @@ interface UserDATA {
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
   // Get the review data from the request body
-  const sentDataReviewAndItem: SentDataReviewAndItem = await request.json();
+  const sentDataReviewAndProduct: SentDataReviewAndProduct = await request.json();
 
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
   try {
     // Extract the session claims from the request
     const { sessionClaims } = getAuth(request);
+    //('this is session Claims', sessionClaims);
     // Cast the session claims to the `UserDATA` type
     const clerkClaimsData = sessionClaims as unknown as UserDATA;
 
-    // console.log(clerkClaimsData);
+    //('this is the clerkClaims from session claims', clerkClaimsData);
 
     // Check if the user already exists in the database
     if (!(await userInDb(clerkClaimsData.userId))) {
       // If the user doesn't exist, create them
       clerkUserData = await addUserToDb(clerkClaimsData);
+
+      if (clerkUserData.publicMetadata.id !== undefined) {
+        sentDataReviewAndProduct.userId = clerkUserData.publicMetadata
+          .id as string;
+      } else {
+        return NextResponse.json({
+          success: false,
+          status: 401,
+          data: "publicMetadata.id not found/adding failed",
+        });
+      }
+
     } else {
       // If the user already exists, retrieve their data from the database
       clerkUserData = await clerkClient.users.getUser(clerkClaimsData.userId);
-      // then add publicMetaData.id to the sentDataReviewAndItem object
+      // then add publicMetaData.id to the sentDataReviewAndProduct object
       if (clerkUserData.publicMetadata.id !== undefined) {
-        sentDataReviewAndItem.userId = clerkUserData.publicMetadata
+        sentDataReviewAndProduct.userId = clerkUserData.publicMetadata
           .id as string;
       } else {
         return NextResponse.json({
@@ -63,36 +76,37 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Check if the item is in the database
-    if (sentDataReviewAndItem.item.itemSelected) {
-      // If the item is in the database, find it
-      const item = await prisma.item.findUnique({
+    // Check if the product is in the database
+    if (sentDataReviewAndProduct.product.productSelected) {
+      // If the product is in the database, find it
+      const product = await prisma.product.findUnique({
         where: {
-          id: sentDataReviewAndItem.item.itemId,
+          id: sentDataReviewAndProduct.product.productId,
         },
       });
-      console.log("found the item in the db");
 
-      // If the item is not in the database, return an error
-      if (!item) {
+      // If the product is not in the database, return an error
+      if (!product) {
         return NextResponse.json({
           success: false,
           status: 500,
-          data: "item not found",
+          data: "product not found",
         });
       }
-      // The item is in the database, so create a new review entry
+
+      console.log('this is the sentDataReviewAndProduct', sentDataReviewAndProduct);
+      // The product is in the database, so create a new review entry
       const review = await prisma.review.create({
         data: {
-          body: sentDataReviewAndItem.body,
-          rating: sentDataReviewAndItem.rating,
-          userId: clerkClaimsData.metadata.id,
-          title: sentDataReviewAndItem.title,
-          itemId: item.id,
-          createdDate: sentDataReviewAndItem.createdDate,
-          images: sentDataReviewAndItem.images,
-          videos: sentDataReviewAndItem.videos,
-          links: sentDataReviewAndItem.links,
+          body: sentDataReviewAndProduct.body,
+          rating: sentDataReviewAndProduct.rating,
+          userId: sentDataReviewAndProduct.userId,
+          title: sentDataReviewAndProduct.title,
+          productId: product.id,
+          createdDate: sentDataReviewAndProduct.createdDate,
+          images: sentDataReviewAndProduct.images,
+          videos: sentDataReviewAndProduct.videos,
+          links: sentDataReviewAndProduct.links,
           createdBy: clerkClaimsData.userName,
         },
       });
@@ -104,42 +118,53 @@ export async function POST(request: NextRequest) {
         data: review,
       });
     } else {
-      // The item is not in the database, so create it
-      const item = await prisma.item.create({
+      // The product is not in the database, so create it
+      const product = await prisma.product.create({
         data: {
-          name: sentDataReviewAndItem.item.name,
-          description: sentDataReviewAndItem.item.description,
-          createdDate: sentDataReviewAndItem.item.createdDate,
-          images: sentDataReviewAndItem.item.images,
-          videos: sentDataReviewAndItem.item.videos,
-          links: sentDataReviewAndItem.item.links,
-          tags: sentDataReviewAndItem.item.tags,
-          openingHrs: sentDataReviewAndItem.item.openingHrs,
-          closingHrs: sentDataReviewAndItem.item.closingHrs,
-          address: sentDataReviewAndItem.item.address,
-          telephone: sentDataReviewAndItem.item.telephone,
-          website: sentDataReviewAndItem.item.website,
-          createdById: (await clerkUserData.publicMetadata
+          display_image: sentDataReviewAndProduct.product.display_image,
+          name: sentDataReviewAndProduct.product.name,
+          description: sentDataReviewAndProduct.product.description,
+          createdDate: sentDataReviewAndProduct.product.createdDate,
+          images: sentDataReviewAndProduct.product.images,
+          videos: sentDataReviewAndProduct.product.videos,
+          links: sentDataReviewAndProduct.product.links,
+          tags: sentDataReviewAndProduct.product.tags,
+          openingHrs: sentDataReviewAndProduct.product.openingHrs,
+          closingHrs: sentDataReviewAndProduct.product.closingHrs,
+          address: sentDataReviewAndProduct.product.address,
+          telephone: sentDataReviewAndProduct.product.telephone,
+          website: sentDataReviewAndProduct.product.website,
+          createdById: (clerkUserData.publicMetadata
             .id) as unknown as string,
         },
       });
 
-      sentDataReviewAndItem.itemId = item.id;
-      sentDataReviewAndItem.userId = clerkUserData.publicMetadata
-        .id as unknown as string;
-
-      // The item is in the database, so create a new review entry
+      if (clerkUserData.publicMetadata.id !== undefined) {
+        sentDataReviewAndProduct.userId = clerkUserData.publicMetadata
+          .id as string;
+      } else {
+        return NextResponse.json({
+          success: false,
+          status: 401,
+          data: "publicMetadata.id not set... maybe have to wait",
+        });
+      }
+      sentDataReviewAndProduct.productId = product.id;
+      // sentDataReviewAndProduct.userId = clerkUserData.publicMetadata
+      //   .id as unknown as string;
+      // console.log('this is the sentDataReviewAndProduct', sentDataReviewAndProduct);
+      // The product is in the database, so create a new review entry
       const review = await prisma.review.create({
         data: {
-          body: sentDataReviewAndItem.body,
-          rating: sentDataReviewAndItem.rating,
-          userId: sentDataReviewAndItem.userId,
-          title: sentDataReviewAndItem.title,
-          itemId: item.id,
-          createdDate: sentDataReviewAndItem.createdDate,
-          images: sentDataReviewAndItem.images,
-          videos: sentDataReviewAndItem.videos,
-          links: sentDataReviewAndItem.links,
+          body: sentDataReviewAndProduct.body,
+          rating: sentDataReviewAndProduct.rating,
+          userId: sentDataReviewAndProduct.userId,
+          title: sentDataReviewAndProduct.title,
+          productId: product.id,
+          createdDate: sentDataReviewAndProduct.createdDate,
+          images: sentDataReviewAndProduct.images,
+          videos: sentDataReviewAndProduct.videos,
+          links: sentDataReviewAndProduct.links,
           createdBy: clerkClaimsData.userName,
         },
       });
@@ -153,6 +178,7 @@ export async function POST(request: NextRequest) {
     }
   } catch (error) {
     let e = error as Error;
+    console.log('this is where new accounts are failing', e.message);
     // Return an error response
     return NextResponse.json({
       success: false,

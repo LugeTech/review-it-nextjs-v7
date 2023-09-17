@@ -7,27 +7,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Item {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  address     String?
-  createdDate DateTime @default(now())
-  description String
-  images      String[]
-  videos      String[]
-  links       String[]
-  name        String   @unique
-  tags        String[]
-  openingHrs  String?
-  closingHrs  String?
-  telephone   String?
-  website     String[]
-  rating      Int?     @default(0)
-  hasOwner    Boolean?
-  ownerId     String?  @db.ObjectId
-  reviews     Review[]
-  createdBy   User?    @relation(fields: [createdById], references: [id])
-  createdById String   @db.ObjectId
-  isDeleted   Boolean? @default(false)
+model Product {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  address       String?
+  createdDate   DateTime @default(now())
+  description   String
+  display_image String
+  images        String[]
+  videos        String[]
+  links         String[]
+  name          String   @unique
+  tags          String[]
+  openingHrs    String?
+  closingHrs    String?
+  telephone     String?
+  website       String[]
+  rating        Int      @default(0)
+  hasOwner      Boolean?
+  ownerId       String?  @db.ObjectId
+  reviews       Review[]
+  createdBy     User?    @relation(fields: [createdById], references: [id])
+  createdById   String   @db.ObjectId
+  isDeleted     Boolean  @default(false)
 }
 
 model Comments {
@@ -36,8 +37,8 @@ model Comments {
   createdDate    DateTime @default(now())
   helpfulVotes   Int?     @default(0)
   unhelpfulVotes Int?     @default(0)
-  review         Review?  @relation(fields: [reviewId], references: [id])
-  user           User?    @relation(fields: [userId], references: [id])
+  review         Review   @relation(fields: [reviewId], references: [id])
+  user           User     @relation(fields: [userId], references: [id])
   reviewId       String   @db.ObjectId
   userId         String   @db.ObjectId
   isDeleted      Boolean? @default(false)
@@ -46,15 +47,14 @@ model Comments {
 model Review {
   id             String     @id @default(auto()) @map("_id") @db.ObjectId
   body           String
-  comments       String[]
   createdDate    DateTime   @default(now())
   helpfulVotes   Int?       @default(0)
   rating         Int
   title          String
   unhelpfulVotes Int?       @default(0)
-  item           Item?      @relation(fields: [itemId], references: [id])
+  product        Product?   @relation(fields: [productId], references: [id])
   user           User?      @relation(fields: [userId], references: [id])
-  itemId         String     @db.ObjectId
+  productId      String     @db.ObjectId
   userId         String     @db.ObjectId
   isVerified     Boolean?
   verifiedBy     String?
@@ -64,9 +64,9 @@ model Review {
   links          String[]
   createdBy      String?
   isDeleted      Boolean?   @default(false)
-  Comments       Comments[]
+  comments       Comments[]
 
-  @@unique(fields: [title, userId, itemId], name: "unique_review", map: "unique_review")
+  @@unique(fields: [title, userId, productId], name: "unique_review", map: "unique_review")
 }
 
 model User {
@@ -79,7 +79,7 @@ model User {
   lastName    String
   review      Review[]
   clerkUserId String
-  item        Item[]
+  product     Product[]
   isDeleted   Boolean?   @default(false)
   Comments    Comments[]
 }

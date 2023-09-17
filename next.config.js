@@ -2,23 +2,10 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cloudflare-ipfs.com",
-        port: "",
-      },
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
-        port: "",
-      },
-      {
-        protocol: "https",
-        hostname: "loremflickr.com",
-        port: "",
-      },
-    ],
+    domains: ["i5.walmartimages.com", "newsroom.gy", "img.clerk.com", "res.cloudinary.com", "cloudflare-ipfs.com", "loremflickr.com", "placehold.co", "images.clerk.dev"],
+  },
+  experimental: {
+    serverActions: true,
   },
   webpack: (config) => {
     config.experiments = {
@@ -28,6 +15,6 @@ const nextConfig = {
     return config;
   },
 };
-//cloudflare-ipfs.com
 
 module.exports = nextConfig;
+// export default nextConfig;
