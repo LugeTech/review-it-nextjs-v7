@@ -5,29 +5,30 @@ import Image from 'next/image';
 import RatingModule from './RatingModule';
 import dayjs from 'dayjs';
 import DOMPurify from 'dompurify';
+import Link from 'next/link';
 interface ReviewCardProps {
   review: iReview;
 }
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
-  const { user, createdDate, title, body, rating, helpfulVotes, unhelpfulVotes, comments } = review;
-
+  const { user, createdDate, title, body, rating, helpfulVotes, unhelpfulVotes, comments, product } = review;
   return (
     <div className="p-4 border rounded shadow-md mb-4">
       <div className="flex items-center mb-2">
-        <Image src={user?.avatar || '/logo.png'} alt={user?.id!} width={32} height={32} className="rounded-full mr-2" />
+        <Image src={user?.avatar || '/logo.png'} alt={user?.id!} width={40} height={40} className="rounded-full mr-2" />
         <div>
           <div className="flex items-center justify-start">
-            <p className="font-semibold">{user?.firstName} {user?.lastName}</p>
+            <span className="font-semibold">{user?.firstName} {user?.lastName}</span><span className="text-gray-600 text-sm ml-2">reviewed {product?.name}</span>
           </div>
           <p className="text-gray-600 text-xs">{dayjs(createdDate.toString()).format('MMMM D, YYYY h:mm A')}</p>
         </div>
       </div>
       <h1 className="text-xl font-semibold mb-2">{title}</h1>
       {/* Sanitize the review body */}
-      <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(body.substring(0, 150)) }} className="mb-4 text-sm" />
-      {/* <div dangerouslySetInnerHTML={{ __html: review.body }} className="mb-4" /> */}
-      {/* <p className="text-gray-700 mb-4">{body.substring(0, 150)}...</p> */}
+      <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(body.substring(0, 250)) }} className="mb-4 text-sm" />
+      <Link href={`/reviews/${review.id}`}>
+        {body.length > 150 && <span className="text-xs text-gray-600">...read more</span>}
+      </Link>
       <div className="flex items-center">
         <RatingModule
           name={review.id!}

@@ -2,15 +2,13 @@
 import { iProduct, iReview } from '@/app/util/Interfaces'; // Update with the actual path
 import Image from 'next/image';
 import RatingModule from './RatingModule';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import YesNoAlert from './YesNoAlert';
 import { useQuery } from '@tanstack/react-query';
 import { getReviews } from '../util/serverFunctions';
 import { calculateAverageReviewRating } from '../util/calculateAverageReviewRating';
 import LoadingSpinner from './LoadingSpinner';
-// import { useAtom } from "jotai";
-// import { currentProductAtom } from "@/app/store/store";
 
 interface ProductCardProps {
   product: iProduct;
@@ -26,21 +24,16 @@ interface iCalculatedRating {
   roundedRatingOneDecimalPlace: number;
   numberOfReviews: number;
 }
+
 const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   const [rating, setRating] = useState(0); // Initial value
   const [showModal, setShowModal] = useState(false);
-  // const [currentProduct, setCurrentProduct] = useAtom(currentProductAtom);
 
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
     setShowModal(true);
   };
 
-  // useEffect(() => {
-  //   setCurrentProduct(null);
-  //
-  //   setCurrentProduct(product);
-  // }, [product]); // Run this effect whenever the 'product' prop changes
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["reviews", product.id],
@@ -49,7 +42,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   }) as any
 
   const reviews = data?.data as iReview[]
-  // remove any reviews that don't have a rating or is undefined
   // const filteredReviews = reviews?.filter((review) => review.rating !== null && review.rating !== 0)
   // console.log('filteredReviews', filteredReviews)
   // return (

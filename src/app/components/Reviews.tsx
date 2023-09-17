@@ -39,6 +39,7 @@ const Reviews = ({ productId }: { productId: string }) => {
       </div>
       <div className="space-y-6 mt-4">
         {reviews.map((review: iReview) => (
+          // NOTE reviewcard here
           <ReviewCard key={review.id} review={review} />
         ))}
       </div>

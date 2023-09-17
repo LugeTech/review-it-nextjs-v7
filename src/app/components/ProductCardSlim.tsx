@@ -21,7 +21,7 @@ interface iCalculatedRating {
   numberOfReviews: number;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
+const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
   const [rating, setRating] = useState(0); // Initial value
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
@@ -53,10 +53,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
     <div className="flex flex-col w-full rounded-lg shadow-md p-2 bg-white">
       <Link href={`/reviews/${product.id}`} className=''>
         <div className="flex justify-start items-center gap-2">
-          {product.images && product.images.length > 0 && (
+          {product.display_image && (
             <div className="mb-2">
               <Image
-                src={product.images[0]}
+                src={product.display_image}
                 alt={`${product.name} Image`}
                 className=" rounded-lg"
                 width={50}
@@ -79,4 +79,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   );
 };
 
-export default ProductCard;
+export default ProductCardSlim;
