@@ -37,8 +37,8 @@ model Comments {
   createdDate    DateTime @default(now())
   helpfulVotes   Int?     @default(0)
   unhelpfulVotes Int?     @default(0)
-  review         Review?  @relation(fields: [reviewId], references: [id])
-  user           User?    @relation(fields: [userId], references: [id])
+  review         Review   @relation(fields: [reviewId], references: [id])
+  user           User     @relation(fields: [userId], references: [id])
   reviewId       String   @db.ObjectId
   userId         String   @db.ObjectId
   isDeleted      Boolean? @default(false)
