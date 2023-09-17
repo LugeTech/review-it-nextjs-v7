@@ -13,12 +13,9 @@ import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProduct } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
-// import { useAtom } from "jotai";
-// import { currentProductAtom } from "../store/store";
 
 
 const ReviewForm = ({ id }: { id: string }) => {
-  // const { getToken } = useAuth();
   const { user } = useUser();
   const [rating, setRating] = useState(1); // Initial value
   const [startDate, setStartDate] = useState(new Date());
@@ -34,6 +31,7 @@ const ReviewForm = ({ id }: { id: string }) => {
     createdDate: new Date(),
     links: [],
     product: {
+      display_image: "",
       productSelected: id ? true : false,
       productId: id,
       name: "",
@@ -41,7 +39,6 @@ const ReviewForm = ({ id }: { id: string }) => {
     },
   });
 
-  // const [currentProduct, setCurrentProduct] = useAtom(currentProductAtom);
   const productCardOptions = {
     showLatestReview: false,
     size: 'rating-md',
@@ -130,7 +127,7 @@ const ReviewForm = ({ id }: { id: string }) => {
   }) as any
 
   if (isLoading) return <LoadingSpinner />;
-  if (isError) return <p>fetch error - can't give more details cause error variable was taken</p>;
+  if (isError) return <p>fetch error - cannot give more details cause error variable was taken</p>;
   const product = data?.data as iProduct
 
 

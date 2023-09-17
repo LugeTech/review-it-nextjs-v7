@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { iComment, iUser } from './your-types'; // Import your TypeScript interfaces
+import { iComment, iUser } from '@/app/util/Interfaces';
 
 interface CommentProps {
   comment: iComment;

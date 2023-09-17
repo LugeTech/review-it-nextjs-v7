@@ -14,7 +14,7 @@ interface data {
   commentId: string;
 }
 
-export async function updateReview(data: data) {
+async function updateReview(data: data) {
   //will update the review without checking if it exist for now.
   // the comment function should safe enough.
   // if not i will use this
