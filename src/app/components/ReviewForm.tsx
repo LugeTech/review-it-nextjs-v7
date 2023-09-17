@@ -122,18 +122,28 @@ const ReviewForm = ({ id }: { id: string }) => {
     await sendToServer();
   };
 
-  // const { data, isLoading, isError } = useQuery({
-  //   queryKey: ["product"],
-  //   queryFn: () => getProduct(id),
-  //   refetchOnWindowFocus: false,
-  // }) as any
-  //
-  // if (isLoading) return <LoadingSpinner />;
-  // if (isError) return <p>fetch error - cannot give more details cause error variable was taken</p>;
-  // const product = data?.data as iProduct
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["product"],
+    queryFn: async () => {
+      if (products !== null) {
+        const data = products?.find((product) => product.id === id)
+        return data
+      }
+
+      // else return getProduct(id)
+      const data: any = await getProduct(id)
+      console.log(data.data)
+      return data.data
+    },
+    refetchOnWindowFocus: false,
+  }) as any
+
+  if (isLoading) return <LoadingSpinner />;
+  if (isError) return <p>fetch error - cannot give more details cause error variable was taken</p>;
+  console.log(data)
+  const product = data as iProduct
   // filter allPproductsatom for id variable and return product
 
-  const product = products?.find((product) => product.id === id)
 
   return (
     <div className="flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
