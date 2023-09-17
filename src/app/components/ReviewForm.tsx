@@ -132,7 +132,6 @@ const ReviewForm = ({ id }: { id: string }) => {
 
       // else return getProduct(id)
       const data: any = await getProduct(id)
-      console.log(data.data)
       return data.data
     },
     refetchOnWindowFocus: false,
@@ -140,7 +139,6 @@ const ReviewForm = ({ id }: { id: string }) => {
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error - cannot give more details cause error variable was taken</p>;
-  console.log(data)
   const product = data as iProduct
   // filter allPproductsatom for id variable and return product
 
