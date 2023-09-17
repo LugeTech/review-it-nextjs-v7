@@ -90,11 +90,11 @@ export async function POST(request: NextRequest) {
         userId: userIdFromClerk as string,
       },
     });
-    await updateReview({
+    const updatedReview = await updateReview({
       reviewId: comment.reviewId,
       commentId: createdComment.id
     })
-
+    console.log(updatedReview);
     return NextResponse.json({
       success: true,
       status: 200,

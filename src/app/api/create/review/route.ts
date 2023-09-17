@@ -77,7 +77,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if the product is in the database
-    if (sentDataReviewAndProduct.product.productSelected) {
+    // TODO: remove this check
+    if (!sentDataReviewAndProduct.product.productSelected) {
       // If the product is in the database, find it
       const product = await prisma.product.findUnique({
         where: {

@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       include: {
         user: body.user,
         product: body.product,
-        // comments: body.comments,
+        comments: body.comments,
       },
     });
     return NextResponse.json({
