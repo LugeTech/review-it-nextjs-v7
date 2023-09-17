@@ -121,6 +121,7 @@ export async function POST(request: NextRequest) {
       // The product is not in the database, so create it
       const product = await prisma.product.create({
         data: {
+          display_image: sentDataReviewAndProduct.product.display_image,
           name: sentDataReviewAndProduct.product.name,
           description: sentDataReviewAndProduct.product.description,
           createdDate: sentDataReviewAndProduct.product.createdDate,
