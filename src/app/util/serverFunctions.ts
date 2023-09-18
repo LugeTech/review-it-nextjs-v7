@@ -1,16 +1,12 @@
 import { iProduct, iReview, iUser } from "@/app/util/Interfaces";
 import { apiUrl } from "./apiUrl";
 
-export const getUser = async (id: string) => {
-  const body = {
-    id
-  }
+export const getUser = async () => {
   const user = await fetch(`${apiUrl}/get/user`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(body),
   }).then((res) => res.json()
   )
   return user;

@@ -5,8 +5,7 @@ interface UserInfoProps {
 }
 
 const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
-  console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", user, 'dddd');
-  const { firstName, avatar, reviews, comments } = user;
+  const { firstName, lastName, avatar, reviews, comments } = user;
 
 
   return (
@@ -19,7 +18,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
             className="w-10 h-10 rounded-full mr-4"
           />
         )}
-        <h2 className="text-xl font-semibold">{firstName}</h2>
+        <h2 className="text-xl font-semibold">{firstName} {lastName}</h2>
       </div>
 
       <div className="mt-4">
