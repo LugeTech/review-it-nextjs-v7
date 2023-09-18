@@ -12,6 +12,21 @@ export const getUser = async () => {
   return user;
 };
 
+export const getReview = async (id: string) => {
+  const body = {
+    id,
+  }
+
+  const review: iReview[] = await fetch(`${apiUrl}/get/review`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  }).then((res) => res.json()
+  )
+  return review;
+};
 
 export const getReviews = async (id: string) => {
   const body = {

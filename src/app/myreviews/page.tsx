@@ -9,8 +9,6 @@ import { useAuth } from "@clerk/nextjs";
 const Page = () => {
 
   const auth = useAuth();
-  console.log('this is auth', auth)
-
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["user", auth.userId],
     queryFn: async () => await getUser(),
