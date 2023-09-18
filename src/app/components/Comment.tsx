@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { iComment, iUser } from './your-types'; // Import your TypeScript interfaces
+import { iComment, iUser } from '@/app/util/Interfaces';
 
 interface CommentProps {
   comment: iComment;
@@ -9,7 +9,7 @@ interface CommentProps {
 
 const Comment: React.FC<CommentProps> = ({ comment, user }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+    <div className="flex w-full flex-col md:w-3/4 bg-white p-4 rounded-lg shadow-md mb-4">
       <div className="flex items-center mb-2">
         <img
           src={user.avatar || '/default-avatar.png'} // Use a default avatar if no avatar is provided

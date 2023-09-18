@@ -1,5 +1,5 @@
 "use client";
-import { SentDataReviewAndProduct, iProduct } from "../util/Interfaces";
+import { iReview, iProduct } from "../util/Interfaces";
 import { useState } from "react";
 import RatingModule from "./RatingModule";
 import DatePicker from "react-datepicker";
@@ -13,35 +13,34 @@ import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProduct } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
-// import { useAtom } from "jotai";
-// import { currentProductAtom } from "../store/store";
-
+import { useAtom } from "jotai";
+import { allProductsAtom } from "../store/store";
 
 const ReviewForm = ({ id }: { id: string }) => {
-  // const { getToken } = useAuth();
   const { user } = useUser();
   const [rating, setRating] = useState(1); // Initial value
   const [startDate, setStartDate] = useState(new Date());
   const [error, setError] = useState<string | null>(null);
-  const [reviewData, setReviewData] = useState<SentDataReviewAndProduct>({
+  const [reviewData, setReviewData] = useState<iReview>({
+    id: null,
     body: "",
-    comments: [],
+    createdDate: new Date(),
     rating: 1,
     title: "",
+    productId: id,
     userId: user?.publicMetadata.id! as string,
+    isVerified: null,
+    verifiedBy: null,
+    isPublic: true,
     images: [],
     videos: [],
-    createdDate: new Date(),
     links: [],
-    product: {
-      productSelected: id ? true : false,
-      productId: id,
-      name: "",
-      description: "",
-    },
+    comments: [],
+    createdBy: user?.firstName + " " + user?.lastName,
+    isDeleted: false,
   });
+  const [products, setProducts] = useAtom(allProductsAtom);
 
-  // const [currentProduct, setCurrentProduct] = useAtom(currentProductAtom);
   const productCardOptions = {
     showLatestReview: false,
     size: 'rating-md',
@@ -52,13 +51,13 @@ const ReviewForm = ({ id }: { id: string }) => {
   const handleEditorValue = (value: string) => {
     if (value === "" || value === "<p></p>") {
       setReviewData(
-        (prevData): SentDataReviewAndProduct => ({ ...prevData, body: "" })
+        (prevData): iReview => ({ ...prevData, body: "" })
       );
 
       return;
     }
     setReviewData(
-      (prevData): SentDataReviewAndProduct => ({ ...prevData, body: value })
+      (prevData): iReview => ({ ...prevData, body: value })
     );
     setError((prevError) => (prevError = null));
   };
@@ -68,7 +67,7 @@ const ReviewForm = ({ id }: { id: string }) => {
     function addRating(rating: number) {
       // not sure if this is necessary, but it should be the safest way. test before making simpler
       setReviewData(
-        (prevData): SentDataReviewAndProduct => ({ ...prevData, rating: rating })
+        (prevData): iReview => ({ ...prevData, rating: rating })
       );
     }
     addRating(newRating);
@@ -104,7 +103,7 @@ const ReviewForm = ({ id }: { id: string }) => {
   ) => {
     const { name, value } = e.target;
     setReviewData(
-      (prevData): SentDataReviewAndProduct => ({ ...prevData, [name]: value })
+      (prevData): iReview => ({ ...prevData, [name]: value })
     );
   };
 
@@ -125,13 +124,23 @@ const ReviewForm = ({ id }: { id: string }) => {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["product"],
-    queryFn: () => getProduct(id),
+    queryFn: async () => {
+      if (products !== null) {
+        const data = products?.find((product) => product.id === id)
+        return data
+      }
+
+      // else return getProduct(id)
+      const data: any = await getProduct(id)
+      return data.data
+    },
     refetchOnWindowFocus: false,
   }) as any
 
   if (isLoading) return <LoadingSpinner />;
-  if (isError) return <p>fetch error - can't give more details cause error variable was taken</p>;
-  const product = data?.data as iProduct
+  if (isError) return <p>fetch error - cannot give more details cause error variable was taken</p>;
+  const product = data as iProduct
+  // filter allPproductsatom for id variable and return product
 
 
   return (
@@ -143,7 +152,7 @@ const ReviewForm = ({ id }: { id: string }) => {
       >
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
-          <ProductCard options={productCardOptions} product={product} />
+          {product && <ProductCard options={productCardOptions} product={product} />}
         </div>
         <div className="flex flex-col justify-center items-center mb-2 border-b dark:border-myTheme-dark2 p-1 shadow-sm">
           <label

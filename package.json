@@ -15,7 +15,7 @@
     "@mantine/core": "^6.0.13",
     "@mantine/hooks": "^6.0.13",
     "@mantine/tiptap": "^6.0.13",
-    "@prisma/client": "latest",
+    "@prisma/client": "^5.3.1",
     "@tabler/icons-react": "^2.21.0",
     "@tanstack/react-query": "^4.29.13",
     "@tiptap/extension-link": "^2.0.3",
@@ -55,6 +55,6 @@
     "@types/react-datepicker": "^4.11.2",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
-    "prisma": "5"
+    "prisma": "^5.3.1"
   }
 }

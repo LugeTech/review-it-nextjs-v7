@@ -3,11 +3,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, Suspense, useState } from "react";
 import parse from "html-react-parser";
 import RatingModule from "./RatingModule";
-import { SentDataReviewAndProduct } from "../util/Interfaces";
+import { iReview } from "../util/Interfaces";
 import { useUser } from "@clerk/nextjs";
 
 interface editorPreviewProps {
-  reviewData: SentDataReviewAndProduct;
+  reviewData: iReview;
 }
 
 const EditorPreview = ({ reviewData }: editorPreviewProps) => {
@@ -41,7 +41,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
   }
 
   return (
-    <div className="flex  w-full">
+    <div className="flex flex-col w-full">
       <button
         type="button"
         onClick={openModal}
@@ -49,9 +49,8 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
       >
         Preview
       </button>
-
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-50 w-full" onClose={closeModal}>
+        <Dialog onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -75,14 +74,13 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all flex flex-col flex-1 items-center justify-center">
+                <Dialog.Panel className=" w-full md:w-3/4 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all flex flex-col items-center justify-center">
                   <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+
                   >
                     Preview
                   </Dialog.Title>
-                  <div className="flex flex-col flex-1 w-full dark:bg-myTheme-dark p-4 rounded-md lg:w-3/4 bg-white overflow-scroll items-center justify-center">
+                  <div className="flex flex-col flex-1 w-full dark:bg-myTheme-dark p-4 rounded-md md:w-3/4 bg-white overflow-scroll items-center justify-center">
                     <h1 className="font-bold underline text-center ">
                       {parse(reviewData.title)}
                     </h1>

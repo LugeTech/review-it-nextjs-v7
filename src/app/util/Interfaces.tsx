@@ -1,5 +1,5 @@
 export interface iReview {
-  id: string;
+  id: string | null;
   body: string;
   createdDate: Date;
   helpfulVotes?: number | null;
@@ -72,6 +72,10 @@ export interface iUser {
   email: string;
   avatar?: string;
   createdDate?: Date;
+  comments?: iComment[];
+  reviews?: iReview[];
+  product?: iProduct[];
+  userName?: string;
 }
 
 export interface iImage {
