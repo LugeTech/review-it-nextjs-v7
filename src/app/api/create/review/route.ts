@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
-import { SentDataReviewAndProduct } from "@/app/util/Interfaces";
+import { iReview } from "@/app/util/Interfaces";
 
 // Interface representing user data
 interface UserDATA {
@@ -31,7 +31,7 @@ interface UserDATA {
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
   // Get the review data from the request body
-  const sentDataReviewAndProduct: SentDataReviewAndProduct = await request.json();
+  const reviewData: iReview = await request.json();
 
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
@@ -49,23 +49,13 @@ export async function POST(request: NextRequest) {
       // If the user doesn't exist, create them
       clerkUserData = await addUserToDb(clerkClaimsData);
 
-      if (clerkUserData.publicMetadata.id !== undefined) {
-        sentDataReviewAndProduct.userId = clerkUserData.publicMetadata
-          .id as string;
-      } else {
-        return NextResponse.json({
-          success: false,
-          status: 401,
-          data: "publicMetadata.id not found/adding failed",
-        });
-      }
 
     } else {
       // If the user already exists, retrieve their data from the database
       clerkUserData = await clerkClient.users.getUser(clerkClaimsData.userId);
-      // then add publicMetaData.id to the sentDataReviewAndProduct object
+      // then add publicMetaData.id to the reviewData object
       if (clerkUserData.publicMetadata.id !== undefined) {
-        sentDataReviewAndProduct.userId = clerkUserData.publicMetadata
+        reviewData.userId = clerkUserData.publicMetadata
           .id as string;
       } else {
         return NextResponse.json({
@@ -76,110 +66,32 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Check if the product is in the database
-    // TODO: remove this check
-    if (!sentDataReviewAndProduct.product.productSelected) {
-      // If the product is in the database, find it
-      const product = await prisma.product.findUnique({
-        where: {
-          id: sentDataReviewAndProduct.product.productId,
-        },
-      });
+    console.log('this is the reviewData', reviewData);
+    // The product is in the database, so create a new review entry
+    const review = await prisma.review.create({
+      data: {
+        body: reviewData.body,
+        rating: reviewData.rating,
+        userId: reviewData.userId,
+        title: reviewData.title,
+        productId: reviewData.productId,
+        createdDate: reviewData.createdDate,
+        images: reviewData.images,
+        videos: reviewData.videos,
+        links: reviewData.links,
+        createdBy: clerkClaimsData.userName,
+      },
+    });
 
-      // If the product is not in the database, return an error
-      if (!product) {
-        return NextResponse.json({
-          success: false,
-          status: 500,
-          data: "product not found",
-        });
-      }
+    return NextResponse.json({
+      success: true,
+      status: 200,
+      data: review,
+    });
 
-      console.log('this is the sentDataReviewAndProduct', sentDataReviewAndProduct);
-      // The product is in the database, so create a new review entry
-      const review = await prisma.review.create({
-        data: {
-          body: sentDataReviewAndProduct.body,
-          rating: sentDataReviewAndProduct.rating,
-          userId: sentDataReviewAndProduct.userId,
-          title: sentDataReviewAndProduct.title,
-          productId: product.id,
-          createdDate: sentDataReviewAndProduct.createdDate,
-          images: sentDataReviewAndProduct.images,
-          videos: sentDataReviewAndProduct.videos,
-          links: sentDataReviewAndProduct.links,
-          createdBy: clerkClaimsData.userName,
-        },
-      });
-
-      // Return the review data as JSON
-      return NextResponse.json({
-        success: true,
-        status: 200,
-        data: review,
-      });
-    } else {
-      // The product is not in the database, so create it
-      const product = await prisma.product.create({
-        data: {
-          display_image: sentDataReviewAndProduct.product.display_image,
-          name: sentDataReviewAndProduct.product.name,
-          description: sentDataReviewAndProduct.product.description,
-          createdDate: sentDataReviewAndProduct.product.createdDate,
-          images: sentDataReviewAndProduct.product.images,
-          videos: sentDataReviewAndProduct.product.videos,
-          links: sentDataReviewAndProduct.product.links,
-          tags: sentDataReviewAndProduct.product.tags,
-          openingHrs: sentDataReviewAndProduct.product.openingHrs,
-          closingHrs: sentDataReviewAndProduct.product.closingHrs,
-          address: sentDataReviewAndProduct.product.address,
-          telephone: sentDataReviewAndProduct.product.telephone,
-          website: sentDataReviewAndProduct.product.website,
-          createdById: (clerkUserData.publicMetadata
-            .id) as unknown as string,
-        },
-      });
-
-      if (clerkUserData.publicMetadata.id !== undefined) {
-        sentDataReviewAndProduct.userId = clerkUserData.publicMetadata
-          .id as string;
-      } else {
-        return NextResponse.json({
-          success: false,
-          status: 401,
-          data: "publicMetadata.id not set... maybe have to wait",
-        });
-      }
-      sentDataReviewAndProduct.productId = product.id;
-      // sentDataReviewAndProduct.userId = clerkUserData.publicMetadata
-      //   .id as unknown as string;
-      // console.log('this is the sentDataReviewAndProduct', sentDataReviewAndProduct);
-      // The product is in the database, so create a new review entry
-      const review = await prisma.review.create({
-        data: {
-          body: sentDataReviewAndProduct.body,
-          rating: sentDataReviewAndProduct.rating,
-          userId: sentDataReviewAndProduct.userId,
-          title: sentDataReviewAndProduct.title,
-          productId: product.id,
-          createdDate: sentDataReviewAndProduct.createdDate,
-          images: sentDataReviewAndProduct.images,
-          videos: sentDataReviewAndProduct.videos,
-          links: sentDataReviewAndProduct.links,
-          createdBy: clerkClaimsData.userName,
-        },
-      });
-
-      // Return the review data as JSON
-      return NextResponse.json({
-        success: true,
-        status: 200,
-        data: review,
-      });
-    }
   } catch (error) {
     let e = error as Error;
-    console.log('this is where new accounts are failing', e.message);
+    console.log(e.message);
     // Return an error response
     return NextResponse.json({
       success: false,
