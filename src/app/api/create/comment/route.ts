@@ -14,35 +14,6 @@ interface data {
   commentId: string;
 }
 
-async function updateReview(data: data) {
-  //will update the review without checking if it exist for now.
-  // the comment function should safe enough.
-  // if not i will use this
-  // Find the document you want to update by its ID
-  // const existingReview = await prisma.review.findUnique({
-  //   where: { id: data.reviewId },
-  // });
-  //
-  // if (!existingReview) {
-  //   console.error(`Document with ID ${data.reviewId} not found.`);
-  //   return NextResponse.json({ message: "Document not found" });
-  // }
-
-  // Append the new item to the existing array
-  const updatedReview = await prisma.review.update({
-    where: { id: data.reviewId },
-    data: {
-      comments: {
-        connect: { id: data.commentId },
-      },
-    },
-  })
-  return updatedReview;
-}
-
-
-
-
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
   // Get the review data from the request body
@@ -72,29 +43,19 @@ export async function POST(request: NextRequest) {
       if (clerkUserData.publicMetadata.id !== undefined) {
         userIdFromClerk = clerkUserData.publicMetadata
           .id as string;
-      } else {
-        return NextResponse.json({
-          success: false,
-          status: 401,
-          data: "publicMetadata.id not found",
-        });
       }
     }
     console.log('about to create comment')
 
-    const createdComment = await prisma.comments.create({
+    const createdComment = await prisma.comment.create({
       data: {
         body: comment.body,
         createdDate: new Date(),
         reviewId: comment.reviewId,
-        userId: userIdFromClerk as string,
+        userId: comment.userId,
       },
     });
-    const updatedReview = await updateReview({
-      reviewId: comment.reviewId,
-      commentId: createdComment.id
-    })
-    console.log(updatedReview);
+
     return NextResponse.json({
       success: true,
       status: 200,

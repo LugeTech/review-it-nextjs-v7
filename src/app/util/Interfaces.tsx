@@ -72,6 +72,7 @@ export interface iUser {
   email: string;
   avatar?: string;
   createdDate?: Date;
+  comments?: iComment[];
 }
 
 export interface iImage {
