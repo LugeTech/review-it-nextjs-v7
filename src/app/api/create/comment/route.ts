@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
         body: comment.body,
         createdDate: new Date(),
         reviewId: comment.reviewId,
-        userId: comment.userId,
+        userId: userIdFromClerk as string,
       },
     });
 

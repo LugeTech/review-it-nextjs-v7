@@ -55,7 +55,7 @@ const Page = () => {
           })}
         </div>
       </div>
-      <Token />
+      {/* <Token /> */}
     </div>
   )
 }

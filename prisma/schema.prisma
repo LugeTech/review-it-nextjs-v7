@@ -77,9 +77,9 @@ model User {
   email       String    @unique
   firstName   String
   lastName    String
-  review      Review[]
+  reviews     Review[]
   clerkUserId String
   product     Product[]
   isDeleted   Boolean?  @default(false)
-  Comments    Comment[]
+  comments    Comment[]
 }

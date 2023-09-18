@@ -73,6 +73,9 @@ export interface iUser {
   avatar?: string;
   createdDate?: Date;
   comments?: iComment[];
+  reviews?: iReview[];
+  product?: iProduct[];
+  userName?: string;
 }
 
 export interface iImage {
