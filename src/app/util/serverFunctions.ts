@@ -48,6 +48,18 @@ export const getReviews = async (id: string) => {
   return reviews;
 };
 
+export const getLatestReviews = async () => {
+
+  const reviews: iReview[] = await fetch(`${apiUrl}/get/latestreviews`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json()
+  )
+  return reviews;
+};
+
 export const getProduct = async (id: string) => {
   const product: iProduct = await fetch(`${apiUrl}/get/product`, {
     method: "POST",
