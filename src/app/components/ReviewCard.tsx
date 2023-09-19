@@ -29,12 +29,18 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
             <p className="text-gray-600 text-xs">{dayjs(createdDate.toString()).format('MMMM D, YYYY h:mm A')}</p>
           </div>
         </div>
-        <h1 className="text-xl font-semibold mb-2">{title}</h1>
         {/* Sanitize the review body */}
-        <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(body.substring(0, 250)) }} className="mb-4 text-sm" />
-        <Link href={`/reviews/${review.id}`}>
-          {body.length > 150 && <span className="text-xs text-gray-600">...read more</span>}
-        </Link>
+        <div className="mb-4 px-4 bg-zinc-100 rounded-md p-2 flex flex-col">
+          <h1 className="text-xl font-semibold mb-1">{title}</h1>
+          <div className="flex flex-row">
+            <span className='mr-1 text-3xl'>"</span>
+            <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(body.substring(0, 250)) }} className="mb-4 text-sm" />
+            <span className='mr-1 text-3xl'>"</span>
+          </div>
+        </div>
+        {/* <Link href={`/reviews/${review.id}`}> */}
+        {body.length > 150 && <span className="text-xs text-gray-600">...read more</span>}
+        {/* </Link> */}
         <div className="flex items-center">
           <RatingModule
             name={review.id!}
