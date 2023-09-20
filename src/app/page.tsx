@@ -1,4 +1,3 @@
-// import { faker } from "@faker-js/faker";
 import { iReview, iUser, iComment, iProduct } from "./util/Interfaces";
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
@@ -7,29 +6,29 @@ import { users } from "@clerk/nextjs/dist/api";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { calculateAverageReviewRating } from "./util/calculateAverageReviewRating";
-import { getReviews } from "./util/serverFunctions";
+import { getLatestReviews } from "./util/serverFunctions";
 import Token from "./components/Token";
 
 export const revalidate = 30;
 
 export default async function Home() {
 
-  // const { data, isLoading, isError, error } = useQuery({
-  //   queryKey: ["reviews"],
-  //   queryFn: () => getLatestReviews(),
-  //   refetchOnWindowFocus: false,
-  // }) as any
-  //
-  // const reviews = data?.data as iReview[]
-  // // const filteredReviews = reviews?.filter((review) => review.rating !== null && review.rating !== 0)
-  // // console.log('filteredReviews', filteredReviews)
-  // // return (
-  // //   <div>
-  // //   </div>
-  // // )
-  // if (isLoading) return <LoadingSpinner />
-  // if (isError) return <p>{error.message}</p>
-  // let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["latestReviews"],
+    queryFn: () => getLatestReviews(),
+    refetchOnWindowFocus: false,
+  }) as any
+
+  const reviews = data?.data as iReview[]
+  // const filteredReviews = reviews?.filter((review) => review.rating !== null && review.rating !== 0)
+  // console.log('filteredReviews', filteredReviews)
+  // return (
+  //   <div>
+  //   </div>
+  // )
+  if (isLoading) return <LoadingSpinner />
+  if (isError) return <p>{error.message}</p>
+  let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
   return (
     <div className="flex flex-1 flex-col justify-center  bg-myTheme-light dark:bg-myTheme-dark dark:text-myTheme-light">
       <div className="flex flex-1 flex-row">
