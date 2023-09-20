@@ -21,7 +21,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={1}
-          className=" mask mask-star bg-white hover:bg-red-500"
+          className=" mask mask-star bg-[#ff4545] hover:bg-red-500"
           checked={rating === 1}
           onChange={() => ratingChanged(1)}
         />
@@ -29,7 +29,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={2}
-          className="mask mask-star bg-white hover:bg-orange-500"
+          className="mask mask-star bg-[#ffa534] hover:bg-orange-500"
           checked={rating === 2}
           onChange={() => ratingChanged(2)}
         />
@@ -37,7 +37,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={3}
-          className="mask mask-star bg-white hover:bg-yellow-500"
+          className="mask mask-star bg-[#ffe234] hover:bg-yellow-500"
           checked={rating === 3}
           onChange={() => ratingChanged(3)}
         />
@@ -45,7 +45,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={4}
-          className="mask mask-star bg-white hover:bg-lime-500"
+          className="mask mask-star bg-[#b7dd29] hover:bg-lime-500"
           checked={rating === 4}
           onChange={() => ratingChanged(4)}
         />
@@ -53,7 +53,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={5}
-          className="mask mask-star bg-white hover:bg-green-500 "
+          className="mask mask-star bg-[#57e32c] hover:bg-green-500 "
           checked={rating === 5}
           onChange={() => ratingChanged(5)}
         />

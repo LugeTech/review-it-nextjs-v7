@@ -35,9 +35,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         <div className="mb-4 px-4 hover:bg-zinc-100 rounded-md p-2 flex flex-col">
           <h1 className="text-lg font-semibold mb-1">{title}</h1>
           <div className="flex flex-row">
-            <span className='mr-1 text-3xl'>"</span>
+            {/* <span className='mr-1 text-3xl'>"</span> */}
             <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(body) }} className="mb-4 text-sm" />
-            <span className='mr-1 text-3xl'>"</span>
+            {/* <span className='mr-1 text-3xl'>"</span> */}
           </div>
           <RatingModule
             name={review.id!}
