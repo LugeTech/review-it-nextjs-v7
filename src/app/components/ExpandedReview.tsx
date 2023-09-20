@@ -57,7 +57,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       <div className="space-y-6 mt-4 gap-2 flex flex-1 flex-col w-full justify-end items-end">
         <ul>
           {review?.comments.map((comment, index) => (
-            <Comment comment={comment} user={review?.user!} key={index} />
+            <Comment comment={comment} key={index} />
           ))}
         </ul>
       </div>
