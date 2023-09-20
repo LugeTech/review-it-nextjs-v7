@@ -2,33 +2,11 @@ import { iReview, iUser, iComment, iProduct } from "./util/Interfaces";
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
-import { users } from "@clerk/nextjs/dist/api";
-import { useQuery } from "@tanstack/react-query";
-import LoadingSpinner from "./components/LoadingSpinner";
-import { calculateAverageReviewRating } from "./util/calculateAverageReviewRating";
-import { getLatestReviews } from "./util/serverFunctions";
 import Token from "./components/Token";
 
 export const revalidate = 30;
 
 export default async function Home() {
-
-  // const { data, isLoading, isError, error } = useQuery({
-  //   queryKey: ["latestReviews"],
-  //   queryFn: () => getLatestReviews(),
-  //   refetchOnWindowFocus: false,
-  // }) as any
-  //
-  // const reviews = data?.data as iReview[]
-  // // const filteredReviews = reviews?.filter((review) => review.rating !== null && review.rating !== 0)
-  // // console.log('filteredReviews', filteredReviews)
-  // // return (
-  // //   <div>
-  // //   </div>
-  // // )
-  // if (isLoading) return <LoadingSpinner />
-  // if (isError) return <p>{error.message}</p>
-  // let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
   return (
     <div className="flex flex-1 flex-col justify-center  bg-myTheme-light dark:bg-myTheme-dark dark:text-myTheme-light">
       <div className="flex flex-row">
@@ -46,7 +24,7 @@ export default async function Home() {
             <div className="flex flex-col justify-center w-full mt-4 mb-4">
               <div className="flex justify-center items-center text-md mx-4">Business of the day goes here</div>
             </div>
-            {/* <Token /> */}
+            <Token />
           </div>
         </div>
       </div>
