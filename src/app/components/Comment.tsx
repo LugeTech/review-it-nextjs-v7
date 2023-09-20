@@ -33,4 +33,5 @@ const Comment: React.FC<CommentProps> = ({ comment, user }) => {
   );
 };
 
+
 export default Comment;

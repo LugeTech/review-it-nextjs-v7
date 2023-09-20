@@ -69,7 +69,9 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 </div>
                 <div className=" font-normal tracking-tight ">
                   {/* review body */}
-                  {review.body.slice(0, 90) + "... read more"}
+                  {/* {review.body.slice(0, 90) + "... read more"} */}
+                  <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90) + "... read more") }} className="mb-4 text-sm" />
+
                   <RatingModule
                     name="rating"
                     rating={rating}

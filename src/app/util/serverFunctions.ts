@@ -50,7 +50,7 @@ export const getReviews = async (id: string) => {
 
 export const getLatestReviews = async () => {
 
-  const reviews: iReview[] = await fetch(`${apiUrl}/get/latestreviews`, {
+  const reviews: iReview[] = await fetch(`${apiUrl}/get/review/latest`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
