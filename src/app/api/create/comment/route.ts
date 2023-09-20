@@ -7,30 +7,20 @@ import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
 import { iComment, UserDATA } from "@/app/util/Interfaces";
 
-
-
-interface data {
-  reviewId: string;
-  commentId: string;
-}
-
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
   // Get the review data from the request body
   const comment: iComment = await request.json();
 
-  console.log(comment);
-
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
   let userIdFromClerk = null;
+
   try {
     // Extract the session claims from the request
     const { sessionClaims } = getAuth(request);
     // Cast the session claims to the `UserDATA` type
     const clerkClaimsData = sessionClaims as unknown as UserDATA;
-
-    // console.log(clerkClaimsData);
 
     // Check if the user already exists in the database
     if (!(await userInDb(clerkClaimsData.userId))) {
