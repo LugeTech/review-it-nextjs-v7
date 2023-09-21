@@ -12,6 +12,7 @@
   "dependencies": {
     "@clerk/nextjs": "^4.18.4",
     "@emotion/react": "^11.11.1",
+    "@headlessui/react": "^1.7.17",
     "@mantine/core": "^6.0.13",
     "@mantine/hooks": "^6.0.13",
     "@mantine/tiptap": "^6.0.13",
