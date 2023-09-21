@@ -17,9 +17,14 @@ export async function POST(request: NextRequest) {
     const reviews = await prisma.review.findMany({
       where: { isPublic: body.isPublic, productId: body.id },
       include: {
-        user: body.user,
-        product: body.product,
-        comments: body.comments,
+        user: true,
+        product: true,
+        comments: {
+          include: {
+            user: true,
+          },
+        },
+
       },
     });
     return NextResponse.json({

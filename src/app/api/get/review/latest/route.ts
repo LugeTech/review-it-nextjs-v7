@@ -1,17 +1,11 @@
-
 import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  // console.log("POST /api/reviews");
-  interface Body {
-    id: string;
-  }
-
-  const body: Body = await request.json();
+  console.log('latest reviews git ht');
   try {
-    const reviews = await prisma.review.findUnique({
-      where: { isPublic: true, id: body.id },
+    const reviews = await prisma.review.findMany({
+      where: { isPublic: true },
       include: {
         user: true,
         product: true,
@@ -21,11 +15,16 @@ export async function POST(request: NextRequest) {
           },
         },
       },
+      orderBy: {
+        createdDate: "desc",
+      },
     });
+    console.log(reviews);
+    const lastTwoReviews = reviews.slice(-2);
     return NextResponse.json({
       success: true,
       status: 200,
-      data: reviews,
+      data: lastTwoReviews,
     });
   } catch (error) {
     let e = error as Error;

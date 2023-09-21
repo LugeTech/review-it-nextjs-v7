@@ -201,3 +201,9 @@ export interface UserDATA {
   };
 }
 
+
+export interface iCalculatedRating {
+  roundedRating: number;
+  roundedRatingOneDecimalPlace: number;
+  numberOfReviews: number;
+}

@@ -1,24 +1,24 @@
 'use client';
 // import { currentReviewAtom } from '@/app/store/store';
-import CommentForm from './CommentForm';
-import { useState } from 'react';
+// import CommentForm from './CommentForm';
+// import { useState } from 'react';
 import ReviewCard from './ReviewCard';
 import { useAtom } from "jotai";
 import { currentReviewAtom } from "../store/store";
 import { useQuery } from '@tanstack/react-query';
 import { iReview } from '../util/Interfaces';
-import { getProduct, getReview } from '../util/serverFunctions';
+import { getReview } from '../util/serverFunctions';
 import LoadingSpinner from './LoadingSpinner';
 import Comment from './Comment';
 
 const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
-  const [reviewAtom, setReview] = useAtom(currentReviewAtom);
-  const [comments, setComments] = useState<string[]>([]);
+  const [reviewAtom] = useAtom(currentReviewAtom);
+  // const [Comments] = useState<string[]>([]);
 
-  const handleCommentSubmit = (commentText: string) => {
-    // Add the new comment to the comments list
-    setComments((prevComments) => [...prevComments, commentText]);
-  };
+  // const handleCommentSubmit = (commentText: string) => {
+  //   // Add the new comment to the comments list
+  //   setComments((prevComments) => [...prevComments, commentText]);
+  // };
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["review", reviewId],
@@ -57,7 +57,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       <div className="space-y-6 mt-4 gap-2 flex flex-1 flex-col w-full justify-end items-end">
         <ul>
           {review?.comments.map((comment, index) => (
-            <Comment comment={comment} user={review?.user!} key={index} />
+            <Comment comment={comment} key={index} />
           ))}
         </ul>
       </div>

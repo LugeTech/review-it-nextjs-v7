@@ -1,6 +1,10 @@
 import React from 'react';
-
-const CommentModal = ({ isOpen, onClose, onSubmit }) => {
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: () => void;
+}
+const CommentModal = ({ isOpen, onClose, onSubmit }: Props) => {
   return (
     <div className={`fixed inset-0 z-50 ${isOpen ? 'block' : 'hidden'}`}>
       <div className="flex items-center justify-center min-h-screen">
