@@ -67,7 +67,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
             <div className=" w-full font-normal tracking-tight ">
               {/* review body */}
               {/* {review.body.slice(0, 90) + "... read more"} */}
-              <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90) + "... read more") }} className="mb-4 text-sm" />
+              <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90)) }} className="mb-4 text-sm" />
 
               <RatingModule
                 name="rating"
@@ -101,7 +101,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
             <div className="flex flex-col">
               {comments
                 .find((comment) => comment.user === review.comments[0].user)
-                ?.body.slice(0, 90) + "... read more"}
+                ?.body.slice(0, 90)}
               <Votes review={review} />
             </div>
           </div>
