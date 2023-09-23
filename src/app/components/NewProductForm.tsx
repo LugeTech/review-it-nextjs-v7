@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
 import { iProduct } from '../util/Interfaces';
 import { resizeImage } from '../util/clientFunctions';
 import { uploadImageToCloudinary } from '../util/uploadImageToCloudinary';

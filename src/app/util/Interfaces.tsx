@@ -24,7 +24,7 @@ export interface iReview {
 export interface iComment {
   id?: string;
   user?: iUser; // identifier for the user who wrote the comment
-  userId: string;
+  userId?: string;
   body: string; // the text of the comment
   helpfulVotes?: number; // the number of helpful votes the review has received
   unhelpfulVotes?: number; // the number of unhelpful votes the review has received

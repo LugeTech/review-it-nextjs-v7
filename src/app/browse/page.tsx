@@ -7,7 +7,7 @@ import { useQuery, } from "@tanstack/react-query";
 import ArrangeByPanel from '../components/ArrangeByPanel';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ProductCard from '../components/ProductCard';
-import Token from '../components/Token';
+// import Token from '../components/Token';
 import { useAtom } from 'jotai';
 import { allProductsAtom } from '../store/store';
 import { useEffect } from 'react';

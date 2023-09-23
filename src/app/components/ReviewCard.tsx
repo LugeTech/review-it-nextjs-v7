@@ -25,7 +25,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
             <div className="flex items-center justify-start">
               <span className="font-semibold">{user?.firstName} {user?.lastName}</span><span className="text-gray-600 text-sm ml-2">reviewed {product?.name}</span>
             </div>
-            <p className="text-gray-600 text-xs">{dayjs(createdDate.toString()).format('MMMM D, YYYY h:mm A')}</p>
+            <p className="text-gray-600 text-xs">{dayjs(createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
           </div>
         </div>
       </Link>
