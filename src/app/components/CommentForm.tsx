@@ -43,7 +43,7 @@ const CommentForm = ({ isOpen, onClose, onSubmit }: Props) => {
           {/* Your comment input fields */}
           <div>
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Commenting as {currentUser?.firstName}
+              Commenting as {currentUser?.firstName ?? 'Guest'}
             </label>
           </div>
           <textarea className="w-full border p-2 mb-2 h-36" placeholder="Enter your comment"

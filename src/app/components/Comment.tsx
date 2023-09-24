@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { iComment, iUser } from '@/app/util/Interfaces';
-
+import dayjs from 'dayjs';
 interface CommentProps {
   comment: iComment;
 }
@@ -17,6 +17,9 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
         />
         <span className="text-gray-800 font-semibold">
           {comment?.user?.firstName} {comment?.user?.lastName}
+        </span>
+        <span className="text-gray-600 text-xs ml-2">
+          {comment?.createdDate && dayjs(comment.createdDate).format('MM/DD/YYYY h:mm A')}
         </span>
       </div>
       <p className="text-gray-700">{comment.body}</p>

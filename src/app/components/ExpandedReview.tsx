@@ -29,15 +29,13 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       onMutate: (newData) => {
         // Update the UI optimistically before the actual mutation
         queryClient.setQueryData(["review", reviewId], (oldData: any) => {
-          console.log('oldData', oldData);
-          console.log('newData', newData);
           // create a structure like the old data but with the new data
           newData.reviewId = reviewId;
-          newData.createdDate = new Date();
           newData.isDeleted = false;
           newData.user = currentUser; // this works i just need to get my user
-          oldData.comments.push(newData);
-          return { ...oldData };
+          let iReviewOldData: iReview = { ...oldData };
+          iReviewOldData.comments.push(newData);
+          return { ...iReviewOldData };
         });
       }, onSuccess: (data: iComment) => {
         // invalidate the cache
@@ -99,22 +97,20 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 ">
       {/* Display the full review details here */}
       {review ? (
-        <div>
+        <>
           <ReviewCard review={review} />
           {/* create submit commit form here */}
           <CommentForm onSubmit={handleCommentSubmit} isOpen={isOpen} onClose={(isOpen: boolean) => { setIsOpen(!isOpen) }} />
-        </div>
+        </>
       ) : (
         // Render a loading state or fetch the review details based on reviewId
         <div>Loading...</div>
       )}
       <h2>Comments</h2>
       <div className="space-y-6 mt-4 gap-2 flex flex-1 flex-col w-full justify-end items-end">
-        <ul>
-          {review?.comments?.length > 0 ? <div>{review?.comments.map((comment, index) => (
-            <Comment comment={comment} key={index} />
-          ))}</div> : <div>No comments yet</div>}
-        </ul>
+        {review?.comments?.length > 0 ? <>{review?.comments.reverse().map((comment, index) => (
+          <Comment comment={comment} key={index} />
+        ))}</> : <div>No comments yet</div>}
       </div>
     </div>
   );
