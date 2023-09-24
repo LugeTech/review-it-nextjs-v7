@@ -8,7 +8,7 @@ interface CommentProps {
 
 const Comment: React.FC<CommentProps> = ({ comment }) => {
   return (
-    <div className="flex w-full flex-col md:w-3/4 bg-white p-4 rounded-lg shadow-md mb-4">
+    <div className="flex w-full flex-col md:w-full bg-white p-4 rounded-lg shadow-md mb-4">
       <div className="flex items-center mb-2">
         <img
           src={comment?.user?.avatar || '/default-avatar.png'} // Use a default avatar if no avatar is provided

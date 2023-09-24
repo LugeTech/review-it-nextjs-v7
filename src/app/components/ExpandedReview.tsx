@@ -18,6 +18,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const [comment, setComment] = useState<iComment>({
     reviewId: reviewId,
     body: textAreaValue,
+    createdDate: new Date(),
   }
   )
   const [currentUser] = useAtom(currentUserAtom);
@@ -35,11 +36,11 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
           newData.user = currentUser; // this works i just need to get my user
           let iReviewOldData: iReview = { ...oldData };
           iReviewOldData.comments.push(newData);
+          // reverse the comments array
+          iReviewOldData.comments = iReviewOldData.comments.reverse();
           return { ...iReviewOldData };
         });
       }, onSuccess: (data: iComment) => {
-        // invalidate the cache
-        // queryClient.invalidateQueries(["review", reviewId]);
         console.log('this is the comment', data);
       },
       onError: (error: Error) => {
@@ -64,10 +65,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     });
   }, [textAreaValue]);
 
-  // useEffect(() => {
-  //   console.log('running 2', comment)
-  //   // Call mutations.mutate(comment) whenever comment changes
-  // }, [comment]);
 
 
   // NOTE query to get the comments... really it gets the review and it contains the comments
@@ -88,6 +85,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error - cannot give more details cause error variable was taken</p>;
   const review = data as iReview
+  // review.comments = review.comments.reverse()
   // filter allPproductsatom for id variable and return product
 
   // NOTE this is the useMutation mostly to do optimistic updates to the comments
@@ -108,9 +106,19 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       )}
       <h2>Comments</h2>
       <div className="space-y-6 mt-4 gap-2 flex flex-1 flex-col w-full justify-end items-end">
-        {review?.comments?.length > 0 ? <>{review?.comments.reverse().map((comment, index) => (
-          <Comment comment={comment} key={index} />
-        ))}</> : <div>No comments yet</div>}
+        {/* arrange comments from newest to oldest */}
+        {review?.comments?.length > 0 ? (
+          <>
+            {review?.comments
+              .slice()
+              .sort((a, b) => new Date(b.createdDate!).valueOf() - new Date(a.createdDate!).valueOf()) // Sort comments by createdDate in descending order
+              .map((comment, index) => (
+                <Comment comment={comment} key={index} />
+              ))}
+          </>
+        ) : (
+          <div>No comments yet</div>
+        )}
       </div>
     </div>
   );

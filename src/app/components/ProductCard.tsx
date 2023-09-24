@@ -42,6 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   }) as any
 
   const reviews = data?.data as iReview[]
+  const totalComments = reviews?.reduce((accumulator, review) => accumulator + review.comments.length, 0);
   // const filteredReviews = reviews?.filter((review) => review.rating !== null && review.rating !== 0)
   // console.log('filteredReviews', filteredReviews)
   // return (
@@ -91,17 +92,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
               ratingChanged={ratingChanged}
               size={options.size}
             />}
-            <span className={`mr-auto rounded p-1 flex items-start text-xs md:text-base`}
-              style={dynamicStyles}
-            >{
-                reviews && reviews.length > 0 ?
-                  roundedRatingOneDecimalPlace! : 'No Reviews Yet'
-              }
-              {
-                reviews && reviews.length > 0 ?
-                  ` (${numberOfReviews!} reviews)` : ''
-              }
-            </span>
+            <div className="flex gap-2">
+              <span className={`mr-auto rounded p-1 flex items-start text-xs md:text-base`}
+                style={dynamicStyles}
+              >{
+                  reviews && reviews.length > 0 ?
+                    roundedRatingOneDecimalPlace! : 'No Reviews Yet'
+                }
+                {
+                  reviews && reviews.length > 0 ?
+                    ` (${numberOfReviews!} reviews)` : ''
+                }
+              </span>
+              <span className={`mr-auto rounded p-1 flex items-start text-xs md:text-base`}
+              >
+                {
+                  reviews && totalComments > 0 ?
+                    ` (${totalComments} comments)` : ''
+                }
+              </span>
+            </div>
           </div>
         </div>
       </Link>
