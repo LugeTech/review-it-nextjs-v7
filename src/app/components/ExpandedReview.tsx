@@ -1,7 +1,7 @@
 'use client';
 import ReviewCard from './ReviewCard';
 import { useAtom } from "jotai";
-import { currentReviewAtom } from "../store/store";
+import { currentReviewAtom, currentUserAtom } from "../store/store";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { iProduct, iReview, iComment } from '../util/Interfaces';
 import { createCommentOnReview, getReview } from '../util/serverFunctions';
@@ -20,6 +20,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     body: textAreaValue,
   }
   )
+  const [currentUser] = useAtom(currentUserAtom);
 
 
   const mutations = useMutation(
@@ -34,7 +35,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
           newData.reviewId = reviewId;
           newData.createdDate = new Date();
           newData.isDeleted = false;
-          newData.user = oldData.user; // this works i just need to get my user
+          newData.user = currentUser; // this works i just need to get my user
           oldData.comments.push(newData);
           return { ...oldData };
         });
