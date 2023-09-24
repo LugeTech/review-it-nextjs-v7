@@ -1,4 +1,4 @@
-import { iProduct, iReview, iUser } from "@/app/util/Interfaces";
+import { iComment, iProduct, iReview, iUser } from "@/app/util/Interfaces";
 import { apiUrl } from "./apiUrl";
 
 export const getUser = async () => {
@@ -83,3 +83,16 @@ export const getProducts = async () => {
   return products;
 };
 
+export const createCommentOnReview = async (comment: iComment) => {
+  console.log(comment);
+  if (comment.body === "") return;
+  const response = await fetch(`${apiUrl}/create/comment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(comment),
+  });
+  const data = await response.json();
+  return data;
+}

@@ -62,7 +62,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.log('this is the reviewData', reviewData);
     try {
       const user = await prisma.user.findUnique({
         where: {
@@ -73,7 +72,6 @@ export async function POST(request: NextRequest) {
           reviews: true,
         },
       });
-      console.log('this is user', user)
       return NextResponse.json({
         success: true,
         status: 200,

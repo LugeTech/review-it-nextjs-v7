@@ -11,7 +11,7 @@ import { iComment, UserDATA } from "@/app/util/Interfaces";
 export async function POST(request: NextRequest) {
   // Get the review data from the request body
   const comment: iComment = await request.json();
-
+  console.log(comment)
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
   let userIdFromClerk = null;
