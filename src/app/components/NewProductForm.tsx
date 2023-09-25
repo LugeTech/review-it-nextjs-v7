@@ -1,9 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { iProduct } from '../util/Interfaces';
+import { iProduct, iReview } from '../util/Interfaces';
 import { resizeImage } from '../util/clientFunctions';
 import { uploadImageToCloudinary } from '../util/uploadImageToCloudinary';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation'
 
 const NewProductForm = (): JSX.Element => {
   const initialProduct: iProduct = {
@@ -32,6 +33,7 @@ const NewProductForm = (): JSX.Element => {
   // const [productImage, setProductImage] = useState<string | null>(null); //This is the smaller image
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
+  const router = useRouter();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -67,7 +69,9 @@ const NewProductForm = (): JSX.Element => {
       return data;
     },
     onSuccess: (data: iProduct) => {
-      console.log(data);
+      console.log('this is success');
+      //send user to /browse
+      router.push('/browse');
     },
     onError: (error: Error) => {
       console.error(error);
@@ -101,8 +105,6 @@ const NewProductForm = (): JSX.Element => {
         return resizedImage as string;
       };
       run().then((smallFile) => {
-        // fileInputRef.current!.src = smallFile;
-        // setProductImage(smallFile);
         triggerUploadImage(smallFile);
       });
     }
@@ -111,18 +113,8 @@ const NewProductForm = (): JSX.Element => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     mutations.mutate();
-    // seperate tags by commas into arrays
-    // try {
-    // Send the form data to your backend service here using Axios or any other HTTP library
-    // Replace 'YOUR_BACKEND_URL' with the actual URL of your backend service
-    // const response = await axios.post('YOUR_BACKEND_URL', product);
-    // const createdProduct: iProduct = response.data; // Assuming your backend returns the created product
-    // onCreateProduct(createdProduct); // Notify the parent component about the new product
-    //   setProduct(initialProduct); // Clear the form
-    //   setImagePreview(null); // Clear the image preview
-    // } catch (error) {
-    //   console.error('Error creating product:', error);
-    // }
+    // send user to /browse
+
   };
 
   return (

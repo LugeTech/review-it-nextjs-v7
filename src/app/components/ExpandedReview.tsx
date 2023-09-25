@@ -40,7 +40,8 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
           iReviewOldData.comments = iReviewOldData.comments.reverse();
           return { ...iReviewOldData };
         });
-      }, onSuccess: (data: iComment) => {
+      },
+      onSuccess: (data: iComment) => {
         console.log('this is the comment', data);
       },
       onError: (error: Error) => {
