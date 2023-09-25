@@ -19,7 +19,7 @@ const TopReviews = () => {
 
   const reviews = data?.data as iReview[]
   if (isLoading) return <LoadingSpinner />
-  if (isError) return <p>{error.message}</p>
+  if (isError) return <p>{'Signin to see top reviews'}</p>
   // let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
   return (
     <div className="flex flex-col w-full justify-center items-center  bg-mycolours-light dark:bg-mycolours-dark dark:text-mycolours-light">
@@ -27,7 +27,7 @@ const TopReviews = () => {
         Top Reviews
       </h1>
       <div className="flex justify-between flex-col sm:flex-row gap-1">
-        {reviews.map((review, index) => {
+        {reviews?.map((review, index) => {
           return (
             <ReviewBox
               key={index}
