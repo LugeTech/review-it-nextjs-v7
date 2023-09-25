@@ -20,7 +20,7 @@ const Page = () => {
     refetchOnWindowFocus: false,
   }) as any
 
-  const [currentProduct, setCurrentProduct] = useAtom(allProductsAtom);
+  const [_, setCurrentProduct] = useAtom(allProductsAtom);
 
   useEffect(() => {
     if (data?.data) setCurrentProduct(data.data);

@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     // Cast the session claims to the `UserDATA` type
     const clerkClaimsData = sessionClaims as unknown as UserDATA;
 
-    console.log(clerkClaimsData);
+    // console.log(clerkClaimsData);
 
     // Check if the user already exists in the database
     if (!(await userInDb(clerkClaimsData.userId))) {
@@ -58,7 +58,6 @@ export async function POST(request: NextRequest) {
       if (clerkUserData.publicMetadata.id !== undefined) {
         userIdFromClerk = clerkUserData.publicMetadata
           .id as string;
-        console.log('im here', userIdFromClerk);
       } else {
         return NextResponse.json({
           success: false,
