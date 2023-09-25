@@ -56,10 +56,15 @@ export async function POST(req: Request) {
   console.log(payload.data.email_addresses[0].email_address)
   const user = await prisma.user.upsert({
     where: { email: payload.data.email_addresses[0].email_address },
-    update: {},
+    update: {
+      avatar: payload.data.profile_image_url,
+      email: payload.data.email_addresses[0].email_address,
+      userName: payload.data.username || payload.data.email_addresses[0].email_address,
+      lastName: payload.data.last_name,
+    },
     create: {
       userName: payload.data.username || payload.data.email_addresses[0].email_address,
-      avatar: payload.data.image_url,
+      avatar: payload.data.profile_image_url,
       email: payload.data.email_addresses[0].email_address,
       firstName: payload.data.first_name,
       lastName: payload.data.last_name,
