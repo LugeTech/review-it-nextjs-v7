@@ -9,10 +9,6 @@ export const sideLinks = [
     link: "/search",
   },
   {
-    name: "Write a Review",
-    link: "/createreview",
-  },
-  {
     name: "Browse",
     link: "/browse",
   },
@@ -21,7 +17,7 @@ export const sideLinks = [
     link: "/submit",
   },
   {
-    name: "My Reviews",
+    name: "My Activity",
     link: "/myreviews",
   },
   {
@@ -36,10 +32,6 @@ export const topLinks = [
     link: "/search",
   },
   {
-    name: "Write a Review",
-    link: "/createreview",
-  },
-  {
     name: "Browse",
     link: "/browse",
   },
@@ -48,7 +40,7 @@ export const topLinks = [
     link: "/submit",
   },
   {
-    name: "My Reviews",
+    name: "My Activity",
     link: "/myreviews",
   },
   {
