@@ -59,7 +59,7 @@ export async function POST(req: Request) {
     update: {},
     create: {
       userName: payload.data.username || payload.data.email_addresses[0].email_address,
-      avatar: payload.data.profile_image_url,
+      avatar: payload.data.image_url,
       email: payload.data.email_addresses[0].email_address,
       firstName: payload.data.first_name,
       lastName: payload.data.last_name,
