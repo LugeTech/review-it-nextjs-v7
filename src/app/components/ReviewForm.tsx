@@ -15,8 +15,10 @@ import { getProduct } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 import { useAtom } from "jotai";
 import { allProductsAtom } from "../store/store";
+import { useRouter } from 'next/navigation'
 
 const ReviewForm = ({ id }: { id: string }) => {
+  const [disabled, setDisabled] = useState(false);
   const { user } = useUser();
   const [rating, setRating] = useState(1); // Initial value
   const [startDate, setStartDate] = useState(new Date());
@@ -40,7 +42,7 @@ const ReviewForm = ({ id }: { id: string }) => {
     isDeleted: false,
   });
   const [products, setProducts] = useAtom(allProductsAtom);
-
+  const router = useRouter()
   const productCardOptions = {
     showLatestReview: false,
     size: 'rating-md',
@@ -84,9 +86,10 @@ const ReviewForm = ({ id }: { id: string }) => {
       });
 
       if (response.ok) {
+        router.push('/reviews/' + id)
         // console.log("response ok", response);
-        const responseData = await response.json();
-        console.log(responseData);
+        // const responseData = await response.json();
+        // console.log(responseData);
       } else {
         const errorData = await response.json();
         console.log(errorData);
@@ -108,7 +111,11 @@ const ReviewForm = ({ id }: { id: string }) => {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setDisabled(true);
     e.preventDefault();
+    //disable the form form
+    e.currentTarget.disabled = true
+
     e.currentTarget.checkValidity()
     if (!e.currentTarget.checkValidity()) {
       setError("Please fill out all fields");
@@ -120,6 +127,7 @@ const ReviewForm = ({ id }: { id: string }) => {
       return;
     }
     await sendToServer();
+    setDisabled(false);
   };
 
   const { data, isLoading, isError } = useQuery({
@@ -221,12 +229,13 @@ const ReviewForm = ({ id }: { id: string }) => {
           <Editor onEditorValue={handleEditorValue} />
         </div>
 
-        <div className="flex gap-4">
-          <div>
+        <div className="flex gap-4 w-full">
+          {!disabled && reviewData.body !== "" && <div>
             <EditorPreview reviewData={reviewData} />
-          </div>
+          </div>}
 
           <button
+            disabled={disabled}
             type="submit"
             className=" bg-myTheme-primary hover:bg-myTheme-secondary text-white font-base p-2 rounded-md w-full"
           >
