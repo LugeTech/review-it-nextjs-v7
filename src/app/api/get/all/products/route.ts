@@ -8,6 +8,9 @@ export async function POST(request: NextRequest) {
   // console.log(body);
   try {
     const products = await prisma.product.findMany({
+      orderBy: {
+        createdDate: 'desc',
+      },
     }) as unknown as iProduct[];
 
     return NextResponse.json({
