@@ -17,13 +17,15 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const { user, createdDate, title, body, rating, helpfulVotes, unhelpfulVotes, comments, product } = review;
   const [reviewAtom, setReview] = useAtom(currentReviewAtom);
   return (
-    <div className="p-4 border rounded shadow-md mb-4">
+    <div className="p-4 border rounded shadow-md mb-4 ">
       <Link href={`/user/${review.user?.id}`} className="hover:bg-zinc-100 inline-flex px-2">
         <div className="inline-flex items-center mb-2 ">
-          <Image src={user?.avatar || '/logo.png'} alt={user?.id!} width={40} height={40} className="rounded-full mr-2" />
+          <Image src={user?.avatar || '/logo.png'} alt={user?.id!} width={40} height={40}
+            className=" rounded-full object-cover w-[60px] h-[60px] mr-1"
+          />
           <div>
             <div className="flex items-center justify-start">
-              <span className="font-semibold">{user?.firstName} {user?.lastName}</span><span className="text-gray-600 text-sm ml-2">reviewed {product?.name}</span>
+              <span className="font-semibold text-sm">@{user?.userName}</span><span className="text-gray-600 text-xs ml-1">reviewed {product?.name}</span>
             </div>
             <p className="text-gray-600 text-xs">{dayjs(createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
           </div>

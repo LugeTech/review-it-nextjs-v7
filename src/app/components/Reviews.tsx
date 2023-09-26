@@ -28,7 +28,7 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (reviews.length === 0) return <Link href={`/createreview/${productId}`} className='text-center underline'>No reviews yet click here to add one</Link>
 
   return (
-    <div className='flex flex-col w-full p-2 md:px-28 sm:pt-8 bg-myTheme-light'>
+    <div className='flex flex-col w-full p-2 md:px-28 sm:pt-8 '>
       {/* <div>{reviews[0].product?.name} Reviews</div> */}
       <ProductCard
         // choosing the first review should be fine, just need to deal with 0 reviews

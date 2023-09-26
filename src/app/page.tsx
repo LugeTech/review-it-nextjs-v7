@@ -8,7 +8,7 @@ export const revalidate = 30;
 
 export default async function Home() {
   return (
-    <div className="flex flex-1 flex-col justify-center  bg-myTheme-light dark:bg-myTheme-dark dark:text-myTheme-light">
+    <div className="flex flex-1 flex-col justify-center  bg-myTheme-lightbg dark:bg-myTheme-dark dark:text-myTheme-light">
       <div className="flex flex-row">
         <HeroSection />
       </div>

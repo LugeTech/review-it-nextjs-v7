@@ -40,7 +40,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                   alt="avatar"
                   width={60}
                   height={60}
-                  className=" flex rounded-full"
+                  className=" rounded-full object-cover w-[60px] h-[60px]"
                 />
               ) : null}
               {/* user name */}
@@ -94,7 +94,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 alt="avatar"
                 width={60}
                 height={60}
-                className=" flex rounded-full"
+                className=" rounded-full object-cover w-[60px] h-[60px]"
               />
 
             </div>

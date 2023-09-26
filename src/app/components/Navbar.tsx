@@ -20,7 +20,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" checked={isDrawerOpen}
         onChange={() => setIsDrawerOpen(!isDrawerOpen)} />
       <div className="drawer-content flex flex-col">
-        <div className="w-full navbar bg-myTheme-light dark:bg-myTheme-dark z-10">
+        <div className="w-full navbar bg-myTheme-lightbg dark:bg-myTheme-dark z-10">
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
@@ -63,11 +63,14 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
       <div className="drawer-side ">
-        <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-64 bg-base-100 ">
+        <label htmlFor="my-drawer-3" className="drawer-overlay "></label>
+        <div className="flex flex-col gap-4 menu p-4 w-64  bg-myTheme-lightbg dark:bg-myTheme-dark">
           <HomeLink />
           <SideLinks onSideLinkClick={handleSideLinkClick} />
-        </ul>
+          <div className="flex justify-center items-end p-4">
+            <NavbarAuth />
+          </div>
+        </div>
       </div>
     </div>
   );
