@@ -44,10 +44,12 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 />
               ) : null}
               {/* user name */}
-              <p>
-                {user.firstName} {user.lastName} reviewed{" "}
+              <p className="sm:text-xl text-lg">
+                @{user?.userName}
+              </p >
+              <p className="text-xs text-gray-500">
+                reviewed
               </p>
-              {/* product name */}
               <p
                 onClick={() => {
                 }}

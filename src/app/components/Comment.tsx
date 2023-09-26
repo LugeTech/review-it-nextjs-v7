@@ -16,7 +16,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
           className="w-10 h-10 rounded-full mr-2"
         />
         <span className="text-gray-800 font-semibold">
-          {comment?.user?.firstName} {comment?.user?.lastName}
+          @{comment?.user?.userName}
         </span>
         <span className="text-gray-600 text-xs ml-2">
           {comment?.createdDate && dayjs(comment.createdDate).format('MM/DD/YYYY h:mm A')}

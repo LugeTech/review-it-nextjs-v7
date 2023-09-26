@@ -152,7 +152,7 @@ const ReviewForm = ({ id }: { id: string }) => {
 
 
   return (
-    <div className="flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-light dark:bg-myTheme-dark ">
+    <div className="flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-lightbg dark:bg-myTheme-dark ">
       <h1 className="text-2xl font-bold mb-2">Write a review</h1>
       <form
         onSubmit={handleSubmit}
