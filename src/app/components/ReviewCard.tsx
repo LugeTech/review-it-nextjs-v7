@@ -32,7 +32,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         </div>
       </Link>
       {/* Sanitize the review body */}
-      <Link href={`/fullreview/${review.id}`} onClick={() => setReview(review)}>
+      <Link href={`/fr/${review.id}`} onClick={() => setReview(review)}>
 
         <div className="mb-4 px-4 hover:bg-zinc-100 rounded-md p-2 flex flex-col">
           <h1 className="text-lg font-semibold mb-1">{title}</h1>

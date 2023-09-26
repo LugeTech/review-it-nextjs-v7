@@ -12,16 +12,38 @@ const RatingModule = ({
   ratingChanged: (rating: number) => void;
   size: string;
 }) => {
+  const customRed = "bg-red-400";
+  const customOrange = "bg-orange-400";
+  const customYellow = "bg-yellow-400";
+  const customLightGreen = "bg-lime-400";
+  const customGreen = "bg-green-400";
+
+  // depending on the rating change the input bg color
+
+  const handleRating = (rating: number) => {
+    switch (rating) {
+      case 1:
+        return customRed;
+      case 2:
+        return customOrange;
+      case 3:
+        return customYellow;
+      case 4:
+        return customLightGreen;
+      case 5:
+        return customGreen;
+    }
+  }
   return (
     <div className="flex flex-grow-0">
       <div
-        className={` w-auto rating gap-2 ${size} items-center justify-center  p-2 rounded-md bg-myTheme-accent `}
+        className={` w-auto rating gap-4 ${size} items-center justify-center  p-2 rounded-md bg-gray-600 `}
       >
         <input
           type="radio"
           name={name}
           value={1}
-          className=" mask mask-star bg-[#ff4545] hover:bg-red-500"
+          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 1}
           onChange={() => ratingChanged(1)}
         />
@@ -29,7 +51,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={2}
-          className="mask mask-star bg-[#ffa534] hover:bg-orange-500"
+          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 2}
           onChange={() => ratingChanged(2)}
         />
@@ -37,7 +59,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={3}
-          className="mask mask-star bg-[#ffe234] hover:bg-yellow-500"
+          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 3}
           onChange={() => ratingChanged(3)}
         />
@@ -45,7 +67,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={4}
-          className="mask mask-star bg-[#b7dd29] hover:bg-lime-500"
+          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 4}
           onChange={() => ratingChanged(4)}
         />
@@ -53,7 +75,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={5}
-          className="mask mask-star bg-[#57e32c] hover:bg-green-500 "
+          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 5}
           onChange={() => ratingChanged(5)}
         />

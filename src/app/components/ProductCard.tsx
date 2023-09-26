@@ -119,7 +119,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
         {options.showWriteReview ? (
           <p className="text-gray-400">
             {/* Created: {new Date(product.createdDate).toLocaleDateString()} */}
-            <Link href={`/createreview/${product.id}`}> Write Review</Link>
+            <Link href={`/cr/${product.id}`}> Write Review</Link>
           </p>
         ) : 'Some other stat'}
         {options.showClaimThisProduct && (

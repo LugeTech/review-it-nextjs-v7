@@ -25,7 +25,7 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const reviews = data?.data as iReview[]
-  if (reviews.length === 0) return <Link href={`/createreview/${productId}`} className='text-center underline'>No reviews yet click here to add one</Link>
+  if (reviews.length === 0) return <Link href={`/cr/${productId}`} className='text-center underline'>No reviews yet click here to add one</Link>
 
   return (
     <div className='flex flex-col w-full p-2 md:px-28 sm:pt-8 '>
