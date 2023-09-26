@@ -18,7 +18,7 @@ const Links = ({ onSideLinkClick }: { onSideLinkClick: () => void }) => {
           <li onClick={() => {
             onSideLinkClick(); // Close the drawer
           }}
-            className=" hover:text-myTheme-accent hover:bg-slate-100 duration-300 px-4 transition-all ease-in-out rounded-lg gap-3 py-2">
+            className=" hover:text-myTheme-accent hover:bg-slate-100 duration-300 px-4 transition-all ease-in-out rounded-lg gap-6 py-2">
             {link.name}
           </li>
         </Link>
