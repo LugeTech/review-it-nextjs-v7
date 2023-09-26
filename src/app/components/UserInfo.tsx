@@ -1,5 +1,6 @@
 import React from 'react';
 import { iUser } from '@/app/util/Interfaces';
+import Image from 'next/image';
 interface UserInfoProps {
   user: iUser;
 }
@@ -12,10 +13,12 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
     <div className="flex flex-col">
       <div className="flex items-center">
         {avatar && (
-          <img
+          <Image
             src={avatar}
             alt={firstName}
-            className="w-10 h-10 rounded-full mr-4"
+            className="w-10 h-10 rounded-full mr-4 object-cover"
+            width={40}
+            height={40}
           />
         )}
         <h2 className="text-xl font-semibold">{firstName} {lastName}</h2>
