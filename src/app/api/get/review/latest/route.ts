@@ -2,7 +2,6 @@ import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  console.log('latest reviews git ht');
   try {
     const reviews = await prisma.review.findMany({
       where: { isPublic: true },
@@ -19,7 +18,6 @@ export async function POST(request: NextRequest) {
         createdDate: "desc",
       },
     });
-    console.log(reviews);
     const lastTwoReviews = reviews.slice(-2);
     return NextResponse.json({
       success: true,
