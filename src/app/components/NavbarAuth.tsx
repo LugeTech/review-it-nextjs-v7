@@ -10,7 +10,7 @@ const NavbarAuth = () => {
       <Suspense fallback={<Skeleton width={50} height={50} />}>
         <SignedIn>
           <div className="flex justify-center items-center text-sm mr-1">
-            {user?.username}
+            {user?.username?.toUpperCase()}
           </div>
           <UserButton />
         </SignedIn>
