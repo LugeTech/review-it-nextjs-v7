@@ -5,6 +5,7 @@ import Image from "next/image";
 import Votes from "./Votes";
 import RatingModule from "@/app/components/RatingModule";
 import DOMPurify from 'dompurify';
+import Link from "next/link";
 
 interface ReviewBoxProps {
   review: iReview;
@@ -44,39 +45,41 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 />
               ) : null}
               {/* user name */}
-              <p className="sm:text-xl text-lg">
+              <Link href={`/users/${user.id}`} className="sm:text-xl text-lg hover:underline">
                 @{user?.userName}
-              </p >
+              </Link >
               <p className="text-xs text-gray-500">
                 reviewed
               </p>
-              <p
+              <Link href={`/products/${product.id}`}
                 onClick={() => {
                 }}
-                className=" sm:text-1xl text-lg cursor-pointer font-bold"
+                className=" sm:text-1xl text-lg cursor-pointer font-bold hover:underline"
               >
                 {
                   product?.name
                 }
-              </p>
+              </Link>
             </div>
-            <div className=" font-semibold flex flex-col gap-2 justify-start items-start pt-3">
+            <Link href={`/reviews/${review.id}`} className="w-full font-semibold flex flex-col justify-start items-start pt-2 text-base hover:underline">
               {/* review title */}
               {review.title.length > 30
                 ? review.title.slice(0, 30) + "..."
                 : review.title}
-            </div>
-            <div className=" w-full font-normal tracking-tight ">
-              {/* review body */}
-              {/* {review.body.slice(0, 90) + "... read more"} */}
-              <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90)) }} className="mb-4 text-sm" />
-
+            </Link>
+            <div className="w-full pt-1">
               <RatingModule
                 name="rating"
                 rating={rating}
                 ratingChanged={ratingChanged}
                 size={"rating-sm"}
               />
+            </div>
+            <div className=" w-full font-normal tracking-tight ">
+              {/* review body */}
+              {/* {review.body.slice(0, 90) + "... read more"} */}
+              <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90)) }} className="mb-4 text-sm" />
+
             </div>
           </div>
         </div>
@@ -86,7 +89,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
           Top Comment
         </div>
         {comments[0] ? (
-          <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2 pl-1">
+          <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2 pl-4">
             <div className="">
 
               <Image
@@ -94,9 +97,9 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                   comments[0]?.user?.avatar!
                 }
                 alt="avatar"
-                width={60}
-                height={60}
-                className=" rounded-full object-cover w-[60px] h-[60px]"
+                width={40}
+                height={40}
+                className=" rounded-full object-cover w-10 h-10"
               />
 
             </div>
@@ -107,7 +110,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
               <Votes review={review} />
             </div>
           </div>
-        ) : <p className=" text-xs mt-1 text-gray-700">No comments yet, add one!</p>}
+        ) : <p className=" text-xs mt-1 pl-4 text-gray-700">No comments yet, add one!</p>}
       </div>
     </div>
   );

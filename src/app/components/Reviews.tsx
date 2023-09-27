@@ -35,9 +35,10 @@ const Reviews = ({ productId }: { productId: string }) => {
         product={reviews[0]?.product!}
         options={productCardOptions}
       />
-      <div className='flex flex-col w-full lg:flex-row justify-evenly items-center gap-2'>
+      <div className='flex  w-full justify-center items-center '>
+        <p className='text-center'>Reviews</p>
       </div>
-      <div className="space-y-6 mt-4">
+      <div className="space-y-6 mt-4 ">
         {reviews.map((review: iReview) => (
           // NOTE reviewcard here
           <ReviewCard key={review.id} review={review} />
