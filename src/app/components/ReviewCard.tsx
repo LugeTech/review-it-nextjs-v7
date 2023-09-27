@@ -63,7 +63,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
             <span className="text-gray-600">({unhelpfulVotes || 0})</span> down
           </button>
         </div>
-        <Link href={`/fr/${review.id}`} className="ml-auto">
+        <Link href={`/fr/${review.id}`} onClick={() => setReview(review)} className="ml-auto">
           <p className="text-gray-600 text-xs hover:underline">{comments?.length > 0 ? `(${comments?.length} comments)` : '(0) comments'}</p>
         </Link>
       </div>

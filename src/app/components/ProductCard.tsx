@@ -104,13 +104,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
                     ` (${numberOfReviews!} reviews)` : ''
                 }
               </span>
-              {/* <span className={`mr-auto rounded p-1 flex items-start text-xs md:text-base`} */}
-              {/* > */}
-              {/*   { */}
-              {/*     reviews && totalComments > 0 ? */}
-              {/*       ` (${totalComments} comments)` : '' */}
-              {/*   } */}
-              {/* </span> */}
             </div>
           </div>
         </div>
