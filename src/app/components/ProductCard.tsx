@@ -1,7 +1,7 @@
 "use client"
 import { iProduct, iReview } from '@/app/util/Interfaces'; // Update with the actual path
 import Image from 'next/image';
-import RatingModule from './RatingModule';
+import RatingModuleReadOnly from './RatingModuleReadOnly';
 import { useState } from 'react';
 import Link from 'next/link';
 import YesNoAlert from './YesNoAlert';
@@ -86,7 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
           )}
           <div className="mb-4 flex flex-col gap-2">
             <h2 className="text-xl font-semibold ">{product.name}</h2>
-            {<RatingModule
+            {<RatingModuleReadOnly
               name={product.id!}
               rating={roundedRating!}
               ratingChanged={ratingChanged}
