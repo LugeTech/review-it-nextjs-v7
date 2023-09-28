@@ -4,7 +4,7 @@ import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
 import Token from "./components/Token";
 
-export const revalidate = 30;
+// export const revalidate = 30;
 
 export default async function Home() {
   return (
