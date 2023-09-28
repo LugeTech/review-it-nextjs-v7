@@ -45,6 +45,7 @@ const RatingModule = ({
           value={1}
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 1}
+          readOnly
         // onChange={() => ratingChanged(1)}
         />
         <input
@@ -53,6 +54,7 @@ const RatingModule = ({
           value={2}
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 2}
+          readOnly
         // onChange={() => ratingChanged(2)}
         />
         <input
@@ -61,6 +63,7 @@ const RatingModule = ({
           value={3}
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 3}
+          readOnly
         // onChange={() => ratingChanged(3)}
         />
         <input
@@ -69,6 +72,7 @@ const RatingModule = ({
           value={4}
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 4}
+          readOnly
         // onChange={() => ratingChanged(4)}
         />
         <input
@@ -77,6 +81,7 @@ const RatingModule = ({
           value={5}
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 5}
+          readOnly
         // onChange={() => ratingChanged(5)}
         />
       </div>
