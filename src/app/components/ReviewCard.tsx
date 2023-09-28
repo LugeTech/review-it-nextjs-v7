@@ -16,6 +16,7 @@ interface ReviewCardProps {
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const { user, createdDate, title, body, rating, helpfulVotes, unhelpfulVotes, comments, product } = review;
   const [reviewAtom, setReview] = useAtom(currentReviewAtom);
+  const formattedBody = body.replace(/<p><\/p>/g, '<br>'); // line breaks werent being rendered properly. this fixes that
   return (
     <div className="p-4 border rounded shadow-md mb-4 bg-myTheme-light dark:bg-myTheme-dark hover:shadow-xl">
       <Link href={`/user/${review.user?.id}`} className="hover:bg-zinc-100 inline-flex px-2">
@@ -48,7 +49,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         </Link>
         <div className="flex flex-row">
           {/* <span className='mr-1 text-3xl'>"</span> */}
-          <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(body) }} className="mb-4 text-sm" />
+          <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(formattedBody) }} className="mb-4 text-sm" />
           {/* <span className='mr-1 text-3xl'>"</span> */}
         </div>
       </div>
