@@ -66,7 +66,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.log('this is the reviewData', reviewData);
     // The product is in the database, so create a new review entry
     const review = await prisma.review.create({
       data: {
