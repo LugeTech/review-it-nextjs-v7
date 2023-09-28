@@ -1,0 +1,14 @@
+import { AiOutlineHome, AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
+
+const VerticalLinks = () => {
+  return (
+    <div className="flex flex-col justify-between p-2">
+      <AiOutlineHome className="text-3xl" />
+      <AiOutlineMail className="text-3xl" />
+      <AiOutlinePhone className="text-3xl" />
+
+    </div>
+  )
+}
+
+export default VerticalLinks
