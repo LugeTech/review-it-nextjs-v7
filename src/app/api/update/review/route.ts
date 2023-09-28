@@ -33,7 +33,12 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return updatedReview;
+    return NextResponse.json({
+      success: true,
+      status: 200,
+      data: updatedReview,
+    });
+
   } catch (error) {
     console.error(`Error appending item: ${error}`);
     return NextResponse.error();
