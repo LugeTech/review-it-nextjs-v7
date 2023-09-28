@@ -1,15 +1,19 @@
 
 import React from 'react';
-import { iComment, iUser } from '@/app/util/Interfaces';
+import { iComment } from '@/app/util/Interfaces';
 import dayjs from 'dayjs';
 import Image from 'next/image';
+import Votes from './Votes';
 interface CommentProps {
   comment: iComment;
 }
 
 const Comment: React.FC<CommentProps> = ({ comment }) => {
+  if (!comment) {
+    return <p>No comment</p>;
+  }
   return (
-    <div className="flex w-full flex-col md:w-full bg-white p-4 rounded-lg shadow-md mb-4">
+    <div className="flex w-full flex-col md:w-full bg-white p-4 rounded-lg mb-4">
       <div className="flex items-center mb-2">
         <Image
           src={comment?.user?.avatar || '/default-avatar.png'} // Use a default avatar if no avatar is provided
@@ -26,14 +30,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
         </span>
       </div>
       <p className="text-gray-700">{comment.body}</p>
-      <div className="mt-2 flex justify-between text-gray-600">
-        <span>
-          Helpful: {comment.helpfulVotes || 0}
-        </span>
-        <span>
-          Unhelpful: {comment.unhelpfulVotes || 0}
-        </span>
-      </div>
+      <Votes element={comment} />
     </div>
   );
 };
