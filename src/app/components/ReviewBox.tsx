@@ -44,7 +44,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
       <div className="  block h-full max-w-sm gap-2 p-2 bg-myTheme-light dark:bg-myTheme-dark rounded-xl hover:bg-gray-100  dark:hover:bg-black ">
         <div className="flex flex-col justify-start items-center gap-1">
           <div className="flex flex-col w-full sm:ml-2 text-xs text-myTheme-dark dark:text-myTheme-light justify-start items-center ">
-            <div className="flex w-full flex-col justify-start items-center border-b-2">
+            <div className="flex w-full flex-col justify-start items-center">
               <Link href={`/users/${user.id}`} className="sm:text-xl text-lg hover:underline flex flex-col justify-center items-center">
                 {/* user image */}
                 {review?.user ? (
@@ -72,24 +72,26 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 {
                   product?.name
                 }
+                <div className="w-full pt-1 flex flex-row justify-center items-center">
+                  <RatingModuleReadOnly
+                    name="rating"
+                    rating={rating}
+                    ratingChanged={ratingChanged}
+                    size={"rating-sm"}
+                  />
+                </div>
               </Link>
             </div>
             <Link href={`/fr/${review.id}`} onClick={() => setReview(review)} className="w-full font-semibold flex flex-col justify-center items-center pt-2 text-base hover:underline">
               {/* review title */}
-              {review.title.length > 30
-                ? review.title.slice(0, 30) + "..."
-                : review.title}
-              <div className=" w-full font-normal tracking-tight ">
+              <div className="w-full flex flex-row justify-start items-center">
+                {review.title.length > 30
+                  ? review.title.slice(0, 30) + "..."
+                  : review.title}
+              </div>
+              <div className=" w-full font-normal ">
                 <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(reviewBody) }} className="mb-4 text-sm" />
 
-              </div>
-              <div className="w-full pt-1 flex flex-row justify-start items-center">
-                <RatingModuleReadOnly
-                  name="rating"
-                  rating={rating}
-                  ratingChanged={ratingChanged}
-                  size={"rating-sm"}
-                />
               </div>
             </Link>
           </div>
@@ -99,29 +101,6 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
           Top Comment
         </div>
         <Comment comment={comments[0]} />
-        {/* {comments[0] ? ( */}
-        {/*   <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2 pl-4"> */}
-        {/*     <div className=""> */}
-        {/**/}
-        {/*       <Image */}
-        {/*         src={ */}
-        {/*           comments[0]?.user?.avatar! */}
-        {/*         } */}
-        {/*         alt="avatar" */}
-        {/*         width={40} */}
-        {/*         height={40} */}
-        {/*         className=" rounded-full object-cover w-10 h-10" */}
-        {/*       /> */}
-        {/**/}
-        {/*     </div> */}
-        {/*     <div className="flex flex-col"> */}
-        {/*       {comments */}
-        {/*         .find((comment) => comment.user === review.comments[0].user) */}
-        {/*         ?.body.slice(0, 90)} */}
-        {/*       <Votes review={review} /> */}
-        {/*     </div> */}
-        {/*   </div> */}
-        {/* ) : <p className=" text-xs mt-1 pl-4 text-gray-700">No comments yet, add one!</p>} */}
       </div>
     </div >
   );

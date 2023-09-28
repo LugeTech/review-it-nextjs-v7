@@ -14,7 +14,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
   }
   return (
     <div className="flex w-full flex-col md:w-full bg-white p-4 rounded-lg mb-4">
-      <div className="flex items-center mb-2">
+      <div className="flex items-center ">
         <Image
           src={comment?.user?.avatar || '/default-avatar.png'} // Use a default avatar if no avatar is provided
           alt={comment?.user?.firstName!}
@@ -29,7 +29,12 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
           {comment?.createdDate && dayjs(comment.createdDate).format('MM/DD/YYYY h:mm A')}
         </span>
       </div>
-      <p className="text-gray-700">{comment.body}</p>
+      <div className="text-gray-700 text-sm">
+        {comment.body && comment.body.length > 90
+          ? comment.body.slice(0, 90) + "...read more"
+          : comment.body}
+      </div>
+      {/* <p className="text-gray-700">{comment.body}</p> */}
       <Votes element={comment} />
     </div>
   );

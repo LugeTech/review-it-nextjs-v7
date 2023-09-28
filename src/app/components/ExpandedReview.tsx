@@ -105,7 +105,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         // Render a loading state or fetch the review details based on reviewId
         <div>Loading...</div>
       )}
-      <div className="space-y-4 mt-6 gap-2 flex flex-1 flex-col w-full justify-end items-end">
+      <div className="space-y-1 mt-2 gap-1 flex flex-col w-full justify-end items-end">
         <h2>Comments</h2>
         {/* arrange comments from newest to oldest */}
         {review?.comments?.length > 0 ? (
