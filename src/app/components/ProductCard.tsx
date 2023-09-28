@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getReviews } from '../util/serverFunctions';
 import { calculateAverageReviewRating } from '../util/calculateAverageReviewRating';
 import LoadingSpinner from './LoadingSpinner';
+import VerticalLinks from './VerticalLinks';
 
 interface ProductCardProps {
   product: iProduct;
@@ -66,59 +67,69 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   }
   return (
     <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-white">
-      <Link href={`/reviews/${product.id}`} className='border-b-2 border-myTheme-neutral-100'>
-        {showModal && (
-          <div className="fixed z-10 inset-0 overflow-y-auto">
-            <YesNoAlert message={`Write your own ${rating} star Review?`} />
-          </div>
-        )}
-        <div className="flex justify-start items-center gap-2">
-          {product.display_image && (
-            <div className="mb-4">
-              <Image
-                src={product.display_image}
-                alt={`${product.name} Image`}
-                className=" rounded-lg"
-                width={80}
-                height={80}
-              />
+      <div className="flex flex-row">
+        <Link href={`/reviews/${product.id}`} className=' hover:underline  w-full'>
+          {showModal && (
+            <div className="fixed z-10 inset-0 overflow-y-auto">
+              <YesNoAlert message={`Write your own ${rating} star Review?`} />
             </div>
           )}
-          <div className="mb-4 flex flex-col gap-2">
-            <h2 className="text-xl font-semibold ">{product.name}</h2>
-            {<RatingModuleReadOnly
-              name={product.id!}
-              rating={roundedRating!}
-              ratingChanged={ratingChanged}
-              size={options.size}
-            />}
-            <div className="flex gap-2">
-              <span className={`mr-auto rounded p-1 flex items-start text-xs md:text-base`}
-                style={dynamicStyles}
-              >{
-                  reviews && reviews.length > 0 ?
-                    roundedRatingOneDecimalPlace! : 'No Reviews Yet'
-                }
-                {
-                  reviews && reviews.length > 0 ?
-                    ` (${numberOfReviews!} reviews)` : ''
-                }
-              </span>
+          <div className="flex justify-start items-center gap-2 w-full">
+            {product.display_image && (
+              <div className=" flex items-start justify-start">
+                <Image
+                  src={product.display_image}
+                  alt={`${product.name} Image`}
+                  className=" rounded-lg w-[80px] h-[80px] object-cover"
+                  width={80}
+                  height={80}
+                />
+              </div>
+            )}
+            <div className="mb-2 flex flex-col gap-2">
+              <div className="flex flex-col">
+                <p className="text-base md:text-xl font-semibold ">{product.name}</p>
+                <p className="text-xs md:text-sm text-gray-700">{product.address || product.description}</p>
+              </div>
+              {<RatingModuleReadOnly
+                name={product.id!}
+                rating={roundedRating!}
+                ratingChanged={ratingChanged}
+                size={options.size}
+              />}
+              <div className="flex gap-2">
+                <span className={`mr-auto rounded p-1 flex items-start text-xs md:text-base`}
+                  style={dynamicStyles}
+                >{
+                    reviews && reviews.length > 0 ?
+                      roundedRatingOneDecimalPlace! : 'No Reviews Yet'
+                  }
+                  {
+                    reviews && reviews.length > 0 ?
+                      ` (${numberOfReviews!} reviews)` : ''
+                  }
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      </Link>
-      <div className="flex text-sm justify-between items-center">
+        </Link>
+        <VerticalLinks />
+      </div>
+      <div id='reviews_operations_div' className="flex flex-row justify-end items-center border-b-2">
         {options.showWriteReview ? (
           <p className="text-gray-400">
             {/* Created: {new Date(product.createdDate).toLocaleDateString()} */}
-            <Link href={`/cr/${product.id}`}> Write Review</Link>
+            <Link href={`/cr/${product.id}`} className="text-gray-400 hover:underline"> Write Review</Link>
           </p>
         ) : 'Some other stat'}
+
+      </div>
+
+      <div className="flex text-sm justify-between items-center">
         {options.showClaimThisProduct && (
-          <p className="text-gray-400">{'Claim this product'}</p>
+          <p className="text-gray-400 hover:underline text-xs md:text-base">{'Claim this product'}</p>
         )}
-        {options.showLatestReview && <Link href={'/products'} className="text-gray-400 hidden md:block">Last Review</Link>}
+        {/* {options.showLatestReview && <Link href={'/products'} className="text-gray-400 hidden md:block">Last Review</Link>} */}
       </div>
     </div>
   );
