@@ -1,11 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { iReview, iUser, iComment, iProduct } from "../util/Interfaces";
 import Image from "next/image";
 import Votes from "./Votes";
 import DOMPurify from 'dompurify';
 import Link from "next/link";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
+import { useAtom } from "jotai";
+import { currentReviewAtom } from "../store/store";
+import Comment from "./Comment";
 
 interface ReviewBoxProps {
   review: iReview;
@@ -25,6 +28,16 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
   };
+  const [reviewAtom, setReview] = useAtom(currentReviewAtom);
+
+  const [reviewBody, setReviewBody] = useState(review.body);
+  useEffect(() => {
+    if (reviewBody.length > 90) {
+      const splitIndex = reviewBody.lastIndexOf(' ', 90); // Find the last space before or at 90 characters so it don't cut a word
+      setReviewBody(reviewBody.slice(0, splitIndex) + " . . .read more");
+    }
+  }, [reviewBody]);
+
 
   return (
     <div className="sm:w-6/12 my-1 border border-gray-300 dark:border-gray-500 rounded-xl shadow-xl">
@@ -61,53 +74,54 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 }
               </Link>
             </div>
-            <Link href={`/reviews/${review.id}`} className="w-full font-semibold flex flex-col justify-center items-center pt-2 text-base hover:underline">
+            <Link href={`/fr/${review.id}`} onClick={() => setReview(review)} className="w-full font-semibold flex flex-col justify-center items-center pt-2 text-base hover:underline">
               {/* review title */}
               {review.title.length > 30
                 ? review.title.slice(0, 30) + "..."
                 : review.title}
-            </Link>
-            <div className=" w-full font-normal tracking-tight ">
-              <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90)) }} className="mb-4 text-sm" />
+              <div className=" w-full font-normal tracking-tight ">
+                <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(reviewBody) }} className="mb-4 text-sm" />
 
-            </div>
-            <div className="w-full pt-1 flex flex-row justify-start items-center">
-              <RatingModuleReadOnly
-                name="rating"
-                rating={rating}
-                ratingChanged={ratingChanged}
-                size={"rating-sm"}
-              />
-            </div>
+              </div>
+              <div className="w-full pt-1 flex flex-row justify-start items-center">
+                <RatingModuleReadOnly
+                  name="rating"
+                  rating={rating}
+                  ratingChanged={ratingChanged}
+                  size={"rating-sm"}
+                />
+              </div>
+            </Link>
           </div>
         </div>
         {/* Top comment */}
         <div className="text-xs mt-2  text-gray-700 dark:text-gray-400 tracking-tighter font-semibold pl-1 border-t-2 border-gray-300">
           Top Comment
         </div>
-        {comments[0] ? (
-          <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2 pl-4">
-            <div className="">
-
-              <Image
-                src={
-                  comments[0]?.user?.avatar!
-                }
-                alt="avatar"
-                width={40}
-                height={40}
-                className=" rounded-full object-cover w-10 h-10"
-              />
-
-            </div>
-            <div className="flex flex-col">
-              {comments
-                .find((comment) => comment.user === review.comments[0].user)
-                ?.body.slice(0, 90)}
-              <Votes review={review} />
-            </div>
-          </div>
-        ) : <p className=" text-xs mt-1 pl-4 text-gray-700">No comments yet, add one!</p>}
+        <Comment comment={comments[0]} />
+        {/* {comments[0] ? ( */}
+        {/*   <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2 pl-4"> */}
+        {/*     <div className=""> */}
+        {/**/}
+        {/*       <Image */}
+        {/*         src={ */}
+        {/*           comments[0]?.user?.avatar! */}
+        {/*         } */}
+        {/*         alt="avatar" */}
+        {/*         width={40} */}
+        {/*         height={40} */}
+        {/*         className=" rounded-full object-cover w-10 h-10" */}
+        {/*       /> */}
+        {/**/}
+        {/*     </div> */}
+        {/*     <div className="flex flex-col"> */}
+        {/*       {comments */}
+        {/*         .find((comment) => comment.user === review.comments[0].user) */}
+        {/*         ?.body.slice(0, 90)} */}
+        {/*       <Votes review={review} /> */}
+        {/*     </div> */}
+        {/*   </div> */}
+        {/* ) : <p className=" text-xs mt-1 pl-4 text-gray-700">No comments yet, add one!</p>} */}
       </div>
     </div >
   );
