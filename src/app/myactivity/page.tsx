@@ -6,8 +6,8 @@ import { useQuery, } from "@tanstack/react-query";
 import LoadingSpinner from '../components/LoadingSpinner';
 import UserInfo from '../components/UserInfo';
 import { useAuth } from "@clerk/nextjs";
-const Page = () => {
 
+const Page = () => {
   const auth = useAuth();
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["user", auth.userId],

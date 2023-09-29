@@ -9,6 +9,7 @@ import LoadingSpinner from './LoadingSpinner';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
 import { useEffect, useState } from 'react';
+import DisplayError from './DisplayError';
 
 const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const queryClient = useQueryClient();
@@ -41,10 +42,12 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
           return { ...iReviewOldData };
         });
       },
-      onSuccess: (data: iComment) => {
-        console.log('this is the comment', data);
-      },
+      // onSuccess: (data: iComment) => {
+      // console.log('this is the comment', data);
+      //pop up a notofication or a saving spinner on the comment
+      // },
       onError: (error: Error) => {
+        <DisplayError error={error.message} />
         console.error(error);
       }
     }
@@ -58,7 +61,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   };
 
   useEffect(() => {
-    console.log('running 1', textAreaValue)
     // Update the comment object whenever textAreaValue changes
     setComment({
       ...comment,
@@ -77,6 +79,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         return data
       }
       // else return getProduct(id)
+      console.log('review id is null')
       const data: any = await getReview(reviewId)
       return data.data
     },
@@ -84,7 +87,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   }) as any
 
   if (isLoading) return <LoadingSpinner />;
-  if (isError) return <p>fetch error - cannot give more details cause error variable was taken</p>;
+  if (isError) return <p>fetch error</p>;
   const review = data as iReview
   // review.comments = review.comments.reverse()
   // filter allPproductsatom for id variable and return product

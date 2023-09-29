@@ -1,6 +1,7 @@
 import React from 'react';
 import { iUser } from '@/app/util/Interfaces';
 import Image from 'next/image';
+import Link from 'next/link';
 interface UserInfoProps {
   user: iUser;
 }
@@ -25,26 +26,26 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
       </div>
 
       <div className="mt-4">
-        <h3 className="text-lg font-semibold">Reviews</h3>
+        <h3 className="text-lg font-semibold">My Reviews</h3>
         <ul className="list-disc pl-4">
           {reviews?.map((review) => (
             <li key={review.id}>
-              <a href="#" className="text-blue-500 hover:underline">
+              <Link href={`/fr/${review.id}`} className="text-blue-500 hover:underline">
                 {review.title}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
       </div>
 
       <div className="mt-4">
-        <h3 className="text-lg font-semibold">Comments</h3>
+        <h3 className="text-lg font-semibold">My Comments</h3>
         <ul className="list-disc pl-4">
           {comments?.map((comment) => (
             <li key={comment.id}>
-              <a href="#" className="text-blue-500 hover:underline">
+              <Link href={`/fr/${comment.reviewId}`} className="text-blue-500 hover:underline">
                 {comment.body}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
