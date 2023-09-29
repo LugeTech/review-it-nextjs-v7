@@ -33,6 +33,7 @@ interface UserDATA {
 export async function POST(request: NextRequest) {
   // Get the review data from the request body
   const product: iProduct = await request.json();
+  product.tags = product.tags.map(tag => tag.trim());
 
   console.log('this is the product', product);
 

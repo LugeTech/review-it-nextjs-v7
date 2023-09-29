@@ -41,8 +41,8 @@ const NewProductForm = (): JSX.Element => {
 
 
     if (name === "tags") {
-      // Split the input value by commas and trim whitespace
-      const tagsArray = value.split(',').map(tag => tag.trim());
+      // Split the input value by commasand trim whitespace
+      const tagsArray = value.split(',');
       setProduct({
         ...product,
         [name]: tagsArray, // Update tags as an array
