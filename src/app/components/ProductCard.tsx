@@ -115,21 +115,21 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
         </Link>
         <VerticalLinks />
       </div>
-      <div id='reviews_operations_div' className="flex flex-row justify-end items-center border-b-2">
-        {options.showWriteReview ? (
-          <p className="text-gray-400">
-            {/* Created: {new Date(product.createdDate).toLocaleDateString()} */}
-            <Link href={`/cr/${product.id}`} className="text-gray-400 hover:underline"> Write Review</Link>
-          </p>
-        ) : 'Some other stat'}
 
-      </div>
-
-      <div className="flex text-sm justify-between items-center">
+      <div className="flex text-xs md:text-base justify-between items-center border-t-2">
         {options.showClaimThisProduct && (
-          <p className="text-gray-400 hover:underline text-xs md:text-base">{'Claim this product'}</p>
+          <p className="text-gray-400 hover:underline ">{'Claim this product'}</p>
         )}
         {/* {options.showLatestReview && <Link href={'/products'} className="text-gray-400 hidden md:block">Last Review</Link>} */}
+        <div id='reviews_operations_div' className="flex flex-row justify-end items-center ">
+          {options.showWriteReview ? (
+            <p className="text-gray-400">
+              {/* Created: {new Date(product.createdDate).toLocaleDateString()} */}
+              <Link href={`/cr/${product.id}`} className="text-gray-400 hover:underline"> Write Review</Link>
+            </p>
+          ) : ''}
+
+        </div>
       </div>
     </div>
   );
