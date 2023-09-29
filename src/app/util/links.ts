@@ -18,7 +18,7 @@ export const sideLinks = [
   },
   {
     name: "My Activity",
-    link: "/myreviews",
+    link: "/myactivity",
   },
   {
     name: "My Profile",
@@ -41,7 +41,7 @@ export const topLinks = [
   },
   {
     name: "My Activity",
-    link: "/myreviews",
+    link: "/myactivity",
   },
   {
     name: "My Profile",
