@@ -47,12 +47,12 @@ const Reviews = ({ productId }: { productId: string }) => {
         </div>
         <div>
           <div className='flex  w-full md:w-1/2 justify-center items-center '>
-            <p className='text-center'>Write a review</p>
+            <p className='text-center'>Will have a column with business info perfect pace for ads also</p>
           </div>
           {/* about and description, maybe ads in a column */}
           {/* <CompanyInfo /> */}
           <div className='flex w-full md:w-1/2 justify-center items-center '>
-            <p className='text-center'>About</p>
+            <p className='text-center'>on mobile this will be after the reviews, will paginate reviews by about 10</p>
           </div>
 
 
