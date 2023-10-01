@@ -11,3 +11,4 @@ export default function CreateReview({ params }: { params: { id: string } }) {
     </div>
   );
 }
+
