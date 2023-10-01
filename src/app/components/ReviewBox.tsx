@@ -67,7 +67,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
               <Link href={`/reviews/${product.id}`}
                 onClick={() => {
                 }}
-                className=" sm:text-1xl text-lg cursor-pointer font-bold hover:underline"
+                className=" sm:text-1xl text-lg text-center cursor-pointer font-bold hover:underline"
               >
                 {
                   product?.name

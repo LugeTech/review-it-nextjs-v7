@@ -21,7 +21,7 @@ const TopReviews = () => {
   return (
     <div className="flex flex-col w-full justify-center items-center  bg-mycolours-light dark:bg-mycolours-dark dark:text-mycolours-light">
       <h1 className=" flex flex-1 justify-center mt-2 text-xl font-bold text-mycolours-dark dark:text-mycolours-light">
-        Top Reviews of the day
+        Latest reviews
       </h1>
       <div className="flex justify-between flex-col sm:flex-row gap-1">
         {reviews?.length > 0 && reviews.map((review, index) => {
