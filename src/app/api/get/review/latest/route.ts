@@ -18,7 +18,9 @@ export async function POST(request: NextRequest) {
         createdDate: "desc",
       },
     });
-    const lastTwoReviews = reviews.slice(-2);
+    console.log('this is reviews in desc order', reviews)
+    const lastTwoReviews = reviews.slice(0, 4);
+    console.log('this is last two reviews', lastTwoReviews)
     return NextResponse.json({
       success: true,
       status: 200,
