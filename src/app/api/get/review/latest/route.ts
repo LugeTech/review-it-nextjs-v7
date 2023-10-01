@@ -17,14 +17,12 @@ export async function POST(request: NextRequest) {
       orderBy: {
         createdDate: "desc",
       },
+      take: 4,
     });
-    console.log('this is reviews in desc order', reviews)
-    const lastTwoReviews = reviews.slice(0, 4);
-    console.log('this is last two reviews', lastTwoReviews)
     return NextResponse.json({
       success: true,
       status: 200,
-      data: lastTwoReviews,
+      data: reviews,
     });
   } catch (error) {
     let e = error as Error;
