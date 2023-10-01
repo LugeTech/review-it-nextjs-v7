@@ -15,12 +15,18 @@ import { getProduct } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 import { useAtom } from "jotai";
 import { allProductsAtom } from "../store/store";
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams, useSearchParams } from 'next/navigation'
 
-const ReviewForm = ({ id }: { id: string }) => {
+const ReviewForm = () => {
+  const router = useRouter()
+  const params = useParams()
+  const searchParams = useSearchParams()
+  const searchRating = searchParams.get('rating')
+  const id = searchParams.get('id')!
+  console.log(id, searchRating!)
   const [disabled, setDisabled] = useState(false);
   const { user } = useUser();
-  const [rating, setRating] = useState(1); // Initial value
+  const [rating, setRating] = useState(searchRating ? parseInt(searchRating) : 2); // Initial value
   const [startDate, setStartDate] = useState(new Date());
   const [error, setError] = useState<string | null>(null);
   const [reviewData, setReviewData] = useState<iReview>({
@@ -42,7 +48,6 @@ const ReviewForm = ({ id }: { id: string }) => {
     isDeleted: false,
   });
   const [products, setProducts] = useAtom(allProductsAtom);
-  const router = useRouter()
   const productCardOptions = {
     showLatestReview: false,
     size: 'rating-md',

@@ -7,6 +7,7 @@ import ProductCard from './ProductCard';
 import 'dayjs/locale/en'; // Import the English locale
 import ReviewCard from './ReviewCard';
 import Link from 'next/link';
+import WriteAReview from './WriteAReview';
 
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
@@ -35,6 +36,9 @@ const Reviews = ({ productId }: { productId: string }) => {
         product={reviews[0]?.product!}
         options={productCardOptions}
       />
+      <div className='flex flex-col md:flex-row w-full justify-between items-center '>
+        <WriteAReview />
+      </div>
       <div className='flex flex-col md:flex-row w-full justify-between items-center '>
         <div className="space-y-6 mt-4 w-full md:w-1/2  ">
           <div className='flex  justify-center items-center '>

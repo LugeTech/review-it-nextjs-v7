@@ -1,0 +1,45 @@
+'use client'
+import { iProduct, iUser } from '@/app/util/Interfaces';
+import { getUser } from "@/app/util/serverFunctions";
+import { useQuery, } from "@tanstack/react-query";
+import LoadingSpinner from '../components/LoadingSpinner';
+import UserInfo from '../components/UserInfo';
+import { useAuth } from "@clerk/nextjs";
+import Image from 'next/image'
+import RatingModule from './RatingModule';
+import { useState } from 'react';
+
+const Page = () => {
+  const [rating, setRating] = useState(3); // Initial value
+  const auth = useAuth();
+
+  const ratingChanged = (newRating: number) => {
+    setRating(newRating);
+    console.log(newRating)
+  };
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["user", auth.userId],
+    queryFn: async () => await getUser(),
+    refetchOnWindowFocus: false,
+  }) as any
+
+  if (isLoading) return <LoadingSpinner />;
+  if (isError) return <p>{error?.toString()}</p>;
+  const user: iUser | undefined = data?.data as iUser
+
+  return (
+    <div className='flex w-full rounded-lg shadow-sm p-2 mt-2 justify-center gap-4 items-center border-b-2 border-gray-200  '>
+      <Image src={user?.avatar!} width={48} height={48} alt='avatar' className='rounded-full w-12 h-12' />
+      <span className='text-sm'>{user?.userName} write a review now!</span>
+      {<RatingModule
+        name={user?.id!}
+        rating={rating!}
+        ratingChanged={ratingChanged}
+        size={'rating-sm'}
+      />}
+
+
+    </div>
+  )
+}
+export default Page

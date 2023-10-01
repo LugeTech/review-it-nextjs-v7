@@ -125,7 +125,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
           {options.showWriteReview ? (
             <p className="text-gray-400">
               {/* Created: {new Date(product.createdDate).toLocaleDateString()} */}
-              <Link href={`/cr/${product.id}`} className="text-gray-400 hover:underline"> Write Review</Link>
+              <Link href={`/cr/?id=${product.id}&rating=4`} className="text-gray-400 hover:underline"> Write Review</Link>
             </p>
           ) : ''}
 
