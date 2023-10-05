@@ -25,14 +25,14 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
         </span>
       </div>
       <p className="text-gray-700">{comment.body}</p>
-      <div className="mt-2 flex justify-between text-gray-600">
-        <span>
-          Helpful: {comment.helpfulVotes || 0}
-        </span>
-        <span>
-          Unhelpful: {comment.unhelpfulVotes || 0}
-        </span>
-      </div>
+      {/* <div className="mt-2 flex justify-between text-gray-600"> */}
+      {/*   <span> */}
+      {/*     Helpful: {comment.helpfulVotes || 0} */}
+      {/*   </span> */}
+      {/*   <span> */}
+      {/*     Unhelpful: {comment.unhelpfulVotes || 0} */}
+      {/*   </span> */}
+      {/* </div> */}
     </div>
   );
 };
