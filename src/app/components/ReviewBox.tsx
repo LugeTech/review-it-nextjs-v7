@@ -5,6 +5,7 @@ import Image from "next/image";
 import Votes from "./Votes";
 import RatingModule from "@/app/components/RatingModule";
 import DOMPurify from 'dompurify';
+import dayjs from "dayjs";
 
 interface ReviewBoxProps {
   review: iReview;
@@ -58,54 +59,31 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 }
               </p>
             </div>
-            <div className=" font-semibold flex flex-col gap-2 justify-start items-start pt-3">
-              {/* review title */}
-              {review.title.length > 30
-                ? review.title.slice(0, 30) + "..."
-                : review.title}
-            </div>
-            <div className=" w-full font-normal tracking-tight ">
-              {/* review body */}
-              {/* {review.body.slice(0, 90) + "... read more"} */}
-              <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90)) }} className="mb-4 text-sm" />
-
+            <div className=" font-semibold w-full flex flex-col  justify-start items-start pt-3">
               <RatingModule
                 name="rating"
                 rating={rating}
                 ratingChanged={ratingChanged}
                 size={"rating-sm"}
               />
+
+              <p className="font-semibold text-lg">
+                {/* review title */}
+                {review.title.length > 30
+                  ? review.title.slice(0, 30) + "..."
+                  : review.title}
+              </p>
+              <p className="text-xs font-thin ">{dayjs(review?.createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
+            </div>
+            <div className=" w-full font-normal tracking-tight ">
+              {/* review body */}
+              {/* {review.body.slice(0, 90) + "... read more"} */}
+              <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90)) }} className="mb-4 text-sm" />
+
             </div>
           </div>
         </div>
 
-        {/* Top comment */}
-        <div className="text-xs mt-2  text-gray-700 dark:text-gray-400 tracking-tighter font-semibold pl-1">
-          Top Comment
-        </div>
-        {comments[0] ? (
-          <div className=" text-xs mt-1 text-gray-700 dark:text-gray-400 flex flex-row gap-1 pb-2 pl-1">
-            <div className="">
-
-              <Image
-                src={
-                  comments[0]?.user?.avatar!
-                }
-                alt="avatar"
-                width={60}
-                height={60}
-                className=" flex rounded-full"
-              />
-
-            </div>
-            <div className="flex flex-col">
-              {comments
-                .find((comment) => comment.user === review.comments[0].user)
-                ?.body.slice(0, 90)}
-              <Votes review={review} />
-            </div>
-          </div>
-        ) : <p className=" text-xs mt-1 text-gray-700">No comments yet, add one!</p>}
       </div>
     </div>
   );
