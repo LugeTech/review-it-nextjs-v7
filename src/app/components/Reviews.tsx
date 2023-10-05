@@ -39,7 +39,7 @@ const Reviews = ({ productId }: { productId: string }) => {
       <div className='flex flex-col md:flex-row w-full justify-between items-center '>
         <WriteAReview />
       </div>
-      <div className='flex flex-col md:flex-row w-full justify-between items-center '>
+      <div className='flex flex-col  w-full justify-between items-center '>
         <div className="space-y-6 mt-4 w-full md:w-1/2  ">
           <div className='flex  justify-center items-center '>
             <p className='text-center'>Reviews</p>
@@ -49,21 +49,12 @@ const Reviews = ({ productId }: { productId: string }) => {
             <ReviewCard key={review.id} review={review} />
           ))}
         </div>
-        <div>
-          <div className='flex  w-full md:w-1/2 justify-center items-center '>
-            <p className='text-center'>Will have a column with business info perfect pace for ads also</p>
-          </div>
-          {/* about and description, maybe ads in a column */}
-          {/* <CompanyInfo /> */}
-          <div className='flex w-full md:w-1/2 justify-center items-center '>
-            <p className='text-center'>on mobile this will be after the reviews, will paginate reviews by about 10</p>
-          </div>
-
-
-        </div>
       </div>
     </div>
   )
 }
 
 export default Reviews
+
+
+
