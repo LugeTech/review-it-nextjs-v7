@@ -84,12 +84,6 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
               </Link>
             </div>
             <div className=" font-semibold w-full flex flex-col  justify-start items-start pt-3">
-              <RatingModule
-                name="rating"
-                rating={rating}
-                ratingChanged={ratingChanged}
-                size={"rating-sm"}
-              />
 
               <p className="font-semibold text-lg">
                 {/* review title */}
