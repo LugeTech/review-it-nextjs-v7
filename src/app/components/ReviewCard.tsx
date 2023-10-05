@@ -56,16 +56,16 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
 
 
       <div className="flex items-center">
-        <div className="flex text-xs md:text-base ml-2">
-          <button className="mr-2">
-            <span className="text-gray-600">({helpfulVotes || 0})</span> up
-          </button>
-          <button>
-            <span className="text-gray-600">({unhelpfulVotes || 0})</span> down
-          </button>
-        </div>
-        <Link href={`/fr/${review.id}`} onClick={() => setReview(review)} className="ml-auto">
-          <p className="text-gray-600 text-xs hover:underline">{comments?.length > 0 ? `(${comments?.length} comments)` : '(0) comments'}</p>
+        {/* <div className="flex text-xs md:text-base ml-2"> */}
+        {/*   <button className="mr-2"> */}
+        {/*     <span className="text-gray-600">({helpfulVotes || 0})</span> up */}
+        {/*   </button> */}
+        {/*   <button> */}
+        {/*     <span className="text-gray-600">({unhelpfulVotes || 0})</span> down */}
+        {/*   </button> */}
+        {/* </div> */}
+        <Link href={`/fullreview/${review.id}`} onClick={() => setReview(review)}>
+          <p className="text-gray-600 text-xs">{comments?.length > 0 ? `(${comments?.length} comments)` : '(0) comments'}</p>
         </Link>
       </div>
     </div>

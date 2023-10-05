@@ -9,6 +9,7 @@ import RatingModuleReadOnly from "./RatingModuleReadOnly";
 import { useAtom } from "jotai";
 import { currentReviewAtom } from "../store/store";
 import Comment from "./Comment";
+import dayjs from "dayjs";
 
 interface ReviewBoxProps {
   review: iReview;
@@ -82,25 +83,31 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 </div>
               </Link>
             </div>
-            <Link href={`/fr/${review.id}`} onClick={() => setReview(review)} className="w-full font-semibold flex flex-col justify-center items-center pt-2 text-base hover:underline">
-              {/* review title */}
-              <div className="w-full flex flex-row justify-start items-center">
+            <div className=" font-semibold w-full flex flex-col  justify-start items-start pt-3">
+              <RatingModule
+                name="rating"
+                rating={rating}
+                ratingChanged={ratingChanged}
+                size={"rating-sm"}
+              />
+
+              <p className="font-semibold text-lg">
+                {/* review title */}
                 {review.title.length > 30
                   ? review.title.slice(0, 30) + "..."
                   : review.title}
-              </div>
-              <div className=" w-full font-normal ">
-                <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(reviewBody) }} className="mb-4 text-sm" />
+              </p>
+              <p className="text-xs font-thin ">{dayjs(review?.createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
+            </div>
+            <div className=" w-full font-normal tracking-tight ">
+              {/* review body */}
+              {/* {review.body.slice(0, 90) + "... read more"} */}
+              <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90)) }} className="mb-4 text-sm" />
 
-              </div>
-            </Link>
+            </div>
           </div>
         </div>
-        {/* Top comment */}
-        <div className="text-xs mt-2  text-gray-700 dark:text-gray-400 tracking-tighter font-semibold pl-1 border-t-2 border-gray-300">
-          Top Comment
-        </div>
-        <Comment comment={comments[0]} />
+
       </div>
     </div >
   );

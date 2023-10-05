@@ -1,4 +1,4 @@
-
+import Image from 'next/image';
 import React from 'react';
 import { iComment } from '@/app/util/Interfaces';
 import dayjs from 'dayjs';
@@ -13,14 +13,14 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
     return <p>No comment</p>;
   }
   return (
-    <div className="flex w-full flex-col md:w-full bg-white p-4 rounded-lg mb-4">
-      <div className="flex items-center ">
+    <div className="flex w-full flex-col md:w-full bg-white p-4 rounded-lg shadow-md mb-4">
+      <div className="flex items-center mb-2">
         <Image
           src={comment?.user?.avatar || '/default-avatar.png'} // Use a default avatar if no avatar is provided
-          alt={comment?.user?.firstName!}
-          className="w-10 h-10 rounded-full mr-2 object-cover"
-          width={40}
-          height={40}
+          alt={`${comment?.user?.firstName} ${comment?.user?.lastName}`}
+          className="w-10 h-10 rounded-full mr-2"
+          width={50}
+          height={50}
         />
         <span className="text-gray-800 font-semibold">
           @{comment?.user?.userName}
