@@ -40,7 +40,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
         <div className="flex flex-col justify-start items-center gap-1">
           <div className="flex flex-col w-full sm:ml-2 text-xs text-myTheme-dark dark:text-myTheme-light justify-start items-center ">
             <div className="flex w-full flex-col justify-start items-center">
-              <Link href={`/users/${review?.user.id}`} className="sm:text-xl text-lg hover:underline flex flex-col justify-center items-center">
+              <Link href={`/users/${review?.user?.id}`} className="sm:text-xl text-lg hover:underline flex flex-col justify-center items-center">
                 {/* user image */}
                 {review?.user ? (
                   <Image
