@@ -64,7 +64,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         {/*     <span className="text-gray-600">({unhelpfulVotes || 0})</span> down */}
         {/*   </button> */}
         {/* </div> */}
-        <Link href={`/fullreview/${review.id}`} onClick={() => setReview(review)}>
+        <Link href={`/fr/${review.id}`} onClick={() => setReview(review)}>
           <p className="text-gray-600 text-xs">{comments?.length > 0 ? `(${comments?.length} comments)` : '(0) comments'}</p>
         </Link>
       </div>
