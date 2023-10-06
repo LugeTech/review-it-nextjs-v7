@@ -13,22 +13,16 @@ import dayjs from "dayjs";
 
 interface ReviewBoxProps {
   review: iReview;
-  user: iUser;
-  comments: iComment[];
-  product: iProduct;
 }
 
 const ReviewBox: React.FC<ReviewBoxProps> = ({
   review: review,
-  comments: comments,
-  product: product,
-  user: user,
 }) => {
-  const [rating, setRating] = useState(review.rating); // Initial value
+  // const [rating, setRating] = useState(review.rating); // Initial value
 
-  const ratingChanged = (newRating: number) => {
-    setRating(newRating);
-  };
+  // const ratingChanged = (newRating: number) => {
+  //   setRating(newRating);
+  // };
   const [reviewAtom, setReview] = useAtom(currentReviewAtom);
 
   const [reviewBody, setReviewBody] = useState(review.body);
@@ -46,12 +40,12 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
         <div className="flex flex-col justify-start items-center gap-1">
           <div className="flex flex-col w-full sm:ml-2 text-xs text-myTheme-dark dark:text-myTheme-light justify-start items-center ">
             <div className="flex w-full flex-col justify-start items-center">
-              <Link href={`/users/${user.id}`} className="sm:text-xl text-lg hover:underline flex flex-col justify-center items-center">
+              <Link href={`/users/${review?.user.id}`} className="sm:text-xl text-lg hover:underline flex flex-col justify-center items-center">
                 {/* user image */}
                 {review?.user ? (
                   <Image
                     src={
-                      user.avatar!
+                      review?.user.avatar!
                     }
                     alt="avatar"
                     width={60}
@@ -60,24 +54,23 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                   />
                 ) : null}
                 {/* user name */}
-                @{user?.userName}
+                @{review.user?.userName}
               </Link >
               <p className="text-xs text-gray-500">
                 reviewed
               </p>
-              <Link href={`/reviews/${product.id}`}
+              <Link href={`/reviews/${review?.product?.id}`}
                 onClick={() => {
                 }}
                 className=" sm:text-1xl text-lg text-center cursor-pointer font-bold hover:underline"
               >
                 {
-                  product?.name
+                  review?.product?.name
                 }
                 <div className="w-full pt-1 flex flex-row justify-center items-center">
                   <RatingModuleReadOnly
-                    name="rating"
-                    rating={rating}
-                    ratingChanged={ratingChanged}
+                    name={review.id!}
+                    rating={review.rating}
                     size={"rating-sm"}
                   />
                 </div>
@@ -94,8 +87,6 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
               <p className="text-xs font-thin ">{dayjs(review?.createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
             </div>
             <div className=" w-full font-normal tracking-tight ">
-              {/* review body */}
-              {/* {review.body.slice(0, 90) + "... read more"} */}
               <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90)) }} className="mb-4 text-sm" />
 
             </div>
