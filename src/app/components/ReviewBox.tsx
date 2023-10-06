@@ -40,7 +40,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
         <div className="flex flex-col justify-start items-center gap-1">
           <div className="flex flex-col w-full sm:ml-2 text-xs text-myTheme-dark dark:text-myTheme-light justify-start items-center ">
             <div className="flex w-full flex-col justify-start items-center">
-              <Link href={`/users/${review?.user?.id}`} className="sm:text-xl text-lg hover:underline flex flex-col justify-center items-center">
+              <Link href={`/users/${review?.user?.id}`} className="sm:text-xl hover:underline flex flex-col justify-center items-center">
                 {/* user image */}
                 {review?.user ? (
                   <Image
@@ -54,7 +54,9 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                   />
                 ) : null}
                 {/* user name */}
-                @{review.user?.userName}
+                <p className="text-sm text-gray-500">
+                  @{review.user?.userName}
+                </p>
               </Link >
               <p className="text-xs text-gray-500">
                 reviewed
@@ -78,16 +80,16 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
             </div>
             <div className=" font-semibold w-full flex flex-col  justify-start items-start pt-3">
 
-              <p className="font-semibold text-lg">
+              <p className="font-semibold text-base">
                 {/* review title */}
                 {review.title.length > 30
                   ? review.title.slice(0, 30) + "..."
                   : review.title}
               </p>
-              <p className="text-xs font-thin ">{dayjs(review?.createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
             </div>
             <div className=" w-full font-normal tracking-tight ">
               <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(review.body.slice(0, 90)) }} className="mb-4 text-sm" />
+              <p className="text-xs font-thin text-gray-500">{dayjs(review?.createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
 
             </div>
           </div>
