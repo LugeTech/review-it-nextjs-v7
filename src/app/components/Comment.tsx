@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 import { iComment } from '@/app/util/Interfaces';
 import dayjs from 'dayjs';
