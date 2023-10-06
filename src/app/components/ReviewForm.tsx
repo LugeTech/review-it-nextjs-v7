@@ -19,7 +19,6 @@ import { useRouter, useParams, useSearchParams } from 'next/navigation'
 
 const ReviewForm = () => {
   const router = useRouter()
-  const params = useParams()
   const searchParams = useSearchParams()
   const searchRating = searchParams.get('rating')
   const id = searchParams.get('id')!

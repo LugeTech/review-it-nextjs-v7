@@ -18,8 +18,9 @@ const Page = () => {
   const router = useRouter()
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
-    console.log(newRating)
-    router.push(`/cr/?id=${id}&rating=${rating}`)
+
+    // console.log(`/cr/?id=${id}&rating=${newRating}`)
+    router.push(`/cr/?id=${id}&rating=${newRating}`)
   };
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["user", auth.userId],
