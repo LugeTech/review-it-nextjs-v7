@@ -44,12 +44,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
 
   const reviews = data?.data as iReview[]
   const totalComments = reviews?.reduce((accumulator, review) => accumulator + review.comments.length, 0);
-  // const filteredReviews = reviews?.filter((review) => review.rating !== null && review.rating !== 0)
-  // console.log('filteredReviews', filteredReviews)
-  // return (
-  //   <div>
-  //   </div>
-  // )
   if (isLoading) return <LoadingSpinner />
   if (isError) return <p>{error.message}</p>
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
@@ -94,7 +88,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
               {<RatingModuleReadOnly
                 name={product.id!}
                 rating={roundedRating!}
-                ratingChanged={ratingChanged}
                 size={options.size}
               />}
               <div className="flex gap-2">
@@ -125,7 +118,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
           {options.showWriteReview ? (
             <p className="text-gray-400">
               {/* Created: {new Date(product.createdDate).toLocaleDateString()} */}
-              <Link href={`/cr/?id=${product.id}&rating=4`} className="text-gray-400 hover:underline"> Write Review</Link>
+              <Link href={`/cr/?id=${product.id}&rating=3`} className="text-gray-400 hover:underline"> Write Review</Link>
             </p>
           ) : ''}
 

@@ -4,12 +4,12 @@ import React from "react";
 const RatingModule = ({
   name,
   rating = 1,
-  ratingChanged,
+  // ratingChanged = () => { },
   size = "rating-lg",
 }: {
   name: string;
   rating: number;
-  ratingChanged: (rating: number) => void;
+  // ratingChanged: (rating: number) => void;
   size: string;
 }) => {
   const customRed = "bg-red-400";
