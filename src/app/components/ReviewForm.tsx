@@ -25,6 +25,7 @@ const ReviewForm = () => {
   console.log(id, searchRating!)
   const [disabled, setDisabled] = useState(false);
   const { user } = useUser();
+  // make sure there is an int in searchRating and make sure its between 1 and 5
   const [rating, setRating] = useState(searchRating ? parseInt(searchRating) : 2); // Initial value
   const [startDate, setStartDate] = useState(new Date());
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +33,7 @@ const ReviewForm = () => {
     id: null,
     body: "",
     createdDate: new Date(),
-    rating: 1,
+    rating: rating,
     title: "",
     productId: id,
     userId: user?.publicMetadata.id! as string,
