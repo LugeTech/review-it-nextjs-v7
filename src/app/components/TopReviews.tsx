@@ -29,9 +29,6 @@ const TopReviews = () => {
             <ReviewBox
               key={index}
               review={review}
-              product={review.product!}
-              user={review.user!}
-              comments={review.comments}
             />
           );
         })}
