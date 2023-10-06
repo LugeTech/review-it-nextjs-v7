@@ -12,7 +12,7 @@ const RatingModule = ({
   ratingChanged: (rating: number) => void;
   size: string;
 }) => {
-  const customRed = "bg-red-400";
+  const customRed = "bg-red-600";
   const customOrange = "bg-orange-400";
   const customYellow = "bg-yellow-400";
   const customLightGreen = "bg-lime-400";
@@ -43,7 +43,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={1}
-          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
+          className={` mask mask-star ${handleRating(rating)} hover:bg-red-600`}
           checked={rating === 1}
           onChange={() => ratingChanged(1)}
         />
@@ -51,7 +51,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={2}
-          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
+          className={` mask mask-star ${handleRating(rating)} hover:bg-orange-400`}
           checked={rating === 2}
           onChange={() => ratingChanged(2)}
         />
@@ -59,7 +59,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={3}
-          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
+          className={` mask mask-star ${handleRating(rating)} hover:bg-yellow-400`}
           checked={rating === 3}
           onChange={() => ratingChanged(3)}
         />
@@ -67,7 +67,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={4}
-          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
+          className={` mask mask-star ${handleRating(rating)} hover:bg-lime-400`}
           checked={rating === 4}
           onChange={() => ratingChanged(4)}
         />
@@ -75,7 +75,7 @@ const RatingModule = ({
           type="radio"
           name={name}
           value={5}
-          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
+          className={` mask mask-star ${handleRating(rating)} hover:bg-green-400`}
           checked={rating === 5}
           onChange={() => ratingChanged(5)}
         />
