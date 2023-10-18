@@ -7,7 +7,7 @@ import { allProductsStore } from "@/app/store/store";
 import { useEffect } from 'react';
 
 const ProductListLoader = () => {
-  const [allProducts, setAllProducts] = useAtom(allProductsStore);
+  const [_, setAllProducts] = useAtom(allProductsStore);
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["allProducts"],
@@ -23,7 +23,7 @@ const ProductListLoader = () => {
   }, [data]);
 
   if (isLoading) {
-    return <div>Loading search engine...</div>;
+    return <div className="flex justify-center bg-transparent">Loading search engine...</div>;
   }
   if (isError) {
     return <div>{error.message}</div>;
@@ -31,7 +31,6 @@ const ProductListLoader = () => {
 
   return (
     <>
-      {/* Render or process data as needed */}
     </>
   );
 };

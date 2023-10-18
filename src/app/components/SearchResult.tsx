@@ -1,6 +1,6 @@
 import React from 'react';
 import { iProduct } from '../util/Interfaces';
-import Link from 'next/link';
+// import Link from 'next/link';
 import ProductCardSlim from './ProductCardSlim';
 
 interface SearchResultsProps {
@@ -15,9 +15,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({
   }
 
   return (
-    <div className="  mt-2 gap-2 flex w-full flex-col justify-start items-start">
+    <div className="  mt-2 gap-2 flex w-full flex-col justify-start items-start bg-white  ">
       {results.map((result) => (
-
         <ProductCardSlim options={productCardOptions} product={result} key={result.id} />))}
     </div>
   );
