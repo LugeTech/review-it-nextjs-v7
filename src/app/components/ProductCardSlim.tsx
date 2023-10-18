@@ -22,7 +22,7 @@ interface iCalculatedRating {
 }
 
 const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
-  const [rating, setRating] = useState(0); // Initial value
+  const [_, setRating] = useState(0); // Initial value
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
   };
@@ -65,7 +65,10 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
             </div>
           )}
           <div className="mb-1 flex flex-col gap-2">
-            <h2 className="text-md font-semibold ">{product.name}</h2>
+            <div className="flex flex-col ">
+            <h2 className="text-md text-black font-semibold flex justify-start">{product.name}</h2>
+            <h2 className="text-xs text-gray-500 font-thin flex justify-start">{product.description}</h2>
+            </div>
             {<RatingModule
               name={product.id!}
               rating={roundedRating!}
