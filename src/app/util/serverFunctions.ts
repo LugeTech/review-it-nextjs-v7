@@ -1,4 +1,4 @@
-import { iComment, iProduct, iReview, iUser } from "@/app/util/Interfaces";
+import { iComment, iProduct, iReview } from "@/app/util/Interfaces";
 import { apiUrl } from "./apiUrl";
 
 export const getUser = async () => {

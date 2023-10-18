@@ -30,10 +30,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   const [rating, setRating] = useState(0); // Initial value
   const [showModal, setShowModal] = useState(false);
 
-  const ratingChanged = (newRating: number) => {
-    setRating(newRating);
-    setShowModal(true);
-  };
+  // const ratingChanged = (newRating: number) => {
+  //   setRating(newRating);
+  //   setShowModal(true);
+  // };
 
 
   const { data, isLoading, isError, error } = useQuery({

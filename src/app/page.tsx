@@ -2,7 +2,7 @@ import { iReview, iUser, iComment, iProduct } from "./util/Interfaces";
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
-import Token from "./components/Token";
+// import Token from "./components/Token";
 
 // export const revalidate = 30;
 

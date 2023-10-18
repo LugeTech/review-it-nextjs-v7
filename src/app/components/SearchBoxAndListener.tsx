@@ -1,3 +1,4 @@
+
 import SearchComponent from '@/app/components/SearchComponent';
 import ProductListLoader from '@/app/components/ProductListLoader'; // Import the loader component
 import { iProduct } from '@/app/util/Interfaces';

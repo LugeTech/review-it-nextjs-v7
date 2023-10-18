@@ -45,10 +45,5 @@ export const addUserToDb = async (clerkUserData: UserDATA) => {
     publicMetadata: { userInDb: true, id: user.id }, // this is mongodb id
   });
 
-  // Logging the Clerk user information after adding to MongoDB
-  console.log(
-    "user added to mongodb, this is the new clerk user info-",
-    clerkUser
-  );
   return clerkUser;
 };

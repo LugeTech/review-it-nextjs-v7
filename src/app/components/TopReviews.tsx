@@ -1,10 +1,9 @@
 'use client';
-import { iReview, iUser, iComment, iProduct, iCalculatedRating } from "../util/Interfaces";
+import { iReview } from "../util/Interfaces";
 import ReviewBox from "./ReviewBox";
 import { useQuery } from "@tanstack/react-query";
 import { getLatestReviews } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
-// import { users } from "@clerk/nextjs/dist/api";
 
 
 const TopReviews = () => {

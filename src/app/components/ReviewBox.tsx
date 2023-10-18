@@ -1,14 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { iReview, iUser, iComment, iProduct } from "../util/Interfaces";
+import { iReview } from "../util/Interfaces";
 import Image from "next/image";
-import Votes from "./Votes";
 import DOMPurify from 'dompurify';
 import Link from "next/link";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
 import { useAtom } from "jotai";
 import { currentReviewAtom } from "../store/store";
-import Comment from "./Comment";
 import dayjs from "dayjs";
 
 interface ReviewBoxProps {
