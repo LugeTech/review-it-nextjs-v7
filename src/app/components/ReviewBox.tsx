@@ -5,8 +5,8 @@ import Image from "next/image";
 import DOMPurify from 'dompurify';
 import Link from "next/link";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
-import { useAtom } from "jotai";
-import { currentReviewAtom } from "../store/store";
+// import { useAtom } from "jotai";
+// import { currentReviewAtom } from "../store/store";
 import dayjs from "dayjs";
 
 interface ReviewBoxProps {
@@ -16,12 +16,7 @@ interface ReviewBoxProps {
 const ReviewBox: React.FC<ReviewBoxProps> = ({
   review: review,
 }) => {
-  // const [rating, setRating] = useState(review.rating); // Initial value
-
-  // const ratingChanged = (newRating: number) => {
-  //   setRating(newRating);
-  // };
-  const [reviewAtom, setReview] = useAtom(currentReviewAtom);
+  // const [reviewAtom, setReview] = useAtom(currentReviewAtom);
 
   const [reviewBody, setReviewBody] = useState(review.body);
   useEffect(() => {
