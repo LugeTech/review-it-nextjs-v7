@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, FC, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useAtom } from "jotai";
 import { allProductsStore } from "@/app/store/store";
 import { iProduct } from '../util/Interfaces';
@@ -11,7 +11,7 @@ const SearchBox = () => {
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
     null
   );
-  const [allProducts, setAllProducts] = useAtom(allProductsStore);
+  const [allProducts, _] = useAtom(allProductsStore);
 
   const filteredProducts = (products: iProduct[]) => {
     const fp = products.filter((product) =>
@@ -27,7 +27,6 @@ const SearchBox = () => {
     }
     const timeout = setTimeout(() => {
       // setAllProducts(filteredProducts(allProducts));
-      console.log('typing timeout!')
       setSearchResults(filteredProducts(allProducts));
     }, 700); // 500ms delay
 
@@ -56,7 +55,7 @@ const SearchBox = () => {
         value={searchTerm}
         onChange={handleInputChange}
       />
-      <SearchResults results={searchResults} />
+      {searchTerm && <SearchResults results={searchResults} />}
     </div>
   );
 };
