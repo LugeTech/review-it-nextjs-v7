@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SearchBoxAndListener from "./SearchBoxAndListener";
 
 const HeroSection = () => {
   return (
@@ -36,19 +37,7 @@ const HeroSection = () => {
                       Search
                     </label>
                     <div className="relative w-full">
-                      <input
-                        type="search"
-                        id="default-search"
-                        className="block w-full p-4 pl-10 text-sm text-black border border-gray-300 rounded-lg bg-gray-50 focus:ring-myTheme-neutral focus:border-myTheme-light dark:bg-myTheme-neutral dark:border-myTheme-grey-600 dark:placeholder-myTheme-light dark:text-myTheme-light dark:focus:ring-myTheme-secondary dark:focus:border-myTheme-light"
-                        placeholder="Company | Service | Product..."
-                        required
-                      />
-                      <button
-                        type="submit"
-                        className=" dark:text-white  absolute right-2.5 bottom-2.5 bg-myTheme-primary hover:bg-myTheme-accent focus:ring-4 focus:outline-none focus:ring-myTheme-secondary font-medium rounded-lg text-sm px-4 py-2  dark:hover:bg-myTheme-accent dark:focus:ring-myTheme-secondary"
-                      >
-                        Search
-                      </button>
+                      <SearchBoxAndListener />
                     </div>
                   </form>
                 </div>
