@@ -15,7 +15,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
   }
 
   return (
-    <div className=" mt-2 gap-2 flex flex-col mx-auto justify-center items-center">
+    <div className="  mt-2 gap-2 flex w-full flex-col justify-start items-start">
       {results.map((result) => (
 
         <ProductCardSlim options={productCardOptions} product={result} key={result.id} />))}
