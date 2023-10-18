@@ -50,8 +50,8 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
     dynamicStyles.color = '#FFFFFF';
   }
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md p-2 bg-white">
-      <Link href={`/reviews/${product.id}`} className=''>
+    <div className="flex flex-col w-full rounded-lg shadow-md p-2 bg-white justify-start items-start">
+      <Link href={`/reviews/${product.id}`} className='flex w-full'>
         <div className="flex justify-start items-center gap-2">
           {product.display_image && (
             <div className="mb-2">
