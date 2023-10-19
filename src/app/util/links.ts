@@ -5,10 +5,6 @@ export const sideLinks = [
     link: "/",
   },
   {
-    name: "Search",
-    link: "/search",
-  },
-  {
     name: "Browse",
     link: "/browse",
   },
@@ -27,10 +23,6 @@ export const sideLinks = [
 ];
 
 export const topLinks = [
-  {
-    name: "Search",
-    link: "/search",
-  },
   {
     name: "Browse",
     link: "/browse",
