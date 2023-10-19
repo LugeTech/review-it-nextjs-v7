@@ -3,7 +3,7 @@ import ReviewCard from './ReviewCard';
 import { useAtom } from "jotai";
 import { currentReviewAtom, currentUserAtom } from "../store/store";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { iProduct, iReview, iComment } from '../util/Interfaces';
+import {  iReview, iComment } from '../util/Interfaces';
 import { createCommentOnReview, getReview } from '../util/serverFunctions';
 import LoadingSpinner from './LoadingSpinner';
 import Comment from './Comment';
