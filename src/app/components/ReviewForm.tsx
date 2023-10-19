@@ -15,7 +15,7 @@ import { getProduct } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 import { useAtom } from "jotai";
 import { allProductsAtom } from "../store/store";
-import { useRouter, useParams, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const ReviewForm = () => {
   const router = useRouter()
