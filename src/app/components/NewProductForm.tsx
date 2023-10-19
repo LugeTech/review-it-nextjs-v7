@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { iProduct, iReview } from '../util/Interfaces';
+import { iProduct} from '../util/Interfaces';
 import { resizeImage } from '../util/clientFunctions';
 import { uploadImageToCloudinary } from '../util/uploadImageToCloudinary';
 import { useMutation } from '@tanstack/react-query';
@@ -21,7 +21,7 @@ const NewProductForm = (): JSX.Element => {
     closingHrs: null,
     telephone: null,
     website: [],
-    rating: 0,
+    rating: 3,
     hasOwner: null,
     ownerId: null,
     createdById: '',
