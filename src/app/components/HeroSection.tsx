@@ -30,12 +30,6 @@ const HeroSection = () => {
               <div className=" flex flex-1 flex-col justify-end mb-60">
                 <div className=" flex sm:flex-row  flex-col w-full ">
                   <form className="flex flex-1 justify-center w-full">
-                    <label
-                      htmlFor="default-search"
-                      className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-                    >
-                      Search
-                    </label>
                     <div className="relative w-full">
                       <SearchBoxAndListener />
                     </div>

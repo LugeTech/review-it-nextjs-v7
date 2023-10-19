@@ -59,15 +59,15 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
                 src={product.display_image}
                 alt={`${product.name} Image`}
                 className=" rounded-lg"
-                width={50}
-                height={50}
+                width={80}
+                height={80}
               />
             </div>
           )}
           <div className="mb-1 flex flex-col gap-2">
             <div className="flex flex-col ">
-            <h2 className="text-md text-black font-semibold flex justify-start">{product.name}</h2>
-            <h2 className="text-xs text-gray-500 font-thin flex justify-start">{product.description}</h2>
+            <h2 className="text-md text-black font-semibold flex justify-start items-start">{product.name}</h2>
+            <h2 className="text-xs text-gray-500 font-thin flex justify-start items-start">{product.description}</h2>
             </div>
             {<RatingModule
               name={product.id!}

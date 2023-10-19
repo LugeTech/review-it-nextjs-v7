@@ -16,9 +16,8 @@ const TopReviews = () => {
   let reviews = data?.data as iReview[]
 
   if (isLoading) return <LoadingSpinner />
-  if (isError) return <p>{'Signin to see top reviews'}</p>
   return (
-    <div className="flex flex-col w-full justify-center items-center  bg-mycolours-light dark:bg-mycolours-dark dark:text-mycolours-light">
+    <div className="flex flex-col w-full justify-center items-center bg-mycolours-light dark:bg-mycolours-dark dark:text-mycolours-light">
       <h1 className=" flex flex-1 justify-center mt-2 text-xl font-bold text-mycolours-dark dark:text-mycolours-light">
         Latest reviews
       </h1>
