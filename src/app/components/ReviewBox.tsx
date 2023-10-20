@@ -54,7 +54,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
               <p className="text-xs text-gray-500">
                 reviewed
               </p>
-              <Link href={`/reviews/${review?.product?.id}`}
+              <Link href={`/reviews?id=${review?.product?.id}`}
                 onClick={() => {
                 }}
                 className=" sm:text-1xl text-lg text-center cursor-pointer font-bold hover:underline"
@@ -73,7 +73,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
             </div>
             <div className=" font-semibold w-full flex flex-col  justify-start items-start pt-3">
 
-              <Link href={`/reviews/${review?.id}`} className="font-semibold text-base">
+              <Link href={`/fr/${review?.id}`} className="font-semibold text-base">
                 {/* review title */}
                 {review.title.length > 30
                   ? review.title.slice(0, 30) + "..."
