@@ -11,7 +11,7 @@ import { sideLinks } from "@/app/util/links";
 const Links = ({ onSideLinkClick }: { onSideLinkClick: () => void }) => {
 
   return (
-    <div className={`flex flex-col mt-8`}>
+    <div className={`flex flex-col mt-8 flex-1 justify-center items-center`}>
 
       {sideLinks.map((link, index) => (
         <Link href={link.link} key={index}>
