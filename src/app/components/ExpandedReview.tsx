@@ -10,6 +10,7 @@ import Comment from './Comment';
 import CommentForm from './CommentForm';
 import { useEffect, useState } from 'react';
 import DisplayError from './DisplayError';
+import ProductCard from './ProductCard';
 
 const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const queryClient = useQueryClient();
@@ -94,9 +95,18 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
 
   // NOTE this is the useMutation mostly to do optimistic updates to the comments
 
+  const productCardOptions = {
+    showLatestReview: true,
+    size: 'rating-md',
+    showWriteReview: true,
+    showClaimThisProduct: true
+  }
 
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 ">
+      <div className="mb-4">
+      <ProductCard product={review?.product!} options={productCardOptions} />
+      </div>
       {/* Display the full review details here */}
       {review ? (
         <>
