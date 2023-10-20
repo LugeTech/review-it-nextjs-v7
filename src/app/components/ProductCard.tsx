@@ -62,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   return (
     <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-white">
       <div className="flex flex-row">
-        <Link href={`/reviews/${product.id}`} className=' hover:underline  w-full'>
+        <Link href={`/reviews?id=${product.id}`} className=' hover:underline  w-full'>
           {showModal && (
             <div className="fixed z-10 inset-0 overflow-y-auto">
               <YesNoAlert message={`Write your own ${rating} star Review?`} />
@@ -74,7 +74,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
                 <Image
                   src={product.display_image}
                   alt={`${product.name} Image`}
-                  className=" rounded-lg w-[80px] h-[80px] object-cover"
+                  className=" rounded-lg w-20 h-20 object-cover"
                   width={80}
                   height={80}
                 />

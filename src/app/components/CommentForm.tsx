@@ -8,9 +8,9 @@ interface Props {
 import { useAtom } from 'jotai';
 import { currentUserAtom } from '@/app/store/store';
 
-const CommentForm = ({ isOpen, onClose, onSubmit }: Props) => {
+const CommentForm = ({ isOpen, onSubmit }: Props) => {
   const [textAreaValue, setTextAreaValue] = useState('');
-  const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
+  const [currentUser, _] = useAtom(currentUserAtom);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -23,7 +23,7 @@ const ProductListLoader = () => {
   }, [data]);
 
   if (isLoading) {
-    return <div className="flex justify-center bg-transparent">Loading search engine...</div>;
+    // return <div className="flex justify-center bg-transparent">Loading search engine...</div>;
   }
   if (isError) {
     return <div>{error.message}</div>;

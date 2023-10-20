@@ -31,7 +31,7 @@ interface UserDATA {
 export async function POST(request: NextRequest) {
   try {
     // Extracting session claims from the request
-    const { sessionClaims } = getAuth(request);
+    const { sessionClaims } = getAuth(request as any);
 
     // Casting the session claims to UserDATA type
     const clerkUserData = sessionClaims as unknown as UserDATA;

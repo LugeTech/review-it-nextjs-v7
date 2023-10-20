@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
   let userIdFromClerk = null;
   try {
     // Extract the session claims from the request
-    const { sessionClaims } = getAuth(request);
+    const { sessionClaims } = getAuth(request as any);
     // Cast the session claims to the `UserDATA` type
     const clerkClaimsData = sessionClaims as unknown as UserDATA;
 

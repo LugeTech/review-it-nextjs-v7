@@ -1,4 +1,3 @@
-import { iReview, iUser, iComment, iProduct } from "./util/Interfaces";
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
@@ -14,15 +13,15 @@ export default async function Home() {
       </div>
       <div className="flex flex-1 flex-col justify-center">
         <QuickTabs />
-        <div className="flex flex-col mt-4 flex-1">
+        <div className="mt-4 flex flex-1 flex-col">
           <div className="flex flex-col justify-center">
             {/* this is the top reviews container*/}
-            <div className="w-full flex flex-row px-2 sm:px-0">
+            <div className="flex w-full flex-row px-2 sm:px-0">
               <TopReviews />
             </div>
             {/* business of the day */}
-            <div className="flex flex-col justify-center w-full mt-4 mb-4">
-              <div className="flex justify-center items-center text-md mx-4">Business of the day goes here</div>
+            <div className="mb-4 mt-4 flex w-full flex-col justify-center">
+              <div className="text-md mx-4 flex items-center justify-center">Business of the day goes here</div>
             </div>
             {/* <Token /> */}
           </div>
