@@ -7,14 +7,15 @@ import { useAuth } from "@clerk/nextjs";
 import Image from 'next/image'
 import RatingModule from './RatingModule';
 import { useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter, useParams, useSearchParams} from 'next/navigation';
 
 const Page = () => {
   const [rating, setRating] = useState(3); // Initial value
   const auth = useAuth();
+  const searchParams = useSearchParams()
 
 
-  const { id } = useParams();
+  const id = searchParams.get('id')!
   const router = useRouter()
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
