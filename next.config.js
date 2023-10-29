@@ -2,11 +2,20 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["i5.walmartimages.com", "newsroom.gy", "img.clerk.com", "res.cloudinary.com", "cloudflare-ipfs.com", "loremflickr.com", "placehold.co", "images.clerk.dev"],
+    remotePatterns: [
+      { hostname: "i5.walmartimages.com", protocol: 'https' },
+      { hostname: "newsroom.gy", protocol: 'https' },
+      { hostname: "img.clerk.com", protocol: 'https' },
+      { hostname: "res.cloudinary.com", protocol: 'https' },
+      { hostname: "cloudflare-ipfs.com", protocol: 'https' },
+      { hostname: "loremflickr.com", protocol: 'https' },
+      { hostname: "placehold.co", protocol: 'https' },
+      { hostname: "images.clerk.dev", protocol: 'https' }
+    ],
   },
-  experimental: {
-    serverActions: true,
-  },
+  // experimental: {
+  //   serverActions: true,
+  // },
   webpack: (config) => {
     config.experiments = {
       topLevelAwait: true,
