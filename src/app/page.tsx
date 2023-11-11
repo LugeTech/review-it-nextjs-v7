@@ -10,7 +10,7 @@ export default async function Home() {
       <div className="flex flex-row">
         <HeroSection />
       </div>
-      <div className="flex flex-1 flex-col justify-center">
+      <div className="flex flex-col justify-center">
         <QuickTabs />
         <div className="mt-4 flex flex-1 flex-col">
           <div className="flex flex-col justify-center">
