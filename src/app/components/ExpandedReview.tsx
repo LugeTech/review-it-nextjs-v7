@@ -3,7 +3,7 @@ import ReviewCard from './ReviewCard';
 import { useAtom } from "jotai";
 import { currentReviewAtom, currentUserAtom } from "../store/store";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {  iReview, iComment } from '../util/Interfaces';
+import { iReview, iComment } from '../util/Interfaces';
 import { createCommentOnReview, getReview } from '../util/serverFunctions';
 import LoadingSpinner from './LoadingSpinner';
 import Comment from './Comment';
@@ -26,33 +26,34 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const [currentUser] = useAtom(currentUserAtom);
 
 
-  const mutations = useMutation(
-    createCommentOnReview,
-    {
-      onMutate: (newData) => {
-        // Update the UI optimistically before the actual mutation
-        queryClient.setQueryData(["review", reviewId], (oldData: any) => {
-          // create a structure like the old data but with the new data
-          newData.reviewId = reviewId;
-          newData.isDeleted = false;
-          newData.user = currentUser; // this works i just need to get my user
-          let iReviewOldData: iReview = { ...oldData };
-          iReviewOldData.comments.push(newData);
-          // reverse the comments array
-          iReviewOldData.comments = iReviewOldData.comments.reverse();
-          return { ...iReviewOldData };
-        });
-      },
-      // onSuccess: (data: iComment) => {
-      // console.log('this is the comment', data);
-      //pop up a notofication or a saving spinner on the comment
-      // },
-      onError: (error: Error) => {
-        <DisplayError error={error.message} />
-        console.error(error);
-      }
+  const mutations = useMutation({
+    mutationFn: async (comment: iComment) => {
+      createCommentOnReview(comment);
+    },
+    onMutate: (newData: iComment) => {
+      console.log('mutating', newData);
+      // Update the UI optimistically before the actual mutation
+      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
+        // create a structure like the old data but with the new data
+        newData.reviewId = reviewId;
+        newData.isDeleted = false;
+        newData.user = currentUser; // this works i just need to get my user
+        let iReviewOldData: iReview = { ...oldData };
+        iReviewOldData.comments.push(newData);
+        // reverse the comments array
+        iReviewOldData.comments = iReviewOldData.comments.reverse();
+        return { ...iReviewOldData };
+      });
+    },
+    // onSuccess: (data: iComment) => {
+    // console.log('this is the comment', data);
+    //pop up a notofication or a saving spinner on the comment
+    // },
+    onError: (error: Error) => {
+      <DisplayError error={error.message} />
+      console.error(error);
     }
-  )
+  })
 
   const handleCommentSubmit = async (newTextAreaValue: string) => {
     setTextAreaValue(newTextAreaValue);
@@ -67,6 +68,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       ...comment,
       body: textAreaValue,
     });
+    console.log('this is the comment', comment);
   }, [textAreaValue]);
 
 
@@ -105,7 +107,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 ">
       <div className="mb-4">
-      <ProductCard product={review?.product!} options={productCardOptions} />
+        <ProductCard product={review?.product!} options={productCardOptions} />
       </div>
       {/* Display the full review details here */}
       {review ? (
