@@ -31,7 +31,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       createCommentOnReview(comment);
     },
     onMutate: (newData: iComment) => {
-      console.log('mutating', newData);
       // Update the UI optimistically before the actual mutation
       queryClient.setQueryData(["review", reviewId], (oldData: any) => {
         // create a structure like the old data but with the new data

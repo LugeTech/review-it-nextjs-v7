@@ -84,7 +84,6 @@ export const getProducts = async () => {
 };
 
 export const createCommentOnReview = async (comment: iComment) => {
-  console.log(comment);
   if (comment.body === "") return;
   const response = await fetch(`${apiUrl}/create/comment`, {
     method: "POST",
