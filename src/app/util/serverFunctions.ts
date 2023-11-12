@@ -93,6 +93,6 @@ export const createCommentOnReview = async (comment: iComment) => {
     },
     body: JSON.stringify(comment),
   });
-  const data = await response.json();
+  const data = await response.json() as unknown as iComment;
   return data;
 }
