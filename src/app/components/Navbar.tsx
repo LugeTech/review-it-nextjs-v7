@@ -64,7 +64,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
       </div>
       <div className="drawer-side ">
         <label htmlFor="my-drawer-3" className="drawer-overlay "></label>
-        <div className="flex flex-col gap-4 menu p-4 w-64  bg-myTheme-lightbg dark:bg-myTheme-dark">
+        <div className="flex flex-col gap-4 menu p-4 w-36 h-full bg-myTheme-lightbg dark:bg-myTheme-dark">
           <HomeLink />
           <SideLinks onSideLinkClick={handleSideLinkClick} />
           <div className="flex justify-center items-end p-4">

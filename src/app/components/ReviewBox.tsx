@@ -71,7 +71,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({
                 </div>
               </Link>
             </div>
-            <div className=" font-semibold w-full flex flex-col  justify-start items-start pt-3">
+            <div className=" font-semibold w-full flex flex-col  justify-start items-start pt-1">
 
               <Link href={`/fr/${review?.id}`} className="font-semibold text-base">
                 {/* review title */}
