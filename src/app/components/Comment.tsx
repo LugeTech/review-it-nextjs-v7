@@ -1,8 +1,8 @@
-import React from 'react';
-import { iComment } from '@/app/util/Interfaces';
-import dayjs from 'dayjs';
-import Image from 'next/image';
-import Votes from './Votes';
+import React from "react";
+import { iComment } from "@/app/util/Interfaces";
+import dayjs from "dayjs";
+import Image from "next/image";
+import Votes from "./Votes";
 interface CommentProps {
   comment: iComment;
 }
@@ -12,10 +12,10 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
     return <p>No comment</p>;
   }
   return (
-    <div className="flex w-full flex-col md:w-full bg-white p-4 rounded-lg shadow-md mb-4">
-      <div className="flex items-center mb-2">
+    <div className="flex w-full flex-col md:w-full bg-white p-2 rounded-lg shadow-md mb-1">
+      <div className="flex items-center mb-1">
         <Image
-          src={comment?.user?.avatar || '/default-avatar.png'} // Use a default avatar if no avatar is provided
+          src={comment?.user?.avatar || "/default-avatar.png"} // Use a default avatar if no avatar is provided
           alt={`${comment?.user?.firstName} ${comment?.user?.lastName}`}
           className="w-10 h-10 rounded-full mr-2"
           width={50}
@@ -25,7 +25,8 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
           @{comment?.user?.userName}
         </span>
         <span className="text-gray-600 text-xs ml-2">
-          {comment?.createdDate && dayjs(comment.createdDate).format('MM/DD/YYYY h:mm A')}
+          {comment?.createdDate &&
+            dayjs(comment.createdDate).format("MM/DD/YYYY h:mm A")}
         </span>
       </div>
       <div className="text-gray-700 text-sm">
@@ -38,6 +39,5 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
     </div>
   );
 };
-
 
 export default Comment;

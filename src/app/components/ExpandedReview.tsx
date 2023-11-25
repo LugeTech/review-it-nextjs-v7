@@ -1,30 +1,28 @@
-'use client';
-import ReviewCard from './ReviewCard';
+"use client";
+import ReviewCard from "./ReviewCard";
 import { useAtom } from "jotai";
 import { currentReviewAtom, currentUserAtom } from "../store/store";
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { iReview, iComment } from '../util/Interfaces';
-import { createCommentOnReview, getReview } from '../util/serverFunctions';
-import LoadingSpinner from './LoadingSpinner';
-import Comment from './Comment';
-import CommentForm from './CommentForm';
-import { useEffect, useState } from 'react';
-import DisplayError from './DisplayError';
-import ProductCard from './ProductCard';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { iReview, iComment } from "../util/Interfaces";
+import { createCommentOnReview, getReview } from "../util/serverFunctions";
+import LoadingSpinner from "./LoadingSpinner";
+import Comment from "./Comment";
+import CommentForm from "./CommentForm";
+import { useEffect, useState } from "react";
+import DisplayError from "./DisplayError";
+import ProductCard from "./ProductCard";
 
 const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const queryClient = useQueryClient();
   const [reviewAtom] = useAtom(currentReviewAtom);
   const [isOpen, setIsOpen] = useState(true);
-  const [textAreaValue, setTextAreaValue] = useState('');
+  const [textAreaValue, setTextAreaValue] = useState("");
   const [comment, setComment] = useState<iComment>({
     reviewId: reviewId,
     body: textAreaValue,
     createdDate: new Date(),
-  }
-  )
+  });
   const [currentUser] = useAtom(currentUserAtom);
-
 
   const mutations = useMutation({
     mutationFn: async (comment: iComment) => {
@@ -49,16 +47,15 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     //pop up a notofication or a saving spinner on the comment
     // },
     onError: (error: Error) => {
-      <DisplayError error={error.message} />
+      <DisplayError error={error.message} />;
       console.error(error);
-    }
-  })
+    },
+  });
 
   const handleCommentSubmit = async (newTextAreaValue: string) => {
     setTextAreaValue(newTextAreaValue);
     setIsOpen(!isOpen);
     mutations.mutate({ reviewId, body: newTextAreaValue });
-
   };
 
   useEffect(() => {
@@ -67,30 +64,28 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       ...comment,
       body: textAreaValue,
     });
-    console.log('this is the comment', comment);
+    console.log("this is the comment", comment);
   }, [textAreaValue]);
-
-
 
   // NOTE query to get the comments... really it gets the review and it contains the comments
   const { data, isLoading, isError } = useQuery({
     queryKey: ["review", reviewId],
     queryFn: async () => {
       if (reviewAtom !== null) {
-        const data = reviewAtom
-        return data
+        const data = reviewAtom;
+        return data;
       }
       // else return getProduct(id)
-      console.log('review id is null')
-      const data: any = await getReview(reviewId)
-      return data.data
+      console.log("review id is null");
+      const data: any = await getReview(reviewId);
+      return data.data;
     },
     refetchOnWindowFocus: false,
-  }) as any
+  }) as any;
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
-  const review = data as iReview
+  const review = data as iReview;
   // review.comments = review.comments.reverse()
   // filter allPproductsatom for id variable and return product
 
@@ -98,10 +93,10 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
 
   const productCardOptions = {
     showLatestReview: true,
-    size: 'rating-md',
+    size: "rating-md",
     showWriteReview: true,
-    showClaimThisProduct: true
-  }
+    showClaimThisProduct: true,
+  };
 
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 ">
@@ -112,23 +107,35 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       {review ? (
         <>
           <ReviewCard review={review} />
-          {/* create submit commit form here */}
-          <CommentForm onSubmit={handleCommentSubmit} isOpen={isOpen} onClose={(isOpen: boolean) => { setIsOpen(!isOpen) }} />
+          {/* create submit commit form here i removed the ! from setIsOpen to disable hiding the form */}
+          <CommentForm
+            onSubmit={handleCommentSubmit}
+            isOpen={isOpen}
+            onClose={(isOpen: boolean) => {
+              setIsOpen(isOpen);
+            }}
+          />
         </>
       ) : (
         // Render a loading state or fetch the review details based on reviewId
         <div>Loading...</div>
       )}
-      <div className="space-y-1 mt-2 gap-1 flex flex-col w-full justify-end items-end">
+      <div className="space-y-1 mt-2 gap-1 flex flex-col w-full justify-end items-end ">
         <h2>Comments</h2>
         {/* arrange comments from newest to oldest */}
         {review?.comments?.length > 0 ? (
           <>
             {review?.comments
               .slice()
-              .sort((a, b) => new Date(b.createdDate!).valueOf() - new Date(a.createdDate!).valueOf()) // Sort comments by createdDate in descending order
+              .sort(
+                (a, b) =>
+                  new Date(b.createdDate!).valueOf() -
+                  new Date(a.createdDate!).valueOf(),
+              ) // Sort comments by createdDate in descending order
               .map((comment, index) => (
-                <Comment comment={comment} key={index} />
+                <div className="w-full px-4 py-2" key={index}>
+                  <Comment comment={comment} key={index} />
+                </div>
               ))}
           </>
         ) : (
