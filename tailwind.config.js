@@ -31,7 +31,7 @@ module.exports = {
     },
   },
   //light used to be eee
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("tailwindcss-animate")],
   // daisyUI config (optional - here are the default values)
   daisyui: {
     logs: false, // Shows info about daisyUI version and used config in the console when building your CSS

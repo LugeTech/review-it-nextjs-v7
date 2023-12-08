@@ -53,10 +53,10 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
               <Link
                 href={`/reviews?id=${review?.product?.id}`}
                 onClick={() => {}}
-                className=" sm:text-base text-md text-center cursor-pointer font-bold hover:underline"
+                className=" sm:text-base text-md text-center cursor-pointer  hover:underline w-full"
               >
                 {review?.product?.name}
-                <div className="w-full pt-1 flex flex-row justify-center items-center">
+                <div className="w-full pt-1 flex flex-row justify-start items-center">
                   <RatingModuleReadOnly
                     name={review.id!}
                     rating={review.rating}
@@ -65,25 +65,18 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
                 </div>
               </Link>
             </div>
-            <div className=" font-semibold w-full flex flex-col  justify-start items-start pt-1">
-              <Link
-                href={`/fr/${review?.id}`}
-                className="font-semibold text-base"
-              >
-                {/* review title */}
-                {review.title.length > 30
-                  ? review.title.slice(0, 30) + "..."
-                  : review.title}
+            <div className="  w-full flex flex-col  justify-start items-start pt-1">
+              <Link href={`/fr/${review?.id}`} className=" text-base">
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(review.body.slice(0, 90)),
+                  }}
+                  className="mb-4 text-sm"
+                />
               </Link>
             </div>
-            <div className=" w-full font-normal tracking-tight ">
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(review.body.slice(0, 90)),
-                }}
-                className="mb-4 text-sm"
-              />
-              <p className="text-xs font-thin text-gray-500">
+            <div className=" w-full  tracking-tight ">
+              <p className="text-xs font-light text-gray-500">
                 {dayjs(review?.createdDate?.toString()).format(
                   "MMMM D, YYYY h:mm A",
                 )}
