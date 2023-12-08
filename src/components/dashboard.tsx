@@ -112,7 +112,7 @@ export default function Dashboard() {
   );
 }
 
-function Package2Icon(props) {
+function Package2Icon(props: any) {
   return (
     <svg
       {...props}
