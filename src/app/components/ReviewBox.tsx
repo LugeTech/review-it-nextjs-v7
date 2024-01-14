@@ -56,7 +56,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
                 className=" sm:text-base text-md text-center cursor-pointer  hover:underline w-full"
               >
                 {review?.product?.name}
-                <div className="w-full pt-1 flex flex-row justify-start items-center">
+                <div className="w-full pt-1 flex flex-row justify-center items-center">
                   <RatingModuleReadOnly
                     name={review.id!}
                     rating={review.rating}
