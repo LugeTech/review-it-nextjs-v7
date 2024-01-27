@@ -8,6 +8,7 @@ interface UserInfoProps {
 
 const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
   const { firstName, lastName, avatar, reviews, comments } = user;
+  console.log("this is reviews", comments?.length);
 
   return (
     <div className="flex flex-col">
@@ -35,7 +36,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
                 href={`/fr/${review.id}`}
                 className="text-blue-500 hover:underline"
               >
-                {review.title}
+                {review.title} - 4 Comments
               </Link>
             </li>
           ))}
@@ -51,23 +52,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
                 href={`/fr/${comment.reviewId}`}
                 className="text-blue-500 hover:underline"
               >
-                {comment.body}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="mt-4">
-        <h3 className="text-lg font-semibold">My likes</h3>
-        <ul className="list-disc pl-4">
-          {comments?.map((comment) => (
-            <li key={comment.id}>
-              <Link
-                href={`/fr/${comment.reviewId}`}
-                className="text-blue-500 hover:underline"
-              >
-                {comment.body}
-                {comment.helpfulVotes}
+                {comment.body} - 16 Likes
               </Link>
             </li>
           ))}
