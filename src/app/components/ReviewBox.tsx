@@ -25,7 +25,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
   }, [reviewBody]);
 
   return (
-    <div className=" sm:w-6/12 my-1 border border-gray-300 dark:border-gray-500 rounded-xl shadow-xl">
+    <div className=" my-1 border border-gray-300 dark:border-gray-500 rounded-xl shadow-xl">
       <div className="  block h-full max-w-sm gap-2 p-4 bg-myTheme-light dark:bg-myTheme-dark rounded-xl hover:bg-gray-100  dark:hover:bg-black ">
         <div className="flex flex-col justify-start items-center gap-1">
           <div className="flex flex-col w-full sm:ml-2 text-xs text-myTheme-dark dark:text-myTheme-light justify-start items-center ">
@@ -52,7 +52,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
               <p className="text-xs text-gray-500">reviewed</p>
               <Link
                 href={`/reviews?id=${review?.product?.id}`}
-                onClick={() => {}}
+                onClick={() => { }}
                 className=" sm:text-base text-md text-center cursor-pointer  hover:underline w-full"
               >
                 {review?.product?.name}
