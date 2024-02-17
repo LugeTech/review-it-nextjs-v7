@@ -14,7 +14,7 @@ export default async function Home() {
         <div className="mt-4 flex flex-1 flex-col">
           <div className="flex flex-col justify-center">
             {/* this is the top reviews container*/}
-            <div className="flex w-full flex-row px-2 sm:px-0">
+            <div className="flex w-full flex-row px-2 md:px-2">
               <TopReviews />
             </div>
             {/* business of the day */}
