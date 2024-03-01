@@ -1,12 +1,12 @@
 // Importing necessary modules and packages
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/app/util/prismaClient";
 import { NextResponse, NextRequest } from "next/server";
 import { getAuth, clerkClient } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 // import { ObjectId } from 'bson'
 
 // const id = new ObjectId()
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 // Interface representing user data
 interface UserDATA {
