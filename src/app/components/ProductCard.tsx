@@ -62,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   return (
     <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-white">
       <div className="flex flex-row">
-        <Link href={`/reviews?id=${product.id}`} className=' hover:underline  w-full'>
+        <Link href={`/reviews?id=${product.id}`} className=' w-full'>
           {showModal && (
             <div className="fixed z-10 inset-0 overflow-y-auto">
               <YesNoAlert message={`Write your own ${rating} star Review?`} />
@@ -85,17 +85,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
                 <p className="text-base md:text-xl font-semibold ">{product.name}</p>
                 <p className="text-xs md:text-sm text-gray-700">{product.address || product.description}</p>
               </div>
-              {<RatingModuleReadOnly
+              {reviews && reviews.length > 0 ? <RatingModuleReadOnly
                 name={product.id!}
                 rating={roundedRating!}
                 size={options.size}
-              />}
+              /> : "No Reviews Yet"}
               <div className="flex gap-2">
-                <span className={`mr-auto rounded p-1 flex items-start text-xs md:text-base`}
+                <span className={`mr-auto rounded flex items-start text-xs md:text-base`}
                   style={dynamicStyles}
                 >{
                     reviews && reviews.length > 0 ?
-                      roundedRatingOneDecimalPlace! : 'No Reviews Yet'
+                      roundedRatingOneDecimalPlace!
+                      : <Link href={`/cr/?id=${product.id}&rating=3`} className="hover:underline p-0 ">Write Review</Link>
                   }
                   {
                     reviews && reviews.length > 0 ?
