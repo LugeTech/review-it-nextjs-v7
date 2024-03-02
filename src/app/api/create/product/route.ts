@@ -72,6 +72,8 @@ export async function POST(request: NextRequest) {
     console.log('about to create product')
 
     try {
+      const clerkUserId = clerkUserData!.publicMetadata.id as string;
+      console.log("************", clerkUserId)
       const createdProduct: iProduct = await prisma.product.create({
         data: {
           name: product.name,
@@ -87,8 +89,7 @@ export async function POST(request: NextRequest) {
           address: product.address,
           telephone: product.telephone,
           website: product.website,
-          createdById: (await clerkUserData.publicMetadata
-            .id) as unknown as string,
+          createdById: clerkUserId,
         },
       });
       return NextResponse.json({
@@ -97,7 +98,12 @@ export async function POST(request: NextRequest) {
         data: createdProduct,
       });
     } catch (error) {
-      console.log('error creating product', error)
+      console.log('error creating product about to send error to frontend', error)
+      return NextResponse.json({
+        success: false,
+        status: 500,
+        data: error,
+      });
     }
 
   } catch (error) {
@@ -109,4 +115,10 @@ export async function POST(request: NextRequest) {
       data: e,
     });
   }
+  return NextResponse.json({
+    success: false,
+    status: 500,
+    data: { "error": "something failed" },
+  });
+
 }
