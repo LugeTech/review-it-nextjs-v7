@@ -1,7 +1,7 @@
 import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     const reviews = await prisma.review.findMany({
       where: { isPublic: true },
@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
       },
       take: 4,
     });
+    console.log("latest reviews: ", reviews)
     return NextResponse.json({
       success: true,
       status: 200,

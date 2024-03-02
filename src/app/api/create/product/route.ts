@@ -46,15 +46,17 @@ export async function POST(request: NextRequest) {
     // Cast the session claims to the `UserDATA` type
     const clerkClaimsData = sessionClaims as unknown as UserDATA;
 
-    // console.log(clerkClaimsData);
+    console.log("this is  clerk claims", clerkClaimsData);
 
     // Check if the user already exists in the database
     if (!(await userInDb(clerkClaimsData.userId))) {
       // If the user doesn't exist, create them
       clerkUserData = await addUserToDb(clerkClaimsData);
+      console.log('added user to db');
     } else {
       // If the user already exists, retrieve their data from the database
       clerkUserData = await clerkClient.users.getUser(clerkClaimsData.userId);
+      console.log("Clerk user data before create product :", clerkUserData);
       // then add publicMetaData.id to the object
       if (clerkUserData.publicMetadata.id !== undefined) {
         userIdFromClerk = clerkUserData.publicMetadata
@@ -69,31 +71,34 @@ export async function POST(request: NextRequest) {
     }
     console.log('about to create product')
 
-    const createdProduct: iProduct = await prisma.product.create({
-      data: {
-        name: product.name,
-        description: product.description,
-        display_image: product.display_image,
-        createdDate: product.createdDate,
-        images: product.images,
-        videos: product.videos,
-        links: product.links,
-        tags: product.tags,
-        openingHrs: product.openingHrs,
-        closingHrs: product.closingHrs,
-        address: product.address,
-        telephone: product.telephone,
-        website: product.website,
-        createdById: (await clerkUserData.publicMetadata
-          .id) as unknown as string,
-      },
-    });
-
-    return NextResponse.json({
-      success: true,
-      status: 200,
-      data: createdProduct,
-    });
+    try {
+      const createdProduct: iProduct = await prisma.product.create({
+        data: {
+          name: product.name,
+          description: product.description,
+          display_image: product.display_image,
+          createdDate: product.createdDate,
+          images: product.images,
+          videos: product.videos,
+          links: product.links,
+          tags: product.tags,
+          openingHrs: product.openingHrs,
+          closingHrs: product.closingHrs,
+          address: product.address,
+          telephone: product.telephone,
+          website: product.website,
+          createdById: (await clerkUserData.publicMetadata
+            .id) as unknown as string,
+        },
+      });
+      return NextResponse.json({
+        success: true,
+        status: 200,
+        data: createdProduct,
+      });
+    } catch (error) {
+      console.log('error creating product', error)
+    }
 
   } catch (error) {
     let e = error as Error;

@@ -26,24 +26,31 @@ interface UserDATA {
 
 export const addUserToDb = async (clerkUserData: UserDATA) => {
   // If the user doesn't exist, create a new user entry in the database
-  const user = await prisma.user.upsert({
-    where: { email: clerkUserData.email },
-    update: {},
-    create: {
-      userName: clerkUserData.userName,
-      avatar: clerkUserData.avatar,
-      email: clerkUserData.email,
-      firstName: clerkUserData.firstName,
-      lastName: clerkUserData.lastName || "",
-      createdDate: new Date(),
-      clerkUserId: clerkUserData.userId,
-    },
-  });
+  try {
+    const user = await prisma.user.upsert({
+      where: { email: clerkUserData.email },
+      update: {},
+      create: {
+        userName: clerkUserData.userName,
+        avatar: clerkUserData.avatar,
+        email: clerkUserData.email,
+        firstName: clerkUserData.firstName,
+        lastName: clerkUserData.lastName || "",
+        createdDate: new Date(),
+        clerkUserId: clerkUserData.userId,
+      },
+    });
 
-  // Update the user metadata in the Clerk user object
-  const clerkUser = await clerkClient.users.updateUser(clerkUserData.userId, {
-    publicMetadata: { userInDb: true, id: user.id }, // this is mongodb id
-  });
+    // Update the user metadata in the Clerk user object
+    const clerkUser = await clerkClient.users.updateUser(clerkUserData.userId, {
+      publicMetadata: { userInDb: true, id: user.id }, // this is mongodb id
+    });
+    return clerkUser;
 
-  return clerkUser;
+  } catch (error) {
+    console.error("Error in addUserToDb:", error);
+    return
+  }
+
+  return null;
 };

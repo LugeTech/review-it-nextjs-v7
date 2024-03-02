@@ -1,7 +1,7 @@
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
-// import Token from "./components/Token";
+import Token from "./components/Token";
 
 export default async function Home() {
   return (
@@ -23,7 +23,7 @@ export default async function Home() {
                 Business of the day goes here
               </div>
             </div>
-            {/* <Token /> */}
+            <Token />
           </div>
         </div>
       </div>
