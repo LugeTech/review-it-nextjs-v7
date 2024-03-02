@@ -78,6 +78,7 @@ const ReviewForm = () => {
 
   const sendToServer = async () => {
     try {
+      console.log("this is reviewData ", reviewData)
       const response = await fetch(`${apiUrl}/create/review`, {
         method: "POST",
         body: JSON.stringify(reviewData),
