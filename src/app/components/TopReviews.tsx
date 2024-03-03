@@ -6,11 +6,13 @@ import { getLatestReviews } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 // import { MiniReview } from "@/components/mini-review";
 
+export const dynamic = 'force-dynamic'
 const TopReviews = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["latestReviews"],
     queryFn: () => getLatestReviews(),
     refetchOnWindowFocus: true,
+    refetchOnMount: "always"
   }) as any;
 
   let reviews = data?.data as iReview[];
