@@ -11,7 +11,7 @@ const TopReviews = () => {
     queryKey: ["latestReviews"],
     queryFn: () => getLatestReviews(),
     refetchOnWindowFocus: true,
-    refetchOnMount: "always"
+    // refetchOnMount: "always"
   }) as any;
 
   let reviews = data?.data as iReview[];
