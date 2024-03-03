@@ -19,7 +19,6 @@ export async function GET(request: NextRequest) {
       },
       take: 4,
     });
-    console.log("latest reviews: ", reviews)
     return NextResponse.json({
       success: true,
       status: 200,
