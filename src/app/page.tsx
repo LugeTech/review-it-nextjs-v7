@@ -1,7 +1,7 @@
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
-import Token from "./components/Token";
+// import Token from "./components/Token";
 // Opt out of caching for all data requests in the route segment
 export const dynamic = 'force-dynamic'
 export default async function Home() {
@@ -24,7 +24,7 @@ export default async function Home() {
                 Business of the day goes here
               </div>
             </div>
-            <Token />
+            {/* <Token /> */}
           </div>
         </div>
       </div>
