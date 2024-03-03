@@ -67,16 +67,17 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
             </div>
             <div className="  w-full flex flex-col  justify-start items-start pt-1">
               <Link href={`/fr/${review?.id}`} className=" text-base">
+                <p className="text-sm font-medium text-gray-800">{review.title}</p>
                 <span
                   dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(review.body.slice(0, 90)),
                   }}
-                  className="mb-4 text-sm"
+                  className="mb-4 text-sm text-gray-600"
                 />
               </Link>
             </div>
             <div className=" w-full  tracking-tight ">
-              <p className="text-xs font-light text-gray-500">
+              <p className="text-xs font-light text-gray-400">
                 {dayjs(review?.createdDate?.toString()).format(
                   "MMMM D, YYYY h:mm A",
                 )}
