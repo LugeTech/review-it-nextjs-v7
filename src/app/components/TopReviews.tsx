@@ -6,7 +6,6 @@ import { getLatestReviews } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 // import { MiniReview } from "@/components/mini-review";
 
-export const dynamic = 'force-dynamic'
 const TopReviews = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["latestReviews"],
