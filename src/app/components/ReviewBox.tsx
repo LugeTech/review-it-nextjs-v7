@@ -41,7 +41,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
                     alt="avatar"
                     width={40}
                     height={40}
-                    className=" rounded-full object-cover w-[40px] h-[40px]"
+                    className=" rounded-full object-cover w-[60px] h-[60px]"
                   />
                 ) : null}
                 {/* user name */}
@@ -68,12 +68,17 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
             <div className="  w-full flex flex-col  justify-start items-start pt-1">
               <Link href={`/fr/${review?.id}`} className=" text-base">
                 <p className="text-sm font-medium text-gray-800">{review.title}</p>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(review.body.slice(0, 90)),
-                  }}
-                  className="mb-4 text-sm text-gray-600"
-                />
+                <div className="flex flex-wrap ">
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(review.body.slice(0, 50)),
+                    }}
+                    className="mb-1 text-sm text-gray-600"
+                  />
+                  <span className="text-xs font-medium text-gray-500">{
+                    review.body.length > 50 ? "...Read full review" : ""
+                  }</span>
+                </div>
               </Link>
             </div>
             <div className=" w-full  tracking-tight ">
