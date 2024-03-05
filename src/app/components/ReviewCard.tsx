@@ -42,7 +42,6 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         />
       </div>
       {/* Sanitize the review body */}
-
       <div className="mb-4 px-4  rounded-md p-2 flex flex-col">
         <Link href={`/fr/${review.id}`} onClick={() => setReview(review)} className="hover:underline">
           <h1 className="text-lg font-semibold mb-1">{title}</h1>

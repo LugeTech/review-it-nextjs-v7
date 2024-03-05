@@ -46,7 +46,7 @@ const Reviews = ({ productId }: { productId: string }) => {
             <p className='text-center'>Reviews</p>
           </div>
           {reviews.map((review: iReview) => (
-            // NOTE reviewcard here
+            // NOTE: Review card here
             <ReviewCard key={review.id} review={review} />
           ))}
         </div>
