@@ -13,7 +13,7 @@
   <li>Review Validation and Moderation</li>
   <li>Business Profiles</li>
   <li>Trustworthiness and Transparency</li>
-  <li>TrustScore</li>
+  <li>ReviewIt Score</li>
   <li>Reporting and Flagging</li>
   <li>ReviewIt API</li>
   <li>Integrations</li>
@@ -65,9 +65,9 @@
 
 <p>ReviewIt is dedicated to fostering trustworthiness and transparency in the online review ecosystem. By encouraging authentic user experiences and enforcing review guidelines, ReviewIt aims to provide users with reliable information that helps them make informed decisions. Businesses are also encouraged to be transparent in their interactions and address customer feedback openly, further enhancing trust between businesses and consumers.</p>
 
-<h2>9. TrustScore</h2>
+<h2>9. ReviewIt Score</h2>
 
-<p>ReviewIt calculates a TrustScore for each business based on a combination of factors, including the overall rating, the number of reviews, and the recency of reviews. The TrustScore provides users with a quick assessment of a business's reputation and helps them gauge its reliability and credibility.</p>
+<p>ReviewIt calculates a ReviewIt Score for each business based on a combination of factors, including the overall rating, the number of reviews, and the recency of reviews. The ReviewIt Score provides users with a quick assessment of a business's reputation and helps them gauge its reliability and credibility.</p>
 
 <h2>10. Reporting and Flagging</h2>
 
