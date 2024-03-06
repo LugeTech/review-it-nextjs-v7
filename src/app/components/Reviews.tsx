@@ -8,7 +8,7 @@ import 'dayjs/locale/en'; // Import the English locale
 import ReviewCard from './ReviewCard';
 import Link from 'next/link';
 import WriteAReview from './WriteAReview';
-import { ReviewsSummary } from '@/components/reviews-summary';
+import ReviewsSummary from '@/components/reviews-summary';
 
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
@@ -34,12 +34,13 @@ const Reviews = ({ productId }: { productId: string }) => {
       <div className='flex w-full md:w-1/2 mx-auto '>
         <ProductCard
           // choosing the first review should be fine, just need to deal with 0 reviews
-          product={reviews[0]?.product!}
+          // NOTE: I have reviews here already why am i querying again inside the product card?
+          reviews={reviews}
           options={productCardOptions}
         />
       </div>
       <div className='flex w-full md:w-1/2 mx-auto '>
-        <ReviewsSummary />
+        <ReviewsSummary reviews={reviews} />
       </div>
       <div className='flex flex-col md:flex-row w-full justify-between items-center '>
         <WriteAReview />

@@ -12,7 +12,7 @@ import LoadingSpinner from './LoadingSpinner';
 import VerticalLinks from './VerticalLinks';
 
 interface ProductCardProps {
-  product: iProduct;
+  reviews: iReview[]
   options: {
     showLatestReview: boolean;
     size: string;
@@ -26,9 +26,10 @@ interface iCalculatedRating {
   numberOfReviews: number;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ reviews, options }) => {
   const [rating, setRating] = useState(0); // Initial value
   const [showModal, setShowModal] = useState(false);
+  const product = reviews[0].product
 
   // const ratingChanged = (newRating: number) => {
   //   setRating(newRating);
@@ -36,16 +37,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, options }) => {
   // };
 
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["reviews", product.id],
-    queryFn: () => getReviews(product.id!),
-    refetchOnWindowFocus: false,
-  }) as any
+  // const { data, isLoading, isError, error } = useQuery({
+  //   queryKey: ["reviews", product.id],
+  //   queryFn: () => getReviews(product.id!),
+  //   refetchOnWindowFocus: false,
+  // }) as any
 
-  const reviews = data?.data as iReview[]
+  // const reviews = data?.data as iReview[]
   const totalComments = reviews?.reduce((accumulator, review) => accumulator + review.comments.length, 0);
-  if (isLoading) return <LoadingSpinner />
-  if (isError) return <p>{error.message}</p>
+  // if (isLoading) return <LoadingSpinner />
+  // if (isError) return <p>{error.message}</p>
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
 
   let dynamicStyles: any = {};

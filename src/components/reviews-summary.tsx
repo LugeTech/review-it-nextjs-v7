@@ -5,13 +5,25 @@
 import Link from "next/link"
 
 import { Progress } from "@/components/ui/progress"
-export function ReviewsSummary() {
+import { iReview } from "@/app/util/Interfaces";
+interface SummaryCardProps {
+  reviews: iReview[]
+}
+interface iCalculatedRating {
+  roundedRating: number;
+  roundedRatingOneDecimalPlace: number;
+  numberOfReviews: number;
+}
+
+const ReviewsSummary: React.FC<SummaryCardProps> = ({ reviews }) => {
+  console.log(reviews)
+  const numberOfReviews = reviews.length
   return (
     <div className="w-full mx-auto items-center justify-between bg-white shadow-lg p-6 mt-3">
       <h2 className="text-xl font-semibold text-center">All Reviews</h2>
       <div className="flex flex-col mt-1 text-center">
         <p> 4.3 out of 5 </p>
-        <p className="text-xs text-gray-400">907 ratings</p>
+        <p className="text-xs text-gray-400">{numberOfReviews} Reviews</p>
       </div>
       <div className="mt-4 space-y-2 grid grid-rows-5">
 
@@ -68,3 +80,5 @@ function StarIcon(props: any) {
     </svg>
   )
 }
+
+export default ReviewsSummary
