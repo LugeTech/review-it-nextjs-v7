@@ -8,6 +8,7 @@ import 'dayjs/locale/en'; // Import the English locale
 import ReviewCard from './ReviewCard';
 import Link from 'next/link';
 import WriteAReview from './WriteAReview';
+import { ReviewsSummary } from '@/components/reviews-summary';
 
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
@@ -37,6 +38,7 @@ const Reviews = ({ productId }: { productId: string }) => {
           options={productCardOptions}
         />
       </div>
+      <ReviewsSummary />
       <div className='flex flex-col md:flex-row w-full justify-between items-center '>
         <WriteAReview />
       </div>
