@@ -7,7 +7,7 @@ import Link from "next/link"
 import { Progress } from "@/components/ui/progress"
 export function ReviewsSummary() {
   return (
-    <div className="max-w-md mx-auto items-center justify-between bg-white shadow-lg p-6 mt-3">
+    <div className="w-full mx-auto items-center justify-between bg-white shadow-lg p-6 mt-3">
       <h2 className="text-xl font-semibold text-center">All Reviews</h2>
       <div className="flex flex-col mt-1 text-center">
         <p> 4.3 out of 5 </p>

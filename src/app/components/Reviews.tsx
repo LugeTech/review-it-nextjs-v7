@@ -38,7 +38,9 @@ const Reviews = ({ productId }: { productId: string }) => {
           options={productCardOptions}
         />
       </div>
-      <ReviewsSummary />
+      <div className='flex w-full md:w-1/2 mx-auto '>
+        <ReviewsSummary />
+      </div>
       <div className='flex flex-col md:flex-row w-full justify-between items-center '>
         <WriteAReview />
       </div>

@@ -8,6 +8,8 @@ import DOMPurify from 'dompurify';
 import Link from 'next/link';
 import { useAtom } from "jotai";
 import { currentReviewAtom } from "../store/store";
+import { ThumbsUpButton } from '@/components/thumbsUpButton';
+import { ThumbsDownButton } from '@/components/thumbsDownButton';
 
 interface ReviewCardProps {
   review: iReview;
@@ -17,6 +19,13 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const { user, createdDate, title, body, rating, helpfulVotes, unhelpfulVotes, comments, product } = review;
   const [reviewAtom, setReview] = useAtom(currentReviewAtom);
   const formattedBody = body.replace(/<p><\/p>/g, '<br>'); // line breaks werent being rendered properly. this fixes that
+  const handleLikeClick = () => {
+    // do prisma call here
+  };
+
+  const handleDislikeClick = () => {
+    // make calls here
+  };
   return (
     <div className="p-2 border rounded shadow-md mb-2 bg-myTheme-light dark:bg-myTheme-dark hover:shadow-xl">
       <Link href={`/user/${review.user?.id}`} className="hover:bg-zinc-100 inline-flex px-2">
@@ -56,12 +65,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
 
       <div className="flex items-center justify-between">
         <div className="flex text-xs md:text-base ml-2">
-          <button className="mr-2">
-            <span className="text-gray-600 text-xs">({helpfulVotes || 0})</span> up icon
-          </button>
-          <button>
-            <span className="text-gray-600 text-xs">({unhelpfulVotes || 0})</span> down icon
-          </button>
+          <ThumbsUpButton onClick={handleLikeClick} count={10} />
+          <ThumbsDownButton onClick={handleDislikeClick} count={5} />
         </div>
         <Link href={`/fr/${review.id}`} onClick={() => setReview(review)}>
           <p className="text-gray-600 text-xs">{comments?.length > 0 ? `(${comments?.length} comments)` : '(0) comments'}</p>
