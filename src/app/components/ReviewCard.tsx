@@ -18,7 +18,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const [reviewAtom, setReview] = useAtom(currentReviewAtom);
   const formattedBody = body.replace(/<p><\/p>/g, '<br>'); // line breaks werent being rendered properly. this fixes that
   return (
-    <div className="p-4 border rounded shadow-md mb-4 bg-myTheme-light dark:bg-myTheme-dark hover:shadow-xl">
+    <div className="p-2 border rounded shadow-md mb-2 bg-myTheme-light dark:bg-myTheme-dark hover:shadow-xl">
       <Link href={`/user/${review.user?.id}`} className="hover:bg-zinc-100 inline-flex px-2">
         <div className="p-2 inline-flex items-center mb-2 border-b-2 border-gray-100 ">
           <Image src={user?.avatar || '/logo.png'} alt={user?.id!} width={40} height={40}
@@ -42,7 +42,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         />
       </div>
       {/* Sanitize the review body */}
-      <div className="mb-4 px-4  rounded-md p-2 flex flex-col">
+      <div className="mb-1 px-4  rounded-md p-2 flex flex-col">
         <Link href={`/fr/${review.id}`} onClick={() => setReview(review)} className="hover:underline">
           <h1 className="text-lg font-semibold mb-1">{title}</h1>
         </Link>
@@ -54,15 +54,15 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
       </div>
 
 
-      <div className="flex items-center">
-        {/* <div className="flex text-xs md:text-base ml-2"> */}
-        {/*   <button className="mr-2"> */}
-        {/*     <span className="text-gray-600">({helpfulVotes || 0})</span> up */}
-        {/*   </button> */}
-        {/*   <button> */}
-        {/*     <span className="text-gray-600">({unhelpfulVotes || 0})</span> down */}
-        {/*   </button> */}
-        {/* </div> */}
+      <div className="flex items-center justify-between">
+        <div className="flex text-xs md:text-base ml-2">
+          <button className="mr-2">
+            <span className="text-gray-600 text-xs">({helpfulVotes || 0})</span> up icon
+          </button>
+          <button>
+            <span className="text-gray-600 text-xs">({unhelpfulVotes || 0})</span> down icon
+          </button>
+        </div>
         <Link href={`/fr/${review.id}`} onClick={() => setReview(review)}>
           <p className="text-gray-600 text-xs">{comments?.length > 0 ? `(${comments?.length} comments)` : '(0) comments'}</p>
         </Link>
