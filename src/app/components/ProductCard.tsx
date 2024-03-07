@@ -1,3 +1,25 @@
+/**
+ * The ProductCard component is a React component that displays information about a product,
+ * including its image, name, address/description, rating, and number of reviews.
+ *
+ * The component can work in two modes:
+ * 1. If the `reviews` prop is provided, it will use those reviews to calculate the rating
+ *    and display the product information. In this case, the product data is taken from
+ *    the first review in the `reviews` array.
+ * 2. If the `reviews` prop is not provided, it will fetch the reviews from the server
+ *    using the `useQuery` hook from `@tanstack/react-query`. The product data is taken
+ *    from the `product` prop in this case.
+ *
+ * The component also handles the following options:
+ * - `showLatestReview`: Whether to show the link to the latest review.
+ * - `size`: The size of the rating stars.
+ * - `showWriteReview`: Whether to show the "Write Review" link.
+ * - `showClaimThisProduct`: Whether to show the "Claim this product" link.
+ *
+ * The component renders a card-like UI with the product image, name, address/description,
+ * rating stars, and other relevant information. It also includes a "Write Review" link
+ * that navigates to a review creation page with a pre-set rating of 3 stars.
+ */
 "use client"
 import { iProduct, iReview } from '@/app/util/Interfaces'; // Update with the actual path
 import Image from 'next/image';
@@ -12,13 +34,14 @@ import LoadingSpinner from './LoadingSpinner';
 import VerticalLinks from './VerticalLinks';
 
 interface ProductCardProps {
-  reviews: iReview[]
+  reviews?: iReview[] | null
   options: {
     showLatestReview: boolean;
     size: string;
     showWriteReview: boolean;
     showClaimThisProduct: boolean;
   };
+  product?: iProduct | null
 }
 interface iCalculatedRating {
   roundedRating: number;
@@ -26,28 +49,25 @@ interface iCalculatedRating {
   numberOfReviews: number;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ reviews, options }) => {
-  const [rating, setRating] = useState(0); // Initial value
+const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) => {
   const [showModal, setShowModal] = useState(false);
-  const product = reviews[0].product
 
-  // const ratingChanged = (newRating: number) => {
-  //   setRating(newRating);
-  //   setShowModal(true);
-  // };
+  const currentProduct = reviews && reviews.length > 0 ? reviews[0].product : product;
 
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["reviews", currentProduct?.id],
+    queryFn: () => getReviews(currentProduct?.id!),
+    refetchOnWindowFocus: false,
+    enabled: !!currentProduct && !reviews, // Only fetch if product is provided and reviews are not
+  }) as any
 
-  // const { data, isLoading, isError, error } = useQuery({
-  //   queryKey: ["reviews", product.id],
-  //   queryFn: () => getReviews(product.id!),
-  //   refetchOnWindowFocus: false,
-  // }) as any
+  const allReviews = reviews || data?.data || [];
+  const totalComments = allReviews.reduce((accumulator, review) => accumulator + review.comments.length, 0);
 
-  // const reviews = data?.data as iReview[]
-  const totalComments = reviews?.reduce((accumulator, review) => accumulator + review.comments.length, 0);
-  // if (isLoading) return <LoadingSpinner />
-  // if (isError) return <p>{error.message}</p>
-  let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
+  if (isLoading) return <LoadingSpinner />
+  if (isError) return <p>{error.message}</p>
+
+  let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(allReviews) as unknown as iCalculatedRating
 
   let dynamicStyles: any = {};
   if (roundedRating >= 4) {
@@ -60,21 +80,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options }) => {
     dynamicStyles.backgroundColor = '#FF0000';
     dynamicStyles.color = '#FFFFFF';
   }
+
   return (
     <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-white">
       <div className="flex flex-row">
-        <Link href={`/reviews?id=${product.id}`} className=' w-full'>
+        <Link href={`/reviews?id=${currentProduct?.id}`} className=' w-full'>
           {showModal && (
             <div className="fixed z-10 inset-0 overflow-y-auto">
-              <YesNoAlert message={`Write your own ${rating} star Review?`} />
+              <YesNoAlert message={`Write your own ${roundedRating} star Review?`} />
             </div>
           )}
           <div className="flex justify-start items-center gap-2 w-full">
-            {product.display_image && (
+            {currentProduct?.display_image && (
               <div className=" flex items-start justify-start">
                 <Image
-                  src={product.display_image}
-                  alt={`${product.name} Image`}
+                  src={currentProduct.display_image}
+                  alt={`${currentProduct.name} Image`}
                   className=" rounded-lg w-28 h-28 object-cover"
                   width={121}
                   height={121}
@@ -83,11 +104,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options }) => {
             )}
             <div className="mb-2 flex flex-col gap-2">
               <div className="flex flex-col">
-                <p className="text-base md:text-xl font-semibold ">{product.name}</p>
-                <p className="text-xs md:text-sm text-gray-700">{product.address || product.description}</p>
+                <p className="text-base md:text-xl font-semibold ">{currentProduct?.name}</p>
+                <p className="text-xs md:text-sm text-gray-700">{currentProduct?.address || currentProduct?.description}</p>
               </div>
-              {reviews && reviews.length > 0 ? <RatingModuleReadOnly
-                name={product.id!}
+              {allReviews.length > 0 ? <RatingModuleReadOnly
+                name={currentProduct?.id!}
                 rating={roundedRating!}
                 size={options.size}
               /> : "No Reviews Yet"}
@@ -95,12 +116,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options }) => {
                 <span className={`mr-auto rounded flex items-start text-xs md:text-base`}
                   style={dynamicStyles}
                 >{
-                    reviews && reviews.length > 0 ?
+                    allReviews.length > 0 ?
                       roundedRatingOneDecimalPlace!
-                      : <Link href={`/cr/?id=${product.id}&rating=3`} className="hover:underline p-0 ">Write Review</Link>
+                      : <Link href={`/cr/?id=${currentProduct?.id}&rating=3`} className="hover:underline p-0 ">Write Review</Link>
                   }
                   {
-                    reviews && reviews.length > 0 ?
+                    allReviews.length > 0 ?
                       ` (${numberOfReviews!} reviews)` : ''
                   }
                 </span>
@@ -115,15 +136,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options }) => {
         {options.showClaimThisProduct && (
           <p className="text-gray-400 hover:underline ">{'Claim this product'}</p>
         )}
-        {/* {options.showLatestReview && <Link href={'/products'} className="text-gray-400 hidden md:block">Last Review</Link>} */}
         <div id='reviews_operations_div' className="flex flex-row justify-end items-center ">
           {options.showWriteReview ? (
             <p className="text-gray-400">
-              {/* Created: {new Date(product.createdDate).toLocaleDateString()} */}
-              <Link href={`/cr/?id=${product.id}&rating=3`} className="text-gray-400 hover:underline"> Write Review</Link>
+              <Link href={`/cr/?id=${currentProduct?.id}&rating=3`} className="text-gray-400 hover:underline"> Write Review</Link>
             </p>
           ) : ''}
-
         </div>
       </div>
     </div>

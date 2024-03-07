@@ -50,7 +50,7 @@ const Page = () => {
         <div className='flex flex-col w-full lg:w-1/2 justify- items-center gap-2 rounded-lg'>
           {products.map((product: iProduct) => {
             return (
-              <ProductCard options={productCardOptions} product={product} key={product.id} />
+              <ProductCard options={productCardOptions} reviews={null} product={product} key={product.id} />
             )
           })}
         </div>

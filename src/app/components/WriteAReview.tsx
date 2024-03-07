@@ -7,7 +7,7 @@ import { useAuth } from "@clerk/nextjs";
 import Image from 'next/image'
 import RatingModule from './RatingModule';
 import { useState } from 'react';
-import { useRouter, useParams, useSearchParams} from 'next/navigation';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
 
 const Page = () => {
   const [rating, setRating] = useState(3); // Initial value
@@ -35,8 +35,10 @@ const Page = () => {
 
   return (
     <div className='flex flex-col w-full rounded-lg shadow-sm p-2 mt-2 justify-center items-center border-b-2 border-gray-200  '>
-      <Image src={user?.avatar!} width={48} height={48} alt='avatar' className='rounded-full w-12 h-12' />
-      <p className='text-sm'>{user?.userName} write a review now!</p>
+      <div className='flex flex-row gap-2 items-center'>
+        <Image src={user?.avatar!} width={48} height={48} alt='avatar' className='rounded-full w-12 h-12' />
+        <p className='text-sm'>{user?.userName} write a review now!</p>
+      </div>
       <p className='text-sm'>How many stars?</p>
       {<RatingModule
         name={Date.now().toString()}

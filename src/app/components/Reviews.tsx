@@ -37,6 +37,7 @@ const Reviews = ({ productId }: { productId: string }) => {
           // NOTE: I have reviews here already why am i querying again inside the product card?
           reviews={reviews}
           options={productCardOptions}
+          product={null}
         />
       </div>
       <div className='flex w-full md:w-1/2 mx-auto '>
