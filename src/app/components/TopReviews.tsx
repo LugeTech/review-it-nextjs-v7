@@ -10,7 +10,7 @@ const TopReviews = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["latestReviews"],
     queryFn: () => getLatestReviews(),
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
     // refetchOnMount: "always"
   }) as any;
 

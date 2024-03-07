@@ -15,7 +15,7 @@ export default async function Home() {
             {/* this is the top reviews container*/}
             <div className="flex w-full flex-row px-4 md:px-2">
               <TopReviews />
-              c           </div>
+            </div>
             {/* business of the day */}
             <div className="mb-4 mt-4 flex w-full flex-col justify-center">
               <div className="text-md mx-4 flex items-center justify-center">

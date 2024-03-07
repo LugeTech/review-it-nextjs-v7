@@ -16,7 +16,6 @@ interface iCalculatedRating {
 }
 
 const ReviewsSummary: React.FC<SummaryCardProps> = ({ reviews }) => {
-  console.log(reviews)
   const numberOfReviews = reviews.length
   return (
     <div className="w-full mx-auto items-center justify-between bg-white shadow-lg p-6 mt-3">
