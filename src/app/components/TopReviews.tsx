@@ -13,6 +13,7 @@ const TopReviews = () => {
     refetchOnWindowFocus: false,
     // refetchOnMount: "always"
   }) as any;
+  if (isError) return <div>Error</div>;
 
   let reviews = data?.data as iReview[];
 
