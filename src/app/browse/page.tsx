@@ -11,6 +11,7 @@ import ProductCard from '../components/ProductCard';
 import { useAtom } from 'jotai';
 import { allProductsAtom } from '../store/store';
 import { useEffect } from 'react';
+import FullProductCard from '@/components/full-pruduct-card';
 
 const Page = () => {
 
@@ -50,7 +51,7 @@ const Page = () => {
         <div className='flex flex-col w-full lg:w-1/2 justify- items-center gap-2 rounded-lg'>
           {products.map((product: iProduct) => {
             return (
-              <ProductCard options={productCardOptions} reviews={null} product={product} key={product.id} />
+              <FullProductCard options={productCardOptions} reviews={null} product={product} key={product.id} />
             )
           })}
         </div>

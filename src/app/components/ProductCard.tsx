@@ -62,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
   }) as any
 
   const allReviews = reviews || data?.data || [];
-  const totalComments = allReviews.reduce((accumulator, review) => accumulator + review.comments.length, 0);
+  // const totalComments = allReviews.reduce((accumulator, review) => accumulator + review.comments.length, 0);
 
   if (isLoading) return <LoadingSpinner />
   if (isError) return <p>{error.message}</p>
