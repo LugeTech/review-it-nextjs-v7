@@ -1,6 +1,4 @@
 'use client'
-// on here you will be able to browse all data tables based on how you filter them
-// businesses, services, products, etc
 import { iProduct } from '@/app/util/Interfaces';
 import { getProducts } from "@/app/util/serverFunctions";
 import { useQuery, } from "@tanstack/react-query";

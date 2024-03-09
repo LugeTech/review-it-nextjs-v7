@@ -1,9 +1,7 @@
-
 import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  // console.log("POST /api/reviews");
   interface Body {
     id: string;
     isPublic: boolean;
@@ -13,27 +11,42 @@ export async function POST(request: NextRequest) {
   }
 
   const body: Body = await request.json();
+
   try {
     const reviews = await prisma.review.findMany({
       where: { isPublic: body.isPublic, productId: body.id },
       orderBy: {
-        createdDate: 'desc',
+        createdDate: "desc",
       },
       include: {
-        user: true,
-        product: true,
-        comments: {
-          include: {
-            user: true,
-          },
-        },
-
+        user: body.user,
+        product: body.product,
+        comments: body.comments
+          ? {
+            include: {
+              user: true,
+            },
+          }
+          : false,
       },
     });
+
+    let product = null;
+
+    // If no reviews found, fetch the product details
+    if (reviews.length === 0) {
+      product = await prisma.product.findUnique({
+        where: { id: body.id },
+      });
+    }
+
     return NextResponse.json({
       success: true,
       status: 200,
-      data: reviews,
+      data: {
+        reviews,
+        product,
+      },
     });
   } catch (error) {
     let e = error as Error;
