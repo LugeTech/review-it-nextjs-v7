@@ -27,8 +27,22 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const reviews = data?.data as iReview[]
-  if (reviews.length === 0) return <Link href={`/cr?id=${productId}&rating=3`} className='text-center underline'>No reviews yet click here to add one</Link>
-
+  if (reviews.length === 0) {
+    return (
+      <div className='flex flex-col w-full h-full p-2  sm:pt-8 '>
+        <div className='flex w-full md:w-1/2 mx-auto '>
+          <ProductCard
+            // choosing the first review should be fine, just need to deal with 0 reviews
+            // NOTE: I have reviews here already why am i querying again inside the product card?
+            options={productCardOptions}
+            reviews={reviews}
+            product={null}
+          />
+        </div>
+        <Link href={`/cr?id=${productId}&rating=3`} className='text-center underline'>No reviews yet click here to add one</Link>
+      </div>
+    )
+  }
   return (
     <div className='flex flex-col w-full h-full p-2  sm:pt-8 '>
       <div className='flex w-full md:w-1/2 mx-auto '>

@@ -58,7 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
     queryKey: ["reviews", currentProduct?.id],
     queryFn: () => getReviews(currentProduct?.id!),
     refetchOnWindowFocus: false,
-    enabled: !!currentProduct && !reviews, // Only fetch if product is provided and reviews are not
+    enabled: !!currentProduct && !reviews,
   }) as any
 
   const allReviews = reviews || data?.data || [];
@@ -85,20 +85,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
     <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-white">
       <div className="flex flex-row">
         <Link href={`/reviews?id=${currentProduct?.id}`} className=' w-full'>
-          {showModal && (
-            <div className="fixed z-10 inset-0 overflow-y-auto">
-              <YesNoAlert message={`Write your own ${roundedRating} star Review?`} />
-            </div>
-          )}
           <div className="flex justify-start items-center gap-2 w-full">
             {currentProduct?.display_image && (
               <div className=" flex items-start justify-start">
                 <Image
                   src={currentProduct.display_image}
                   alt={`${currentProduct.name} Image`}
-                  className=" rounded-lg w-28 h-28 object-cover"
-                  width={121}
-                  height={121}
+                  className=" rounded-lg w-24 h-24 object-cover"
+                  width={96}
+                  height={96}
                 />
               </div>
             )}
@@ -107,31 +102,37 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
                 <p className="text-base md:text-xl font-semibold ">{currentProduct?.name}</p>
                 <p className="text-xs md:text-sm text-gray-700">{currentProduct?.address || currentProduct?.description}</p>
               </div>
-              {allReviews.length > 0 ? <RatingModuleReadOnly
-                name={currentProduct?.id!}
-                rating={roundedRating!}
-                size={options.size}
-              /> : "No Reviews Yet"}
+              {allReviews.length > 0 ? (
+                <RatingModuleReadOnly
+                  name={currentProduct?.id!}
+                  rating={roundedRating!}
+                  size={options.size}
+                />
+              ) : (
+                "No Reviews Yet"
+              )}
               <div className="flex gap-2">
-                <span className={`mr-auto rounded flex items-start text-xs md:text-base`}
-                  style={dynamicStyles}
-                >{
-                    allReviews.length > 0 ?
-                      roundedRatingOneDecimalPlace!
-                      : <Link href={`/cr/?id=${currentProduct?.id}&rating=3`} className="hover:underline p-0 ">Write Review</Link>
-                  }
-                  {
-                    allReviews.length > 0 ?
-                      ` (${numberOfReviews!} reviews)` : ''
-                  }
+                <span className={`mr-auto rounded flex items-start text-xs md:text-base`} style={dynamicStyles}>
+                  {allReviews.length > 0 ? (
+                    <>
+                      {roundedRatingOneDecimalPlace!}
+                      {`(${numberOfReviews!} reviews)`}
+                    </>
+                  ) : (
+                    "No Reviews Yet"
+                  )}
                 </span>
+                {allReviews.length === 0 && (
+                  <Link href={`/cr/?id=${currentProduct?.id}&rating=3`} className="hover:underline p-0 ">
+                    Write Review
+                  </Link>
+                )}
               </div>
             </div>
           </div>
         </Link>
         <VerticalLinks />
       </div>
-
       <div className="flex text-xs md:text-base justify-between items-center border-t-2">
         {options.showClaimThisProduct && (
           <p className="text-gray-400 hover:underline ">{'Claim this product'}</p>
@@ -139,13 +140,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
         <div id='reviews_operations_div' className="flex flex-row justify-end items-center ">
           {options.showWriteReview ? (
             <p className="text-gray-400">
-              <Link href={`/cr/?id=${currentProduct?.id}&rating=3`} className="text-gray-400 hover:underline"> Write Review</Link>
+              <Link href={`/cr/?id=${currentProduct?.id}&rating=3`} className="text-gray-400 hover:underline">
+                Write Review
+              </Link>
             </p>
           ) : ''}
         </div>
       </div>
     </div>
-  );
+  )
 };
 
 export default ProductCard;
