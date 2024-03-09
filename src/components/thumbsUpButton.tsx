@@ -15,7 +15,7 @@ export function ThumbsUpButton({ onClick, count }: ThumbsUpButtonProps) {
     >
       <div className="flex items-center space-x-1">
         <ThumbsUpIcon className="w-4 h-4" />
-        <span className="font-semibold">Like</span>
+        <span className="font-semibold">Helpful</span>
       </div>
       <span className="text-sm font-medium text-gray-500">{count}</span>
     </Button>
