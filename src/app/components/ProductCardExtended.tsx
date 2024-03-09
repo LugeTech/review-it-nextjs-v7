@@ -1,27 +1,6 @@
-/**
- * The ProductCard component is a React component that displays information about a product,
- * including its image, name, address/description, rating, and number of reviews.
- *
- * The component can work in two modes:
- * 1. If the `reviews` prop is provided, it will use those reviews to calculate the rating
- *    and display the product information. In this case, the product data is taken from
- *    the first review in the `reviews` array.
- * 2. If the `reviews` prop is not provided, it will fetch the reviews from the server
- *    using the `useQuery` hook from `@tanstack/react-query`. The product data is taken
- *    from the `product` prop in this case.
- *
- * The component also handles the following options:
- * - `showLatestReview`: Whether to show the link to the latest review.
- * - `size`: The size of the rating stars.
- * - `showWriteReview`: Whether to show the "Write Review" link.
- * - `showClaimThisProduct`: Whether to show the "Claim this product" link.
- *
- * The component renders a card-like UI with the product image, name, address/description,
- * rating stars, and other relevant information. It also includes a "Write Review" link
- * that navigates to a review creation page with a pre-set rating of 3 stars.
- */
+
 "use client"
-import { iProduct, iReview } from '@/app/util/Interfaces'; // Update with the actual path
+import { iProduct, iReview } from '@/app/util/Interfaces';
 import Image from 'next/image';
 import RatingModuleReadOnly from './RatingModuleReadOnly';
 import { useState } from 'react';
@@ -49,7 +28,7 @@ interface iCalculatedRating {
   numberOfReviews: number;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) => {
+const ProductCardExtended: React.FC<ProductCardProps> = ({ reviews, options, product }) => {
   const [showModal, setShowModal] = useState(false);
 
   const currentProduct = reviews && reviews.length > 0 ? reviews[0].product : product;
@@ -109,22 +88,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
                   size={options.size}
                 />
               ) : (
-                "No Reviews Yet"
+                "No ratings yet"
               )}
-              <div className="flex gap-2">
-                <span className={`mr-auto rounded flex items-start text-xs md:text-base`} style={dynamicStyles}>
+              <div className="flex gap-1 text-xs md:text-base">
+                <span className={`mr-0 rounded flex items-start `} style={dynamicStyles}>
                   {allReviews.length > 0 ? (
                     <>
                       {roundedRatingOneDecimalPlace!}
                       {`(${numberOfReviews!} reviews)`}
                     </>
                   ) : (
-                    "No Reviews Yet"
+                    "No Reviews"
                   )}
                 </span>
                 {allReviews.length === 0 && (
                   <Link href={`/cr/?id=${currentProduct?.id}&rating=3`} className="hover:underline p-0 ">
-                    Write Review
+                    write first review
                   </Link>
                 )}
               </div>
@@ -141,7 +120,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
           {options.showWriteReview ? (
             <p className="text-gray-400">
               <Link href={`/cr/?id=${currentProduct?.id}&rating=3`} className="text-gray-400 hover:underline">
-                Write Review
+                Write First Review
               </Link>
             </p>
           ) : ''}
@@ -151,4 +130,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
   )
 };
 
-export default ProductCard;
+export default ProductCardExtended;

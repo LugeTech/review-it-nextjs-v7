@@ -1,9 +1,10 @@
 "use client"
-import { iReview } from '../util/Interfaces'
+import { iProduct, iReview } from '../util/Interfaces'
 import { useQuery } from '@tanstack/react-query';
 import { getReviews } from '../util/serverFunctions';
 import LoadingSpinner from './LoadingSpinner';
 import ProductCard from './ProductCard';
+import ProductCardExtended from './ProductCardExtended';
 import 'dayjs/locale/en'; // Import the English locale
 import ReviewCard from './ReviewCard';
 import Link from 'next/link';
@@ -26,17 +27,16 @@ const Reviews = ({ productId }: { productId: string }) => {
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
-  const reviews = data?.data as iReview[]
+  const reviews = data?.data.reviews as iReview[]
   if (reviews.length === 0) {
+    const productIfNoReviews = data.data.product as iProduct
     return (
       <div className='flex flex-col w-full h-full p-2  sm:pt-8 '>
         <div className='flex w-full md:w-1/2 mx-auto '>
-          <ProductCard
-            // choosing the first review should be fine, just need to deal with 0 reviews
-            // NOTE: I have reviews here already why am i querying again inside the product card?
+          <ProductCardExtended
             options={productCardOptions}
             reviews={reviews}
-            product={null}
+            product={productIfNoReviews}
           />
         </div>
         <Link href={`/cr?id=${productId}&rating=3`} className='text-center underline'>No reviews yet click here to add one</Link>
@@ -47,8 +47,6 @@ const Reviews = ({ productId }: { productId: string }) => {
     <div className='flex flex-col w-full h-full p-2  sm:pt-8 '>
       <div className='flex w-full md:w-1/2 mx-auto '>
         <ProductCard
-          // choosing the first review should be fine, just need to deal with 0 reviews
-          // NOTE: I have reviews here already why am i querying again inside the product card?
           reviews={reviews}
           options={productCardOptions}
           product={null}
@@ -66,7 +64,6 @@ const Reviews = ({ productId }: { productId: string }) => {
             <p className='text-center'>Reviews</p>
           </div>
           {reviews.map((review: iReview) => (
-            // NOTE: Review card here
             <ReviewCard key={review.id} review={review} />
           ))}
         </div>
