@@ -89,12 +89,10 @@ const ReviewForm = () => {
 
       if (response.ok) {
         router.push(`/reviews?id=${id}`);
-        // console.log("response ok", response);
-        // const responseData = await response.json();
-        // console.log(responseData);
       } else {
         const errorData = await response.json();
         console.log(errorData);
+        // TODO: display error on the frontend also useMutation
       }
     } catch (error) {
       let err = error as Error;
