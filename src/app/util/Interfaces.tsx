@@ -1,42 +1,6 @@
-export interface iReview {
-  id: string | null;
-  body: string;
-  createdDate: Date;
-  helpfulVotes?: number | null;
-  rating: number;
-  title: string;
-  unhelpfulVotes?: number | null;
-  product?: iProduct | null;
-  user?: iUser | null;
-  productId: string;
-  userId: string;
-  isVerified?: boolean | null;
-  verifiedBy?: string | null;
-  isPublic: boolean;
-  images: string[];
-  videos: string[];
-  links: string[];
-  createdBy?: string | null;
-  isDeleted?: boolean | null;
-  comments: iComment[];
-}
-
-export interface iComment {
-  id?: string;
-  user?: iUser; // identifier for the user who wrote the comment
-  userId?: string;
-  body: string; // the text of the comment
-  helpfulVotes?: number; // the number of helpful votes the review has received
-  unhelpfulVotes?: number; // the number of unhelpful votes the review has received
-  review?: iReview; // identifier for the review the comment is on
-  reviewId: string;
-  createdDate?: Date;
-  isDeleted?: boolean;
-}
-
 export interface iProduct {
-  id?: string;
-  address: string | null;
+  id: string;
+  address?: string;
   createdDate: Date;
   description: string;
   display_image: string;
@@ -45,15 +9,75 @@ export interface iProduct {
   links: string[];
   name: string;
   tags: string[];
-  openingHrs: string | null;
-  closingHrs: string | null;
-  telephone: string | null;
+  openingHrs?: string;
+  closingHrs?: string;
+  telephone?: string;
   website: string[];
   rating: number;
-  hasOwner: boolean | null;
-  ownerId: string | null;
+  hasOwner?: boolean;
+  ownerId?: string;
+  reviews: iReview[];
+  createdBy?: User | null;
   createdById: string;
   isDeleted: boolean;
+}
+
+export interface iVoteCount {
+  id: string;
+  reviewId: string;
+  review: iReview;
+  helpfulVotes: number;
+  unhelpfulVotes: number;
+}
+
+export interface iReview {
+  id: string;
+  body: string;
+  createdDate: Date;
+  helpfulVotes: number;
+  unhelpfulVotes: number;
+  rating: number;
+  title: string;
+  product?: iProduct | null;
+  user?: User | null;
+  productId: string;
+  userId: string;
+  isVerified?: boolean;
+  verifiedBy?: string;
+  isPublic: boolean;
+  images: string[];
+  videos: string[];
+  links: string[];
+  createdBy?: string;
+  isDeleted?: boolean;
+  comments: Comment[];
+  voteCount?: iVoteCount | null;
+}
+
+export interface iComment {
+  id: string;
+  body: string;
+  createdDate: Date;
+  review: iReview;
+  user: iUser;
+  reviewId: string;
+  userId: string;
+  isDeleted?: boolean;
+}
+
+export interface iUser {
+  id: string;
+  userName: string;
+  avatar?: string;
+  createdDate: Date;
+  email: string;
+  firstName: string;
+  lastName: string;
+  reviews: iReview[];
+  clerkUserId: string;
+  product: iProduct[];
+  isDeleted?: boolean;
+  comments: Comment[];
 }
 
 export interface iService {
@@ -63,19 +87,6 @@ export interface iService {
   images?: string[];
   createdDate?: Date;
   address?: string;
-}
-
-export interface iUser {
-  id?: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  avatar?: string;
-  createdDate?: Date;
-  comments?: iComment[];
-  reviews?: iReview[];
-  product?: iProduct[];
-  userName?: string;
 }
 
 export interface iImage {
