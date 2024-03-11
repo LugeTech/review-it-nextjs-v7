@@ -73,7 +73,6 @@ export async function POST(request: NextRequest) {
 
     try {
       const clerkUserId = clerkUserData!.publicMetadata.id as string;
-      console.log("************", clerkUserId)
       const createdProduct: iProduct = await prisma.product.create({
         data: {
           name: product.name,

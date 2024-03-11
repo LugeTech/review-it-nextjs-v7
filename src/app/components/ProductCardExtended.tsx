@@ -5,7 +5,7 @@ import Image from 'next/image';
 import RatingModuleReadOnly from './RatingModuleReadOnly';
 import { useState } from 'react';
 import Link from 'next/link';
-import YesNoAlert from './YesNoAlert';
+// import YesNoAlert from './YesNoAlert';
 import { useQuery } from '@tanstack/react-query';
 import { getReviews } from '../util/serverFunctions';
 import { calculateAverageReviewRating } from '../util/calculateAverageReviewRating';

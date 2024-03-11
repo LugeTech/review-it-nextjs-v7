@@ -49,6 +49,11 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
     dynamicStyles.backgroundColor = '#FF0000';
     dynamicStyles.color = '#FFFFFF';
   }
+  //NOTE: this is a hack and we should have it.
+  let productAddress = ""
+  if (product.address) {
+    productAddress = product.address
+  }
   return (
     <div className="flex flex-col w-full rounded-lg shadow-md p-1 bg-white justify-start items-start">
       <Link href={`/reviews?id=${product.id}`} className=' hover:underline  w-full'>
@@ -67,7 +72,7 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
           <div className="mb-1 flex flex-col gap-1 w-3/4">
             <div className="flex flex-col ">
               <h2 className="text-sm text-black font-semibold flex justify-start items-start">{product.name}</h2>
-              <h2 className="text-xs text-gray-500 font-thin flex justify-start items-start">{product.address.length > 100 ? product.address.slice(0, 100) + "..." : product.address}</h2>
+              <h2 className="text-xs text-gray-500 font-thin flex justify-start items-start">{productAddress.length > 100 ? productAddress.slice(0, 100) + "..." : productAddress}</h2>
             </div>
             {<RatingModule
               name={product.id!}

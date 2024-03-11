@@ -2,7 +2,7 @@ import React from "react";
 import { iComment } from "@/app/util/Interfaces";
 import dayjs from "dayjs";
 import Image from "next/image";
-import Votes from "./Votes";
+// import Votes from "./Votes";
 interface CommentProps {
   comment: iComment;
 }
@@ -35,7 +35,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
           : comment.body}
       </div>
       {/* <p className="text-gray-700">{comment.body}</p> */}
-      <Votes element={comment} />
+      {/* <Votes element={comment} /> */}
     </div>
   );
 };

@@ -37,9 +37,9 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         newData.isDeleted = false;
         newData.user = currentUser; // this works i just need to get my user
         let iReviewOldData: iReview = { ...oldData };
-        iReviewOldData.comments.push(newData);
+        iReviewOldData?.comments!.push(newData);
         // reverse the comments array
-        iReviewOldData.comments = iReviewOldData.comments.reverse();
+        iReviewOldData.comments = iReviewOldData?.comments!.reverse();
         return { ...iReviewOldData };
       });
     },
@@ -124,9 +124,9 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       <div className="space-y-1 mt-2 gap-1 flex flex-col w-full justify-end items-end ">
         <h2>Comments</h2>
         {/* arrange comments from newest to oldest */}
-        {review?.comments?.length > 0 ? (
+        {review?.comments!.length > 0 ? (
           <>
-            {review?.comments
+            {review?.comments!
               .slice()
               .sort(
                 (a, b) =>

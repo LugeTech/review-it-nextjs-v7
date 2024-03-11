@@ -32,15 +32,12 @@ const ReviewForm = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [error, setError] = useState<string | null>(null);
   const [reviewData, setReviewData] = useState<iReview>({
-    id: null,
     body: "",
     createdDate: new Date(),
     rating: rating,
     title: "",
     productId: id,
     userId: user?.publicMetadata.id! as string,
-    isVerified: null,
-    verifiedBy: null,
     isPublic: true,
     images: [],
     videos: [],

@@ -1,6 +1,6 @@
 export interface iProduct {
-  id: string;
-  address?: string;
+  id?: string;
+  address?: string | null;
   createdDate: Date;
   description: string;
   display_image: string;
@@ -9,14 +9,14 @@ export interface iProduct {
   links: string[];
   name: string;
   tags: string[];
-  openingHrs?: string;
-  closingHrs?: string;
-  telephone?: string;
+  openingHrs?: string | null;
+  closingHrs?: string | null;
+  telephone?: string | null;
   website: string[];
   rating: number;
-  hasOwner?: boolean;
-  ownerId?: string;
-  reviews: iReview[];
+  hasOwner?: boolean | null;
+  ownerId?: string | null;
+  reviews?: iReview[];
   createdBy?: iUser | null;
   createdById: string;
   isDeleted: boolean;
@@ -31,15 +31,15 @@ export interface iVoteCount {
 }
 
 export interface iReview {
-  id: string;
+  id?: string;
   body: string;
-  createdDate: Date;
-  helpfulVotes: number;
-  unhelpfulVotes: number;
+  createdDate?: Date;
+  helpfulVotes?: number;
+  unhelpfulVotes?: number;
   rating: number;
   title: string;
   product?: iProduct | null;
-  user?: User | null;
+  user?: iUser | null;
   productId: string;
   userId: string;
   isVerified?: boolean;
@@ -50,18 +50,18 @@ export interface iReview {
   links: string[];
   createdBy?: string;
   isDeleted?: boolean;
-  comments: Comment[];
+  comments: iComment[];
   voteCount?: iVoteCount | null;
 }
 
 export interface iComment {
-  id: string;
+  id?: string;
   body: string;
-  createdDate: Date;
-  review: iReview;
-  user: iUser;
+  createdDate?: Date;
+  review?: iReview;
+  user?: iUser;
   reviewId: string;
-  userId: string;
+  userId?: string;
   isDeleted?: boolean;
 }
 
@@ -77,7 +77,7 @@ export interface iUser {
   clerkUserId: string;
   product: iProduct[];
   isDeleted?: boolean;
-  comments: Comment[];
+  comments: iComment[];
 }
 
 export interface iService {
