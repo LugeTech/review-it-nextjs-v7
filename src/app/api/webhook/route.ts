@@ -4,6 +4,7 @@ import { WebhookEvent, clerkClient } from '@clerk/nextjs/server'
 import { prisma } from '@/app/util/prismaClient'
 import { UserCreatedEvent } from '@/app/util/Interfaces';
 export async function POST(req: Request) {
+  console.log("Adding new user to cockroach")
 
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET

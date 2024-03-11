@@ -76,7 +76,7 @@ export async function POST(req: Request) {
   // await clerkclient.users.updateuser(payload.data.id, {
   //   publicmetadata: { userindb: true, id: user.id },
   // });
-  console.log('user created in db from webhook - new user signup', user)
+  console.log('user created in db from webhook - User edited profile', user)
 
   return new Response('', { status: 201 })
 }

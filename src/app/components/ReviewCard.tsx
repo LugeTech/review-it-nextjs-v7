@@ -23,9 +23,6 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
     updateHelpfulVote(review.id!);
   };
 
-  // const handleDislikeClick = () => {
-  //   // make calls here
-  // };
   return (
     <div className="p-2 border rounded shadow-md mb-2 bg-myTheme-light dark:bg-myTheme-dark hover:shadow-xl">
       <Link href={`/user/${review.user?.id}`} className="hover:bg-zinc-100 inline-flex px-2">

@@ -33,7 +33,7 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
     refetchOnWindowFocus: false,
   }) as any
 
-  const reviews = data?.data as iReview[]
+  const reviews = data?.data.reviews as iReview[]
   if (isLoading) return <LoadingSpinner />
   if (isError) return <p>{error.message}</p>
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating

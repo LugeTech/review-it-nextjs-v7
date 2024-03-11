@@ -13,10 +13,10 @@ const RatingModule = ({
   size: string;
 }) => {
   const customRed = "bg-red-600";
-  const customOrange = "bg-orange-400";
-  const customYellow = "bg-yellow-400";
-  const customLightGreen = "bg-lime-400";
-  const customGreen = "bg-green-400";
+  const customOrange = "bg-orange-500";
+  const customYellow = "bg-yellow-500";
+  const customLightGreen = "bg-lime-500";
+  const customGreen = "bg-green-500";
 
   // depending on the rating change the input bg color
 
@@ -37,7 +37,7 @@ const RatingModule = ({
   return (
     <div className="flex flex-grow-0">
       <div
-        className={` w-auto rating gap-1 ${size} items-center justify-center  p-1 rounded-md bg-gray-600 `}
+        className={` w-auto rating gap-1 ${size} items-center justify-center  p-1 rounded-md bg-gray-700 `}
       >
         <input
           type="radio"
