@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { iProduct} from '../util/Interfaces';
+import { iProduct } from '../util/Interfaces';
 import { resizeImage } from '../util/clientFunctions';
 import { uploadImageToCloudinary } from '../util/uploadImageToCloudinary';
 import { useMutation } from '@tanstack/react-query';
@@ -68,9 +68,8 @@ const NewProductForm = (): JSX.Element => {
       const data = await response.json();
       return data;
     },
-    onSuccess: (data: iProduct) => {
-      console.log('this is success');
-      //send user to /browse
+    onSuccess: () => {
+      // console.log('this is success and here is the data', data);
       router.push('/browse');
     },
     onError: (error: Error) => {
