@@ -2,7 +2,6 @@ import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
 // import Token from "./components/Token";
-// Opt out of caching for all data requests in the route segment
 export default async function Home() {
   return (
     <div className="flex flex-1 flex-col justify-center  bg-myTheme-lightbg dark:bg-myTheme-dark dark:text-myTheme-light">

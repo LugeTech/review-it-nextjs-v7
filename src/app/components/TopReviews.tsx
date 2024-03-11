@@ -10,9 +10,10 @@ const TopReviews = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["latestReviews"],
     queryFn: () => getLatestReviews(),
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
     // refetchOnMount: "always"
   }) as any;
+  if (isError) return <div>Error</div>;
 
   let reviews = data?.data as iReview[];
 
@@ -24,7 +25,7 @@ const TopReviews = () => {
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-4 md:gap-4 ">
         {reviews?.length > 0 &&
-          reviews.map((review, index) => {
+          reviews?.map((review, index) => {
             return <ReviewBox key={index} review={review} />;
           })}
       </div>

@@ -2,7 +2,7 @@ import { AiOutlineHome, AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 
 const VerticalLinks = () => {
   return (
-    <div className="flex flex-col justify-between p-2 text-2xl md:text-3xl text-gray-500 border-l-2">
+    <div className="flex flex-col justify-between p-2 text-2xl md:text-3xl text-gray-500 ">
       <div className="shadow-sm p-2 hover:shadow-md">
         <AiOutlineHome />
       </div>

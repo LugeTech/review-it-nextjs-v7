@@ -33,7 +33,7 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
     refetchOnWindowFocus: false,
   }) as any
 
-  const reviews = data?.data as iReview[]
+  const reviews = data?.data.reviews as iReview[]
   if (isLoading) return <LoadingSpinner />
   if (isError) return <p>{error.message}</p>
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
@@ -50,7 +50,7 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
     dynamicStyles.color = '#FFFFFF';
   }
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md p-2 bg-white justify-start items-start">
+    <div className="flex flex-col w-full rounded-lg shadow-md p-1 bg-white justify-start items-start">
       <Link href={`/reviews?id=${product.id}`} className=' hover:underline  w-full'>
         <div className="flex justify-start items-center gap-2">
           {product.display_image && (
@@ -58,16 +58,16 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
               <Image
                 src={product.display_image}
                 alt={`${product.name} Image`}
-                className=" rounded-lg w-20 h-20 object-cover"
-                width={80}
-                height={80}
+                className=" rounded-lg w-16 h-16 object-cover"
+                width={64}
+                height={64}
               />
             </div>
           )}
-          <div className="mb-1 flex flex-col gap-2 w-3/4">
+          <div className="mb-1 flex flex-col gap-1 w-3/4">
             <div className="flex flex-col ">
-              <h2 className="text-md text-black font-semibold flex justify-start items-start">{product.name}</h2>
-              <h2 className="text-xs text-gray-500 font-thin flex justify-start items-start">{product.description.length > 100 ? product.description.slice(0, 100) + "..." : product.description}</h2>
+              <h2 className="text-sm text-black font-semibold flex justify-start items-start">{product.name}</h2>
+              <h2 className="text-xs text-gray-500 font-thin flex justify-start items-start">{product.address.length > 100 ? product.address.slice(0, 100) + "..." : product.address}</h2>
             </div>
             {<RatingModule
               name={product.id!}

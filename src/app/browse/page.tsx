@@ -1,6 +1,4 @@
 'use client'
-// on here you will be able to browse all data tables based on how you filter them
-// businesses, services, products, etc
 import { iProduct } from '@/app/util/Interfaces';
 import { getProducts } from "@/app/util/serverFunctions";
 import { useQuery, } from "@tanstack/react-query";
@@ -11,6 +9,7 @@ import ProductCard from '../components/ProductCard';
 import { useAtom } from 'jotai';
 import { allProductsAtom } from '../store/store';
 import { useEffect } from 'react';
+// import FullProductCard from '@/components/full-pruduct-card';
 
 const Page = () => {
 
@@ -18,6 +17,7 @@ const Page = () => {
     queryKey: ["products"],
     queryFn: getProducts,
     refetchOnWindowFocus: false,
+
   }) as any
 
   const [_, setCurrentProduct] = useAtom(allProductsAtom);
@@ -34,11 +34,10 @@ const Page = () => {
 
   const productCardOptions = {
     showLatestReview: true,
-    size: 'rating-md',
+    size: 'rating-',
     showWriteReview: true,
     showClaimThisProduct: true
   }
-
 
   return (
     <div className='flex flex-col w-full h-full p-2  sm:pt-8 bg-myTheme-lightbg'>
@@ -50,7 +49,7 @@ const Page = () => {
         <div className='flex flex-col w-full lg:w-1/2 justify- items-center gap-2 rounded-lg'>
           {products.map((product: iProduct) => {
             return (
-              <ProductCard options={productCardOptions} product={product} key={product.id} />
+              <ProductCard options={productCardOptions} reviews={null} product={product} key={product.id} />
             )
           })}
         </div>

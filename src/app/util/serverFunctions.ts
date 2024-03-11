@@ -1,6 +1,26 @@
 import { iComment, iProduct, iReview } from "@/app/util/Interfaces";
 import { apiUrl } from "./apiUrl";
 
+export const updateHelpfulVote = async (reviewId: string) => {
+  const body = {
+    reviewId,
+  }
+  const response = await fetch(`${apiUrl}/update/helpful`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error("Failed to increment helpful votes");
+    }
+    return res.json();
+  });
+
+  return response;
+};
+
 export const getUser = async () => {
   const user = await fetch(`${apiUrl}/get/user`, {
     method: "POST",
