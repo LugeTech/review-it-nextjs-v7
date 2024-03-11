@@ -16,12 +16,14 @@ interface ReviewCardProps {
 }
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
-  const { user, createdDate, title, body, rating, helpfulVotes, unhelpfulVotes, comments, product } = review;
+  const { user, createdDate, title, body, rating, helpfulVotes, unhelpfulVotes, comments, product, voteCount } = review;
   const [reviewAtom, setReview] = useAtom(currentReviewAtom);
   const formattedBody = body.replace(/<p><\/p>/g, '<br>'); // line breaks werent being rendered properly. this fixes that
+
   const handleHelpfulClick = () => {
     updateHelpfulVote(review.id!);
   };
+  console.log("this is helpfull and vote count", helpfulVotes, voteCount?.helpfulVotes)
 
   return (
     <div className="p-2 border rounded shadow-md mb-2 bg-myTheme-light dark:bg-myTheme-dark hover:shadow-xl">
@@ -60,7 +62,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
 
       <div className="flex items-center justify-between">
         <div className="flex text-xs md:text-base ml-2">
-          <ThumbsUpButton onClick={handleHelpfulClick} count={review.helpfulVotes!} />
+          <ThumbsUpButton onClick={handleHelpfulClick} count={voteCount?.helpfulVotes!} />
           {/* NOTE: decided to only keep helpful for now. */}
           {/* <ThumbsDownButton onClick={handleDislikeClick} count={5} /> */}
         </div>

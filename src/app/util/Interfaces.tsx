@@ -17,7 +17,7 @@ export interface iProduct {
   hasOwner?: boolean;
   ownerId?: string;
   reviews: iReview[];
-  createdBy?: User | null;
+  createdBy?: iUser | null;
   createdById: string;
   isDeleted: boolean;
 }

@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
             },
           }
           : false,
+        voteCount: true
       },
     });
 

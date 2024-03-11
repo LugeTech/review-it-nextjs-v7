@@ -25,7 +25,7 @@ const TopReviews = () => {
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-4 md:gap-4 ">
         {reviews?.length > 0 &&
-          reviews.map((review, index) => {
+          reviews?.map((review, index) => {
             return <ReviewBox key={index} review={review} />;
           })}
       </div>

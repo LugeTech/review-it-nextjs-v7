@@ -119,7 +119,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
                       {`(${numberOfReviews!} reviews)`}
                     </>
                   ) : (
-                    "No Reviews Yet"
+                    ""
                   )}
                 </span>
                 {allReviews.length === 0 && (
