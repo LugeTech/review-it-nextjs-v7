@@ -6,7 +6,6 @@ import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
 import { iReview } from "@/app/util/Interfaces";
 
-// Interface representing user data
 interface UserDATA {
   avatar?: string;
   azp: string;
@@ -52,7 +51,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Create the review and its associated VoteCount entry in a single transaction
     const review = await prisma.$transaction(async (prisma) => {
       const newReview = await prisma.review.create({
         data: {
