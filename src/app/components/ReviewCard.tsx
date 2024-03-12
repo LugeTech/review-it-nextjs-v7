@@ -9,20 +9,29 @@ import Link from 'next/link';
 import { useAtom } from "jotai";
 import { currentReviewAtom } from "../store/store";
 import { ThumbsUpButton } from '@/components/thumbsUpButton';
-import { ThumbsDownButton } from '@/components/thumbsDownButton';
 import { updateHelpfulVote } from '../util/serverFunctions';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 interface ReviewCardProps {
   review: iReview;
 }
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
-  const { user, createdDate, title, body, rating, helpfulVotes, unhelpfulVotes, comments, product, voteCount } = review;
+  const { user, createdDate, title, body, rating, helpfulVotes, comments, product, voteCount } = review;
   const [reviewAtom, setReview] = useAtom(currentReviewAtom);
-  const formattedBody = body.replace(/<p><\/p>/g, '<br>'); // line breaks werent being rendered properly. this fixes that
+  const formattedBody = body.replace(/<p><\/p>/g, '<br>'); // NOTE: line breaks werent being rendered properly. this fixes that
+  const queryClient = useQueryClient();
 
-  const handleHelpfulClick = () => {
-    updateHelpfulVote(review.id!);
+  const mutation = useMutation({
+    mutationFn: () => updateHelpfulVote(review.id!),
+  },)
+  const mutationFunction = async () => {
+    // Call your server function here
+    await updateHelpfulVote(review.id!);
   };
+  const handleHelpfulClick = () => {
+    mutation.mutate();
+  };
+
   console.log("this is helpfull and vote count", helpfulVotes, voteCount?.helpfulVotes)
 
   return (
