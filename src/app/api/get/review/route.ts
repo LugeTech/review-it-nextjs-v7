@@ -20,8 +20,8 @@ export async function POST(request: NextRequest) {
             user: true,
           },
         },
-      },
-    });
+      }
+    })
     return NextResponse.json({
       success: true,
       status: 200,
