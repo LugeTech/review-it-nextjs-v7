@@ -23,11 +23,20 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
 
   const mutation = useMutation({
     mutationFn: () => updateHelpfulVote(review.id!),
+    onMutate: async () => {
+      // Update the local state optimistically
+      voteCount!.helpfulVotes! += 1
+      queryClient.setQueryData([review.id], reviewAtom);
+      return { reviewAtom };
+    },
+    onError: (err, variables, context) => {
+      //NOTE: Reset to the previous state on error not tested
+      if (context) {
+        queryClient.setQueryData(['review', review.id], context);
+      }
+    },
   },)
-  const mutationFunction = async () => {
-    // Call your server function here
-    await updateHelpfulVote(review.id!);
-  };
+
   const handleHelpfulClick = () => {
     mutation.mutate();
   };
