@@ -1,3 +1,11 @@
+export interface ReviewLike {
+  reviewId: string;
+  userId: string;
+
+  review: iReview;
+  user: iUser;
+}
+
 export interface iProduct {
   id?: string;
   address?: string | null;
@@ -52,6 +60,7 @@ export interface iReview {
   isDeleted?: boolean;
   comments: iComment[];
   voteCount?: iVoteCount | null;
+  likedBy: iUser[];
 }
 
 export interface iComment {
@@ -78,6 +87,7 @@ export interface iUser {
   product: iProduct[];
   isDeleted?: boolean;
   comments: iComment[];
+  likedReviews: iReview[];
 }
 
 export interface iService {
