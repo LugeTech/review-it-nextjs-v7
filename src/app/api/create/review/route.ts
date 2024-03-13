@@ -70,8 +70,27 @@ export async function POST(request: NextRequest) {
               unhelpfulVotes: 0,
             },
           },
+          likedBy: {
+            connect: {
+              id: reviewData.userId,
+            },
+          },
         },
       });
+
+      await prisma.user.update({
+        where: {
+          id: reviewData.userId,
+        },
+        data: {
+          likedReviews: {
+            connect: {
+              id: newReview.id,
+            },
+          },
+        },
+      });
+      // NOTE: can add the updated user to the return if needed later
 
       return newReview;
     });
