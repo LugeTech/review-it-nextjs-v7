@@ -52,7 +52,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.log("****************", idFromPublicMetaData);
     try {
       const user = await prisma.user.findUnique({
         where: {
@@ -61,6 +60,7 @@ export async function POST(request: NextRequest) {
         include: {
           comments: true,
           reviews: true,
+          reviewLike: true,
         },
       });
       return NextResponse.json({

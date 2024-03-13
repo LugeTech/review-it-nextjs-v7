@@ -4,7 +4,9 @@ interface ThumbsUpButtonProps {
   onClick: () => void;
   count: number;
 }
+//NOTE: add a loading indicator while button updates
 
+// export const dynamic = 'force-dynamic'
 export function ThumbsUpButton({ onClick, count }: ThumbsUpButtonProps) {
   return (
     <Button

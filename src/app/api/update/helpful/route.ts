@@ -6,9 +6,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   console.log("update helpful path hit");
   interface Body {
-    id: string;
+    userId: string;
     reviewId: string;
-    // commentId: string;
   }
 
   const body: Body = await request.json();
@@ -22,6 +21,32 @@ export async function POST(request: NextRequest) {
           increment: 1
         }
       }
+    });
+
+    await prisma.review.update({
+      where: {
+        id: body.reviewId,
+      },
+      data: {
+        likedBy: {
+          connect: {
+            id: body.userId,
+          },
+        },
+      },
+    });
+
+    await prisma.user.update({
+      where: {
+        id: body.userId,
+      },
+      data: {
+        likedReviews: {
+          connect: {
+            id: body.reviewId,
+          },
+        },
+      },
     });
 
     return NextResponse.json({

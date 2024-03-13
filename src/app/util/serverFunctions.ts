@@ -1,15 +1,21 @@
 import { iComment, iProduct, iReview } from "@/app/util/Interfaces";
 import { apiUrl } from "./apiUrl";
 
-export const updateHelpfulVote = async (reviewId: string) => {
+interface helpfulData {
+  reviewId: string,
+  userInDbId: string
+}
+export const updateHelpfulVote = async (data: helpfulData) => {
   const body = {
-    reviewId,
+    reviewId: data.reviewId,
+    userId: data.userInDbId
   }
   const response = await fetch(`${apiUrl}/update/helpful`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    cache: 'no-store',
     body: JSON.stringify(body),
   }).then((res) => {
     if (!res.ok) {

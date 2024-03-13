@@ -87,7 +87,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
   const review = data as iReview;
-  console.log("this is the review", review);
+  // console.log("this is the review", review);
   // review.comments = review.comments.reverse()
   // filter allPproductsatom for id variable and return product
 

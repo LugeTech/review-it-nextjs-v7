@@ -11,6 +11,8 @@ import { currentReviewAtom } from "../store/store";
 import { ThumbsUpButton } from '@/components/thumbsUpButton';
 import { updateHelpfulVote } from '../util/serverFunctions';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useUser } from "@clerk/nextjs";
+
 interface ReviewCardProps {
   review: iReview;
 }
@@ -20,12 +22,20 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const [reviewAtom, setReview] = useAtom(currentReviewAtom);
   const formattedBody = body.replace(/<p><\/p>/g, '<br>'); // NOTE: line breaks werent being rendered properly. this fixes that
   const queryClient = useQueryClient();
+  const [hideButtom, setHideButtom] = React.useState(false);
+  const userData = useUser();
+  const userInDbId = userData.user?.publicMetadata.id as unknown as string
+  const helpfulData = {
+    reviewId: review.id!,
+    userInDbId
+  }
 
   const mutation = useMutation({
-    mutationFn: () => updateHelpfulVote(review.id!),
+    mutationFn: () => updateHelpfulVote(helpfulData),
     onMutate: async () => {
       // Update the local state optimistically
       voteCount!.helpfulVotes! += 1
+      setHideButtom(true)
       queryClient.setQueryData([review.id], reviewAtom);
       return { reviewAtom };
     },
@@ -35,13 +45,14 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         queryClient.setQueryData(['review', review.id], context);
       }
     },
+
   },)
 
   const handleHelpfulClick = () => {
     mutation.mutate();
   };
 
-  console.log("this is helpfull and vote count", helpfulVotes, voteCount?.helpfulVotes)
+  const hasUserLiked = review.likedBy.some((user) => user.id === userInDbId);
 
   return (
     <div className="p-2 border rounded shadow-md mb-2 bg-myTheme-light dark:bg-myTheme-dark hover:shadow-xl">
@@ -80,9 +91,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
 
       <div className="flex items-center justify-between">
         <div className="flex text-xs md:text-base ml-2">
-          <ThumbsUpButton onClick={handleHelpfulClick} count={voteCount?.helpfulVotes!} />
-          {/* NOTE: decided to only keep helpful for now. */}
-          {/* <ThumbsDownButton onClick={handleDislikeClick} count={5} /> */}
+          {hasUserLiked || hideButtom ? voteCount?.helpfulVotes! : <ThumbsUpButton onClick={handleHelpfulClick} count={voteCount?.helpfulVotes!} />}
         </div>
         <Link href={`/fr/${review.id}`} onClick={() => setReview(review)}>
           <p className="text-gray-600 text-xs">{comments?.length > 0 ? `(${comments?.length} comments)` : '(0) comments'}</p>
