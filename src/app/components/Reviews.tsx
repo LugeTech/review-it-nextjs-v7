@@ -59,9 +59,9 @@ const Reviews = ({ productId }: { productId: string }) => {
         <WriteAReview />
       </div>
       <div className='flex flex-col  w-full justify-between items-center '>
-        <div className="space-y-6 mt-4 w-full md:w-1/2  ">
+        <div className="space-y-4 mt-2 w-full md:w-1/2  ">
           <div className='flex  justify-center items-center '>
-            <p className='text-center'>Reviews</p>
+            <p className='text-center text-myTheme-dark dark:text-myTheme-light'>Reviews</p>
           </div>
           {reviews.map((review: iReview) => (
             <ReviewCard key={review.id} review={review} />

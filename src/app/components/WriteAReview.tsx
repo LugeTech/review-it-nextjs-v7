@@ -34,7 +34,7 @@ const Page = () => {
   const user: iUser | undefined = data?.data as iUser
 
   return (
-    <div className='flex flex-col w-full rounded-lg shadow-sm p-2 mt-2 justify-center items-center border-b-2 border-gray-200  '>
+    <div className='flex flex-col w-full rounded-lg shadow-sm p-2 mt-2 justify-center items-center dark:bg-myTheme-dark '>
       <div className='flex flex-row gap-2 items-center'>
         <Image src={user?.avatar!} width={48} height={48} alt='avatar' className='rounded-full w-12 h-12' />
         <p className='text-sm'>{user?.userName} write a review now!</p>
@@ -46,8 +46,6 @@ const Page = () => {
         ratingChanged={ratingChanged}
         size={'rating-lg'}
       />}
-
-
     </div>
   )
 }

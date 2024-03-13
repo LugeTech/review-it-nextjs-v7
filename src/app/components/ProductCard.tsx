@@ -82,16 +82,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
   }
 
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-white">
-      <div className="flex flex-row">
-        <Link href={`/reviews?id=${currentProduct?.id}`} className=' w-full'>
-          <div className="flex justify-start items-center gap-2 w-full">
+    <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-myTheme-lightbg dark:bg-myTheme-dark text-myTheme-dark">
+      <div className="flex flex-row bg-myTheme-lightbg dark:bg-myTheme-dark text-myTheme-dark">
+        <Link href={`/reviews?id=${currentProduct?.id}`} className=' w-full bg-myTheme-lightbg dark:bg-myTheme-dark text-myTheme-dark'>
+          <div className="flex justify-start items-center gap-2 w-full bg-myTheme-lightbg dark:bg-myTheme-dark text-myTheme-dark dark:text-myTheme-light">
             {currentProduct?.display_image && (
-              <div className=" flex items-start justify-start">
+              <div className=" flex items-start justify-start bg-myTheme-lightbg dark:bg-myTheme-dark text-myTheme-dark dark:text-myTheme-light">
                 <Image
                   src={currentProduct.display_image}
                   alt={`${currentProduct.name} Image`}
-                  className=" rounded-lg w-24 h-24 object-cover"
+                  className=" rounded-lg w-24 h-24 object-cover "
                   width={96}
                   height={96}
                 />
@@ -100,7 +100,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
             <div className="mb-2 flex flex-col gap-2">
               <div className="flex flex-col">
                 <p className="text-base md:text-xl font-semibold ">{currentProduct?.name}</p>
-                <p className="text-xs md:text-sm text-gray-700">{currentProduct?.address || currentProduct?.description}</p>
+                <p className="text-xs md:text-sm text-myTheme-dark dark:text-myTheme-light">{currentProduct?.address || currentProduct?.description}</p>
               </div>
               {allReviews.length > 0 ? (
                 <RatingModuleReadOnly
@@ -112,7 +112,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
                 "No Reviews Yet"
               )}
               <div className="flex gap-2">
-                <span className={`mr-auto rounded flex items-start text-xs md:text-base`} style={dynamicStyles}>
+                <span className={`rounded flex items-start text-xs md:text-base px-1`} style={dynamicStyles}>
                   {allReviews.length > 0 ? (
                     <>
                       {roundedRatingOneDecimalPlace!}

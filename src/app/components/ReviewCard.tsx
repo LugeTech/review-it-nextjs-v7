@@ -12,7 +12,7 @@ import { ThumbsUpButton } from '@/components/thumbsUpButton';
 import { updateHelpfulVote } from '../util/serverFunctions';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUser } from "@clerk/nextjs";
-
+import { MdOutlineThumbUp } from "react-icons/md";
 interface ReviewCardProps {
   review: iReview;
 }
@@ -55,18 +55,19 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const hasUserLiked = review.likedBy.some((user) => user.id === userInDbId);
 
   return (
-    <div className="p-2 border rounded shadow-md mb-2 bg-myTheme-light dark:bg-myTheme-dark hover:shadow-xl">
+    <div className="px-2 pb-2 rounded shadow-md mb-2 bg-myTheme-light dark:bg-myTheme-dark hover:shadow-xl">
       <Link href={`/user/${review.user?.id}`} className="hover:bg-zinc-100 inline-flex px-2">
         {/* TODO: Get this user endpoint working */}
         <div className="p-2 inline-flex items-center mb-2 border-b-2 border-gray-100 ">
           <Image src={user?.avatar || '/logo.png'} alt={user?.id!} width={40} height={40}
             className=" rounded-full object-cover w-[60px] h-[60px] mr-1"
           />
-          <div >
-            <div className="flex items-center justify-start">
-              <span className="font-semibold text-sm">@{user?.userName}</span><span className="text-gray-600 text-xs ml-1">reviewed {product?.name}</span>
+          <div className="flex flex-col items-start justify-center ml-2">
+            <div className="flex flex-col items-center justify-start">
+              <p className="font-semibold text-sm">@{user?.userName}</p>
+              {/* <p className="text-gray-600 text-xs ml-1">reviewed {product?.name}</p> */}
             </div>
-            <p className="text-gray-600 text-xs">{dayjs(createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
+            <p className="text-gray-600 dark:text-gray-600 text-xs">{dayjs(createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
           </div>
 
         </div>
@@ -79,22 +80,22 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
           size="rating-sm"
         />
       </div>
-      <div className="mb-1 px-4  rounded-md p-2 flex flex-col">
+      <div className=" px-4  rounded-md p-2 flex flex-col">
         <Link href={`/fr/${review.id}`} onClick={() => setReview(review)} className="hover:underline">
-          <h1 className="text-lg font-semibold mb-1">{title}</h1>
+          <h1 className="text-lg text-myTheme-dark dark:text-myTheme-light font-semibold mb-1">{title}</h1>
         </Link>
         <div className="flex flex-row">
-          <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(formattedBody) }} className="mb-4 text-sm" />
+          <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(formattedBody) }} className="mb-4 text-myTheme-dark dark:text-gray-400 text-sm" />
         </div>
       </div>
 
 
       <div className="flex items-center justify-between">
-        <div className="flex text-xs md:text-base ml-2">
-          {hasUserLiked || hideButtom ? voteCount?.helpfulVotes! : <ThumbsUpButton onClick={handleHelpfulClick} count={voteCount?.helpfulVotes!} />}
+        <div className="flex text-xs md:text-base ml-2 text-center items-center justify-center gap-1 text-green-500">
+          {hasUserLiked || hideButtom ? voteCount?.helpfulVotes! : <ThumbsUpButton onClick={handleHelpfulClick} count={voteCount?.helpfulVotes!} />} {hasUserLiked || hideButtom ? <MdOutlineThumbUp /> : ""}
         </div>
         <Link href={`/fr/${review.id}`} onClick={() => setReview(review)}>
-          <p className="text-gray-600 text-xs">{comments?.length > 0 ? `(${comments?.length} comments)` : '(0) comments'}</p>
+          <p className="text-myTheme-dark dark:text-gray-400 text-xs">{comments?.length > 0 ? `(${comments?.length} comments)` : '(0) comments'}</p>
         </Link>
       </div>
     </div>
