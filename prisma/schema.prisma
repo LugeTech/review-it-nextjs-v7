@@ -62,7 +62,7 @@ model Review {
   comments       Comment[]
   voteCount      VoteCount?
   likedBy        User[]       @relation("ReviewLike")
-  ReviewLike     ReviewLike[]
+  reviewLike     ReviewLike[]
 
   @@unique([title, userId, productId], name: "unique_review")
 }
@@ -92,7 +92,7 @@ model User {
   isDeleted    Boolean?     @default(false)
   comments     Comment[]
   likedReviews Review[]     @relation("ReviewLike")
-  ReviewLike   ReviewLike[]
+  reviewLike   ReviewLike[]
 }
 
 model ReviewLike {
