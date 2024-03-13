@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
           },
         },
         voteCount: true,
+        likedBy: true,
       }
     })
     return NextResponse.json({
