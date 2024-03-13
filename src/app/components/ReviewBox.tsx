@@ -26,7 +26,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
 
   return (
     <div className=" my-1 border border-gray-300 dark:border-gray-500 rounded-xl shadow-xl">
-      <div className="  block h-full max-w-sm gap-2 p-4 bg-myTheme-light dark:bg-myTheme-dark rounded-xl hover:bg-gray-100  dark:hover:bg-black ">
+      <div className="  block h-full max-w-sm gap-2 p-4 bg-myTheme-light dark:bg-myTheme-dark rounded-xl hover:bg-gray-100  dark:hover:bg-gray-800 ">
         <div className="flex flex-col justify-start items-center gap-1">
           <div className="flex flex-col w-full text-xs text-myTheme-dark dark:text-myTheme-light justify-start items-center ">
             <div className="flex w-full flex-col justify-start items-center">
@@ -45,11 +45,11 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
                   />
                 ) : null}
                 {/* user name */}
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   @{review.user?.userName}
                 </p>
               </Link>
-              <p className="text-xs text-gray-500">reviewed</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">reviewed</p>
               <Link
                 href={`/reviews?id=${review?.product?.id}`}
                 onClick={() => { }}
@@ -67,22 +67,22 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
             </div>
             <div className="  w-full flex flex-col  justify-start items-start pt-1">
               <Link href={`/fr/${review?.id}`} className=" text-base">
-                <p className="text-sm font-medium text-gray-800">{review.title}</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{review.title}</p>
                 <div className="flex flex-wrap ">
                   <span
                     dangerouslySetInnerHTML={{
                       __html: DOMPurify.sanitize(review.body.slice(0, 50)),
                     }}
-                    className="mb-1 text-xs md:text-sm text-gray-600"
+                    className="mb-1 text-xs md:text-xs text-gray-600 dark:text-gray-500"
                   />
-                  <span className="text-xs md:text-sm font-medium text-gray-500">{
+                  <span className="text-xs md:text-xs font-medium text-gray-500 dark:text-gray-500">{
                     review.body.length > 50 ? "...Read full review" : ""
                   }</span>
                 </div>
               </Link>
             </div>
             <div className=" w-full  tracking-tight ">
-              <p className="text-xs font-light text-gray-400">
+              <p className="text-xs font-light text-gray-500 dark:text-gray-600">
                 {dayjs(review?.createdDate?.toString()).format(
                   "MMMM D, YYYY h:mm A",
                 )}
