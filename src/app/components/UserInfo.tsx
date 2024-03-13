@@ -8,7 +8,6 @@ interface UserInfoProps {
 
 const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
   const { firstName, lastName, avatar, reviews, comments } = user;
-  console.log("this is reviews", comments?.length);
 
   return (
     <div className="flex flex-col">

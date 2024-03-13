@@ -45,6 +45,7 @@ const ReviewForm = () => {
     comments: [],
     createdBy: user?.firstName + " " + user?.lastName,
     isDeleted: false,
+    likedBy: [],
   });
   const [products, setProducts] = useAtom(allProductsAtom);
   const productCardOptions = {

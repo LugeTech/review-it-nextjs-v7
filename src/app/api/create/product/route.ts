@@ -35,7 +35,6 @@ export async function POST(request: NextRequest) {
   const product: iProduct = await request.json();
   product.tags = product.tags.map(tag => tag.trim());
 
-  console.log('this is the product', product);
 
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
@@ -46,17 +45,14 @@ export async function POST(request: NextRequest) {
     // Cast the session claims to the `UserDATA` type
     const clerkClaimsData = sessionClaims as unknown as UserDATA;
 
-    console.log("this is  clerk claims", clerkClaimsData);
 
     // Check if the user already exists in the database
     if (!(await userInDb(clerkClaimsData.userId))) {
       // If the user doesn't exist, create them
       clerkUserData = await addUserToDb(clerkClaimsData);
-      console.log('added user to db');
     } else {
       // If the user already exists, retrieve their data from the database
       clerkUserData = await clerkClient.users.getUser(clerkClaimsData.userId);
-      console.log("Clerk user data before create product :", clerkUserData);
       // then add publicMetaData.id to the object
       if (clerkUserData.publicMetadata.id !== undefined) {
         userIdFromClerk = clerkUserData.publicMetadata
@@ -69,7 +65,6 @@ export async function POST(request: NextRequest) {
         });
       }
     }
-    console.log('about to create product')
 
     try {
       const clerkUserId = clerkUserData!.publicMetadata.id as string;
@@ -97,7 +92,6 @@ export async function POST(request: NextRequest) {
         data: createdProduct,
       });
     } catch (error) {
-      console.log('error creating product about to send error to frontend', error)
       return NextResponse.json({
         success: false,
         status: 500,

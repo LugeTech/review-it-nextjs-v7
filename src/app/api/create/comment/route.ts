@@ -34,7 +34,6 @@ export async function POST(request: NextRequest) {
           .id as string;
       }
     }
-    console.log('about to create comment')
 
     const createdComment = await prisma.comment.create({
       data: {

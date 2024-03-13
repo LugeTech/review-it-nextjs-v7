@@ -20,6 +20,7 @@ export async function POST(request: NextRequest) {
             user: true,
           },
         },
+        voteCount: true,
       }
     })
     return NextResponse.json({
