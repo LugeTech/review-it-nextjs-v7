@@ -28,7 +28,8 @@ export async function POST(request: NextRequest) {
             },
           }
           : false,
-        voteCount: true
+        voteCount: true,
+        likedBy: true,
       },
     });
 
