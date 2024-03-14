@@ -91,7 +91,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
 
 
       <div className="flex items-center justify-between">
-        <div className="flex text-xs md:text-base ml-2 text-center items-center justify-center gap-1 text-green-500">
+        <div className="flex font-semibold text-base md:text-lg ml-4 text-center items-center justify-center gap-1 text-green-500">
+          {/*FIX: currently if i vote then write a comment i can vote again*/}
           {hasUserLiked || hideButtom ? voteCount?.helpfulVotes! : <ThumbsUpButton onClick={handleHelpfulClick} count={voteCount?.helpfulVotes!} />} {hasUserLiked || hideButtom ? <MdOutlineThumbUp /> : ""}
         </div>
         <Link href={`/fr/${review.id}`} onClick={() => setReview(review)}>
