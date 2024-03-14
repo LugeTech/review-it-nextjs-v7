@@ -18,8 +18,8 @@ interface iCalculatedRating {
 const ReviewsSummary: React.FC<SummaryCardProps> = ({ reviews }) => {
   const numberOfReviews = reviews.length
   return (
-    <div className="w-full mx-auto items-center justify-between bg-white shadow-lg p-6 mt-3">
-      <h2 className="text-xl font-semibold text-center">All Reviews</h2>
+    <div className="w-full mx-auto items-center justify-between bg-myTheme-light dark:bg-myTheme-dark shadow-lg p-6 mt-3">
+      <h2 className="text-xl font-semibold text-center text-myTheme-dark dark:text-myTheme-light">All Reviews</h2>
       <div className="flex flex-col mt-1 text-center">
         <p> 4.3 out of 5 </p>
         <p className="text-xs text-gray-400">{numberOfReviews} Reviews</p>
@@ -27,29 +27,29 @@ const ReviewsSummary: React.FC<SummaryCardProps> = ({ reviews }) => {
       <div className="mt-4 space-y-2 grid grid-rows-5">
 
         <div className="grid grid-cols-6 items-center">
-          <p className="text-sm font-medium col-span-1">5 star</p>
-          <Progress className="col-span-4" value={69} />
+          <p className="text-sm  font-medium col-span-1">5 star</p>
+          <Progress className="col-span-4 dark:bg-zinc-500" value={69} />
           <p className="text-sm font-medium col-span-1 text-right">{`${69}%`}</p>
         </div>
 
         <div className="grid grid-cols-6 items-center">
           <p className="text-sm font-medium col-span-1">4 star</p>
-          <Progress className="col-span-4" value={45} />
+          <Progress className="col-span-4 dark:bg-zinc-400" value={45} />
           <p className="text-sm font-medium col-span-1 text-right">{`${45}%`}</p>
         </div>
         <div className="grid grid-cols-6 items-center">
           <p className="text-sm font-medium col-span-1">3 star</p>
-          <Progress className="col-span-4" value={16} />
+          <Progress className="col-span-4 dark:bg-zinc-400" value={16} />
           <p className="text-sm font-medium col-span-1 text-right">{`${16}%`}</p>
         </div>
         <div className="grid grid-cols-6 items-center">
           <p className="text-sm font-medium col-span-1">2 star</p>
-          <Progress className="col-span-4" value={11} />
+          <Progress className="col-span-4 dark:bg-zinc-400" value={11} />
           <p className="text-sm font-medium col-span-1 text-right">{`${11}%`}</p>
         </div>
         <div className="grid grid-cols-6 items-center">
           <p className="text-sm font-medium col-span-1">1 star</p>
-          <Progress className="col-span-4" value={2} />
+          <Progress className="col-span-4 dark:bg-zinc-400" value={2} />
           <p className="text-sm font-medium col-span-1 text-right">{`${2}%`}</p>
         </div>
       </div>
