@@ -19,7 +19,7 @@ const TopReviews = () => {
 
   if (isLoading) return <LoadingSpinner />;
   return (
-    <div className="flex flex-col w-full justify-center items-center bg-mycolours-light dark:bg-mycolours-dark dark:text-mycolours-light">
+    <div className="flex flex-col w-full justify-center items-center  dark:text-mycolours-light">
       <h1 className=" flex flex-1 justify-center mt-2 text-xl font-bold ">
         Latest reviews
       </h1>

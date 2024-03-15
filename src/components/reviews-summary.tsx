@@ -18,7 +18,7 @@ interface iCalculatedRating {
 const ReviewsSummary: React.FC<SummaryCardProps> = ({ reviews }) => {
   const numberOfReviews = reviews.length
   return (
-    <div className="w-full mx-auto items-center justify-between bg-myTheme-light dark:bg-myTheme-dark shadow-lg p-6 mt-3">
+    <div className="w-full mx-auto items-center justify-between bg-myTheme-light dark:bg-myTheme-niceGrey shadow-lg p-6 mt-3">
       <h2 className="text-xl font-semibold text-center text-myTheme-dark dark:text-myTheme-light">All Reviews</h2>
       <div className="flex flex-col mt-1 text-center">
         <p> 4.3 out of 5 </p>
@@ -61,23 +61,23 @@ const ReviewsSummary: React.FC<SummaryCardProps> = ({ reviews }) => {
 }
 
 
-function StarIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-    </svg>
-  )
-}
+// function StarIcon(props: any) {
+//   return (
+//     <svg
+//       {...props}
+//       xmlns="http://www.w3.org/2000/svg"
+//       width="24"
+//       height="24"
+//       viewBox="0 0 24 24"
+//       fill="none"
+//       stroke="currentColor"
+//       strokeWidth="2"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     >
+//       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+//     </svg>
+//   )
+// }
 
 export default ReviewsSummary

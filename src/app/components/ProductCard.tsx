@@ -82,12 +82,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
   }
 
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-myTheme-lightbg dark:bg-myTheme-dark text-myTheme-dark">
-      <div className="flex flex-row bg-myTheme-lightbg dark:bg-myTheme-dark text-myTheme-dark">
-        <Link href={`/reviews?id=${currentProduct?.id}`} className=' w-full bg-myTheme-lightbg dark:bg-myTheme-dark text-myTheme-dark'>
-          <div className="flex justify-start items-center gap-2 w-full bg-myTheme-lightbg dark:bg-myTheme-dark text-myTheme-dark dark:text-myTheme-light">
+    <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
+      <div className="flex flex-row bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
+        <Link href={`/reviews?id=${currentProduct?.id}`} className=' w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark'>
+          <div className="flex justify-start items-center gap-2 w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-niceGrey dark:text-myTheme-light">
             {currentProduct?.display_image && (
-              <div className=" flex items-start justify-start bg-myTheme-lightbg dark:bg-myTheme-dark text-myTheme-dark dark:text-myTheme-light">
+              <div className=" flex items-start justify-start bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark dark:text-myTheme-light">
                 <Image
                   src={currentProduct.display_image}
                   alt={`${currentProduct.name} Image`}

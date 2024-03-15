@@ -152,11 +152,11 @@ const ReviewForm = () => {
   // filter allPproductsatom for id variable and return product
 
   return (
-    <div className="flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-lightbg dark:bg-myTheme-dark ">
+    <div className="flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-lightbg dark:bg-myTheme-niceBlack ">
       <h1 className="text-2xl font-bold mb-2">Write a review</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col p-4 h-full w-full rounded-md bg-white dark:bg-myTheme-dark overflow-y-auto"
+        className="flex flex-col p-4 h-full w-full rounded-md bg-white dark:bg-myTheme-niceGrey overflow-y-auto"
       >
         {/* business info */}
         <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
@@ -190,7 +190,7 @@ const ReviewForm = () => {
             id="title"
             name="title"
             onChange={handleChange}
-            className="border border-gray-300 rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="border border-gray-400 bg-myTheme-niceBlack rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
         </div>
 
@@ -205,7 +205,7 @@ const ReviewForm = () => {
               name="dateItHappened"
               selected={startDate}
               onChange={(date) => setStartDate(date!)}
-              className=" border border-gray-300 rounded-md px-3 py-2 mt-1 w-full md:w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className=" border border-gray-400 bg-myTheme-niceBlack rounded-md px-3 py-2 mt-1 w-full md:w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
@@ -219,7 +219,7 @@ const ReviewForm = () => {
               id="transactionNumber"
               name="transactionNumber"
               onChange={handleChange}
-              className="border border-gray-300 rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="border border-gray-400 bg-myTheme-niceBlack rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
         </div>

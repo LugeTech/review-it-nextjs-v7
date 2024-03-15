@@ -20,7 +20,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" checked={isDrawerOpen}
         onChange={() => setIsDrawerOpen(!isDrawerOpen)} />
       <div className="drawer-content flex flex-col">
-        <div className="w-full navbar bg-myTheme-lightbg dark:bg-myTheme-dark z-10">
+        <div className="w-full navbar bg-myTheme-lightbg dark:bg-myTheme-niceBlack z-10">
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg

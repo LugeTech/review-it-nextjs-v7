@@ -20,7 +20,7 @@ const CommentForm = ({ isOpen, onSubmit }: Props) => {
   };
   return (
     // I originally wanted to hide and show this component, will leave the functionality late might add it back
-    <div className={` ${isOpen ? 'flex' : 'hidden'} flex-col justify-center item-start w-full`}>
+    <div className={` ${isOpen ? 'flex' : 'hidden'} flex-col justify-center item-start w-full bg-myTheme-lightbg dark:bg-myTheme-niceBlack`}>
       <div className="bg-white rounded-lg p-4 shadow-md w-full">
         <form onSubmit={handleSubmit}>
           {/* Your comment input fields */}

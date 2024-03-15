@@ -12,7 +12,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
     return <p>No comment</p>;
   }
   return (
-    <div className="flex w-full flex-col md:w-full bg-white p-2 rounded-lg shadow-md mb-1">
+    <div className="flex w-full flex-col md:w-full  p-2 rounded-lg shadow-md mb-1 bg-myTheme-lightbg dark:bg-myTheme-niceGrey">
       <div className="flex items-center mb-1">
         <Image
           src={comment?.user?.avatar || "/default-avatar.png"} // Use a default avatar if no avatar is provided
@@ -21,15 +21,15 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
           width={50}
           height={50}
         />
-        <span className="text-gray-800 font-semibold">
+        <span className="text-myTheme-dark dark:text-myTheme-light font-semibold">
           @{comment?.user?.userName}
         </span>
-        <span className="text-gray-600 text-xs ml-2">
+        <span className="text-gray-500 text-xs ml-2">
           {comment?.createdDate &&
             dayjs(comment.createdDate).format("MM/DD/YYYY h:mm A")}
         </span>
       </div>
-      <div className="text-gray-700 text-sm">
+      <div className="text-myTheme-lightTextBody dark:text-myTheme-darkTextBody text-sm">
         {comment.body && comment.body.length > 90
           ? comment.body.slice(0, 90) + "...read more"
           : comment.body}

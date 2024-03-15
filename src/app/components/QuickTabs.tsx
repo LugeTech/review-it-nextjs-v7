@@ -23,7 +23,7 @@ const QuickTabs = () => {
 
   // this component will be quick search little clickable cards categories for the home page
   return (
-    <div className="flex flex-col justify-center items-center w-full  bg-myTheme-light dark:bg-myTheme-dark dark:text-myTheme-light">
+    <div className="flex flex-col justify-center items-center w-full  bg-myTheme-light dark:bg-myTheme-niceBlack dark:text-myTheme-light">
       <p className="flex pr-2 justify-center items-center text-lg">
         Quick Categories
       </p>
@@ -31,7 +31,7 @@ const QuickTabs = () => {
         <div className="flex flex-wrap justify-center w-full">
           {categories.map((category, index) => (
             <div className="inline-block" key={index}>
-              <div className=" text-2xl hover:bg-neutral-200 dark:hover:bg-black cursor-pointer  flex flex-col bg-transparent rounded justify-around items-center p-2 transition-all ease-in-out">
+              <div className=" text-2xl hover:bg-neutral-200 dark:hover:bg-myTheme-niceGrey cursor-pointer  flex flex-col bg-transparent rounded justify-around items-center p-2 transition-all ease-in-out">
                 {category.icon}
                 <p className=" text-xs">{category.name}</p>
               </div>

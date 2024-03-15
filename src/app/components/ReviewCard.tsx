@@ -55,31 +55,32 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const hasUserLiked = review.likedBy.some((user) => user.id === userInDbId);
 
   return (
-    <div className="px-2 pb-2 rounded shadow-md mb-2 bg-myTheme-light dark:bg-myTheme-dark hover:shadow-xl">
-      <Link href={`/user/${review.user?.id}`} className="hover:bg-zinc-100 inline-flex px-2">
+    <div className="px-2 pb-2 rounded shadow-md mb-2 bg-myTheme-light dark:bg-myTheme-niceGrey hover:shadow-xl">
+      <Link href={`/user/${review.user?.id}`} className="inline-flex px-2">
         {/* TODO: Get this user endpoint working */}
-        <div className="p-2 inline-flex items-center mb-2 border-b-2 border-gray-100 ">
+        <div className="p-2 inline-flex items-center mb-2 ">
           <Image src={user?.avatar || '/logo.png'} alt={user?.id!} width={40} height={40}
             className=" rounded-full object-cover w-[60px] h-[60px] mr-1"
           />
           <div className="flex flex-col items-start justify-center ml-2">
             <div className="flex flex-col items-center justify-start">
-              <p className="font-semibold text-sm">@{user?.userName}</p>
+              <p className="font-semibold text-sm">@{user?.userName}&apos;s {rating} star review</p>
               {/* <p className="text-gray-600 text-xs ml-1">reviewed {product?.name}</p> */}
             </div>
-            <p className="text-gray-600 dark:text-gray-600 text-xs">{dayjs(createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
+            <p className="text-myTheme-darkTextBody text-xs">{dayjs(createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
+            <div >
+              <RatingModule
+                name={review.id!}
+                rating={rating}
+                ratingChanged={() => { }}
+                size="rating-sm"
+              />
+            </div>
           </div>
 
         </div>
       </Link>
-      <div className="flex ml-4">
-        <RatingModule
-          name={review.id!}
-          rating={rating}
-          ratingChanged={() => { }}
-          size="rating-sm"
-        />
-      </div>
+
       <div className=" px-4  rounded-md p-2 flex flex-col">
         <Link href={`/fr/${review.id}`} onClick={() => setReview(review)} className="hover:underline">
           <h1 className="text-lg text-myTheme-dark dark:text-myTheme-light font-semibold mb-1">{title}</h1>

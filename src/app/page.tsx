@@ -4,7 +4,7 @@ import HeroSection from "./components/HeroSection";
 // import Token from "./components/Token";
 export default async function Home() {
   return (
-    <div className="flex flex-1 flex-col justify-center  bg-myTheme-lightbg dark:bg-myTheme-dark dark:text-myTheme-light">
+    <div className="flex h-screen flex-col justify-start  bg-myTheme-lightbg dark:bg-myTheme-niceBlack dark:text-myTheme-light">
       <div className="flex flex-row">
         <HeroSection />
       </div>

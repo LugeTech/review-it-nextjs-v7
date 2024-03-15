@@ -24,8 +24,12 @@ module.exports = {
           dark: "#20272F",
           dark1: "#21202f",
           dark2: "#202f2f",
-          light: "#fff",
+          light: "#cbd5e1",
           grey: "#c8c9ca",
+          niceGrey: "#333644",
+          niceBlack: "#2b2d38",
+          darkTextBody: "text-gray-700",
+          lightTextBody: "#20272F"
         },
       },
     },
