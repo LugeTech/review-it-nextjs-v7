@@ -37,7 +37,7 @@ const RatingModule = ({
   return (
     <div className="flex flex-grow-0">
       <div
-        className={` w-auto rating gap-1 ${size} items-center justify-center  p-1 rounded-md bg-gray-700 `}
+        className={` w-auto rating gap-1 ${size} items-center justify-center  p-1 rounded-md bg-myTheme-light dark:bg-myTheme-niceBlack `}
       >
         <input
           type="radio"

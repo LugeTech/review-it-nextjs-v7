@@ -55,7 +55,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const hasUserLiked = review.likedBy.some((user) => user.id === userInDbId);
 
   return (
-    <div className="px-2 pb-2 rounded shadow-md mb-2 bg-myTheme-light dark:bg-myTheme-niceGrey hover:shadow-xl">
+    <div className="px-2 pb-2 rounded shadow-md mb-2 bg-myTheme-lightbg dark:bg-myTheme-niceGrey hover:shadow-xl">
       <Link href={`/user/${review.user?.id}`} className="inline-flex px-2">
         {/* TODO: Get this user endpoint working */}
         <div className="p-2 inline-flex items-center mb-2 ">
@@ -67,7 +67,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
               <p className="font-semibold text-sm">@{user?.userName}&apos;s {rating} star review</p>
               {/* <p className="text-gray-600 text-xs ml-1">reviewed {product?.name}</p> */}
             </div>
-            <p className="text-myTheme-darkTextBody text-xs">{dayjs(createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
+            <p className="dark:text-myTheme-darkTextBody text-myTheme-lightTextBody text-xs">{dayjs(createdDate?.toString()).format('MMMM D, YYYY h:mm A')}</p>
             <div >
               <RatingModule
                 name={review.id!}

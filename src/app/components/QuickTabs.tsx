@@ -23,7 +23,7 @@ const QuickTabs = () => {
 
   // this component will be quick search little clickable cards categories for the home page
   return (
-    <div className="flex flex-col justify-center items-center w-full  bg-myTheme-light dark:bg-myTheme-niceBlack dark:text-myTheme-light">
+    <div className="flex flex-col justify-center items-center w-full  bg-myTheme-lightbg dark:bg-myTheme-niceBlack dark:text-myTheme-light">
       <p className="flex pr-2 justify-center items-center text-lg">
         Quick Categories
       </p>

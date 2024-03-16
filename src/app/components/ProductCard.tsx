@@ -83,7 +83,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
 
   return (
     <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
-      <div className="flex flex-row bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
+      <div className="flex flex-row bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark rounded-lg">
         <Link href={`/reviews?id=${currentProduct?.id}`} className=' w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark'>
           <div className="flex justify-start items-center gap-2 w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-niceGrey dark:text-myTheme-light">
             {currentProduct?.display_image && (
@@ -134,7 +134,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
         </Link>
         <VerticalLinks />
       </div>
-      <div className="flex text-xs md:text-base justify-between items-center border-t-2">
+      <div className="flex text-xs md:text-base justify-between items-center ">
         {options.showClaimThisProduct && (
           <p className="text-gray-400 hover:underline ">{'Claim this product'}</p>
         )}
