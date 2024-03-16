@@ -28,7 +28,7 @@ module.exports = {
           grey: "#c8c9ca",
           niceGrey: "#333644",
           niceBlack: "#2b2d38",
-          darkTextBody: "text-gray-700",
+          darkTextBody: "#d4d4d4",
           lightTextBody: "#20272F"
         },
       },

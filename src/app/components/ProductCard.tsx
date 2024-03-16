@@ -88,13 +88,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ reviews, options, product }) 
           <div className="flex justify-start items-center gap-2 w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-niceGrey dark:text-myTheme-light">
             {currentProduct?.display_image && (
               <div className=" flex items-start justify-start bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark dark:text-myTheme-light">
-                <Image
-                  src={currentProduct.display_image}
-                  alt={`${currentProduct.name} Image`}
-                  className=" rounded-lg w-24 h-24 object-cover "
-                  width={96}
-                  height={96}
-                />
+                <div className="relative w-24 h-24">
+                  <Image
+                    src={currentProduct.display_image}
+                    alt={`${currentProduct.name} Image`}
+                    className="rounded-lg object-contain "
+                    fill
+                  />
+                </div>
               </div>
             )}
             <div className="mb-2 flex flex-col gap-2">
