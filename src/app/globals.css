@@ -19,3 +19,6 @@
   .ProseMirror {
   @apply h-[180px] overflow-scroll;
 }
+body {
+  touch-action: manipulation;
+}
