@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
         include: {
           comments: true,
           reviews: true,
-          reviewLike: true,
+          likedReviews: true
         },
       });
       return NextResponse.json({

@@ -6,6 +6,7 @@ import { useQuery, } from "@tanstack/react-query";
 import LoadingSpinner from '../components/LoadingSpinner';
 import UserInfo from '../components/UserInfo';
 import { useAuth } from "@clerk/nextjs";
+import { MyActivity } from '@/components/my-activity';
 
 const Page = () => {
   const auth = useAuth();
@@ -20,8 +21,10 @@ const Page = () => {
   const user: iUser | undefined = data?.data as iUser
 
   return (
-    <div className='flex flex-col w-full p-2 md:px-28 sm:pt-8 bg-myTheme-light'>
-      <UserInfo user={user} />      {/* <Token /> */}
+    <div className='flex flex-col w-full p-2 md:px-28 sm:pt-8 bg-myTheme-lightbg dark:bg-myTheme-niceBlack'>
+      <MyActivity user={user} />
+
+      {/* <UserInfo user={user} />      {/* <Token /> */}
     </div>
   )
 }

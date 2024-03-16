@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body: Body = await request.json();
+  console.log(body)
   try {
     await prisma.voteCount.update({
       where: {
