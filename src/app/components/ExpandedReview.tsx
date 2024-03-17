@@ -60,7 +60,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   };
 
   useEffect(() => {
-    // Update the comment object whenever textAreaValue changes
     setComment({
       ...comment,
       body: textAreaValue,

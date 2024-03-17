@@ -61,6 +61,7 @@ export const getReviews = async (id: string) => {
     user: true,
     product: true,
     comments: true,
+    likedBy: true
   }
 
   const reviews: iReview[] = await fetch(`${apiUrl}/get/reviews`, {

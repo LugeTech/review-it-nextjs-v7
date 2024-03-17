@@ -22,9 +22,10 @@ const Page = () => {
 
   return (
     <div className='flex flex-col w-full p-2 md:px-28 sm:pt-8 bg-myTheme-lightbg dark:bg-myTheme-niceBlack'>
-      <MyActivity user={user} />
+      {/* <MyActivity user={user} /> */}
 
-      {/* <UserInfo user={user} />      {/* <Token /> */}
+      <UserInfo user={user} />
+
     </div>
   )
 }

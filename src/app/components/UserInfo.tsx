@@ -7,7 +7,7 @@ interface UserInfoProps {
 }
 
 const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
-  const { firstName, lastName, avatar, reviews, comments } = user;
+  const { firstName, lastName, avatar, reviews, comments, likedReviews } = user;
 
   return (
     <div className="flex flex-col">
@@ -57,6 +57,22 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
           ))}
         </ul>
       </div>
+      <div className="mt-4">
+        <h3 className="text-lg font-semibold">My Likes</h3>
+        <ul className="list-disc pl-4">
+          {likedReviews?.map((liked) => (
+            <li key={liked.id}>
+              <Link
+                href={`/fr/${liked.productId}`}
+                className="text-blue-500 hover:underline"
+              >
+                {liked.title} - 16 Likes
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
     </div>
   );
 };
