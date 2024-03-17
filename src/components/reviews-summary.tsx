@@ -8,24 +8,25 @@ import Link from "next/link"
 import { Progress } from "@/components/ui/progress"
 import { iReview } from "@/app/util/Interfaces";
 import { calculateReviewsSummary } from "@/app/util/calculateReviewSummary";
+import { calculateAverageReviewRating } from "@/app/util/calculateAverageReviewRating";
 interface SummaryCardProps {
   reviews: iReview[]
 }
-// interface iCalculatedRating {
-//   roundedRating: number;
-//   roundedRatingOneDecimalPlace: number;
-//   numberOfReviews: number;
-// }
+interface iCalculatedRating {
+  roundedRating: number;
+  roundedRatingOneDecimalPlace: number;
+  numberOfReviews: number;
+}
 
 const ReviewsSummary: React.FC<SummaryCardProps> = ({ reviews }) => {
   const reviewSummaryData = calculateReviewsSummary(reviews)
 
-  const numberOfReviews = reviews.length
+  let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
   return (
-    <div className="w-full mx-auto items-center justify-between bg-myTheme-lightbg dark:bg-myTheme-niceGrey shadow-lg p-6 mt-3">
+    <div className="w-full mx-auto items-center justify-between bg-myTheme-lightbg dark:bg-myTheme-niceGrey shadow-lg p-6 ">
       <h2 className="text-xl font-semibold text-center text-myTheme-dark dark:text-myTheme-light">All Reviews</h2>
       <div className="flex flex-col mt-1 text-center">
-        <p> 4.3 out of 5 </p>
+        <p> {roundedRatingOneDecimalPlace} out of 5 </p>
         <p className="text-xs text-gray-400">{numberOfReviews} Reviews</p>
       </div>
       <div className="mt-4 space-y-2 grid grid-rows-5">
