@@ -1,3 +1,12 @@
+export interface ReviewSummaryData {
+  percentage5Stars: number;
+  percentage4Stars: number;
+  percentage3Stars: number;
+  percentage2Stars: number;
+  percentage1Star: number;
+  totalCount: number;
+}
+
 export interface ReviewLike {
   reviewId: string;
   userId: string;
