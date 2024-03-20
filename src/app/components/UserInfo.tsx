@@ -63,7 +63,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
                                         {likedReviews?.map((liked) => (
                                                 <li key={liked.id}>
                                                         <Link
-                                                                href={`/fr/${liked.product?.reviews[0].id}` || "/"}
+                                                                href={"/"}
                                                                 className="text-blue-500 hover:underline"
                                                         >
                                                                 {liked.title} - 16 Likes
