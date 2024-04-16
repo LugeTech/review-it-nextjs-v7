@@ -64,7 +64,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center w-full">
+            <div className="flex min-h-full items-center justify-center p-2 text-center w-full">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -74,13 +74,9 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className=" w-full md:w-3/4 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all flex flex-col items-center justify-center">
-                  <Dialog.Title
-
-                  >
-                    Preview
-                  </Dialog.Title>
-                  <div className="flex flex-col flex-1 w-full dark:bg-myTheme-dark p-4 rounded-md md:w-3/4 bg-white overflow-scroll items-center justify-center">
+                <Dialog.Panel className=" w-full md:w-1/2 transform overflow-hidden rounded-2xl dark:bg-myTheme-dark bg-white p-2 text-left align-middle shadow-xl transition-all flex flex-col items-center justify-center">
+                  <Dialog.Title>Preview</Dialog.Title>
+                  <div className="flex flex-col flex-1 w-full overflow-hidden dark:bg-myTheme-dark p-2 rounded-md md:w-full bg-white  items-center justify-center">
                     <h1 className="font-bold underline text-center ">
                       {parse(reviewData.title)}
                     </h1>
@@ -97,7 +93,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                           <RatingModule
                             name="rating"
                             rating={reviewData.rating}
-                            ratingChanged={() => { }}
+                            ratingChanged={() => {}}
                             size={"rating-xs"}
                           />
                         </Suspense>

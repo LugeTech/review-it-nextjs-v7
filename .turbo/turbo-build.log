@@ -1,0 +1,111 @@
+
+
+> review-it-nextjs-v7-remake@0.1.0 build /Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7
+> next build && prisma generate
+
+  [1m[38;2;173;127;168m ▲ Next.js 14.1.4[39m[22m
+   - Environments: .env
+
+ [37m[1m [22m[39m Creating an optimized production build ...
+ [32m[1m✓[22m[39m Compiled successfully
+[?25l [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G[?25h
+[36m./src/app/components/ExpandedReview.tsx[39m
+[33m68[39m:[33m6[39m  [33m[1mWarning[22m[39m: React Hook useEffect has a missing dependency: 'comment'. Either include it or remove the dependency array. You can also do a functional update 'setComment(c => ...)' if you only need 'comment' in the 'setComment' call.  [90m[1mreact-hooks/exhaustive-deps[22m[39m
+
+[36m./src/app/components/NewProductForm.tsx[39m
+[33m110[39m:[33m12[39m  [33m[1mWarning[22m[39m: React Hook useEffect has a missing dependency: 'triggerUploadImage'. Either include it or remove the dependency array.  [90m[1mreact-hooks/exhaustive-deps[22m[39m
+[33m142[39m:[33m57[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+
+[36m./src/app/components/ProductListLoader.tsx[39m
+[33m23[39m:[33m6[39m  [33m[1mWarning[22m[39m: React Hook useEffect has missing dependencies: 'isError', 'isLoading', and 'setAllProducts'. Either include them or remove the dependency array.  [90m[1mreact-hooks/exhaustive-deps[22m[39m
+
+[36m./src/app/components/SearchComponent.tsx[39m
+[33m48[39m:[33m12[39m  [33m[1mWarning[22m[39m: React Hook useEffect has missing dependencies: 'allProducts' and 'typingTimeout'. Either include them or remove the dependency array.  [90m[1mreact-hooks/exhaustive-deps[22m[39m
+
+[36m./src/components/dashboard.tsx[39m
+[33m34[39m:[33m13[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+
+[36m./src/components/my-activity.tsx[39m
+[33m114[39m:[33m17[39m  [33m[1mWarning[22m[39m: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  [90m[1m@next/next/no-img-element[22m[39m
+
+[36minfo[39m  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+[?25l [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m..[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m...[39m[2K[1G [37m[1m [22m[39m Linting and checking validity of types  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Linting and checking validity of types     [32m[1m✓[22m[39m Linting and checking validity of types 
+[?25l [37m[1m [22m[39m Collecting page data  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m..[39m(node:82190) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:82194) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[2K[1G[?25h [37m[1m [22m[39m Collecting page data     [32m[1m✓[22m[39m Collecting page data 
+[?25l [37m[1m [22m[39m Generating static pages (0/29)  [36m[    ][39m[2K[1G [37m[1m [22m[39m Generating static pages (0/29)  [36m[=   ][39m  [37m[1m [22m[39m Generating static pages (15/29) 
+(node:82191) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:82193) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[2K[1G[1A[2K[1G[?25h [32m[1m✓[22m[39m Generating static pages (29/29) 
+[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[?25l [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m..[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m..[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m...[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m...[39m[2K[1G [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting build traces  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Collecting build traces     [32m[1m✓[22m[39m Collecting build traces 
+[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization     [32m[1m✓[22m[39m Finalizing page optimization 
+
+[4mRoute (app)[24m                              [4mSize[24m     [4mFirst Load JS[24m
+┌ λ /                                    3.67 kB         [37m[1m122 kB[22m[39m
+├ λ /_not-found                          888 B          [37m[1m85.5 kB[22m[39m
+├ λ /admin                               175 B          [37m[1m91.6 kB[22m[39m
+├ λ /api/create/comment                  0 B                [37m[1m0 B[22m[39m
+├ λ /api/create/product                  0 B                [37m[1m0 B[22m[39m
+├ λ /api/create/review                   0 B                [37m[1m0 B[22m[39m
+├ λ /api/create/user                     0 B                [37m[1m0 B[22m[39m
+├ λ /api/get/all/products                0 B                [37m[1m0 B[22m[39m
+├ λ /api/get/all/reviews                 0 B                [37m[1m0 B[22m[39m
+├ λ /api/get/product                     0 B                [37m[1m0 B[22m[39m
+├ λ /api/get/review                      0 B                [37m[1m0 B[22m[39m
+├ λ /api/get/review/latest               0 B                [37m[1m0 B[22m[39m
+├ λ /api/get/reviews                     0 B                [37m[1m0 B[22m[39m
+├ λ /api/get/user                        0 B                [37m[1m0 B[22m[39m
+├ λ /api/productsearch                   0 B                [37m[1m0 B[22m[39m
+├ λ /api/update/helpful                  0 B                [37m[1m0 B[22m[39m
+├ λ /api/update/review                   0 B                [37m[1m0 B[22m[39m
+├ λ /api/webhook                         0 B                [37m[1m0 B[22m[39m
+├ λ /api/webhook/user_update             0 B                [37m[1m0 B[22m[39m
+├ λ /browse                              3.35 kB         [37m[1m112 kB[22m[39m
+├ λ /cr                                  162 B           [37m[1m356 kB[22m[39m
+├ λ /cr/[id]                             163 B           [37m[1m356 kB[22m[39m
+├ λ /fr/[id]                             3.6 kB          [37m[1m153 kB[22m[39m
+├ λ /myactivity                          1.46 kB         [37m[1m123 kB[22m[39m
+├ λ /reviews                             5.85 kB         [37m[1m155 kB[22m[39m
+├ λ /search                              2.65 kB         [37m[1m110 kB[22m[39m
+├ λ /sign-in/[[...sign-in]]              2.53 kB         [37m[1m104 kB[22m[39m
+├ λ /sign-up/[[...sign-up]]              2.53 kB         [37m[1m104 kB[22m[39m
+├ λ /submit                              6.01 kB        [37m[1m90.6 kB[22m[39m
+└ λ /user                                2.53 kB         [37m[1m104 kB[22m[39m
++ First Load JS shared by all            [37m[1m84.6 kB[22m[39m
+  ├ chunks/672-7c116a7809cebea1.js       29.2 kB
+  ├ chunks/90234aad-82cc92fda9aba252.js  53.4 kB
+  └ other shared chunks (total)          2 kB
+
+
+ƒ Middleware                             [37m[1m119 kB[22m[39m
+
+λ  (Dynamic)  server-rendered on demand using Node.js
+
+[?25h[2mEnvironment variables loaded from .env[22m
+[2mPrisma schema loaded from prisma/schema.prisma[22m
+
+✔ Generated [1mPrisma Client[22m (v5.11.0)[2m to ./node_modules/.pnpm/@prisma+client@5.11.0_prisma@5.11.0/node_modules/@prisma/client[22m in 60ms
+
+Start using Prisma Client in Node.js (See: ]8;;https://pris.ly/d/clienthttps://pris.ly/d/client]8;;)
+[2m```[22m
+[36mimport[39m [34m{[39m PrismaClient [34m}[39m [36mfrom[39m [1m[32m'@prisma/client'[39m[22m
+[36mconst[39m prisma = [36mnew[39m PrismaClient[34m([39m[34m)[39m
+[2m```[22m
+or start using Prisma Client at the edge (See: ]8;;https://pris.ly/d/acceleratehttps://pris.ly/d/accelerate]8;;)
+[2m```[22m
+[36mimport[39m [34m{[39m PrismaClient [34m}[39m [36mfrom[39m [1m[32m'@prisma/client/edge'[39m[22m
+[36mconst[39m prisma = [36mnew[39m PrismaClient[34m([39m[34m)[39m
+[2m```[22m
+
+See other ways of importing Prisma Client: ]8;;http://pris.ly/d/importing-clienthttp://pris.ly/d/importing-client]8;;
+
+[90m[90m┌─[39m[90m[90m────────────────────────────────────────────────────────────┐[39m[90m
+[90m│[39m[90m  [0mDeploying your app to serverless or edge functions?[0m        [90m│[39m[90m
+[90m│[39m[90m  [0mTry Prisma Accelerate for connection pooling and caching.[0m  [90m│[39m[90m
+[90m│[39m[90m  [0m]8;;https://pris.ly/cli/acceleratehttps://pris.ly/cli/accelerate]8;;[0m                             [90m│[39m[90m
+└─────────────────────────────────────────────────────────────┘[39m
+

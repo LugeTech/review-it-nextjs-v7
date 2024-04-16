@@ -1,0 +1,58 @@
+
+1. To make the route accessible to both signed in and signed out users, add "/reviews" to the `publicRoutes` array passed to authMiddleware
+2. To prevent Clerk authentication from running at all, pass `ignoredRoutes: ["/((?!api|trpc))(_next.*|.+\.[\w]+$)", "/reviews"]` to authMiddleware
+3. Pass a custom `afterAuth` to authMiddleware, and replace Clerk's default behavior of redirecting unless a route is included in publicRoutes
+
+For additional information about middleware, please visit https://clerk.com/docs/nextjs/middleware
+(This log only appears in development mode, or if `debug: true` is passed to authMiddleware)
+ ✓ Compiled /sign-in/[[...sign-in]] in 359ms (1204 modules)
+ ✓ Compiled /sign-up/[[...sign-up]] in 393ms (1206 modules)
+ ○ Compiling /reviews ...
+ ✓ Compiled /reviews in 2.7s (1280 modules)
+ ○ Compiling /api/get/user ...
+ ✓ Compiled /api/get/user in 564ms (798 modules)
+ ✓ Compiled /api/update/helpful in 233ms (800 modules)
+update helpful path hit
+{ reviewId: '082d42f7-740a-4600-908d-683abf412a25' }
+Error appending item: PrismaClientValidationError:
+
+Invalid `prisma.review.update()` invocation:
+
+{
+  where: {
+    id: "082d42f7-740a-4600-908d-683abf412a25"
+  },
+  data: {
+    likedBy: {
+      connect: {
+        id: undefined
+      }
+      ~~~~~~~~~~~~~~~
+    }
+  }
+}
+
+Argument `connect`: Invalid value provided. Expected UserWhereUniqueInput[], provided Object.
+ ⨯ RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: 0
+    at ServerResponse.writeHead (node:_http_server:352:11)
+    at ServerResponse.writeHead (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@1
+    at ServerResponse._implicitHeader (node:_http_server:338:8)
+    at ServerResponse.end (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/
+    at sendResponse (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_m
+    at doRender (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_modul
+    at async cacheEntry.responseCache.get.routeKind (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_reac
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.
+    at async DevServer.renderPageComponent (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.
+    at async DevServer.renderToResponseImpl (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18
+    at async DevServer.pipeImpl (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@1
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/next-server.js:269:17)
+    at async DevServer.handleRequestImpl (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/base-server.js:791:17)
+    at async /Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/dev/next-dev-server.js:331:20
+    at async Span.traceAsyncFn (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/trace/trace.js:151:20)
+    at async DevServer.handleRequest (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/dev/next-dev-server.js:328:24)
+    at async invokeRender (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/Users/kentaylor/developer/javascript/Review It/review-it-nextjs-v7/node_modules/.pnpm/next@14.1.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/lib/start-server.js:140:13) {
+  code: 'ERR_HTTP_INVALID_STATUS_CODE'
+}
