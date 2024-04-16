@@ -31,7 +31,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
           <div className="flex flex-col w-full text-xs text-myTheme-dark dark:text-myTheme-light justify-start items-center ">
             <div className="flex w-full flex-col justify-start items-center">
               <Link
-                href={`/users/${review?.user?.id}`}
+                href={`/userprofile/${review?.user?.id}`}
                 className="sm:text-xl hover:underline flex flex-col justify-center items-center"
               >
                 {/* user image */}
@@ -49,10 +49,12 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
                   @{review.user?.userName}
                 </p>
               </Link>
-              <p className="text-xs text-gray-500 dark:text-gray-400">reviewed</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                reviewed
+              </p>
               <Link
                 href={`/reviews?id=${review?.product?.id}`}
-                onClick={() => { }}
+                onClick={() => {}}
                 className=" sm:text-base text-md text-center cursor-pointer  hover:underline w-full"
               >
                 {review?.product?.name}
@@ -67,7 +69,9 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
             </div>
             <div className="  w-full flex flex-col  justify-start items-start pt-1">
               <Link href={`/fr/${review?.id}`} className=" text-base">
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{review.title}</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                  {review.title}
+                </p>
                 <div className="flex flex-wrap ">
                   <span
                     dangerouslySetInnerHTML={{
@@ -75,9 +79,9 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
                     }}
                     className="mb-1 text-xs md:text-xs text-gray-600 dark:text-gray-500"
                   />
-                  <span className="text-xs md:text-xs font-medium text-gray-500 dark:text-gray-500">{
-                    review.body.length > 50 ? "...Read full review" : ""
-                  }</span>
+                  <span className="text-xs md:text-xs font-medium text-gray-500 dark:text-gray-500">
+                    {review.body.length > 50 ? "...Read full review" : ""}
+                  </span>
                 </div>
               </Link>
             </div>

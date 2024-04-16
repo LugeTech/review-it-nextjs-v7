@@ -12,9 +12,8 @@ const UserProfileComponent = (userId: {
   const auth = useAuth(); //NOTE: Might need tyhis to redirect the unsigned if middleware don't handle
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["user", userId, auth.userId],
+    queryKey: ["user", userId.userIdFromParams, auth.userId],
     queryFn: async () => {
-      console.log(userId.userIdFromParams);
       if (userId.userIdFromParams === undefined) {
         return await getUser();
       } else {

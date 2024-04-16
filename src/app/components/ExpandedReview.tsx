@@ -76,7 +76,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         return data;
       }
       // else return getProduct(id)
-      console.log("review id is null");
       const data: any = await getReview(reviewId);
       return data.data;
     },
@@ -126,8 +125,8 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         {/* arrange comments from newest to oldest */}
         {review?.comments!.length > 0 ? (
           <>
-            {review?.comments!
-              .slice()
+            {review
+              ?.comments!.slice()
               .sort(
                 (a, b) =>
                   new Date(b.createdDate!).valueOf() -

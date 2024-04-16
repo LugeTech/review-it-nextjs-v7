@@ -33,20 +33,18 @@ export const getUserWithId = async (userId: string) => {
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(userId),
   }).then((res) => res.json());
-  console.log(user);
   return user;
 };
 
 export const getUser = async () => {
-  console.log("this is getUser function");
   const user = await fetch(`${apiUrl}/get/user`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
   }).then((res) => res.json());
-  console.log(user);
   return user;
 };
 
