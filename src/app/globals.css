@@ -19,10 +19,10 @@
   .ProseMirror {
   @apply h-[180px] overflow-scroll;
 }
-.cl-pageScrollBox{
+.cl-pageScrollBox, .cl-navbar, .cl-card{
   @apply dark:bg-myTheme-dark dark:text-myTheme-light
 }
-.cl-navbarMobileMenuButton, .cl-headerTitle, .cl-headerSubtitle, .cl-profileSectionTitleText, .cl-userPreviewMainIdentifier, .cl-accordionTriggerButton, .cl-internal-of57g, .cl-internal-fqx4fd, .cl-internal-l1ab9q, .cl-breadcrumbsItem, .cl-breadcrumbsItemDivider, .cl-internal-3vf5mz, .cl-formFieldLabel{
+.cl-navbarMobileMenuButton, .cl-headerTitle, .cl-headerSubtitle, .cl-profileSectionTitleText, .cl-userPreviewMainIdentifier, .cl-accordionTriggerButton, .cl-internal-of57g, .cl-internal-fqx4fd, .cl-internal-l1ab9q, .cl-breadcrumbsItem, .cl-breadcrumbsItemDivider, .cl-internal-3vf5mz, .cl-formFieldLabel, .cl-navbarButton{
 
   @apply dark:text-myTheme-light
 }
