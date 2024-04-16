@@ -19,6 +19,13 @@
   .ProseMirror {
   @apply h-[180px] overflow-scroll;
 }
+.cl-pageScrollBox{
+  @apply dark:bg-myTheme-dark dark:text-myTheme-light
+}
+.cl-navbarMobileMenuButton, .cl-headerTitle, .cl-headerSubtitle, .cl-profileSectionTitleText, .cl-userPreviewMainIdentifier, .cl-accordionTriggerButton, .cl-internal-of57g, .cl-internal-fqx4fd, .cl-internal-l1ab9q, .cl-breadcrumbsItem, .cl-breadcrumbsItemDivider, .cl-internal-3vf5mz, .cl-formFieldLabel{
+
+  @apply dark:text-myTheme-light
+}
 /* body { */
 /*   touch-action: manipulation; */
 /* } */

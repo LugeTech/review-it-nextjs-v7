@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import { dark as clerkDark } from "@clerk/themes";
 import { Poppins } from "next/font/google";
 import Navbar from "./components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -25,11 +26,19 @@ export default function RootLayout({
     <JotaiProvider>
       <ClerkProvider>
         <QueryProvider>
-          <html className="bg-myTheme-lightbg dark:bg-myTheme-niceBlack" lang="en">
+          <html
+            className="bg-myTheme-lightbg dark:bg-myTheme-niceBlack"
+            lang="en"
+          >
             <head>
-              <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+              />
             </head>
-            <body className={`${poppins.className} bg-myTheme-lightbg dark:bg-myTheme-niceBlack `}>
+            <body
+              className={`${poppins.className} bg-myTheme-lightbg dark:bg-myTheme-niceBlack `}
+            >
               <Navbar>{children}</Navbar>
             </body>
           </html>

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.9",
+    "@clerk/themes": "^1.7.12",
     "@emotion/react": "^11.11.4",
     "@headlessui/react": "^1.7.18",
     "@mantine/core": "^6.0.21",
