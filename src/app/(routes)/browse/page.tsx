@@ -2,11 +2,11 @@
 import { iProduct } from "@/app/util/Interfaces";
 import { getProducts } from "@/app/util/serverFunctions";
 import { useQuery } from "@tanstack/react-query";
-import ArrangeByPanel from "../components/ArrangeByPanel";
-import LoadingSpinner from "../components/LoadingSpinner";
-import ProductCard from "../components/ProductCard";
+import ArrangeByPanel from "@/app/components/ArrangeByPanel";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
+import ProductCard from "@/app/components/ProductCard";
 import { useAtom } from "jotai";
-import { allProductsAtom } from "../store/store";
+import { allProductsAtom } from "@/app/store/store";
 import { useEffect } from "react";
 
 const Page = () => {

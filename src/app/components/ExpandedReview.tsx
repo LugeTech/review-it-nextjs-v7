@@ -35,7 +35,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         // create a structure like the old data but with the new data
         newData.reviewId = reviewId;
         newData.isDeleted = false;
-        newData.user = currentUser; // this works i just need to get my user
+        newData.user = currentUser; //FIX: this works i just need to get my user // I want to remove atoms if possible -- or maybe i keep this it is convenient
         let iReviewOldData: iReview = { ...oldData };
         iReviewOldData?.comments!.push(newData);
         // reverse the comments array
@@ -64,10 +64,9 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       ...comment,
       body: textAreaValue,
     });
-    console.log("this is the comment", comment);
   }, [textAreaValue]);
 
-  // NOTE query to get the comments... really it gets the review and it contains the comments
+  // NOTE: query to get the comments... really it gets the review and it contains the comments
   const { data, isLoading, isError } = useQuery({
     queryKey: ["review", reviewId],
     queryFn: async () => {
@@ -117,8 +116,8 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
           />
         </>
       ) : (
-        // Render a loading state or fetch the review details based on reviewId
-        <div>Loading...</div>
+        // might have to deal with size here.
+        <LoadingSpinner />
       )}
       <div className="space-y-1 mt-2 gap-1 flex flex-col w-full justify-end items-end ">
         <h2>Comments</h2>

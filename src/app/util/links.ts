@@ -1,4 +1,3 @@
-
 export const sideLinks = [
   {
     name: "Home",
@@ -14,11 +13,7 @@ export const sideLinks = [
   },
   {
     name: "My Activity",
-    link: "/myactivity",
-  },
-  {
-    name: "My Profile",
-    link: "/user",
+    link: "/userprofile",
   },
 ];
 
@@ -33,12 +28,6 @@ export const topLinks = [
   },
   {
     name: "My Activity",
-    link: "/myactivity",
-  },
-  {
-    name: "My Profile",
-    link: "/user",
+    link: "/userprofile",
   },
 ];
-
-

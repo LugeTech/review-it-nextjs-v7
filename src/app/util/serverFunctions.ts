@@ -37,9 +37,9 @@ export const getUserWithId = async (userId: string) => {
   }).then((res) => res.json());
   return user;
 };
-
+// this is the user api yrl error
 export const getUser = async () => {
-  const user = await fetch(`${apiUrl}/get/user`, {
+  const user = await fetch(`${apiUrl}/get/user/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -8,10 +8,7 @@ export const allProductsAtom = atom<iProduct[] | null>(null);
 export const currentReviewAtom = atom<iReview | null>(null);
 
 export const currentUserAtom = atom(async () => {
-  // console.log('about to get user');
   const res = await getUser();
-  const user = res.data as iUser
-  // console.log('user', user);
+  const user = res.data as iUser;
   return user;
 });
-

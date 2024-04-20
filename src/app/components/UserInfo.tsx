@@ -10,7 +10,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
   const { firstName, lastName, avatar, reviews, comments, likedReviews } = user;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col p-4">
       <div className="flex items-center">
         {avatar && (
           <Image
@@ -27,7 +27,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
       </div>
 
       <div className="mt-4">
-        <h3 className="text-lg font-semibold">My Reviews</h3>
+        <h3 className="text-lg font-semibold">Reviews</h3>
         <ul className="list-disc pl-4">
           {reviews?.map((review) => (
             <li key={review.id}>
@@ -43,7 +43,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
       </div>
 
       <div className="mt-4">
-        <h3 className="text-lg font-semibold">My Comments</h3>
+        <h3 className="text-lg font-semibold">Comments</h3>
         <ul className="list-disc pl-4">
           {comments?.map((comment) => (
             <li key={comment.id}>
@@ -58,12 +58,12 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
         </ul>
       </div>
       <div className="mt-4">
-        <h3 className="text-lg font-semibold">My Likes</h3>
+        <h3 className="text-lg font-semibold">Likes</h3>
         <ul className="list-disc pl-4">
           {likedReviews?.map((liked) => (
             <li key={liked.id}>
               <Link href={"/"} className="text-blue-500 hover:underline">
-                {liked.title} - 16 Likes
+                {liked.title}
               </Link>
             </li>
           ))}

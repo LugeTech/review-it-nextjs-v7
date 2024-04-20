@@ -2,6 +2,7 @@ import React from "react";
 import { iComment } from "@/app/util/Interfaces";
 import dayjs from "dayjs";
 import Image from "next/image";
+import Link from "next/link";
 // import Votes from "./Votes";
 interface CommentProps {
   comment: iComment;
@@ -21,13 +22,15 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
           width={50}
           height={50}
         />
-        <span className="text-myTheme-dark dark:text-myTheme-light font-semibold">
-          @{comment?.user?.userName}
-        </span>
-        <span className="text-gray-500 text-xs ml-2">
-          {comment?.createdDate &&
-            dayjs(comment.createdDate).format("MM/DD/YYYY h:mm A")}
-        </span>
+        <Link href={`/userprofile/${comment?.user?.id}`}>
+          <span className="text-myTheme-dark dark:text-myTheme-light font-semibold">
+            @{comment?.user?.userName}
+          </span>
+          <span className="text-gray-500 text-xs ml-2">
+            {comment?.createdDate &&
+              dayjs(comment.createdDate).format("MM/DD/YYYY h:mm A")}
+          </span>
+        </Link>
       </div>
       <div className="text-myTheme-lightTextBody dark:text-myTheme-darkTextBody text-sm">
         {comment.body && comment.body.length > 90
