@@ -79,11 +79,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
             <span
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(
-                  `${
-                    review.body.length > 100
-                      ? `${review.body.slice(0, 100)}...`
-                      : review.body
-                  }`,
+                  `${review.body.length > 100 ? `${review.body.slice(0, 100)}...` : review.body}`,
                 ),
               }}
               className="mb-1 text-xs md:text-xs dark:text-gray-500"
