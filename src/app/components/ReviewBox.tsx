@@ -25,8 +25,8 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
   }, [reviewBody]);
 
   return (
-    <div className=" my-1 flex-col h-full max-w-sm border p-4  border-gray-300 dark:border-gray-700 rounded-xl shadow-xl">
-      <div className=" flex flex-row h-auto w-full gap-2 pb-2 bg-myTheme-lightbg dark:bg-myTheme-niceBlack ">
+    <div className=" my-1 flex-col h-full max-w-sm border p-2 sm:p-4  border-[#E5E5DD] dark:border-gray-700 rounded-xl shadow-xl">
+      <div className=" flex flex-row h-auto w-full gap-1 sm:gap-2 pb-2 bg-myTheme-lightbg dark:bg-myTheme-niceBlack ">
         <Link
           href={`/userprofile/${review?.user?.id}`}
           className="sm:text-xl flex w-[40px] h-[40px] hover:underline justify-start items-start"
@@ -41,7 +41,6 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
               className=" rounded-full object-cover w-[40px] h-[40px] md:w-[40px] md:h-[40px]"
             />
           ) : null}
-          {/* user name */}
         </Link>
         <div className="flex h-[40px] justify-start items-center ">
           <RatingModuleReadOnly
