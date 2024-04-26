@@ -26,7 +26,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
 
   return (
     <div className=" my-1 flex-col h-full max-w-sm border p-4  border-gray-300 dark:border-gray-700 rounded-xl shadow-xl">
-      <div className=" flex flex-row h-auto w-full gap-2 pb-2 bg-myTheme-lightbg dark:bg-myTheme-niceGrey ">
+      <div className=" flex flex-row h-auto w-full gap-2 pb-2 bg-myTheme-lightbg dark:bg-myTheme-niceBlack ">
         <Link
           href={`/userprofile/${review?.user?.id}`}
           className="sm:text-xl flex w-[40px] h-[40px] hover:underline justify-start items-start"
@@ -62,23 +62,28 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
         </Link>
         <p className="text-xs text-gray-500 dark:text-gray-400">reviewed</p>
         <Link href={`/reviews?id=${review?.product?.id}`} onClick={() => {}}>
-          <p className="text-xs font-bold text-gray-700 dark:text-gray-400">
+          <p className="text-xs hover:underline font-bold text-gray-700 dark:text-gray-400">
             {review.product?.name}
           </p>
         </Link>
       </div>
-      <div className="  w-full flex flex-col  justify-start items-start pt-1">
-        <Link href={`/fr/${review?.id}`} className=" text-base">
+      <div className="  w-full flex flex-col  justify-start items-start ">
+        <Link
+          href={`/fr/${review?.id}`}
+          className=" hover:bg-gray-100 hover:dark:bg-myTheme-dark1 text-base"
+        >
           <p className="text-sm font-medium dark:text-gray-400">
             {review.title}
           </p>
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap ">
             <span
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(
-                  review.body.length > 100
-                    ? `${review.body.slice(0, 100)}...`
-                    : review.body,
+                  `${
+                    review.body.length > 100
+                      ? `${review.body.slice(0, 100)}...`
+                      : review.body
+                  }`,
                 ),
               }}
               className="mb-1 text-xs md:text-xs dark:text-gray-500"
