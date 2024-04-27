@@ -52,16 +52,20 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
   }
   //NOTE: this is a hack and we should have it.
   let productAddress = "";
+  let productDescription = "";
   if (product.address) {
     productAddress = product.address;
   }
+  if (product.description) {
+    productDescription = product.description;
+  }
   return (
-    <div className="flex hover:bg-myTheme-base-100 flex-col w-full rounded-lg shadow-md p-1 text-myTheme-lightTextBody bg-myTheme-lightbg dark:bg-myTheme-niceGrey dark:text-myTheme-darkTextBody justify-start items-start">
+    <div className="flex hover:bg-myTheme-success flex-col w-full rounded-lg shadow-md p-1 text-myTheme-lightTextBody bg-myTheme-lightbg dark:bg-myTheme-niceGrey dark:text-myTheme-darkTextBody justify-start items-start">
       <Link
         href={`/reviews?id=${product.id}`}
         className="   dark:hover:bg-myTheme-darkbg/60  w-full"
       >
-        <div className="flex justify-start items-center gap-2">
+        <div className="flex justify-start items-center gap-2 h-full">
           {product.display_image && (
             <div className="flex justify-center items-center w-20 h-20 object-cover">
               <Image
@@ -75,34 +79,46 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
           )}
           <div className="flex w-full h-full justify-start items-center">
             <div className="flex flex-col w-full">
-              <h2 className="text-sm text-black dark:text-myTheme-darkTextBody font-semibold flex justify-start items-start">
+              <p className="text-sm text-black dark:text-myTheme-darkTextBody font-semibold text-left">
                 {product.name}
-              </h2>
-              <h2 className="text-xs text-myTheme-lightTextBody dark:text-myTheme-darkTextBody text-left font-thin flex justify-start items-start">
-                {productAddress.length > 100
-                  ? productAddress.slice(0, 100) + "..."
-                  : productAddress}
-              </h2>
+              </p>
+              <div className="text-[10px] sm:text-xs text-myTheme-lightTextBody dark:text-myTheme-darkTextBody flex justify-start items-center gap-1 font-thin ">
+                <div className="flex flex-nowrap justify-start items-center text-left">
+                  {productAddress.length > 40
+                    ? productAddress.slice(0, 40) + "..."
+                    : productAddress}
+                </div>
+              </div>
+              <div className="text-[10px] sm:text-xs text-myTheme-lightTextBody dark:text-myTheme-darkTextBody text-left font-thin ">
+                {/* {product.telephone !== null ? "# " : ""} */}
+                {productDescription.length > 80
+                  ? productDescription.slice(0, 80) + "..."
+                  : productDescription}
+              </div>
+              <div className="text-[10px] sm:text-xs text-myTheme-lightTextBody dark:text-myTheme-darkTextBody text-left font-thin ">
+                {/* {product.telephone !== null ? "# " : ""} */}
+                {product.telephone}
+              </div>
             </div>
-            <div className="flex flex-col h-full w-auto justify-center items-center ">
-              <div className="flex  h-full w-auto justify-center items-center gap-1 ">
-                {
-                  <RatingModuleMini
-                    name={product.id!}
-                    rating={roundedRating!}
-                    ratingChanged={ratingChanged}
-                    size={options.size}
-                  />
-                }
-                <p className="text-sm text-myTheme-lightTextBody dark:text-myTheme-darkTextBody font-semibold flex justify-start items-start">
-                  {roundedRatingOneDecimalPlace}{" "}
-                </p>
-              </div>
-              <div className="flex  h-full w-auto justify-center items-center flex-nowrap">
-                <p className="text-[10px] text-myTheme-lightTextBody dark:text-myTheme-darkTextBody font-thin text-cente">
-                  {numberOfReviews} reviews
-                </p>
-              </div>
+          </div>
+          <div className="flex flex-col h-full w-auto justify-start items-start ">
+            <div className="flex  h-auto w-auto justify-center items-start">
+              <p className="text-[10px] text-myTheme-lightTextBody/50 dark:text-myTheme-darkTextBody font-thin text-cente">
+                {numberOfReviews} reviews
+              </p>
+            </div>
+            <div className="flex  h-auto w-auto justify-start items-center gap-1 ">
+              {
+                <RatingModuleMini
+                  name={product.id!}
+                  rating={roundedRating!}
+                  ratingChanged={ratingChanged}
+                  size={options.size}
+                />
+              }
+              <p className="text-sm text-myTheme-lightTextBody dark:text-myTheme-darkTextBody font-semibold flex justify-start items-start">
+                {roundedRatingOneDecimalPlace}{" "}
+              </p>
             </div>
           </div>
         </div>

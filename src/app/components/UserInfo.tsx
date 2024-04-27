@@ -62,7 +62,10 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
         <ul className="list-disc pl-4">
           {likedReviews?.map((liked) => (
             <li key={liked.id}>
-              <Link href={"/"} className="text-blue-500 hover:underline">
+              <Link
+                href={`/fr/${liked.productId}`}
+                className="text-blue-500 hover:underline"
+              >
                 {liked.title}
               </Link>
             </li>
