@@ -1,5 +1,3 @@
-
-
 import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,17 +9,17 @@ export async function POST(request: NextRequest) {
   }
 
   const body: Body = await request.json();
-  console.log(body)
+  console.log(body);
   try {
     await prisma.voteCount.update({
       where: {
-        reviewId: body.reviewId
+        reviewId: body.reviewId,
       },
       data: {
         helpfulVotes: {
-          increment: 1
-        }
-      }
+          increment: 1,
+        },
+      },
     });
 
     await prisma.review.update({
@@ -55,7 +53,6 @@ export async function POST(request: NextRequest) {
       status: 201,
       data: "updated helpful vote successfully",
     });
-
   } catch (error) {
     console.error(`Error appending item: ${error}`);
     return NextResponse.error();
@@ -63,4 +60,3 @@ export async function POST(request: NextRequest) {
     await prisma.$disconnect();
   }
 }
-

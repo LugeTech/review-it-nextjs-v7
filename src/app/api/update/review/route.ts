@@ -1,4 +1,3 @@
-
 import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -13,7 +12,6 @@ export async function POST(request: NextRequest) {
   const body: Body = await request.json();
   // console.log(body);
   try {
-    // Find the document you want to update by its ID
     const existingReview = await prisma.review.findUnique({
       where: { id: body.reviewId },
     });
@@ -23,7 +21,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: "Document not found" });
     }
 
-    // Append the new item to the existing array
     const updatedReview = await prisma.review.update({
       where: { id: body.reviewId },
       data: {
@@ -38,7 +35,6 @@ export async function POST(request: NextRequest) {
       status: 200,
       data: updatedReview,
     });
-
   } catch (error) {
     console.error(`Error appending item: ${error}`);
     return NextResponse.error();
@@ -46,4 +42,3 @@ export async function POST(request: NextRequest) {
     await prisma.$disconnect();
   }
 }
-
