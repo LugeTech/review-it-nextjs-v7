@@ -11,7 +11,7 @@ import Image from "next/image";
 interface UserInfoProps {
   user: iUser;
 }
-export const MyActivity: React.FC<UserInfoProps> = ({ user }) => {
+export const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
   return (
     <div className="grid md:grid-cols-2 gap-4 items-start">
       <div className="space-y-4">

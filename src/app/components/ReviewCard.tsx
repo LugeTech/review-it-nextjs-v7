@@ -69,7 +69,6 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         href={`/userprofile/${review.user?.id}`}
         className="inline-flex px-2"
       >
-        {/* TODO: Get this user endpoint working */}
         <div className="p-2 inline-flex items-center mb-2 ">
           <Image
             src={user?.avatar || "/logo.png"}

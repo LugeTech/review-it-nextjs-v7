@@ -16,7 +16,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
           <Image
             src={avatar}
             alt={firstName}
-            className="w-10 h-10 rounded-full mr-4 object-cover"
+            className="mr-4 h-10 w-10 rounded-full object-cover"
             width={40}
             height={40}
           />
@@ -63,7 +63,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
           {likedReviews?.map((liked) => (
             <li key={liked.id}>
               <Link
-                href={`/fr/${liked.productId}`}
+                href={`/fr/${liked.id}`}
                 className="text-blue-500 hover:underline"
               >
                 {liked.title}

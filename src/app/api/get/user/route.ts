@@ -1,4 +1,3 @@
-
 import { addUserToDb } from "@/app/util/addUserToDb";
 import { prisma } from "@/app/util/prismaClient";
 import { userInDb } from "@/app/util/userInDb";
@@ -27,7 +26,7 @@ interface UserDATA {
 }
 
 export async function POST(request: NextRequest) {
-  let idFromPublicMetaData: string = '';
+  let idFromPublicMetaData: string = "";
   let clerkUserData = null;
   try {
     const { sessionClaims } = getAuth(request);
@@ -60,7 +59,7 @@ export async function POST(request: NextRequest) {
         include: {
           comments: true,
           reviews: true,
-          likedReviews: true
+          likedReviews: true,
         },
       });
       return NextResponse.json({
@@ -76,8 +75,7 @@ export async function POST(request: NextRequest) {
         data: e.message.slice(0, 500) + "...",
       });
     }
-  }
-  catch (error) {
+  } catch (error) {
     let e = error as Error;
     return NextResponse.json({
       success: false,

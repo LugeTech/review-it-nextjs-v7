@@ -3,9 +3,8 @@ import { iProduct, iUser } from "@/app/util/Interfaces";
 import { getUser, getUserWithId } from "@/app/util/serverFunctions";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../components/LoadingSpinner";
-import UserInfo from "../components/UserInfo";
 import { useAuth } from "@clerk/nextjs";
-import UserInfoAlt from "./UserInfoAlt";
+import UserInfo from "@/app/components/UserInfo";
 
 const UserProfileComponent = (userId: {
   userIdFromParams: string | undefined;
@@ -32,7 +31,6 @@ const UserProfileComponent = (userId: {
   return (
     <div>
       <UserInfo user={user} />
-      {/* <UserInfoAlt user={user} /> */}
     </div>
   );
 };

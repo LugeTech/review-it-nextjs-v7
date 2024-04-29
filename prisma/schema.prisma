@@ -40,29 +40,29 @@ model VoteCount {
 }
 
 model Review {
-  id             String       @id @default(uuid())
+  id             String     @id @default(uuid())
   body           String
-  createdDate    DateTime     @default(now())
-  helpfulVotes   Int          @default(0)
-  unhelpfulVotes Int          @default(0)
+  createdDate    DateTime   @default(now())
+  helpfulVotes   Int        @default(0)
+  unhelpfulVotes Int        @default(0)
   rating         Int
   title          String
-  product        Product?     @relation(fields: [productId], references: [id])
-  user           User?        @relation(fields: [userId], references: [id])
+  product        Product?   @relation(fields: [productId], references: [id])
+  user           User?      @relation(fields: [userId], references: [id])
   productId      String
   userId         String
   isVerified     Boolean?
   verifiedBy     String?
-  isPublic       Boolean      @default(true)
+  isPublic       Boolean    @default(true)
   images         String[]
   videos         String[]
   links          String[]
   createdBy      String?
-  isDeleted      Boolean?     @default(false)
+  isDeleted      Boolean?   @default(false)
   comments       Comment[]
   voteCount      VoteCount?
-  likedBy        User[]       @relation("ReviewLike")
-  reviewLike     ReviewLike[]
+  likedBy        User[]     @relation("ReviewLike")
+  // reviewLike     ReviewLike[]
 
   @@unique([title, userId, productId], name: "unique_review")
 }
@@ -79,28 +79,28 @@ model Comment {
 }
 
 model User {
-  id           String       @id @default(uuid())
-  userName     String       @unique
+  id           String    @id @default(uuid())
+  userName     String    @unique
   avatar       String?
-  createdDate  DateTime     @default(now())
-  email        String       @unique
+  createdDate  DateTime  @default(now())
+  email        String    @unique
   firstName    String
   lastName     String
   reviews      Review[]
   clerkUserId  String
   product      Product[]
-  isDeleted    Boolean?     @default(false)
+  isDeleted    Boolean?  @default(false)
   comments     Comment[]
-  likedReviews Review[]     @relation("ReviewLike")
-  reviewLike   ReviewLike[]
+  likedReviews Review[]  @relation("ReviewLike")
+  // reviewLike   ReviewLike[]
 }
 
-model ReviewLike {
-  reviewId String
-  userId   String
-
-  review Review @relation(fields: [reviewId], references: [id])
-  user   User   @relation(fields: [userId], references: [id])
-
-  @@id([reviewId, userId])
-}
+// model ReviewLike {
+//   reviewId String
+//   userId   String
+//
+//   review Review @relation(fields: [reviewId], references: [id])
+//   user   User   @relation(fields: [userId], references: [id])
+//
+//   @@id([reviewId, userId])
+// }
