@@ -8,7 +8,7 @@ export const sideLinks = [
     link: "/browse",
   },
   {
-    name: "Submit",
+    name: "Add Business",
     link: "/submit",
   },
   {
@@ -23,7 +23,7 @@ export const topLinks = [
     link: "/browse",
   },
   {
-    name: "Submit",
+    name: "Add Business",
     link: "/submit",
   },
   {

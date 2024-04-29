@@ -60,7 +60,7 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
     productDescription = product.description;
   }
   return (
-    <div className="flex hover:bg-myTheme-success flex-col w-full rounded-lg shadow-md p-1 text-myTheme-lightTextBody bg-myTheme-lightbg dark:bg-myTheme-niceGrey dark:text-myTheme-darkTextBody justify-start items-start">
+    <div className="flex hover:bg-myTheme-success dark:hover:bg-myTheme-niceBlack flex-col w-full rounded-lg shadow-md p-1 text-myTheme-lightTextBody bg-myTheme-lightbg dark:bg-myTheme-niceGrey dark:text-myTheme-darkTextBody justify-start items-start">
       <Link
         href={`/reviews?id=${product.id}`}
         className="   dark:hover:bg-myTheme-darkbg/60  w-full"

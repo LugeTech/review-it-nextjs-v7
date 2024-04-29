@@ -37,7 +37,7 @@ const SearchBox = () => {
     const timeout = setTimeout(() => {
       // setAllProducts(filteredProducts(allProducts));
       setSearchResults(filteredProducts(allProducts, searchTerm));
-    }, 500); // 500ms delay
+    }, 100); // 500ms delay
 
     setTypingTimeout(timeout);
     return () => {
