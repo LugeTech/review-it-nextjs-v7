@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import { Analytics } from "@vercel/analytics/react";
 import { dark as clerkDark } from "@clerk/themes";
 import { Poppins } from "next/font/google";
 import Navbar from "./components/Navbar";
@@ -40,6 +41,7 @@ export default function RootLayout({
               className={`${poppins.className} bg-myTheme-lightbg dark:bg-myTheme-niceBlack `}
             >
               <Navbar>{children}</Navbar>
+              <Analytics />
             </body>
           </html>
         </QueryProvider>
