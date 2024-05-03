@@ -18,12 +18,28 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const [reviewAtom] = useAtom(currentReviewAtom);
   const [isOpen, setIsOpen] = useState(true);
   const [textAreaValue, setTextAreaValue] = useState("");
+
   const [comment, setComment] = useState<iComment>({
     reviewId: reviewId,
     body: textAreaValue,
     createdDate: new Date(),
   });
   const [currentUser] = useAtom(currentUserAtom);
+  // const [currentUser] = useState({
+  //   id: "1234567890",
+  //   userName: "fakeuser123",
+  //   avatar: "https://example.com/avatar.jpg",
+  //   createdDate: new Date(),
+  //   email: "fakeuser@example.com",
+  //   firstName: "John",
+  //   lastName: "Doe",
+  //   reviews: [],
+  //   clerkUserId: "clerk123",
+  //   product: [],
+  //   isDeleted: false,
+  //   comments: [],
+  //   likedReviews: [],
+  // });
 
   const mutations = useMutation({
     mutationFn: async (comment: iComment) => {

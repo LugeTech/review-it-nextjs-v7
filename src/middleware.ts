@@ -17,6 +17,7 @@ export default authMiddleware({
     "/api/webhook",
     "/api/webhook/user_update",
     "/api/get/review/latest",
+    "/api/update/helpful",
   ],
 });
 

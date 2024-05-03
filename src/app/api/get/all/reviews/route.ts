@@ -2,13 +2,12 @@ import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  // console.log("POST /api/reviews");
+  console.log("POST /api/reviews");
   // these variable names aren't good must update
   interface Body {
     isPublic: boolean;
     user: boolean;
     product: boolean;
-
   }
 
   const body: Body = await request.json();
@@ -21,7 +20,6 @@ export async function POST(request: NextRequest) {
         product: body.product,
       },
     });
-    console.log(reviews)
     return NextResponse.json({
       success: true,
       status: 200,
