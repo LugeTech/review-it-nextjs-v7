@@ -10,7 +10,6 @@ import ReviewCard from "./ReviewCard";
 import Link from "next/link";
 import WriteAReview from "./WriteAReview";
 import ReviewsSummary from "@/components/reviews-summary";
-
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["reviews", productId],

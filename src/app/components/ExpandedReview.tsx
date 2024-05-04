@@ -12,19 +12,22 @@ import CommentForm from "./CommentForm";
 import { useEffect, useState } from "react";
 import DisplayError from "./DisplayError";
 import ProductCard from "./ProductCard";
-
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
+  const auth = useAuth();
   const queryClient = useQueryClient();
   const [reviewAtom] = useAtom(currentReviewAtom);
   const [isOpen, setIsOpen] = useState(true);
   const [textAreaValue, setTextAreaValue] = useState("");
+  const [currentUser] = useAtom(currentUserAtom);
+  const router = useRouter();
 
   const [comment, setComment] = useState<iComment>({
     reviewId: reviewId,
     body: textAreaValue,
     createdDate: new Date(),
   });
-  const [currentUser] = useAtom(currentUserAtom);
 
   const mutations = useMutation({
     mutationFn: async (comment: iComment) => {
@@ -39,7 +42,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         newData.user = currentUser; //FIX: this works i just need to get my user // I want to remove atoms if possible -- or maybe i keep this it is convenient
         let iReviewOldData: iReview = { ...oldData };
         iReviewOldData?.comments!.push(newData);
-        // reverse the comments array
         iReviewOldData.comments = iReviewOldData?.comments!.reverse();
         return { ...iReviewOldData };
       });
@@ -55,6 +57,10 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   });
 
   const handleCommentSubmit = async (newTextAreaValue: string) => {
+    if (auth.isLoaded && !auth.isSignedIn) {
+      router.push("/sign-in");
+      return;
+    }
     setTextAreaValue(newTextAreaValue);
     setIsOpen(!isOpen);
     mutations.mutate({ reviewId, body: newTextAreaValue });
@@ -98,7 +104,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       <div className="mb-4">
         <ProductCard product={review?.product!} options={productCardOptions} />
       </div>
-      {/* Display the full review details here */}
       {review ? (
         <>
           <ReviewCard review={review} />
@@ -112,7 +117,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
           />
         </>
       ) : (
-        // might have to deal with size here.
         <LoadingSpinner />
       )}
       <div className="space-y-1 mt-2 gap-1 flex flex-col w-full justify-end items-end ">
@@ -126,7 +130,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
                 (a, b) =>
                   new Date(b.createdDate!).valueOf() -
                   new Date(a.createdDate!).valueOf(),
-              ) // Sort comments by createdDate in descending order
+              )
               .map((comment, index) => (
                 <div className="w-full px-4 py-2" key={index}>
                   <Comment comment={comment} key={index} />

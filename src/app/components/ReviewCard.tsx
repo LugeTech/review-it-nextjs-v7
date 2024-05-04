@@ -13,6 +13,7 @@ import { updateHelpfulVote } from "../util/serverFunctions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUser } from "@clerk/nextjs";
 import { MdOutlineThumbUp } from "react-icons/md";
+import { useAuth } from "@clerk/nextjs";
 interface ReviewCardProps {
   review: iReview;
 }
@@ -24,11 +25,11 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
     title,
     body,
     rating,
-    helpfulVotes,
     comments,
     product,
     voteCount,
   } = review;
+  const auth = useAuth();
   const [reviewAtom, setReview] = useAtom(currentReviewAtom);
   const formattedBody = body.replace(/<p><\/p>/g, "<br>"); // NOTE: line breaks werent being rendered properly. this fixes that
   const queryClient = useQueryClient();
@@ -122,7 +123,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
       <div className="flex items-center justify-between">
         <div className="flex font-semibold text-base md:text-lg ml-4 text-center items-center justify-center gap-1 text-green-500">
           {/*FIX: currently if i vote then write a comment i can vote again*/}
-          {hasUserLiked || hideButtom ? (
+          {hasUserLiked || hideButtom || !auth.isSignedIn ? (
             voteCount?.helpfulVotes!
           ) : (
             <ThumbsUpButton
@@ -130,7 +131,11 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
               count={voteCount?.helpfulVotes!}
             />
           )}{" "}
-          {hasUserLiked || hideButtom ? <MdOutlineThumbUp /> : ""}
+          {hasUserLiked || hideButtom || !auth.isSignedIn ? (
+            <MdOutlineThumbUp />
+          ) : (
+            ""
+          )}
         </div>
         <Link href={`/fr/${review.id}`} onClick={() => setReview(review)}>
           <p className="text-myTheme-dark dark:text-gray-400 text-xs">

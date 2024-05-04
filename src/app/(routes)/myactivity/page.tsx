@@ -1,5 +1,5 @@
 "use client";
-import { iProduct, iUser } from "@/app/util/Interfaces";
+import { iUser } from "@/app/util/Interfaces";
 import { getUser } from "@/app/util/serverFunctions";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
