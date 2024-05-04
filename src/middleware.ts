@@ -8,6 +8,7 @@ export default authMiddleware({
     "/browse",
     "/reviews",
     "/fr",
+    /^\/fr\/[a-zA-Z0-9-]+$/,
     "/api/get/all/products",
     "/api/get/all/reviews",
     "/api/get/products",
@@ -23,4 +24,5 @@ export default authMiddleware({
 
 export const config = {
   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
+  ignoredRoutes: [],
 };

@@ -5,7 +5,6 @@ export default function CreateReview() {
   const searchParams = useSearchParams();
   // const searchRating = searchParams.get('rating')
   const id = searchParams.get("id")!;
-  console.log("this is the id i'm about to go see all the reviews", id);
   return (
     <div className="flex flex-col bg-myTheme-lightbg dark:bg-myTheme-niceBlack  w-full items-center justify-start">
       <Reviews productId={id} />

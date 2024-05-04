@@ -25,21 +25,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     createdDate: new Date(),
   });
   const [currentUser] = useAtom(currentUserAtom);
-  // const [currentUser] = useState({
-  //   id: "1234567890",
-  //   userName: "fakeuser123",
-  //   avatar: "https://example.com/avatar.jpg",
-  //   createdDate: new Date(),
-  //   email: "fakeuser@example.com",
-  //   firstName: "John",
-  //   lastName: "Doe",
-  //   reviews: [],
-  //   clerkUserId: "clerk123",
-  //   product: [],
-  //   isDeleted: false,
-  //   comments: [],
-  //   likedReviews: [],
-  // });
 
   const mutations = useMutation({
     mutationFn: async (comment: iComment) => {
@@ -100,11 +85,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
   const review = data as iReview;
-  // console.log("this is the review", review);
-  // review.comments = review.comments.reverse()
-  // filter allPproductsatom for id variable and return product
-
-  // NOTE this is the useMutation mostly to do optimistic updates to the comments
 
   const productCardOptions = {
     showLatestReview: true,
