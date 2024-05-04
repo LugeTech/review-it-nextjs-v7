@@ -122,7 +122,6 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
 
       <div className="flex items-center justify-between">
         <div className="flex font-semibold text-base md:text-lg ml-4 text-center items-center justify-center gap-1 text-green-500">
-          {/*FIX: currently if i vote then write a comment i can vote again*/}
           {hasUserLiked || hideButtom || !auth.isSignedIn ? (
             voteCount?.helpfulVotes!
           ) : (
