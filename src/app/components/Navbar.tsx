@@ -17,8 +17,13 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="drawer sticky top-0 ">
-      <input id="my-drawer-3" type="checkbox" className="drawer-toggle" checked={isDrawerOpen}
-        onChange={() => setIsDrawerOpen(!isDrawerOpen)} />
+      <input
+        id="my-drawer-3"
+        type="checkbox"
+        className="drawer-toggle"
+        checked={isDrawerOpen}
+        onChange={() => setIsDrawerOpen(!isDrawerOpen)}
+      />
       <div className="drawer-content flex flex-col">
         <div className="w-full navbar bg-myTheme-lightbg dark:bg-myTheme-niceBlack z-10">
           <div className="flex-none lg:hidden">
@@ -64,7 +69,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
       </div>
       <div className="drawer-side ">
         <label htmlFor="my-drawer-3" className="drawer-overlay "></label>
-        <div className="flex flex-col gap-4 font-bold menu p-4 w-40 h-full bg-myTheme-lightbg dark:bg-myTheme-dark">
+        <div className="flex flex-col gap-4 font-bold menu p-4 w-60 h-full bg-myTheme-lightbg dark:bg-myTheme-niceBlack">
           {/* <HomeLink /> */}
           <SideLinks onSideLinkClick={handleSideLinkClick} />
           <div className="flex justify-center items-end p-4">
