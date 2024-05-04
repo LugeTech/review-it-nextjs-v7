@@ -1,6 +1,11 @@
 import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
+const allowedDomains = [
+  "http://localhost:3000",
+  "https://reviewit.lugetech.com",
+];
+
 export async function POST(request: NextRequest) {
   console.log("POST /api/reviews");
   // these variable names aren't good must update

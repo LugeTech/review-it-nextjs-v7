@@ -1,7 +1,7 @@
 import React from "react";
 import { iProduct } from "../util/Interfaces";
 // import Link from 'next/link';
-import ProductCardSlim from "./ProductCardSlim";
+import ProductCardSlim from "@/app/components/ProductCardSlim";
 import CategoryList from "./CategoryList";
 
 interface SearchResultsProps {
