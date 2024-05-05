@@ -3,12 +3,13 @@ import { iProduct } from "@/app/util/Interfaces";
 import { NextRequest, NextResponse } from "next/server";
 
 const allowedDomains = [
-  "http://localhost:3000",
+  "http://127.0.0.1:3000",
   "https://reviewit.lugetech.com",
 ];
 
 export async function POST(request: NextRequest) {
   const referer = request.headers.get("referer");
+  console.log(referer);
 
   // Check if the referer is present and is one of the allowed domains
   if (!referer || !allowedDomains.includes(new URL(referer).origin)) {
