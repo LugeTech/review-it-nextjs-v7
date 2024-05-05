@@ -52,7 +52,6 @@ export async function POST(req: Request) {
   // const eventType = evt.type;
 
   // console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
-  console.log(payload);
   const user = await prisma.user.upsert({
     where: { email: payload.data.email_addresses[0].email_address },
     update: {
