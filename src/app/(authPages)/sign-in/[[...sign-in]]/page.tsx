@@ -7,8 +7,9 @@ export default function Page() {
         appearance={{
           elements: {
             socialButtonsBlockButtonText: "dark:text-white",
-            dividerText: "text-white",
-            footerActionText: "text-white",
+            dividerText: "dark:text-white",
+            footer: "dark:bg-myTheme-niceGrey",
+            socialButtonsBlockButton: "dark:bg-slate-700 ",
           },
         }}
       />

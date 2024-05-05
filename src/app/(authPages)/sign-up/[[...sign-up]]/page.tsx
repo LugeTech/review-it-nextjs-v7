@@ -6,9 +6,10 @@ export default function Page() {
       <SignUp
         appearance={{
           elements: {
-            socialButtonsBlockButton: "dark:text-white",
+            socialButtonsBlockButton: "dark:text-white dark:bg-slate-700",
             dividerText: "text-white",
             footerActionText: "text-white",
+            footer: "dark:bg-myTheme-niceGrey",
           },
         }}
       />

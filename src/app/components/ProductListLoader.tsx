@@ -1,10 +1,10 @@
-'use client';
-import { iProduct } from '@/app/util/Interfaces';
-import { useQuery } from '@tanstack/react-query';
-import { getProducts } from '../util/serverFunctions';
+"use client";
+import { iProduct } from "@/app/util/Interfaces";
+import { useQuery } from "@tanstack/react-query";
+import { getProducts } from "../util/serverFunctions";
 import { useAtom } from "jotai";
 import { allProductsStore } from "@/app/store/store";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const ProductListLoader = () => {
   const [_, setAllProducts] = useAtom(allProductsStore);
@@ -23,15 +23,16 @@ const ProductListLoader = () => {
   }, [data]);
 
   if (isLoading) {
-    // return <div className="flex justify-center bg-transparent">Loading search engine...</div>;
+    return (
+      <div className="flex font-extralight text-xs justify-center bg-transparent">
+        Loading search engine...
+      </div>
+    );
   }
   if (isError) {
     return <div>{error.message}</div>;
   }
 
-  return (
-    <>
-    </>
-  );
+  return <></>;
 };
 export default ProductListLoader;

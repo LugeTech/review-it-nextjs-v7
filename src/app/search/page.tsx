@@ -5,8 +5,8 @@ import ProductListLoader from "@/app/components/ProductListLoader"; // Import th
 const Search: React.FC = () => {
   return (
     <div className="flex flex-col pt-8 bg-myTheme-light dark:bg-myTheme-dark h-full w-full items-center justify-start">
-      <ProductListLoader />
       <SearchComponent />
+      <ProductListLoader />
     </div>
   );
 };

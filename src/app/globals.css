@@ -20,7 +20,7 @@
   @apply h-[180px] overflow-scroll;
 }
 
-.cl-footerActionText, .cl-signIn-root, .cl-cardBox, .cl-pageScrollBox, .cl-navbar, .cl-card, .cl-footer, .cl-footerAction{
+.cl-signIn-root, .cl-cardBox, .cl-pageScrollBox, .cl-navbar, .cl-card {
   @apply dark:bg-myTheme-dark dark:text-myTheme-light text-myTheme-dark
 }
 
@@ -32,9 +32,10 @@
   @apply text-sky-500
 }
 
-.cl-cardBox, .cl-signIn-start{
-  @apply dark:bg-myTheme-dark dark:text-myTheme-light text-myTheme-dark
-}
+
+/* .cl-cardBox, .cl-signIn-start{ */
+/*   @apply dark:bg-myTheme-dark dark:text-myTheme-light text-myTheme-dark */
+/* } */
 
 /* body { */
 /*   touch-action: manipulation; */
