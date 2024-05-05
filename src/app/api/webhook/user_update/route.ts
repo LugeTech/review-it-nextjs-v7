@@ -56,9 +56,9 @@ export async function POST(req: Request) {
     where: { email: payload.data.email_addresses[0].email_address },
     update: {
       avatar: payload.data.image_url,
-      email: payload.data.email_addresses[0].email_address,
-      userName:
-        payload.data.username || payload.data.email_addresses[0].email_address,
+      // email: payload.data.email_addresses[0].email_address,
+      // userName:
+      //   payload.data.username || payload.data.email_addresses[0].email_address,
       lastName: payload.data.last_name,
       firstName: payload.data.first_name,
     },
