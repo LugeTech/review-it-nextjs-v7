@@ -1,28 +1,21 @@
-// noinspection SpellCheckingInspection
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-import { authMiddleware } from "@clerk/nextjs";
+const isOnLockDownList = createRouteMatcher([
+  "/cr(.*)",
+  "/submit(.*)",
+  "/myactivity(.*)",
+  "/userprofile(.*)",
+]);
+const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 
-export default authMiddleware({
-  publicRoutes: [
-    "/",
-    "/browse",
-    "/reviews",
-    "/fr",
-    /^\/fr\/[a-zA-Z0-9-]+$/,
-    "/api/get/all/products",
-    "/api/get/all/reviews",
-    "/api/get/products",
-    "/api/get/reviews",
-    "/api/get/review",
-    "/api/get/user",
-    "/api/webhook",
-    "/api/webhook/user_update",
-    "/api/get/review/latest",
-    "/api/update/helpful",
-  ],
+export default clerkMiddleware((auth, req) => {
+  // Restrict admin route to users with specific role
+  if (isAdminRoute(req)) auth().protect({ role: "org:admin" });
+
+  // Restrict routes to signed in users
+  if (isOnLockDownList(req)) auth().protect();
 });
 
 export const config = {
   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
-  ignoredRoutes: [],
 };
