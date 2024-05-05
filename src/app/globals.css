@@ -31,6 +31,10 @@
 .cl-footerActionLink{
   @apply text-sky-500
 }
+/* hide username change button */
+.cl-profileSectionPrimaryButton__username{
+  @apply hidden
+}
 
 
 /* .cl-cardBox, .cl-signIn-start{ */
