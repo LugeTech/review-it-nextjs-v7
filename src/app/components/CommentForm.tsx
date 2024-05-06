@@ -15,7 +15,6 @@ const CommentForm = ({ isOpen, onSubmit }: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Call the parent component's callback function with the textarea value
     onSubmit(textAreaValue);
   };
   return (
