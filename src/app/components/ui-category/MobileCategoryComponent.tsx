@@ -32,7 +32,7 @@ export default function MobileCategoryComponent() {
       {/* </div> */}
       <CollapsibleContent className="space-y-2 px-6">
         <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-          Jackson's Realty company
+          Jackson`&apos;`s Realty company
         </div>
         <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
           Big Homes
