@@ -7,6 +7,7 @@ import NavbarAuth from "./NavbarAuth";
 import { Suspense } from "react";
 import Image from "next/image";
 import { useState } from "react";
+import { Toaster } from "sonner";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -64,6 +65,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         <div className=" flex flex-col w-full h-full overflow-y-auto ">
+          <Toaster position="top-right" />
           {children}
         </div>
       </div>
