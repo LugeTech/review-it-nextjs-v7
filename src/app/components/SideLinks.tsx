@@ -23,7 +23,7 @@ const Links = ({ onSideLinkClick }: { onSideLinkClick: () => void }) => {
           </li>
         </Link>
       ))}
-      <div className="flex flex-1 justify-center items-center">
+      <div className="flex h-full flex-1 justify-start items-end">
         <Version />
       </div>
     </div>
