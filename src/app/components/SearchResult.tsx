@@ -2,7 +2,6 @@ import React from "react";
 import { iProduct } from "../util/Interfaces";
 // import Link from 'next/link';
 import ProductCardSlim from "@/app/components/ProductCardSlim";
-import CategoryList from "./CategoryList";
 
 interface SearchResultsProps {
   results: iProduct[];
@@ -25,7 +24,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
           />
         ))}
         <p className="text-xl font-bold text-left">Categories</p>
-        <CategoryList />
+        Category list
       </div>
     </div>
   );

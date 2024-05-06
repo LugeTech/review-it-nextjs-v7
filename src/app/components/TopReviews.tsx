@@ -18,6 +18,7 @@ const TopReviews = () => {
   let reviews = data?.data as iReview[];
 
   if (isLoading) return <LoadingSpinner />;
+
   return (
     <div className="flex flex-col w-full h-full justify-center items-center  dark:text-mycolours-light">
       <h1 className=" flex flex-1 justify-center mt-2 text-xl font-bold ">

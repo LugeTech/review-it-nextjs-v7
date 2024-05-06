@@ -14,6 +14,7 @@ import DisplayError from "./DisplayError";
 import ProductCard from "./ProductCard";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const auth = useAuth();
   const queryClient = useQueryClient();
@@ -31,7 +32,14 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
 
   const mutations = useMutation({
     mutationFn: async (comment: iComment) => {
-      createCommentOnReview(comment);
+      const data = createCommentOnReview(comment);
+      toast.promise(data, {
+        loading: "Loading...",
+        success: () => {
+          return "Comment saved successfully!";
+        },
+        error: "Error saving comment",
+      });
     },
     onMutate: (newData: iComment) => {
       // Update the UI optimistically before the actual mutation
