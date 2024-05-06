@@ -8,6 +8,10 @@ export const sideLinks = [
     link: "/browse",
   },
   {
+    name: "Browse Categories",
+    link: "/category",
+  },
+  {
     name: "Add Business",
     link: "/submit",
   },
@@ -21,6 +25,10 @@ export const topLinks = [
   {
     name: "Browse",
     link: "/browse",
+  },
+  {
+    name: "Browse Categories",
+    link: "/category",
   },
   {
     name: "Add Business",
