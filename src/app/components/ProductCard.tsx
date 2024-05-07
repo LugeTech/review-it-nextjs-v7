@@ -116,8 +116,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   {currentProduct?.address}
                 </p>
                 <p className="hidden text-xs md:flex md:text-sm leading-snug text-gray-700">
-                  {currentProduct && currentProduct.description?.length > 100
-                    ? `${currentProduct.description.slice(0, 100)}...`
+                  {currentProduct && currentProduct.description?.length > 80
+                    ? `${currentProduct.description.slice(0, 80)}...`
                     : currentProduct?.description}
                 </p>
               </div>
