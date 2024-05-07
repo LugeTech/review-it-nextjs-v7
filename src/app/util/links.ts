@@ -4,7 +4,7 @@ export const sideLinks = [
     link: "/",
   },
   {
-    name: "Browse",
+    name: "Browse Products",
     link: "/browse",
   },
   {
@@ -23,7 +23,7 @@ export const sideLinks = [
 
 export const topLinks = [
   {
-    name: "Browse",
+    name: "Browse Products",
     link: "/browse",
   },
   {
