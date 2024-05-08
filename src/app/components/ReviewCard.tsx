@@ -45,14 +45,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const mutation = useMutation({
     mutationFn: async () => {
       const data = await updateHelpfulVote(helpfulData);
-      console.log(data);
-      toast.promise(data, {
-        loading: "Liking...",
-        success: () => {
-          return "Like saved successfully!";
-        },
-        error: "Error saving Like",
-      });
+    },
+    onSuccess: () => {
+      toast.success("Like saved successfully!");
     },
     onMutate: async () => {
       // Update the local state optimistically
@@ -62,6 +57,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
       return { reviewAtom };
     },
     onError: (err, variables, context) => {
+      toast.error("Like failed!");
       //NOTE: Reset to the previous state on error not tested
       if (context) {
         queryClient.setQueryData(["review", review.id], context);
