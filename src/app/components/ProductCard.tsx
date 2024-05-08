@@ -109,16 +109,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
             )}
             <div className="mb-2 flex flex-col gap-1 w-full">
               <div className="flex flex-col">
-                <p className="text-base md:text-xl font-semibold text-black dark:text-white ">
+                <div className="md:leading-5 text-base flex md:text-xl font-semibold text-black dark:text-white ">
                   {currentProduct?.name}
-                </p>
-                <div className="text-xs font-extralight md:text-sm text-black dark:text-white border-b-2 border-gray-100 dark:border-gray-500">
+                </div>
+                <div className="text-xs font-extralight md:text-sm md:font-extralight text-black dark:text-white border-b-2 border-gray-200 dark:border-gray-500">
                   {currentProduct?.address}
                 </div>
                 <p className="hidden text-xs md:flex md:text-sm leading-snug text-black/70 dark:text-white">
+                  "
                   {currentProduct && currentProduct.description?.length > 80
                     ? `${currentProduct.description.slice(0, 80)}...`
                     : currentProduct?.description}
+                  "
                 </p>
               </div>
               <div className="flex justify-between md:justify-start md:gap-2 ">

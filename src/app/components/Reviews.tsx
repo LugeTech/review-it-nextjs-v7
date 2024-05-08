@@ -10,6 +10,7 @@ import ReviewCard from "./ReviewCard";
 import Link from "next/link";
 import WriteAReview from "./WriteAReview";
 import ReviewsSummary from "@/components/reviews-summary";
+import { toast } from "sonner";
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["reviews", productId],

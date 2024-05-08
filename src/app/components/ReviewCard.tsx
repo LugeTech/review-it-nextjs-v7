@@ -14,6 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUser } from "@clerk/nextjs";
 import { MdOutlineThumbUp } from "react-icons/md";
 import { useAuth } from "@clerk/nextjs";
+import { toast } from "sonner";
 interface ReviewCardProps {
   review: iReview;
 }
@@ -42,7 +43,17 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   };
 
   const mutation = useMutation({
-    mutationFn: () => updateHelpfulVote(helpfulData),
+    mutationFn: async () => {
+      const data = await updateHelpfulVote(helpfulData);
+      console.log(data);
+      toast.promise(data, {
+        loading: "Liking...",
+        success: () => {
+          return "Like saved successfully!";
+        },
+        error: "Error saving Like",
+      });
+    },
     onMutate: async () => {
       // Update the local state optimistically
       voteCount!.helpfulVotes! += 1;

@@ -26,7 +26,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
 
   return (
     <div className=" my-1 flex-col h-full max-w-sm border p-2 pl-3 sm:p-4 bg-white dark:bg-myTheme-niceBlack border-[#E5E5DD] dark:border-gray-700 rounded-xl shadow-md">
-      <div className=" flex flex-row h-auto w-full gap-1 sm:gap-2 pb-2  ">
+      <div className=" flex flex-row h-auto w-full gap-1 sm:gap-2 pb-1  ">
         <Link
           href={`/userprofile/${review?.user?.id}`}
           className="sm:text-xl flex w-[40px] h-[40px] hover:underline justify-start items-start"
@@ -71,7 +71,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
           href={`/fr/${review?.id}`}
           className=" hover:bg-gray-100 hover:dark:bg-myTheme-dark1 text-base"
         >
-          <p className="md:text-base font-bold text-myTheme-lightTextBody/80 dark:text-gray-300">
+          <p className="md:text-sm font-bold text-myTheme-lightTextBody/80 dark:text-gray-300">
             {review.title}
           </p>
           <div className="flex flex-wrap  ">
@@ -81,7 +81,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
                   `${review.body.length > 100 ? `${review.body.slice(0, 100)}...` : review.body}`,
                 ),
               }}
-              className="mb-1 text-xs md:text-base leading-tight font-extralight dark:text-gray-300"
+              className="mb-1 text-xs md:text-md leading-tight font-extralight dark:text-gray-300"
             />
           </div>
           <div className=" w-full  tracking-tight ">
