@@ -112,7 +112,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <p className="text-base md:text-xl font-semibold text-black dark:text-white ">
                   {currentProduct?.name}
                 </p>
-                <div className="text-xs font-extralight md:text-sm text-black dark:text-white border-b-2 border-gray-100">
+                <div className="text-xs font-extralight md:text-sm text-black dark:text-white border-b-2 border-gray-100 dark:border-gray-500">
                   {currentProduct?.address}
                 </div>
                 <p className="hidden text-xs md:flex md:text-sm leading-snug text-black/70 dark:text-white">
