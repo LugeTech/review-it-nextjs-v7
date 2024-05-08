@@ -17,14 +17,8 @@ export const updateHelpfulVote = async (data: helpfulData) => {
     },
     cache: "no-store",
     body: JSON.stringify(body),
-  }).then((res) => {
-    if (!res.ok) {
-      throw new Error("Failed to increment helpful votes");
-    }
-    return res.json();
   });
-
-  return response;
+  return await response.json();
 };
 
 export const getUserWithId = async (userId: string) => {
