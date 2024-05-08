@@ -92,7 +92,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="flex flex-row bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark rounded-lg">
         <Link
           href={`/reviews?id=${currentProduct?.id}`}
-          className=" w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark "
+          className="  w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark "
         >
           <div className="flex justify-start items-center gap-2 w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-niceGrey dark:text-myTheme-light">
             {currentProduct?.display_image && (
@@ -109,19 +109,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
             )}
             <div className="mb-2 flex flex-col gap-1 w-full">
               <div className="flex flex-col">
-                <p className="text-base md:text-xl font-semibold ">
+                <p className="text-base md:text-xl font-semibold text-black dark:text-white ">
                   {currentProduct?.name}
                 </p>
-                <p className="text-xs md:text-sm text-gray-700">
+                <div className="text-xs font-extralight md:text-sm text-black dark:text-white border-b-2 border-gray-100">
                   {currentProduct?.address}
-                </p>
-                <p className="hidden text-xs md:flex md:text-sm leading-snug text-gray-700">
+                </div>
+                <p className="hidden text-xs md:flex md:text-sm leading-snug text-black/70 dark:text-white">
                   {currentProduct && currentProduct.description?.length > 80
                     ? `${currentProduct.description.slice(0, 80)}...`
                     : currentProduct?.description}
                 </p>
               </div>
-              <div className="flex justify-between ">
+              <div className="flex justify-between md:justify-start md:gap-2 ">
                 {allReviews.length > 0 ? (
                   <RatingModuleReadOnly
                     name={currentProduct?.id!}
@@ -137,7 +137,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     style={dynamicStyles}
                   >
                     {allReviews.length > 0 ? (
-                      <div className="flex gap-1 items-center justify-center">
+                      <div className="flex gap-1 items-center justify-center text-black/70 text-sm">
                         {roundedRatingOneDecimalPlace!}
                         {`(${numberOfReviews!} reviews)`}
                       </div>
@@ -149,7 +149,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 {allReviews.length === 0 && (
                   <Link
                     href={`/cr/?id=${currentProduct?.id}&rating=3`}
-                    className="hover:underline p-0 "
+                    className="hover:underline "
                   >
                     Write Review
                   </Link>
@@ -163,11 +163,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {/* <div className="flex sm:hidden w-full justify-between"> */}
       {/*   {<VerticalLinks />} */}
       {/* </div> */}
-      <div className="flex w-full text-xs md:text-base justify-evenly items-center ">
+      <div className="bg-myTheme-accent/30 flex w-full text-xs md:text-base justify-evenly items-center pr-2 ">
         {<VerticalLinks />}
 
         {options.showClaimThisProduct && (
-          <div className="flex w-full justify-center items-center text-gray-400 hover:underline ">
+          <div className="flex w-full justify-center items-center text-black dark:text-white hover:underline ">
             Claim Product
           </div>
         )}
@@ -176,14 +176,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
           className="flex w-full justify-end items-center "
         >
           {options.showWriteReview ? (
-            <p className="text-gray-400">
-              <Link
-                href={`/cr/?id=${currentProduct?.id}&rating=3`}
-                className="text-gray-400 hover:underline"
-              >
-                Write Review
-              </Link>
-            </p>
+            <Link
+              href={`/cr/?id=${currentProduct?.id}&rating=3`}
+              className="text-black dark:text-white hover:underline"
+            >
+              Write Review
+            </Link>
           ) : (
             ""
           )}
