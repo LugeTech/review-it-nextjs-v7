@@ -88,11 +88,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }
 
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md pb-4 px-4 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
+    <div className="flex flex-col w-full rounded-lg shadow-md pb-2 border-zinc-200 border-2 px-4 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
       <div className="flex flex-row bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark rounded-lg">
         <Link
           href={`/reviews?id=${currentProduct?.id}`}
-          className=" w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark"
+          className=" w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark "
         >
           <div className="flex justify-start items-center gap-2 w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-niceGrey dark:text-myTheme-light">
             {currentProduct?.display_image && (
@@ -101,7 +101,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   <Image
                     src={currentProduct.display_image}
                     alt={`${currentProduct.name} Image`}
-                    className="rounded-lg object-cover "
+                    className=" object-cover "
                     fill
                   />
                 </div>
