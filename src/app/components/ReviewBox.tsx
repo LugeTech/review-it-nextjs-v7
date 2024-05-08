@@ -84,14 +84,14 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
               className="mb-1 text-xs md:text-base leading-tight font-extralight dark:text-gray-300"
             />
           </div>
+          <div className=" w-full  tracking-tight ">
+            <p className="text-xs font-light text-gray-500 dark:text-gray-600">
+              {dayjs(review?.createdDate?.toString()).format(
+                "MMMM D, YYYY h:mm A",
+              )}
+            </p>
+          </div>
         </Link>
-        <div className=" w-full  tracking-tight ">
-          <p className="text-xs font-light text-gray-500 dark:text-gray-600">
-            {dayjs(review?.createdDate?.toString()).format(
-              "MMMM D, YYYY h:mm A",
-            )}
-          </p>
-        </div>
       </div>
     </div>
   );
