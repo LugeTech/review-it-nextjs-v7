@@ -21,7 +21,7 @@ export const updateHelpfulVote = async (data: helpfulData) => {
   return await response.json();
 };
 
-export const getUserWithI = async (userId: string) => {
+export const getUserWithId = async (userId: string) => {
   const user = await fetch(`${apiUrl}/get/userwithid`, {
     method: "POST",
     headers: {

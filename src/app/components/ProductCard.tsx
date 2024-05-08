@@ -116,11 +116,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   {currentProduct?.address}
                 </div>
                 <p className="hidden text-xs md:flex md:text-sm leading-snug text-black/70 dark:text-white">
-                  "
+                  &quot;
                   {currentProduct && currentProduct.description?.length > 80
                     ? `${currentProduct.description.slice(0, 80)}...`
                     : currentProduct?.description}
-                  "
+                  &quot;
                 </p>
               </div>
               <div className="flex justify-between md:justify-start md:gap-2 ">
