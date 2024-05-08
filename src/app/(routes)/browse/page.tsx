@@ -28,7 +28,7 @@ const Page = () => {
 
   const productCardOptions = {
     showLatestReview: true,
-    size: "rating-",
+    size: "rating-sm",
     showWriteReview: true,
     showClaimThisProduct: true,
   };
@@ -39,7 +39,7 @@ const Page = () => {
         <div className="flex flex-col  h-full w-full lg:w-1/4 justify-start items-center gap-2 ">
           <ArrangeByPanel />
         </div>
-        <div className="flex flex-col w-full lg:w-1/2 justify- items-center gap-2 rounded-lg">
+        <div className="flex flex-col w-full lg:w-1/2 items-center gap-2 rounded-lg sm:px-10">
           {products.map((product: iProduct) => {
             return (
               <ProductCard

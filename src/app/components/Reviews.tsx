@@ -19,7 +19,7 @@ const Reviews = ({ productId }: { productId: string }) => {
 
   const productCardOptions = {
     showLatestReview: false,
-    size: "rating-md",
+    size: "rating-sm",
     showWriteReview: true,
     showClaimThisProduct: true,
   };

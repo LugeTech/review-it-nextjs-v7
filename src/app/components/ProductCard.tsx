@@ -88,61 +88,68 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }
 
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
+    <div className="flex flex-col w-full rounded-lg shadow-md pb-2 border-zinc-200 border-2 px-4 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
       <div className="flex flex-row bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark rounded-lg">
         <Link
           href={`/reviews?id=${currentProduct?.id}`}
-          className=" w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark"
+          className="  w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark "
         >
           <div className="flex justify-start items-center gap-2 w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-niceGrey dark:text-myTheme-light">
             {currentProduct?.display_image && (
               <div className=" flex items-start justify-start bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark dark:text-myTheme-light">
-                <div className="relative w-24 h-24">
+                <div className="relative w-20 h-20">
                   <Image
                     src={currentProduct.display_image}
                     alt={`${currentProduct.name} Image`}
-                    className="rounded-lg object-contain "
+                    className=" object-cover "
                     fill
                   />
                 </div>
               </div>
             )}
-            <div className="mb-2 flex flex-col gap-2">
+            <div className="mb-2 flex flex-col gap-1 w-full">
               <div className="flex flex-col">
-                <p className="text-base md:text-xl font-semibold ">
+                <p className="text-base md:text-xl font-semibold text-black dark:text-white ">
                   {currentProduct?.name}
                 </p>
-                <p className="text-xs md:text-sm text-myTheme-dark dark:text-myTheme-light">
-                  {currentProduct?.address || currentProduct?.description}
+                <div className="text-xs font-extralight md:text-sm text-black dark:text-white border-b-2 border-gray-100">
+                  {currentProduct?.address}
+                </div>
+                <p className="hidden text-xs md:flex md:text-sm leading-snug text-black/70 dark:text-white">
+                  {currentProduct && currentProduct.description?.length > 80
+                    ? `${currentProduct.description.slice(0, 80)}...`
+                    : currentProduct?.description}
                 </p>
               </div>
-              {allReviews.length > 0 ? (
-                <RatingModuleReadOnly
-                  name={currentProduct?.id!}
-                  rating={roundedRating!}
-                  size={options.size}
-                />
-              ) : (
-                "No Reviews Yet"
-              )}
-              <div className="flex gap-2">
-                <span
-                  className={`rounded flex items-start text-xs md:text-base px-1`}
-                  style={dynamicStyles}
-                >
-                  {allReviews.length > 0 ? (
-                    <>
-                      {roundedRatingOneDecimalPlace!}
-                      {`(${numberOfReviews!} reviews)`}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </span>
+              <div className="flex justify-between md:justify-start md:gap-2 ">
+                {allReviews.length > 0 ? (
+                  <RatingModuleReadOnly
+                    name={currentProduct?.id!}
+                    rating={roundedRating!}
+                    size={options.size}
+                  />
+                ) : (
+                  "No Reviews Yet"
+                )}
+                <div className="flex gap-2">
+                  <span
+                    className={`rounded flex items-center text-xs md:text-base px-1`}
+                    style={dynamicStyles}
+                  >
+                    {allReviews.length > 0 ? (
+                      <div className="flex gap-1 items-center justify-center text-black/70 text-sm">
+                        {roundedRatingOneDecimalPlace!}
+                        {`(${numberOfReviews!} reviews)`}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </span>
+                </div>
                 {allReviews.length === 0 && (
                   <Link
                     href={`/cr/?id=${currentProduct?.id}&rating=3`}
-                    className="hover:underline p-0 "
+                    className="hover:underline "
                   >
                     Write Review
                   </Link>
@@ -151,27 +158,30 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </div>
           </div>
         </Link>
-        <VerticalLinks />
+        {/* <div className="hidden sm:flex">{<VerticalLinks />}</div> */}
       </div>
-      <div className="flex text-xs md:text-base justify-between items-center ">
+      {/* <div className="flex sm:hidden w-full justify-between"> */}
+      {/*   {<VerticalLinks />} */}
+      {/* </div> */}
+      <div className="bg-myTheme-accent/30 flex w-full text-xs md:text-base justify-evenly items-center pr-2 ">
+        {<VerticalLinks />}
+
         {options.showClaimThisProduct && (
-          <p className="text-gray-400 hover:underline ">
-            {"Claim this product"}
-          </p>
+          <div className="flex w-full justify-center items-center text-black dark:text-white hover:underline ">
+            Claim Product
+          </div>
         )}
         <div
           id="reviews_operations_div"
-          className="flex flex-row justify-end items-center "
+          className="flex w-full justify-end items-center "
         >
           {options.showWriteReview ? (
-            <p className="text-gray-400">
-              <Link
-                href={`/cr/?id=${currentProduct?.id}&rating=3`}
-                className="text-gray-400 hover:underline"
-              >
-                Write Review
-              </Link>
-            </p>
+            <Link
+              href={`/cr/?id=${currentProduct?.id}&rating=3`}
+              className="text-black dark:text-white hover:underline"
+            >
+              Write Review
+            </Link>
           ) : (
             ""
           )}
