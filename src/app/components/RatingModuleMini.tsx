@@ -12,26 +12,18 @@ const RatingModule = ({
   ratingChanged: (rating: number) => void;
   size: string;
 }) => {
-  const customRed = "bg-red-600";
-  const customOrange = "bg-orange-500";
-  const customYellow = "bg-yellow-500";
-  const customLightGreen = "bg-lime-500";
-  const customGreen = "bg-green-500";
-
-  // depending on the rating change the input bg color
-
   const handleRating = (rating: number) => {
     switch (rating) {
       case 1:
-        return customRed;
+        return "bg-myTheme-ratingRed";
       case 2:
-        return customOrange;
+        return "bg-myTheme-ratingOrange";
       case 3:
-        return customYellow;
+        return "bg-myTheme-ratingYellow";
       case 4:
-        return customLightGreen;
+        return "bg-myTheme-ratingLightGreen";
       case 5:
-        return customGreen;
+        return "bg-myTheme-ratingGreen";
     }
   };
   return (

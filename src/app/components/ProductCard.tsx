@@ -75,21 +75,24 @@ const ProductCard: React.FC<ProductCardProps> = ({
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } =
     calculateAverageReviewRating(allReviews) as unknown as iCalculatedRating;
 
-  let dynamicStyles: any = {};
-  if (roundedRating >= 4) {
-    dynamicStyles.backgroundColor = "#00FF00";
-    dynamicStyles.color = "#006400";
-  } else if (roundedRating === 3) {
-    dynamicStyles.backgroundColor = "#FFFF00";
-    dynamicStyles.color = "#000000";
-  } else if (roundedRating <= 2) {
-    dynamicStyles.backgroundColor = "#FF0000";
-    dynamicStyles.color = "#FFFFFF";
-  }
+  const handleRating = (roundedRating: number) => {
+    switch (roundedRating) {
+      case 1:
+        return "bg-myTheme-ratingRed";
+      case 2:
+        return "bg-myTheme-ratingOrange";
+      case 3:
+        return "bg-myTheme-ratingYellow";
+      case 4:
+        return "bg-myTheme-ratingLightGreen";
+      case 5:
+        return "bg-myTheme-ratingGreen";
+    }
+  };
 
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md pb-2 border-zinc-200 dark:border-zinc-600 border-2 px-4 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
-      <div className="flex flex-row bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark rounded-lg">
+    <div className="flex flex-col w-full rounded-lg shadow-md p-2 border-zinc-200 dark:border-zinc-600 border-2 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
+      <div className="flex flex-row bg-myTheme-white dark:bg-myTheme-niceGrey text-myTheme-dark rounded-lg">
         <Link
           href={`/reviews?id=${currentProduct?.id}`}
           className="  w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark "
@@ -101,14 +104,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   <Image
                     src={currentProduct.display_image}
                     alt={`${currentProduct.name} Image`}
-                    className=" object-cover "
+                    className=" object-cover rounded-lg "
                     fill
                   />
                 </div>
               </div>
             )}
             <div className="mb-2 flex flex-col gap-1 w-full">
-              <div className="flex flex-col">
+              <div className="flex flex-col bg-myTheme-secondary/20 rounded-lg">
                 <div className="md:leading-5 text-base flex md:text-xl font-semibold text-black dark:text-white ">
                   {currentProduct?.name}
                 </div>
@@ -135,12 +138,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 )}
                 <div className="flex gap-2">
                   <span
-                    className={`rounded flex items-center text-xs md:text-base px-1`}
-                    style={dynamicStyles}
+                    className={`rounded flex items-center text-xs md:text-base px-1 ${handleRating(roundedRating)}`}
                   >
                     {allReviews.length > 0 ? (
-                      <div className="flex gap-1 items-center justify-center text-black/70 text-sm">
-                        {roundedRatingOneDecimalPlace!}
+                      <div className="flex gap-1 items-center justify-center text-black/70 text-sm ">
+                        {roundedRatingOneDecimalPlace!}{" "}
                         {`(${numberOfReviews!} reviews)`}
                       </div>
                     ) : (
@@ -165,7 +167,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {/* <div className="flex sm:hidden w-full justify-between"> */}
       {/*   {<VerticalLinks />} */}
       {/* </div> */}
-      <div className="bg-myTheme-accent/30 flex w-full text-xs md:text-base justify-evenly items-center pr-2 ">
+      <div className="bg-myTheme-primary/30 flex w-full text-xs md:text-base justify-evenly items-center pr-2 rounded-lg ">
         {<VerticalLinks />}
 
         {options.showClaimThisProduct && (

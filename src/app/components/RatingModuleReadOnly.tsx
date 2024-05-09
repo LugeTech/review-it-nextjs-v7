@@ -12,27 +12,20 @@ const RatingModule = ({
   // ratingChanged: (rating: number) => void;
   size: string;
 }) => {
-  const customRed = "bg-red-500";
-  const customOrange = "bg-orange-500";
-  const customYellow = "bg-yellow-500";
-  const customLightGreen = "bg-lime-500";
-  const customGreen = "bg-green-500";
-
-
   const handleRating = (rating: number) => {
     switch (rating) {
       case 1:
-        return customRed;
+        return "bg-myTheme-ratingRed";
       case 2:
-        return customOrange;
+        return "bg-myTheme-ratingOrange";
       case 3:
-        return customYellow;
+        return "bg-myTheme-ratingYellow";
       case 4:
-        return customLightGreen;
+        return "bg-myTheme-ratingLightGreen";
       case 5:
-        return customGreen;
+        return "bg-myTheme-ratingGreen";
     }
-  }
+  };
   return (
     <div className="flex flex-grow-0">
       <div
@@ -45,7 +38,7 @@ const RatingModule = ({
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 1}
           readOnly
-        // onChange={() => ratingChanged(1)}
+          // onChange={() => ratingChanged(1)}
         />
         <input
           type="radio"
@@ -54,7 +47,7 @@ const RatingModule = ({
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 2}
           readOnly
-        // onChange={() => ratingChanged(2)}
+          // onChange={() => ratingChanged(2)}
         />
         <input
           type="radio"
@@ -63,7 +56,7 @@ const RatingModule = ({
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 3}
           readOnly
-        // onChange={() => ratingChanged(3)}
+          // onChange={() => ratingChanged(3)}
         />
         <input
           type="radio"
@@ -72,7 +65,7 @@ const RatingModule = ({
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 4}
           readOnly
-        // onChange={() => ratingChanged(4)}
+          // onChange={() => ratingChanged(4)}
         />
         <input
           type="radio"
@@ -81,7 +74,7 @@ const RatingModule = ({
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 5}
           readOnly
-        // onChange={() => ratingChanged(5)}
+          // onChange={() => ratingChanged(5)}
         />
       </div>
     </div>

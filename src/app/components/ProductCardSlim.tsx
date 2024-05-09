@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getReviews } from "../util/serverFunctions";
 import { calculateAverageReviewRating } from "../util/calculateAverageReviewRating";
 import LoadingSpinner from "./LoadingSpinner";
+import { Rating } from "@mantine/core";
 
 interface ProductCardProps {
   product: iProduct;
@@ -22,7 +23,7 @@ interface iCalculatedRating {
 }
 
 const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
-  const [_, setRating] = useState(0); // Initial value
+  const [_, setRating] = useState(0);
   const ratingChanged = (newRating: number) => {
     setRating(newRating);
   };
@@ -39,18 +40,6 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } =
     calculateAverageReviewRating(reviews) as unknown as iCalculatedRating;
 
-  let dynamicStyles: any = {};
-  if (roundedRating >= 4) {
-    dynamicStyles.backgroundColor = "#00FF00";
-    dynamicStyles.color = "#006400";
-  } else if (roundedRating === 3) {
-    dynamicStyles.backgroundColor = "#FFFF00";
-    dynamicStyles.color = "#000000";
-  } else if (roundedRating <= 2) {
-    dynamicStyles.backgroundColor = "#FF0000";
-    dynamicStyles.color = "#FFFFFF";
-  }
-  //NOTE: this is a hack and we should have it.
   let productAddress = "";
   let productDescription = "";
   if (product.address) {
@@ -104,20 +93,22 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
           <div className="flex flex-col h-full w-auto justify-start items-start ">
             <div className="flex  h-auto w-auto justify-center items-start">
               <p className="text-[10px] text-myTheme-lightTextBody/50 dark:text-myTheme-darkTextBody font-thin text-cente">
-                {numberOfReviews} reviews
+                {numberOfReviews ? numberOfReviews : 0} reviews
               </p>
             </div>
             <div className="flex  h-auto w-auto justify-start items-center gap-1 ">
-              {
+              {roundedRating ? (
                 <RatingModuleMini
                   name={product.id!}
                   rating={roundedRating!}
                   ratingChanged={ratingChanged}
                   size={options.size}
                 />
-              }
-              <p className="text-sm text-myTheme-lightTextBody dark:text-myTheme-darkTextBody font-semibold flex justify-start items-start">
-                {roundedRatingOneDecimalPlace}{" "}
+              ) : (
+                ""
+              )}
+              <p className="text-xs text-myTheme-lightTextBody dark:text-myTheme-darkTextBody font-semibold flex justify-start items-start">
+                {roundedRatingOneDecimalPlace}
               </p>
             </div>
           </div>
