@@ -127,15 +127,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 </p>
               </div>
               <div className="flex justify-between md:justify-start md:gap-2 ">
-                {allReviews.length > 0 ? (
-                  <RatingModuleReadOnly
-                    name={currentProduct?.id!}
-                    rating={roundedRating!}
-                    size={options.size}
-                  />
-                ) : (
-                  "No Reviews Yet"
-                )}
                 <div className="flex gap-2">
                   <span
                     className={`rounded flex items-center text-xs md:text-base px-1 ${handleRating(roundedRating)}`}
@@ -149,6 +140,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
                       ""
                     )}
                   </span>
+                  {allReviews.length > 0 ? (
+                    <RatingModuleReadOnly
+                      name={currentProduct?.id!}
+                      rating={roundedRating!}
+                      size={options.size}
+                    />
+                  ) : (
+                    "No Reviews Yet"
+                  )}
                 </div>
                 {allReviews.length === 0 && (
                   <Link
