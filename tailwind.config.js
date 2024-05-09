@@ -11,10 +11,10 @@ module.exports = {
     extend: {
       colors: {
         myTheme: {
-          lightbg: '#fcfbf3',
+          lightbg: "#fcfbf3",
           primary: "#6e9bd3",
-          secondary: "#ba98f2",
-          accent: "#4930a5",
+          secondary: "#a5c6e3",
+          accent: "#7d73d1",
           neutral: "#151628",
           "base-100": "#ffffff",
           info: "#92bae3",
@@ -24,12 +24,19 @@ module.exports = {
           dark: "#20272F",
           dark1: "#21202f",
           dark2: "#202f2f",
-          light: "#cbd5e1",
+          light: "#e5e7eb",
           grey: "#c8c9ca",
           niceGrey: "#333644",
           niceBlack: "#2b2d38",
           darkTextBody: "#d4d4d4",
-          lightTextBody: "#20272F"
+          lightTextBody: "#20272F",
+          white: "#ffffff",
+          complementary: "#ff8c42",
+          ratingRed: "#ef4444", // Adjusted from bg-red-600
+          ratingOrange: "#f97316", // Adjusted from bg-orange-500
+          ratingYellow: "#eab308", // Adjusted from bg-yellow-500
+          ratingLightGreen: "#84cc16", // Adjusted from bg-lime-500
+          ratingGreen: "#22c55e", // Adjusted from bg-green-500
         },
       },
     },
