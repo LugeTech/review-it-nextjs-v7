@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import UserInfo from "@/app/components/UserInfo";
 import { useAuth } from "@clerk/nextjs";
+import UserInfoAlt from "@/app/components/UserInfoAlt";
 
 const Page = () => {
   const auth = useAuth();
