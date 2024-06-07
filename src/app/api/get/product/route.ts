@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     id: string;
   }
 
-  const body:  Body: { id: string }  = await request.json();
+  const body: Body = await request.json();
   console.log(body);
   try {
     const product = await prisma.product.findUnique({
