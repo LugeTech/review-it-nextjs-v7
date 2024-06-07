@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAuth } from "@clerk/nextjs";
 import UserInfo from "@/app/components/UserInfo";
-import UserInfoAlt from "@/app/components/UserInfoAlt";
 
 const UserProfileComponent = (userId: {
   userIdFromParams: string | undefined;

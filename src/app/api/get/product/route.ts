@@ -1,4 +1,3 @@
-
 import { prisma } from "@/app/util/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -6,10 +5,9 @@ export async function POST(request: NextRequest) {
   console.log("POST /api/products");
   interface Body {
     id: string;
-
   }
 
-  const body: Body = await request.json();
+  const body:  Body: { id: string }  = await request.json();
   console.log(body);
   try {
     const product = await prisma.product.findUnique({

@@ -16,7 +16,6 @@ export default async function Home() {
             <div className="flex w-full h-full flex-row flex-wrap sm:px-4 px-4 md:px-2 pb-4 space-y-2 ">
               <TopReviews />
             </div>
-            {/* business of the day */}
             <div className="mb-4 mt-4 flex w-full h-full flex-col justify-center">
               <div className="text-md mx-4 flex items-center justify-center">
                 Business of the day goes here!

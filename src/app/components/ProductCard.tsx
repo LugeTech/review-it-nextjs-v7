@@ -111,7 +111,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </div>
             )}
             <div className="mb-2 flex flex-col gap-1 w-full">
-              <div className="flex flex-col bg-myTheme-secondary/20 rounded-lg">
+              <div className="p-1 flex flex-col bg-myTheme-secondary/20 rounded-lg">
                 <div className="md:leading-5 text-base flex md:text-xl font-semibold text-black dark:text-white ">
                   {currentProduct?.name}
                 </div>
