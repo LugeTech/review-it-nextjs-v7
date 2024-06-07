@@ -20,22 +20,43 @@
   @apply h-[180px] overflow-scroll;
 }
 
-.cl-signIn-root, .cl-cardBox, .cl-pageScrollBox, .cl-navbar, .cl-card {
-  @apply dark:bg-myTheme-dark dark:text-myTheme-light text-myTheme-dark
+.cl-signIn-root,
+.cl-cardBox,
+.cl-pageScrollBox,
+.cl-navbar,
+.cl-card {
+  @apply dark:bg-myTheme-dark dark:text-myTheme-light text-myTheme-dark;
 }
 
-.cl-footerActionText, .cl-navbarMobileMenuButton, .cl-headerTitle, .cl-headerSubtitle, .cl-profileSectionTitleText, .cl-userPreviewMainIdentifier, .cl-accordionTriggerButton, .cl-internal-of57g, .cl-internal-fqx4fd, .cl-internal-l1ab9q, .cl-breadcrumbsItem, .cl-breadcrumbsItemDivider, .cl-internal-3vf5mz, .cl-formFieldLabel, .cl-navbarButton{
-  @apply dark:text-myTheme-light
+.cl-footerActionText,
+.cl-navbarMobileMenuButton,
+.cl-headerTitle,
+.cl-headerSubtitle,
+.cl-profileSectionTitleText,
+.cl-userPreviewMainIdentifier,
+.cl-accordionTriggerButton,
+.cl-internal-of57g,
+.cl-internal-fqx4fd,
+.cl-internal-l1ab9q,
+.cl-breadcrumbsItem,
+.cl-breadcrumbsItemDivider,
+.cl-internal-3vf5mz,
+.cl-formFieldLabel,
+.cl-navbarButton {
+  @apply dark:text-myTheme-light;
 }
 
-.cl-footerActionLink{
-  @apply text-sky-500
+.cl-footerActionLink {
+  @apply text-sky-500;
 }
 /* hide username change button */
-.cl-profileSectionPrimaryButton__username{
-  @apply hidden
+.cl-profileSectionPrimaryButton__username {
+  @apply hidden;
 }
 
+body {
+  overscroll-behavior: none;
+}
 
 /* .cl-cardBox, .cl-signIn-start{ */
 /*   @apply dark:bg-myTheme-dark dark:text-myTheme-light text-myTheme-dark */
