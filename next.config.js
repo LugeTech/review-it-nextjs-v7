@@ -1,5 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const withPWA = require("@ducanh2912/next-pwa").default({
+  dest: "public",
+});
+
+module.exports = withPWA({
   reactStrictMode: false,
   images: {
     remotePatterns: [
@@ -13,17 +16,5 @@ const nextConfig = {
       { hostname: "images.clerk.dev", protocol: "https" },
     ],
   },
-  // experimental: {
-  //   serverActions: true,
-  // },
-  // webpack: (config) => {
-  //   config.experiments = {
-  //     topLevelAwait: true,
-  //     layers: true,
-  //   };
-  //   return config;
-  // },
-};
-
-module.exports = nextConfig;
+});
 // export default nextConfig;
