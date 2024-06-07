@@ -1,8 +1,16 @@
 import { prisma } from "@/app/util/prismaClient";
+import { allowedDomains } from "@/lib/allowedDomains";
+import { checkReferer } from "@/lib/checkReferrer";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  console.log("POST /api/reviews");
+  const referer = request.headers.get("referer") as string;
+  console.log(referer);
+
+  // Check if the referer is present and is one of the allowed domains
+  if (!checkReferer(referer, allowedDomains)) {
+    return NextResponse.redirect(new URL("/error", request.url));
+  }
   // these variable names aren't good must update
   interface Body {
     isPublic: boolean;

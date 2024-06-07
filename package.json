@@ -12,6 +12,7 @@
   "dependencies": {
     "@clerk/nextjs": "^5.0.0-beta.46",
     "@clerk/themes": "^1.7.14",
+    "@ducanh2912/next-pwa": "^10.2.7",
     "@emotion/react": "^11.11.4",
     "@headlessui/react": "^1.7.19",
     "@mantine/core": "^6.0.21",
@@ -73,6 +74,7 @@
     "@types/react-datepicker": "^4.19.6",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
-    "prisma": "^5.13.0"
+    "prisma": "^5.13.0",
+    "webpack": "^5.91.0"
   }
 }
