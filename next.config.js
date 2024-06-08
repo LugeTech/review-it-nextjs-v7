@@ -1,5 +1,24 @@
 const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
+  runtimeCaching: [
+    {
+      urlPattern: /\/offline/,
+      handler: "NetworkOnly",
+    },
+    {
+      urlPattern: /^https?.*/,
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "offlineFallback",
+        expiration: {
+          maxEntries: 200,
+        },
+        cacheableResponse: {
+          statuses: [0, 200],
+        },
+      },
+    },
+  ],
 });
 
 module.exports = withPWA({
