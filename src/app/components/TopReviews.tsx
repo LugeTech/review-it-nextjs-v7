@@ -24,7 +24,7 @@ const TopReviews = () => {
       <h1 className=" flex flex-1 justify-center mt-2 text-xl font-bold ">
         Latest reviews
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-2 md:gap-4 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 md:gap-4 ">
         {reviews?.length > 0 &&
           reviews?.map((review, index) => {
             return <ReviewBox key={index} review={review} />;

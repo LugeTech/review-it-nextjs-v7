@@ -1,6 +1,8 @@
+"use client";
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
+import ReviewCategories from "./components/ReviewCategories";
 // import Token from "./components/Token";
 export default async function Home() {
   return (
@@ -10,6 +12,9 @@ export default async function Home() {
       </div>
       <div className="flex flex-col justify-center ">
         <QuickTabs />
+        <div className="mt-2 flex w-full">
+          <ReviewCategories />
+        </div>
         <div className="mt-4 flex flex-1 flex-col">
           <div className="flex flex-col justify-center">
             {/* this is the top reviews container*/}

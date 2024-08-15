@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       orderBy: {
         createdDate: "desc",
       },
-      take: 4,
+      take: 6,
     });
     return NextResponse.json({
       success: true,

@@ -108,10 +108,10 @@ export async function POST(request: NextRequest) {
       data: e,
     });
   }
-  return NextResponse.json({
-    success: false,
-    status: 500,
-    data: { "error": "something failed" },
-  });
+  // return NextResponse.json({
+  //   success: false,
+  //   status: 500,
+  //   data: { "error": "something failed" },
+  // });
 
 }

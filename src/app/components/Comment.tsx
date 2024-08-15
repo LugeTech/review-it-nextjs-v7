@@ -13,7 +13,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
     return <p>No comment</p>;
   }
   return (
-    <div className="flex w-full flex-col md:w-full  p-2 rounded-lg shadow-md mb-1 bg-myTheme-lightbg dark:bg-myTheme-niceGrey">
+    <div className="flex w-full flex-col md:w-full  p-2 rounded-lg shadow-md mb-1 bg-myTheme-lightbg dark:bg-myTheme-niceGrey border-l-8 ml-2 ">
       <div className="flex items-center mb-1">
         <Image
           src={comment?.user?.avatar || "/default-avatar.png"} // Use a default avatar if no avatar is provided

@@ -27,8 +27,8 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
   return (
     <div className=" my-1 flex-col h-full max-w-sm border p-2 pl-3 sm:p-4 bg-white dark:bg-myTheme-niceBlack border-[#E5E5DD] dark:border-gray-700 rounded-xl shadow-md">
       <div className=" flex flex-row h-auto w-full gap-1 sm:gap-2 pb-1  ">
-        <Link
-          href={`/userprofile/${review?.user?.id}`}
+        <div
+          // href={`/userprofile/${review?.user?.id}`}
           className="sm:text-xl flex w-[40px] h-[40px] hover:underline justify-start items-start"
         >
           {/* user image */}
@@ -41,13 +41,23 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
               className=" rounded-full object-cover w-[40px] h-[40px] md:w-[40px] md:h-[40px]"
             />
           ) : null}
-        </Link>
-        <div className="flex h-[40px] justify-start items-center ">
-          <RatingModuleReadOnly
-            name={review.id!}
-            rating={review.rating}
-            size={"rating-sm"}
-          />
+        </div>
+        <div className="flex flex-row w-full">
+          <div className="flex flex-col justify-start items-start gap-2 ">
+            <div className="flex justify-start items-start ">
+              <RatingModuleReadOnly
+                name={review.id!}
+                rating={review.rating}
+                size={"rating-sm"}
+              />
+            </div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {review.product?.tags[0]}
+            </p>
+          </div>
+          <p className="text-md font-thin italic text-gray-500 pl-2 ">
+            3.5/5.0
+          </p>
         </div>
       </div>
       <div className="flex flex-wrap justify-start items-start gap-2 pb-2 border-b-2 border-b-gray-100 dark:border-gray-700 ">
@@ -55,23 +65,23 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
           href={`/userprofile/${review?.user?.id}`}
           className="flex hover:underline justify-start items-start"
         >
-          <p className="text-xs font-bold text-gray-700 dark:text-gray-400">
+          <p className="text-sm font-bold text-gray-700 dark:text-gray-400">
             @{review.user?.userName}
           </p>
         </Link>
-        <p className="text-xs text-gray-500 dark:text-gray-400">reviewed</p>
-        <Link href={`/reviews?id=${review?.product?.id}`} onClick={() => {}}>
-          <p className="text-xs hover:underline font-bold text-gray-700 dark:text-gray-400">
+        <p className="text-sm text-gray-500 dark:text-gray-400">reviewed</p>
+        <Link href={`/reviews?id=${review?.product?.id}`} onClick={() => { }}>
+          <p className="text-sm hover:underline font-bold text-myTheme-accent  dark:text-gray-400">
             {review.product?.name}
           </p>
         </Link>
       </div>
       <div className="bg-white dark:bg-myTheme-niceBlack pt-2 w-full flex flex-col  justify-start items-start ">
-        <Link
-          href={`/fr/${review?.id}`}
-          className=" hover:bg-gray-100 hover:dark:bg-myTheme-dark1 text-base"
+        <div
+          // href={`/fr/${review?.id}`}
+          className=" hover:bg-gray-100 hover:dark:bg-myTheme-dark1 text-base w-full"
         >
-          <p className="md:text-sm font-bold text-myTheme-lightTextBody/80 dark:text-gray-300">
+          <p className="md:text-md font-bold text-myTheme-lightTextBody/80 dark:text-gray-300">
             {review.title}
           </p>
           <div className="flex flex-wrap  ">
@@ -81,17 +91,22 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
                   `${review.body.length > 100 ? `${review.body.slice(0, 100)}...` : review.body}`,
                 ),
               }}
-              className="mb-1 text-xs md:text-md leading-tight font-extralight dark:text-gray-300"
+              className="mb-1 text-sm md:text-md leading-tight font-extralight dark:text-gray-300"
             />
           </div>
-          <div className=" w-full  tracking-tight ">
-            <p className="text-xs font-light text-gray-500 dark:text-gray-600">
+          <div className=" w-full  tracking-tight flex justify-between ">
+            <p className="text-sm font-light text-gray-500 dark:text-gray-600">
               {dayjs(review?.createdDate?.toString()).format(
                 "MMMM D, YYYY h:mm A",
               )}
             </p>
+            <Link href={`/fr/${review?.id}`}
+              className="bg-myTheme-accent text-myTheme-light hover:bg-myTheme-success hover:text-black px-2 py-2 rounded-sm transition-colors">
+              Read review
+            </Link>
+
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );
