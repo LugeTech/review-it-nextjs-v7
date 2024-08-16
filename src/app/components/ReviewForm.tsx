@@ -16,6 +16,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import { useAtom } from "jotai";
 import { allProductsAtom } from "../store/store";
 import { useRouter, useSearchParams } from "next/navigation";
+import MultiFileUpload from "./fileUpload/MultiFileUpload";
 
 const ReviewForm = () => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const ReviewForm = () => {
   console.log(id, searchRating!);
   const [disabled, setDisabled] = useState(false);
   const { user } = useUser();
+  const [linksArray, setLinksArray] = useState<string[]>([]);
   // make sure there is an int in searchRating and make sure its between 1 and 5
   const [rating, setRating] = useState(
     searchRating ? parseInt(searchRating) : 2,
@@ -163,10 +165,10 @@ const ReviewForm = () => {
             <ProductCard options={productCardOptions} product={product} />
           )}
         </div>
-        <div className="flex flex-col justify-center items-center mb-2 border-b dark:border-myTheme-dark2 p-1 shadow-sm">
+        <div className="flex flex-col justify-start items-start mb-2 border-b dark:border-myTheme-dark2 p-1 shadow-sm mt-4">
           <label
             htmlFor="rating"
-            className="flex w-full text-base justify-center items-center"
+            className="flex w-full text-base justify-start items-start"
           >
             Rate your experience
           </label>
@@ -230,12 +232,15 @@ const ReviewForm = () => {
           <Editor onEditorValue={handleEditorValue} />
         </div>
 
-        <div className="flex gap-4 w-full">
+        <div className="flex flex-col gap-4 w-full">
           {!disabled && reviewData.body !== "" && (
             <div>
               <EditorPreview reviewData={reviewData} />
             </div>
           )}
+          <div className="flex flex-col justify-center items-center w-full">
+            <MultiFileUpload setLinksArray={setLinksArray} />
+          </div>
 
           <button
             disabled={disabled}
