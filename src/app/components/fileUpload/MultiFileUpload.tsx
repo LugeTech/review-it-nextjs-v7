@@ -24,12 +24,13 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
     acceptedFiles: File[],
     rejectedFiles: FileRejection[],
   ) => {
-    setFiles([...files, ...acceptedFiles]);
+    // setFiles([...files, ...acceptedFiles]);
     // get all imagees files, not sure why i had this in the beginning
-    // const imageFiles = acceptedFiles.filter((file) =>
-    //   file.type.startsWith("image/"),
-    // );
+    const imageFiles = acceptedFiles.filter((file) =>
+      file.type.startsWith("image/"),
+    );
 
+    setFiles([...files, ...imageFiles]);
     // const otherFiles = acceptedFiles.filter(
     //   (file) => !file.type.startsWith("image/"),
     // );
@@ -67,7 +68,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
     try {
 
       const response = await axios.post(
-        process.env.NEXT_PUBLIC_API_PATH_UPLOAD as string,
+        "/api/create/image-link",
         formData,
         {
           onUploadProgress: (progressEvent) => {
@@ -124,17 +125,17 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
     <div className="flex flex-col items-center justify-center w-full h-full">
       <Dropzone onDrop={handleDrop} multiple={true}>
         {({ getRootProps, getInputProps }) => (
-          <div className=" border-2 border-dashed border-gray-300 bg-sky-100 p-1 rounded flex flex-col items-center justify-center ">
+          <div className="w-full border-2 border-dashed border-gray-300 bg-gray-50 p-1 rounded flex flex-col items-center justify-center ">
             <div {...getRootProps()}>
               <input {...getInputProps()} />
               <div className="flex flex-col items-center justify-center w-full h-full hover:cursor-pointer">
                 <p className="text-gray-500 text-center ">
-                  Drag and drop some files here
+                  Drag and drop images here
                 </p>
                 <p className="text-gray-500 text-center ">
                   Or click to select files
                 </p>
-                <p className="text-gray-500 text-center font-extrabold text-2xl hover:text-3xl">
+                <p className="text-gray-500 text-center font-bold text-2xl hover:text-3xl">
                   +
                 </p>
               </div>

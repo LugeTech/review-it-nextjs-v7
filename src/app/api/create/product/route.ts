@@ -45,7 +45,6 @@ export async function POST(request: NextRequest) {
     // Cast the session claims to the `UserDATA` type
     const clerkClaimsData = sessionClaims as unknown as UserDATA;
 
-
     // Check if the user already exists in the database
     if (!(await userInDb(clerkClaimsData.userId))) {
       // If the user doesn't exist, create them

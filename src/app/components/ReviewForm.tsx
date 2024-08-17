@@ -1,6 +1,6 @@
 "use client";
 import { iReview, iProduct } from "../util/Interfaces";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RatingModule from "./RatingModule";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -41,7 +41,7 @@ const ReviewForm = () => {
     productId: id,
     userId: user?.publicMetadata.id! as string,
     isPublic: true,
-    images: [],
+    images: linksArray,
     videos: [],
     links: [],
     comments: [],
@@ -56,6 +56,16 @@ const ReviewForm = () => {
     showWriteReview: false,
     showClaimThisProduct: true,
   };
+
+  useEffect(() => {
+    if (linksArray.length > 0) {
+      setReviewData((prevData): iReview => ({
+        ...prevData,
+        images: linksArray,
+      }));
+    }
+    console.log(reviewData);
+  }, [linksArray]);
 
   const handleEditorValue = (value: string) => {
     if (value === "" || value === "<p></p>") {
@@ -123,7 +133,8 @@ const ReviewForm = () => {
       console.log("body is empty");
       return;
     }
-    await sendToServer();
+    // INFO: enable this to send to server
+    // await sendToServer();
     setDisabled(false);
   };
 
