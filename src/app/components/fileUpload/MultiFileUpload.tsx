@@ -79,11 +79,13 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
     formData.append("file", file);
     const cancelSource = axios.CancelToken.source();
     try {
-
       const response = await axios.post(
         "/api/create/image-link",
         formData,
         {
+          headers: {
+            'Content-Type': 'multipart/form-data', // Set the content type explicitly
+          },
           onUploadProgress: (progressEvent) => {
             const percentCompleted = Math.round(
               (progressEvent.loaded * 100) / (progressEvent.total || 1), // Prevent division by zero
