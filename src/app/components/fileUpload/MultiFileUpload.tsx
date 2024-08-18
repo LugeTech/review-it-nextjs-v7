@@ -159,6 +159,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
       {uploadErrors.length > 0 && <UploadError uploadErrors={uploadErrors} />}
       {files.length > 0 && (
         <button
+          type="button"
           onClick={uploadFiles}
           className="mt-2 rounded-md bg-black px-4 py-2 text-white"
         >

@@ -36,7 +36,7 @@ export async function POST(
 
     const uploadResult = await uploadBufferImageToCloudinary(buffer) as CloudinaryUploadResult;
 
-    console.log(uploadResult)
+    // console.log(uploadResult)
     return NextResponse.json({ link: uploadResult.secure_url }, { status: 200 });
 
   } catch (error: any) {

@@ -134,7 +134,7 @@ const ReviewForm = () => {
       return;
     }
     // INFO: enable this to send to server
-    // await sendToServer();
+    await sendToServer();
     setDisabled(false);
   };
 
@@ -164,65 +164,60 @@ const ReviewForm = () => {
   // filter allPproductsatom for id variable and return product
 
   return (
-    <div className="flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-lightbg dark:bg-myTheme-niceBlack ">
-      <h1 className="text-2xl font-bold mb-2">Write a review</h1>
+    <div className="pt-8 flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-white dark:bg-myTheme-niceBlack rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold mb-6 text-myTheme-primary dark:text-myTheme-secondary">Write a Review</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col p-4 h-full w-full rounded-md bg-myTheme-lightbg dark:bg-myTheme-niceGrey overflow-y-auto"
+        className="flex flex-col w-full space-y-6 bg-myTheme-white dark:bg-myTheme-niceGrey rounded-md p-6 overflow-y-auto"
       >
-        {/* business info */}
-        <div className="flex flex-row justify-center w-full items-center gap-2 mb-2">
-          {product && (
+        {product && (
+          <div className="flex justify-center items-center mb-4">
             <ProductCard options={productCardOptions} product={product} />
-          )}
-        </div>
-        <div className="flex flex-col justify-start items-start mb-2 border-b dark:border-myTheme-dark2 p-1 shadow-sm mt-4">
-          <label
-            htmlFor="rating"
-            className="flex w-full text-base justify-start items-start"
-          >
+          </div>
+        )}
+
+        <div className="space-y-2 border-b dark:border-myTheme-dark2 pb-4">
+          <label htmlFor="rating" className="block text-lg font-semibold text-myTheme-primary dark:text-myTheme-secondary">
             Rate your experience
           </label>
           <RatingModule
             name="rating"
             rating={rating}
             ratingChanged={ratingChanged}
-            size={"rating-lg"}
+            size="rating-lg"
           />
         </div>
 
-        <div className="mb-2">
-          <label htmlFor="title" className="text-base">
-            Title your experience:
+        <div className="space-y-2">
+          <label htmlFor="title" className="block text-lg font-semibold text-myTheme-primary dark:text-myTheme-secondary">
+            Title your experience
           </label>
           <input
-            required={true}
+            required
             placeholder="Be creative"
             type="text"
             id="title"
             name="title"
             onChange={handleChange}
-            className="border border-gray-400 dark:bg-myTheme-niceBlack rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-myTheme-white dark:bg-myTheme-niceBlack focus:ring-2 focus:ring-myTheme-primary dark:focus:ring-myTheme-secondary focus:border-transparent"
           />
         </div>
 
-        {/* date and trans # */}
-        <div className=" flex flex-row gap-4 mb-2">
-          <div className="flex flex-1 flex-col ">
-            <label htmlFor="date" className="text-base">
-              Date?
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1 space-y-2">
+            <label htmlFor="dateItHappened" className="block text-lg font-semibold text-myTheme-primary dark:text-myTheme-secondary">
+              Date
             </label>
             <DatePicker
               id="dateItHappened"
               name="dateItHappened"
               selected={startDate}
               onChange={(date) => setStartDate(date!)}
-              className=" border border-gray-400 dark:bg-myTheme-niceBlack rounded-md px-3 py-2 mt-1 w-full md:w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-myTheme-white dark:bg-myTheme-niceBlack focus:ring-2 focus:ring-myTheme-primary dark:focus:ring-myTheme-secondary focus:border-transparent"
             />
           </div>
-
-          <div className="flex flex-1 flex-col">
-            <label htmlFor="date" className="text-base">
+          <div className="flex-1 space-y-2">
+            <label htmlFor="transactionNumber" className="block text-lg font-semibold text-myTheme-primary dark:text-myTheme-secondary">
               Receipt #
             </label>
             <input
@@ -231,34 +226,34 @@ const ReviewForm = () => {
               id="transactionNumber"
               name="transactionNumber"
               onChange={handleChange}
-              className="border border-gray-400 dark:bg-myTheme-niceBlack rounded-md px-3 py-2 mt-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-myTheme-white dark:bg-myTheme-niceBlack focus:ring-2 focus:ring-myTheme-primary dark:focus:ring-myTheme-secondary focus:border-transparent"
             />
           </div>
         </div>
 
-        <div className="flex flex-col  w-full mb-2">
-          <label htmlFor="rating" className="text-base mb-2">
+        <div className="space-y-2">
+          <label htmlFor="experience" className="block text-lg font-semibold text-myTheme-primary dark:text-myTheme-secondary">
             Tell us more about your experience
           </label>
           <Editor onEditorValue={handleEditorValue} />
         </div>
 
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex justify-center items-center w-full">
+          <MultiFileUpload setLinksArray={setLinksArray} />
+        </div>
+
+        <div className="flex gap-2 h-full">
           {!disabled && reviewData.body !== "" && (
-            <div>
+            <div className="bg-gray-100 dark:bg-gray-800 rounded-md h-full">
               <EditorPreview reviewData={reviewData} />
             </div>
           )}
-          <div className="flex flex-col justify-center items-center w-full">
-            <MultiFileUpload setLinksArray={setLinksArray} />
-          </div>
-
           <button
             disabled={disabled}
             type="submit"
-            className=" bg-myTheme-primary hover:bg-myTheme-secondary text-white font-base p-2 rounded-md w-full"
+            className="w-full bg-myTheme-primary hover:bg-myTheme-secondary text-white font-semibold py-3 px-6 rounded-md transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Submit review
+            Submit Review
           </button>
         </div>
       </form>
