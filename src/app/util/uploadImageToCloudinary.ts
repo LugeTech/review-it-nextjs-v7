@@ -22,19 +22,28 @@ export async function uploadImageToCloudinary(data: any) {
   });
 }
 
+import { Readable } from 'stream';
+
 export async function uploadBufferImageToCloudinary(buffer: Buffer) {
   return new Promise((resolve, reject) => {
+    const stream = Readable.from(buffer);
+
     const uploadStream = c.uploader.upload_stream(
       {
         resource_type: "image",
         folder: "reviewit_products",
       },
       (error, result) => {
-        if (error) reject(error);
-        else resolve(result as CloudinaryUploadResult);
+        if (error) {
+          console.error("Cloudinary upload error:", error);
+          reject(error);
+        } else {
+          console.log("Cloudinary upload success:", result);
+          resolve(result as CloudinaryUploadResult);
+        }
       }
     );
 
-    uploadStream.end(buffer);
+    stream.pipe(uploadStream);
   });
 }
