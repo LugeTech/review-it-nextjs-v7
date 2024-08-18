@@ -1,10 +1,6 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import { uploadBufferImageToCloudinary, uploadImageToCloudinary } from '@/app/util/uploadImageToCloudinary';
-
-interface CloudinaryUploadResponse {
-  link: string;
-}
+import { uploadImageToCloudinary } from '@/app/util/uploadImageToCloudinary';
 
 interface CloudinaryUploadResult {
   public_id: string;
@@ -29,7 +25,6 @@ export async function POST(req: NextRequest) {
     if (!file) {
       return NextResponse.json({ message: 'No file uploaded' }, { status: 400 });
     }
-    console.log("yes we have a file");
 
     // Convert the file to a Base64 string
     const arrayBuffer = await file.arrayBuffer();
@@ -39,10 +34,8 @@ export async function POST(req: NextRequest) {
     // Prefix the Base64 string with the appropriate data URL scheme
     const dataUrl = `data:${file.type};base64,${base64String}`;
 
-    console.log("we have a buffer about to upload");
 
     const uploadResult = await uploadImageToCloudinary(dataUrl) as CloudinaryUploadResult;
-    console.log(uploadResult);
 
     return NextResponse.json({ link: uploadResult.secure_url }, { status: 200 });
 
