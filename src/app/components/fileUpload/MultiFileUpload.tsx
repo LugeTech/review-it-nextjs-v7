@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import axios, { CancelTokenSource } from "axios";
 //@ts-ignore
 import FilePreview from "./FilePreview";
 import UploadError from "./UploadError";
 import getIconForFileType from "@/app/util/GetIconForFileType";
+import { useImageResizer } from "@/app/util/useImageResizer";
 export const revalidate = 0;
 
 interface FileUploadProps {
@@ -19,34 +20,46 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
   const [uploadErrors, setUploadErrors] = useState<string[]>([]);
   // const [otherFILES, setOtherFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
+  const { processImage, isResizing } = useImageResizer();
 
-  const handleDrop = (
+  const handleDrop = useCallback(async (
     acceptedFiles: File[],
     rejectedFiles: FileRejection[],
   ) => {
-    // setFiles([...files, ...acceptedFiles]);
-    // get all imagees files, not sure why i had this in the beginning
     const imageFiles = acceptedFiles.filter((file) =>
-      file.type.startsWith("image/"),
+      file.type.startsWith("image/")
     );
 
-    setFiles([...files, ...imageFiles]);
-    // const otherFiles = acceptedFiles.filter(
-    //   (file) => !file.type.startsWith("image/"),
-    // );
-    // setOtherFiles([...otherFILES, ...otherFiles]);
+    const resizedFiles: File[] = [];
+    const newPreviews: string[] = [];
+    const newProgress: number[] = [];
 
-    const filePreviews = getIconForFileType(acceptedFiles); // files here might not be the updated in which case i will have to use a useEffect
+    for (const file of imageFiles) {
+      try {
+        const result = await processImage(file, { maxDimension: 500 });
+        resizedFiles.push(result.file);
+        const preview = getIconForFileType([result.file]);
+        newPreviews.push(...preview);
+        newProgress.push(0);
+      } catch (error) {
+        console.error('Error processing image:', error);
+        setUploadErrors(prev => [...prev, `Error processing ${file.name}`]);
+      }
+    }
 
-    setImagePreviews([...imagePreviews, ...filePreviews]);
+    setFiles(prevFiles => [...prevFiles, ...resizedFiles]);
+    setImagePreviews(prevPreviews => [...prevPreviews, ...newPreviews]);
+    setUploadProgress(prevProgress => [...prevProgress, ...newProgress]);
 
-    setUploadProgress([
-      ...uploadProgress,
-      ...Array(acceptedFiles.length).fill(0, 0, acceptedFiles.length),
-    ]);
-    // Clear any previous upload errors
-    setUploadErrors([]);
-  };
+    // Handle rejected files
+    if (rejectedFiles.length > 0) {
+      const rejectionErrors = rejectedFiles.map(
+        rejection => `${rejection.file.name}: ${rejection.errors[0].message}`
+      );
+      setUploadErrors(prev => [...prev, ...rejectionErrors]);
+    }
+  }, [processImage]);
+
 
   const removeFile = (index: number) => {
     const updatedFiles = [...files];
@@ -86,7 +99,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
       );
 
       // NOTE: Upload successful; add some feedback here - show download links
-      if (response.data.link) { // Ensure there is a link in the response
+      if (response.data.link) {
         setLinksArray((prevLinks) => [...prevLinks, response.data.link]);
       }
 
@@ -154,6 +167,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
             removeFile={removeFile}
             cancelUpload={cancelUpload}
           />
+          {isResizing && <p>Resizing image...</p>}
+
         </div>
       )}
       {uploadErrors.length > 0 && <UploadError uploadErrors={uploadErrors} />}
