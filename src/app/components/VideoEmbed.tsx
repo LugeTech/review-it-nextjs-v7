@@ -39,7 +39,7 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
 
   const generateEmbedCode = useMemo((): EmbedCodeResult => {
     if (!url) {
-      return { error: 'Please provide a valid URL', embedCode: '', videoType: 'unknown' };
+      return { error: '', embedCode: '', videoType: 'unknown' };
     }
 
     const type = getVideoType(url);

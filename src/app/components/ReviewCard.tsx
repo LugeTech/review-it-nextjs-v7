@@ -14,6 +14,7 @@ import { useUser, useAuth } from "@clerk/nextjs";
 import { MdOutlineThumbUp } from "react-icons/md";
 import { toast } from "sonner";
 import ImageGallery from "./ImageGallery";
+import VideoEmbed from "./VideoEmbed";
 
 interface ReviewCardProps {
   review: iReview;
@@ -112,6 +113,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         {images && images.length > 0 && (
           <ImageGallery images={images} />
         )}
+        <div className="flex items-center justify-between mt-4">
+          <VideoEmbed url={review.videos[0]} />
+        </div>
 
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">

@@ -24,10 +24,10 @@ const ReviewForm = () => {
   const searchParams = useSearchParams();
   const searchRating = searchParams.get("rating");
   const id = searchParams.get("id")!;
-  console.log(id, searchRating!);
   const [disabled, setDisabled] = useState(false);
   const { user } = useUser();
   const [linksArray, setLinksArray] = useState<string[]>([]);
+  const [videosArray, setVideosArray] = useState<string[]>([]);
   const [url, setUrl] = useState('');
   // make sure there is an int in searchRating and make sure its between 1 and 5
   const [rating, setRating] = useState(
@@ -51,6 +51,19 @@ const ReviewForm = () => {
     isDeleted: false,
     likedBy: [],
   });
+
+  // useEffect(() => {
+  //   if (url) {
+  //     console.log("here is url", url);
+  //     setReviewData((prevData) => ({
+  //       ...prevData,
+  //       videos: prevData.videos.length > 0
+  //         ? [url, ...prevData.videos.slice(1)] // Update if array has items
+  //         : [url] // Create new array if empty
+  //     }));
+  //   }
+  // }, [url]);
+
   const [products, setProducts] = useAtom(allProductsAtom);
   const productCardOptions = {
     showLatestReview: false,
@@ -90,6 +103,7 @@ const ReviewForm = () => {
 
   const sendToServer = async () => {
     try {
+      console.log("here is reviewData", reviewData);
       const response = await fetch(`${apiUrl}/create/review`, {
         method: "POST",
         body: JSON.stringify(reviewData),
@@ -116,7 +130,20 @@ const ReviewForm = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
-    setReviewData((prevData): iReview => ({ ...prevData, [name]: value }));
+
+    setReviewData((prevData): iReview => {
+      if (name === 'videoUrl') {
+        return {
+          ...prevData,
+          videos: prevData.videos.length > 0
+            ? [value, ...prevData.videos.slice(1)] // Update if array has items
+            : [value] // Create new array if empty
+        };
+      } else {
+        // Handle other fields normally
+        return { ...prevData, [name]: value };
+      }
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -243,8 +270,12 @@ const ReviewForm = () => {
           <h1 className="text-2xl font-bold mb-4">Video Embed Generator</h1>
           <input
             type="text"
+            name="videoUrl"
             value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            onChange={(e) => {
+              setUrl(e.target.value)
+              handleChange(e)
+            }}
             placeholder="Enter YouTube, Instagram, or TikTok video URL"
             className="w-full p-2 border rounded mb-4"
           />
