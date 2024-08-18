@@ -2,6 +2,9 @@
   "name": "review-it-nextjs-v7-remake",
   "version": "0.1.2",
   "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build && prisma generate",

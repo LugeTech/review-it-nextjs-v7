@@ -20,9 +20,10 @@ interface CloudinaryUploadResult {
   url: string;
   secure_url: string;
 }
+
 export async function POST(
   req: NextRequest,
-  res: NextResponse<CloudinaryUploadResponse | { message: string }>
+  // res: NextResponse<CloudinaryUploadResponse | { message: string }>
 ) {
   try {
     const formData = await req.formData(); // Use NextRequest's formData()
