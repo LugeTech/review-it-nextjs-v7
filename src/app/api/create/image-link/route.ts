@@ -34,8 +34,11 @@ export async function POST(
     }
     console.log("yes we have a file")
     const buffer = Buffer.from(await file.arrayBuffer());
+    console.log(buffer[10])
+    console.log("we have a buffer about to upload")
 
     const uploadResult = await uploadBufferImageToCloudinary(buffer) as CloudinaryUploadResult;
+    console.log(uploadResult)
 
     // console.log(uploadResult)
     return NextResponse.json({ link: uploadResult.secure_url }, { status: 200 });
