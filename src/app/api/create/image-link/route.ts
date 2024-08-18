@@ -21,10 +21,7 @@ interface CloudinaryUploadResult {
   secure_url: string;
 }
 
-export async function POST(
-  req: NextRequest,
-  // res: NextResponse<CloudinaryUploadResponse | { message: string }>
-) {
+export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData(); // Use NextRequest's formData()
     const file = formData.get('file') as File | null; // Assuming field name 'file'
@@ -32,15 +29,21 @@ export async function POST(
     if (!file) {
       return NextResponse.json({ message: 'No file uploaded' }, { status: 400 });
     }
-    console.log("yes we have a file")
-    const buffer = Buffer.from(await file.arrayBuffer());
-    console.log(buffer[10])
-    console.log("we have a buffer about to upload")
+    console.log("yes we have a file");
 
-    const uploadResult = await uploadBufferImageToCloudinary(buffer) as CloudinaryUploadResult;
-    console.log(uploadResult)
+    // Convert the file to a Base64 string
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const base64String = buffer.toString('base64');
 
-    // console.log(uploadResult)
+    // Prefix the Base64 string with the appropriate data URL scheme
+    const dataUrl = `data:${file.type};base64,${base64String}`;
+
+    console.log("we have a buffer about to upload");
+
+    const uploadResult = await uploadImageToCloudinary(dataUrl) as CloudinaryUploadResult;
+    console.log(uploadResult);
+
     return NextResponse.json({ link: uploadResult.secure_url }, { status: 200 });
 
   } catch (error: any) {
@@ -51,5 +54,3 @@ export async function POST(
     );
   }
 }
-
-
