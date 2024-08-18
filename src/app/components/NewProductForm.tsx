@@ -93,7 +93,7 @@ const NewProductForm = (): JSX.Element => {
 
   useEffect(() => {
     if (imagePreview) {
-      resizeImage(imagePreview).then(triggerUploadImage);
+      resizeImage(imagePreview).then(() => triggerUploadImage(imagePreview));
     }
   }, [imagePreview]);
 
