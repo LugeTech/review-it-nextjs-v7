@@ -1,5 +1,6 @@
+
 import { NextRequest, NextResponse } from 'next/server';
-import { uploadBufferImageToCloudinary } from '@/app/util/uploadImageToCloudinary';
+import { uploadBufferImageToCloudinary, uploadImageToCloudinary } from '@/app/util/uploadImageToCloudinary';
 
 interface CloudinaryUploadResponse {
   link: string;
@@ -19,7 +20,10 @@ interface CloudinaryUploadResult {
   url: string;
   secure_url: string;
 }
-export async function POST(req: NextRequest) {
+export async function POST(
+  req: NextRequest,
+  res: NextResponse<CloudinaryUploadResponse | { message: string }>
+) {
   try {
     const formData = await req.formData(); // Use NextRequest's formData()
     const file = formData.get('file') as File | null; // Assuming field name 'file'
@@ -43,4 +47,5 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
 
