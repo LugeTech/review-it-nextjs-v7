@@ -17,6 +17,7 @@ import { useAtom } from "jotai";
 import { allProductsAtom } from "../store/store";
 import { useRouter, useSearchParams } from "next/navigation";
 import MultiFileUpload from "./fileUpload/MultiFileUpload";
+import VideoEmbed from "./VideoEmbed";
 
 const ReviewForm = () => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const ReviewForm = () => {
   const [disabled, setDisabled] = useState(false);
   const { user } = useUser();
   const [linksArray, setLinksArray] = useState<string[]>([]);
+  const [url, setUrl] = useState('');
   // make sure there is an int in searchRating and make sure its between 1 and 5
   const [rating, setRating] = useState(
     searchRating ? parseInt(searchRating) : 2,
@@ -237,7 +239,17 @@ const ReviewForm = () => {
           </label>
           <Editor onEditorValue={handleEditorValue} />
         </div>
-
+        <div className="container mx-auto px-4">
+          <h1 className="text-2xl font-bold mb-4">Video Embed Generator</h1>
+          <input
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="Enter YouTube, Instagram, or TikTok video URL"
+            className="w-full p-2 border rounded mb-4"
+          />
+          <VideoEmbed url={url} />
+        </div>
         <div className="flex justify-center items-center w-full">
           <MultiFileUpload setLinksArray={setLinksArray} />
         </div>
