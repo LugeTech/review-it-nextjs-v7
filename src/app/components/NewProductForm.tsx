@@ -195,9 +195,9 @@ const NewProductForm = (): JSX.Element => {
               <Button
                 type="submit"
                 className="w-full"
-                disabled={isLoading || mutations.isLoading}
+                disabled={isLoading}
               >
-                {isLoading || mutations.isLoading ? "Processing..." : "Create Product"}
+                {isLoading ? "Processing..." : "Create Product"}
               </Button>
             ) : (
               <Alert>
