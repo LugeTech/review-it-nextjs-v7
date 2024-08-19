@@ -17,7 +17,7 @@ export default function ReviewStats({ review, setReview }: reviewStatsProps) {
         <Link
           href={`/fr/${review.id}`}
           onClick={() => setReview(review)}
-          className="flex items-center justify-center rounded-md bg-green-300 p-1"
+          className="flex items-center justify-center rounded-md bg-green-300 p-1 text-gray-600"
         >
           {review.comments?.length} <FaComment className="ml-1" />
         </Link>
@@ -32,13 +32,13 @@ export default function ReviewStats({ review, setReview }: reviewStatsProps) {
         </div>
       ) : null}
       {review.videos.length > 0 ? (
-        <div className="flex items-center justify-center rounded-md  ">
-          {review.videos[0].includes('youtu') ? <FaYoutube className="text-lg text-white bg-red-500" /> : <FaTiktok className="text-lg text-purple-300 bg-black" />}
+        <div className="flex items-center justify-center rounded-md p-1 bg-black ">
+          {review.videos[0].includes('youtu') ? <FaYoutube className="text-lg text-red-500 bg-black " /> : <FaTiktok className="text-lg text-purple-300 bg-black" />}
         </div>
       ) : null}
       {review.images.length > 0 ? (
-        <div className="flex items-center justify-center rounded-md bg-blue-300 p-1">
-          {review.images.length} <FaCamera className="ml-1" />
+        <div className="flex items-center justify-center rounded-md bg-blue-300 p-1 text-gray-600">
+          {review.images.length} <FaCamera className="ml-1 " />
 
         </div>
       ) : null}
