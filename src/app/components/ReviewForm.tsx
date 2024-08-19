@@ -194,7 +194,7 @@ const ReviewForm = () => {
 
   return (
     <div className="pt-8 flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-white  rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold mb-6 text-myTheme-primary ">Write a Review</h1>
+      <h1 className="text-3xl font-bold mb-6 text-myTheme-niceGrey ">Write a Review</h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col w-full space-y-6 bg-myTheme-white  rounded-md p-6 overflow-y-auto"
@@ -277,7 +277,7 @@ const ReviewForm = () => {
               handleChange(e)
             }}
             placeholder="Enter YouTube, Instagram, or TikTok video URL"
-            className="w-full p-2 border rounded mb-4"
+            className="w-full p-2 border rounded mb-4 bg-white"
           />
           <VideoEmbed url={url} />
         </div>
