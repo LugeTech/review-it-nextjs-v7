@@ -5,8 +5,6 @@ import Image from "next/legacy/image";
 import DOMPurify from "dompurify";
 import Link from "next/link";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
-// import { useAtom } from "jotai";
-// import { currentReviewAtom } from "../store/store";
 import dayjs from "dayjs";
 import ReviewStats from "./ReviewStats";
 import { useAtom } from "jotai";
