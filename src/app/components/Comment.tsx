@@ -1,7 +1,7 @@
 import React from "react";
 import { iComment } from "@/app/util/Interfaces";
 import dayjs from "dayjs";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 // import Votes from "./Votes";
 interface CommentProps {

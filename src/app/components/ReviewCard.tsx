@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { iReview } from "../util/Interfaces";
 import RatingModule from "./RatingModule";
@@ -110,21 +110,20 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         >
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h2>
         </Link>
-
         <div
-          className="text-gray-700 dark:text-gray-300 mb-4"
+          className="text-gray-700 dark:text-gray-300 mb-1"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(formattedBody),
           }}
         />
-
-        {images && images.length > 0 && (
-          <ImageGallery images={images} />
-        )}
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex  items-center justify-center ">
+          {images && images.length > 0 && (
+            <ImageGallery images={images} />
+          )}
+        </div>
+        <div className="flex items-center justify-center">
           <VideoEmbed url={review.videos[0]} />
         </div>
-
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             {hasUserLiked || hideButton || !auth.isSignedIn ? (

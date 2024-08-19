@@ -31,7 +31,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
             <Image
               src={imageUrl}
               alt={`Image ${index + 1}`}
-              layout="fill"
+              // layout="fill"
+              width={500}
+              height={500}
               objectFit="cover"
               className="rounded-lg"
             />

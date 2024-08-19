@@ -126,12 +126,10 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
         </div>
       )}
       {embedCode && (
-        <div className="relative" style={{ paddingBottom: videoType === 'youtube' ? '56.25%' : '' }}>
-          <div
-            className="absolute top-0 left-0 w-full h-full"
-            dangerouslySetInnerHTML={{ __html: embedCode }}
-          />
-        </div>
+        <div
+          className=" w-full h-full"
+          dangerouslySetInnerHTML={{ __html: embedCode }}
+        />
       )}
     </div>
   );

@@ -61,7 +61,7 @@ export const useImageResizer = () => {
             }
           },
           file.type,
-          0.8
+          1.0
         );
       };
 
