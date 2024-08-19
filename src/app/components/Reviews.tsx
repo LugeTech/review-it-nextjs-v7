@@ -67,9 +67,6 @@ const Reviews = ({ productId }: { productId: string }) => {
       </div>
       <div className="flex flex-col  w-full justify-between items-center ">
         <div className="space-y-4 mt-2 w-full md:w-1/2  ">
-          {/* <div className='flex  justify-center items-center '> */}
-          {/*   <p className='text-lg text-center text-myTheme-dark dark:text-myTheme-light'>Reviews</p> */}
-          {/* </div> */}
           {reviews.map((review: iReview) => (
             <ReviewCard key={review.id} review={review} />
           ))}

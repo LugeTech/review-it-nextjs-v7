@@ -2,49 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-.mantine-RichTextEditor-content {
-  @apply text-base dark:text-myTheme-light h-full dark:bg-myTheme-dark;
-}
-.mantine-RichTextEditor-root {
-  @apply dark:bg-myTheme-dark;
-}
-.mantine-RichTextEditor-toolbar {
-  @apply dark:bg-myTheme-dark;
-}
-.mantine-UnstyledButton-root {
-  @apply text-base dark:text-myTheme-light;
-}
+/*.mantine-RichTextEditor-content {*/
+/*  @apply text-base dark:text-myTheme-light h-full dark:bg-myTheme-dark;*/
+/*}*/
+/*.mantine-RichTextEditor-root {*/
+/*  @apply dark:bg-myTheme-dark;*/
+/*}*/
+/*.mantine-RichTextEditor-toolbar {*/
+/*  @apply dark:bg-myTheme-dark;*/
+/*}*/
+/*.mantine-UnstyledButton-root {*/
+/*  @apply text-base dark:text-myTheme-light;*/
+/*}*/
 .mantine-TypographyStylesProvider-root
   .mantine-RichTextEditor-content
   .ProseMirror {
   @apply h-[180px] overflow-scroll;
 }
 
-.cl-signIn-root,
-.cl-cardBox,
-.cl-pageScrollBox,
-.cl-navbar,
-.cl-card {
-  @apply dark:bg-myTheme-dark dark:text-myTheme-light text-myTheme-dark;
-}
-
-.cl-footerActionText,
-.cl-navbarMobileMenuButton,
-.cl-headerTitle,
-.cl-headerSubtitle,
-.cl-profileSectionTitleText,
-.cl-userPreviewMainIdentifier,
-.cl-accordionTriggerButton,
-.cl-internal-of57g,
-.cl-internal-fqx4fd,
-.cl-internal-l1ab9q,
-.cl-breadcrumbsItem,
-.cl-breadcrumbsItemDivider,
-.cl-internal-3vf5mz,
-.cl-formFieldLabel,
-.cl-navbarButton {
-  @apply dark:text-myTheme-light;
-}
+/*.cl-signIn-root,*/
+/*.cl-cardBox,*/
+/*.cl-pageScrollBox,*/
+/*.cl-navbar,*/
+/*.cl-card {*/
+/*  @apply dark:bg-myTheme-dark dark:text-myTheme-light text-myTheme-dark;*/
+/*}*/
+/**/
+/*.cl-footerActionText,*/
+/*.cl-navbarMobileMenuButton,*/
+/*.cl-headerTitle,*/
+/*.cl-headerSubtitle,*/
+/*.cl-profileSectionTitleText,*/
+/*.cl-userPreviewMainIdentifier,*/
+/*.cl-accordionTriggerButton,*/
+/*.cl-internal-of57g,*/
+/*.cl-internal-fqx4fd,*/
+/*.cl-internal-l1ab9q,*/
+/*.cl-breadcrumbsItem,*/
+/*.cl-breadcrumbsItemDivider,*/
+/*.cl-internal-3vf5mz,*/
+/*.cl-formFieldLabel,*/
+/*.cl-navbarButton {*/
+/*  @apply dark:text-myTheme-light;*/
+/*}*/
 
 .cl-footerActionLink {
   @apply text-sky-500;

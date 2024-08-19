@@ -74,9 +74,9 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className=" w-full md:w-1/2 transform overflow-hidden rounded-2xl dark:bg-myTheme-niceGrey bg-white p-2 text-left align-middle shadow-xl transition-all flex flex-col items-center justify-center">
+                <Dialog.Panel className=" w-full md:w-1/2 transform overflow-hidden rounded-2xl  bg-white p-2 text-left align-middle shadow-xl transition-all flex flex-col items-center justify-center">
                   <Dialog.Title>Preview</Dialog.Title>
-                  <div className="flex flex-col flex-1 w-full overflow-hidden dark:bg-myTheme-niceGrey p-2 rounded-md md:w-full bg-white  items-center justify-center">
+                  <div className="flex flex-col flex-1 w-full overflow-hidden  p-2 rounded-md md:w-full bg-white  items-center justify-center">
                     <h1 className="font-bold underline text-center ">
                       {parse(reviewData.title)}
                     </h1>
@@ -108,7 +108,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent px-2 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:text-myTheme-accent dark:bg-myTheme-secondary"
+                      className="inline-flex justify-center rounded-md border border-transparent px-2 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 "
                       onClick={closeModal}
                     >
                       Close

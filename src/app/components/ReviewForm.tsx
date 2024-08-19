@@ -193,11 +193,11 @@ const ReviewForm = () => {
   // filter allPproductsatom for id variable and return product
 
   return (
-    <div className="pt-8 flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-white dark:bg-myTheme-niceBlack rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold mb-6 text-myTheme-primary dark:text-myTheme-secondary">Write a Review</h1>
+    <div className="pt-8 flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-white  rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold mb-6 text-myTheme-primary ">Write a Review</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-full space-y-6 bg-myTheme-white dark:bg-myTheme-niceGrey rounded-md p-6 overflow-y-auto"
+        className="flex flex-col w-full space-y-6 bg-myTheme-white  rounded-md p-6 overflow-y-auto"
       >
         {product && (
           <div className="flex justify-center items-center mb-4">
@@ -205,8 +205,8 @@ const ReviewForm = () => {
           </div>
         )}
 
-        <div className="space-y-2 border-b dark:border-myTheme-dark2 pb-4">
-          <label htmlFor="rating" className="block text-lg font-semibold text-myTheme-primary dark:text-myTheme-secondary">
+        <div className="space-y-2 border-b  pb-4">
+          <label htmlFor="rating" className="block text-lg font-semibold text-myTheme-primary ">
             Rate your experience
           </label>
           <RatingModule
@@ -218,7 +218,7 @@ const ReviewForm = () => {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="title" className="block text-lg font-semibold text-myTheme-primary dark:text-myTheme-secondary">
+          <label htmlFor="title" className="block text-lg font-semibold text-myTheme-primary ">
             Title your experience
           </label>
           <input
@@ -228,13 +228,13 @@ const ReviewForm = () => {
             id="title"
             name="title"
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-myTheme-white dark:bg-myTheme-niceBlack focus:ring-2 focus:ring-myTheme-primary dark:focus:ring-myTheme-secondary focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300  rounded-md bg-myTheme-white  focus:ring-2 focus:ring-myTheme-primary  focus:border-transparent"
           />
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1 space-y-2">
-            <label htmlFor="dateItHappened" className="block text-lg font-semibold text-myTheme-primary dark:text-myTheme-secondary">
+            <label htmlFor="dateItHappened" className="block text-lg font-semibold text-myTheme-primary ">
               Date
             </label>
             <DatePicker
@@ -242,11 +242,11 @@ const ReviewForm = () => {
               name="dateItHappened"
               selected={startDate}
               onChange={(date) => setStartDate(date!)}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-myTheme-white dark:bg-myTheme-niceBlack focus:ring-2 focus:ring-myTheme-primary dark:focus:ring-myTheme-secondary focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300  rounded-md bg-myTheme-white  focus:ring-2 focus:ring-myTheme-primary  focus:border-transparent"
             />
           </div>
           <div className="flex-1 space-y-2">
-            <label htmlFor="transactionNumber" className="block text-lg font-semibold text-myTheme-primary dark:text-myTheme-secondary">
+            <label htmlFor="transactionNumber" className="block text-lg font-semibold text-myTheme-primary ">
               Receipt #
             </label>
             <input
@@ -255,13 +255,13 @@ const ReviewForm = () => {
               id="transactionNumber"
               name="transactionNumber"
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-myTheme-white dark:bg-myTheme-niceBlack focus:ring-2 focus:ring-myTheme-primary dark:focus:ring-myTheme-secondary focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300  rounded-md bg-myTheme-white  focus:ring-2 focus:ring-myTheme-primary  focus:border-transparent"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="experience" className="block text-lg font-semibold text-myTheme-primary dark:text-myTheme-secondary">
+          <label htmlFor="experience" className="block text-lg font-semibold text-myTheme-primary ">
             Tell us more about your experience
           </label>
           <Editor onEditorValue={handleEditorValue} />
@@ -287,7 +287,7 @@ const ReviewForm = () => {
 
         <div className="flex gap-2 h-full">
           {!disabled && reviewData.body !== "" && (
-            <div className="bg-gray-100 dark:bg-gray-800 rounded-md h-full">
+            <div className="bg-gray-100  rounded-md h-full">
               <EditorPreview reviewData={reviewData} />
             </div>
           )}

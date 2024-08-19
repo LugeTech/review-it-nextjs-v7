@@ -68,7 +68,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const hasUserLiked = review.likedBy.some((user) => user.id === userInDbId);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl">
+    <div className="bg-white  rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl">
       <div className="flex flex-col p-6">
         <div className="flex items-center justify-start">
           <Link href={`/userprofile/${review.user?.id}`} className="w-full flex items-center">
@@ -82,7 +82,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
             <div className="flex h-full w-full justify-start">
               <div className="flex flex-col">
                 <div className="ml-4">
-                  <p className="font-semibold text-base dark:text-white">@{user?.userName}</p>
+                  <p className="font-semibold text-base ">@{user?.userName}</p>
                   <div className="flex items-center">
                     <RatingModule
                       name={review.id!}
@@ -91,7 +91,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
                       size="rating-sm"
                     />
                   </div>
-                  <div className="ml-2 text-xs text-gray-600 dark:text-gray-400">
+                  <div className="ml-2 text-xs text-gray-600 ">
                     {dayjs(createdDate?.toString()).format("MMMM D, YYYY")}
                   </div>
                 </div>
@@ -108,10 +108,10 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
           onClick={() => setReview(review)}
           className="block mb-3 hover:underline"
         >
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h2>
+          <h2 className="text-xl font-bold text-gray-900 ">{title}</h2>
         </Link>
         <div
-          className="text-gray-700 dark:text-gray-300 mb-1"
+          className="text-gray-700  mb-1"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(formattedBody),
           }}
@@ -139,7 +139,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
             )}
           </div>
           <Link href={`/fr/${review.id}`} onClick={() => setReview(review)}>
-            <span className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+            <span className="text-sm text-blue-600  hover:underline">
               {comments?.length > 0
                 ? `${comments?.length} comments`
                 : "Add comment"}

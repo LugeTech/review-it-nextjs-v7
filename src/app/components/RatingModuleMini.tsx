@@ -29,7 +29,7 @@ const RatingModule = ({
   return (
     <div className="flex flex-grow-0">
       <div
-        className={` w-auto rating gap-1 ${size} items-center justify-center  p-1 rounded-md dark:bg-myTheme-niceBlack `}
+        className={` w-auto rating gap-1 ${size} items-center justify-center  p-1 rounded-md `}
       >
         <input
           type="radio"
@@ -37,7 +37,7 @@ const RatingModule = ({
           value={5}
           className={` mask mask-star ${handleRating(rating)} `}
           checked={rating === 5}
-          onChange={() => {}}
+          onChange={() => { }}
         />
       </div>
     </div>

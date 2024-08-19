@@ -23,8 +23,8 @@ const ReviewsSummary: React.FC<SummaryCardProps> = ({ reviews }) => {
 
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
   return (
-    <div className="w-full mx-auto items-center justify-between bg-myTheme-lightbg dark:bg-myTheme-niceGrey shadow-lg p-6 ">
-      <h2 className="text-xl font-semibold text-center text-myTheme-dark dark:text-myTheme-light">All Reviews</h2>
+    <div className="w-full mx-auto items-center justify-between bg-myTheme-lightbg  shadow-lg p-6 ">
+      <h2 className="text-xl font-semibold text-center text-myTheme-dark ">All Reviews</h2>
       <div className="flex flex-col mt-1 text-center">
         <p> {roundedRatingOneDecimalPlace} out of 5 </p>
         <p className="text-xs text-gray-400">{numberOfReviews} Reviews</p>
@@ -33,28 +33,28 @@ const ReviewsSummary: React.FC<SummaryCardProps> = ({ reviews }) => {
 
         <div className="grid grid-cols-6 items-center">
           <p className="text-sm  font-medium col-span-1">5 star</p>
-          <Progress className="col-span-4 dark:bg-zinc-600" value={reviewSummaryData.percentage5Stars} />
+          <Progress className="col-span-4" value={reviewSummaryData.percentage5Stars} />
           <p className="text-sm font-medium col-span-1 text-right">{`${reviewSummaryData.percentage5Stars}%`}</p>
         </div>
 
         <div className="grid grid-cols-6 items-center">
           <p className="text-sm font-medium col-span-1">4 star</p>
-          <Progress className="col-span-4 dark:bg-zinc-600" value={reviewSummaryData.percentage4Stars} />
+          <Progress className="col-span-4 " value={reviewSummaryData.percentage4Stars} />
           <p className="text-sm font-medium col-span-1 text-right">{`${reviewSummaryData.percentage4Stars}%`}</p>
         </div>
         <div className="grid grid-cols-6 items-center">
           <p className="text-sm font-medium col-span-1">3 star</p>
-          <Progress className="col-span-4 dark:bg-zinc-600" value={reviewSummaryData.percentage3Stars} />
+          <Progress className="col-span-4 " value={reviewSummaryData.percentage3Stars} />
           <p className="text-sm font-medium col-span-1 text-right">{`${reviewSummaryData.percentage3Stars}%`}</p>
         </div>
         <div className="grid grid-cols-6 items-center">
           <p className="text-sm font-medium col-span-1">2 star</p>
-          <Progress className="col-span-4 dark:bg-zinc-600" value={reviewSummaryData.percentage2Stars} />
+          <Progress className="col-span-4" value={reviewSummaryData.percentage2Stars} />
           <p className="text-sm font-medium col-span-1 text-right">{`${reviewSummaryData.percentage2Stars}%`}</p>
         </div>
         <div className="grid grid-cols-6 items-center">
           <p className="text-sm font-medium col-span-1">1 star</p>
-          <Progress className="col-span-4 dark:bg-zinc-600" value={reviewSummaryData.percentage1Star} />
+          <Progress className="col-span-4" value={reviewSummaryData.percentage1Star} />
           <p className="text-sm font-medium col-span-1 text-right">{`${reviewSummaryData.percentage1Star}%`}</p>
         </div>
       </div>

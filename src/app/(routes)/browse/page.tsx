@@ -34,7 +34,7 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col w-full h-screen p-2  sm:pt-8 bg-myTheme-lightbg dark:bg-myTheme-niceBlack">
+    <div className="flex flex-col w-full h-screen p-2  sm:pt-8 bg-myTheme-lightbg ">
       <div className="flex flex-col w-full lg:flex-row justify-evenly items-center gap-2">
         <div className="flex flex-col  h-full w-full lg:w-1/4 justify-start items-center gap-2 ">
           <ArrangeByPanel />

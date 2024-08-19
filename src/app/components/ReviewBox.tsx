@@ -26,7 +26,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
   }, [reviewBody]);
 
   return (
-    <div className=" my-1 flex-col h-full max-w-full border p-2 pl-3 sm:p-4 bg-white dark:bg-myTheme-niceBlack border-[#E5E5DD] dark:border-gray-700 rounded-xl shadow-md">
+    <div className=" my-1 flex-col h-full max-w-full border p-2 pl-3 sm:p-4 bg-white  border-[#E5E5DD]  rounded-xl shadow-md">
       <div className=" flex flex-row h-auto w-full gap-1 sm:gap-2 pb-1  ">
         <div
           className="sm:text-xl flex  hover:underline justify-start items-start"
@@ -50,7 +50,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
                 size={"rating-sm"}
               />
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-gray-500 ">
               {review.product?.tags[0]}
             </p>
           </div>
@@ -64,23 +64,23 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
           href={`/userprofile/${review?.user?.id}`}
           className="flex hover:underline justify-start items-start"
         >
-          <p className="text-sm font-bold text-gray-700 dark:text-gray-400">
+          <p className="text-sm font-bold text-gray-700 ">
             @{review.user?.userName}
           </p>
         </Link>
-        <p className="text-sm text-gray-500 dark:text-gray-400">reviewed</p>
+        <p className="text-sm text-gray-500 ">reviewed</p>
         <Link href={`/reviews?id=${review?.product?.id}`} onClick={() => { }}>
-          <p className="text-sm hover:underline font-bold text-myTheme-accent  dark:text-gray-400">
+          <p className="text-sm hover:underline font-bold text-myTheme-accent  ">
             {review.product?.name}
           </p>
         </Link>
       </div>
-      <div className="bg-white dark:bg-myTheme-niceBlack pt-2 w-full flex flex-col  justify-start items-start ">
+      <div className="bg-white  pt-2 w-full flex flex-col  justify-start items-start ">
         <div
           // href={`/fr/${review?.id}`}
-          className=" hover:bg-gray-100 hover:dark:bg-myTheme-dark1 text-base w-full"
+          className=" hover:bg-gray-100  text-base w-full"
         >
-          <p className="md:text-md font-bold text-myTheme-lightTextBody/80 dark:text-gray-300">
+          <p className="md:text-md font-bold text-myTheme-lightTextBody/80 ">
             {review.title}
           </p>
           <div className="flex flex-wrap  ">
@@ -90,11 +90,11 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
                   `${review.body.length > 100 ? `${review.body.slice(0, 100)}...` : review.body}`,
                 ),
               }}
-              className="mb-1 text-sm md:text-md leading-tight font-extralight dark:text-gray-300"
+              className="mb-1 text-sm md:text-md leading-tight font-extralight "
             />
           </div>
           <div className=" w-full  tracking-tight flex justify-between ">
-            <p className="text-sm font-light text-gray-500 dark:text-gray-600">
+            <p className="text-sm font-light text-gray-500 ">
               {dayjs(review?.createdDate?.toString()).format(
                 "MMMM D, YYYY h:mm A",
               )}
