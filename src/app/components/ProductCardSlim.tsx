@@ -1,6 +1,6 @@
 "use client";
 import { iProduct, iReview } from "@/app/util/Interfaces"; // Update with the actual path
-import Image from "next/image";
+import Image from "next/legacy/image";
 import RatingModuleMini from "./RatingModuleMini";
 import { useState } from "react";
 import Link from "next/link";

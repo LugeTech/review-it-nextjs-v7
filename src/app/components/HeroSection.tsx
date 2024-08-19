@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import SearchBoxAndListener from "./SearchBoxAndListener";
 
 const HeroSection = () => {
@@ -7,7 +7,7 @@ const HeroSection = () => {
       <Image
         src="/hero1.jpg"
         alt="Background Image"
-        fill
+        layout="fill"
         className="fixed inset-0 object-cover object-center"
         style={{ objectFit: "cover" }}
         quality={75}

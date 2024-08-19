@@ -1,5 +1,5 @@
 import ProgressBar from "@ramonak/react-progress-bar";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { AiOutlineClose } from "react-icons/ai";
 type Props = {
   imagePreviews: string[];

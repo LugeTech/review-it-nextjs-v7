@@ -4,7 +4,7 @@ import { getUser } from "@/app/util/serverFunctions";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useAuth } from "@clerk/nextjs";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import RatingModule from "./RatingModule";
 import { useState } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";

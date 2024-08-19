@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { iReview } from "../util/Interfaces";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import DOMPurify from "dompurify";
 import Link from "next/link";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";

@@ -5,7 +5,7 @@ import TopLinks from "./TopLinks";
 import SideLinks from "./SideLinks";
 import NavbarAuth from "./NavbarAuth";
 import { Suspense } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useState } from "react";
 import { Toaster } from "sonner";
 

@@ -22,7 +22,7 @@
  */
 "use client";
 import { iProduct, iReview } from "@/app/util/Interfaces"; // Update with the actual path
-import Image from "next/image";
+import Image from "next/legacy/image";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
 // import { useState } from 'react';
 import Link from "next/link";
@@ -105,7 +105,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     src={currentProduct.display_image}
                     alt={`${currentProduct.name} Image`}
                     className=" object-cover rounded-lg "
-                    fill
+                    layout="fill"
                   />
                 </div>
               </div>
