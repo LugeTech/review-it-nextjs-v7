@@ -77,7 +77,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
               alt={user?.id!}
               width={60}
               height={60}
-              className="rounded-full object-cover"
+              className="rounded object-cover"
             />
             <div className="flex h-full w-full justify-start">
               <div className="flex flex-col">

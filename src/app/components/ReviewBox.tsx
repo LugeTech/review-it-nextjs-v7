@@ -31,15 +31,15 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
     <div className=" my-1 flex-col h-full max-w-sm border p-2 pl-3 sm:p-4 bg-white dark:bg-myTheme-niceBlack border-[#E5E5DD] dark:border-gray-700 rounded-xl shadow-md">
       <div className=" flex flex-row h-auto w-full gap-1 sm:gap-2 pb-1  ">
         <div
-          className="sm:text-xl flex w-[40px] h-[40px] hover:underline justify-start items-start"
+          className="sm:text-xl flex  hover:underline justify-start items-start"
         >
           {review?.user ? (
             <Image
               src={review?.user.avatar!}
               alt="avatar"
-              width={40}
-              height={40}
-              className=" rounded-full object-cover w-[40px] h-[40px] md:w-[40px] md:h-[40px]"
+              width={60}
+              height={60}
+              className=" rounded object-cover w-[60px] h-[60px] md:w-[60px] md:h-[60px]"
             />
           ) : null}
         </div>

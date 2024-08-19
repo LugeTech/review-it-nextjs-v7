@@ -1,6 +1,6 @@
 import React from 'react'
 import { iReview } from '../util/Interfaces'
-import { FaCamera, FaComment } from 'react-icons/fa6'
+import { FaCamera, FaComment, FaTiktok, FaYoutube } from 'react-icons/fa6'
 import { RiVideoFill } from "react-icons/ri";
 import { AiFillLike } from 'react-icons/ai';
 import Link from 'next/link';
@@ -32,8 +32,8 @@ export default function ReviewStats({ review, setReview }: reviewStatsProps) {
         </div>
       ) : null}
       {review.videos.length > 0 ? (
-        <div className="flex items-center justify-center rounded-md bg-red-500 p-1">
-          <RiVideoFill className="text-sm text-white" />
+        <div className="flex items-center justify-center rounded-md  ">
+          {review.videos[0].includes('youtu') ? <FaYoutube className="text-lg text-white bg-red-500" /> : <FaTiktok className="text-lg text-purple-300 bg-black" />}
         </div>
       ) : null}
       {review.images.length > 0 ? (
