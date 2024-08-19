@@ -10,6 +10,7 @@ import type { Metadata, Viewport } from "next";
 const APP_NAME = "Review It";
 const APP_DEFAULT_TITLE = "Review It";
 const APP_TITLE_TEMPLATE = "%s - Review It";
+const DEFAULT_OG_IMAGE = "https://res.cloudinary.com/dhglzlaqf/image/upload/v1724077586/reviewit/logo_eqake5.png";
 const APP_DESCRIPTION =
   "Review It is a website where you can share and read reviews on anything. It is easy, fun, and free to use.";
 
@@ -44,14 +45,24 @@ export const metadata: Metadata = {
       template: APP_TITLE_TEMPLATE,
     },
     description: APP_DESCRIPTION,
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: APP_NAME,
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    // card: "summary",
     title: {
       default: APP_DEFAULT_TITLE,
       template: APP_TITLE_TEMPLATE,
     },
     description: APP_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
+    card: "summary_large_image",
   },
 };
 
