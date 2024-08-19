@@ -8,6 +8,7 @@ export async function POST(request: NextRequest) {
       include: {
         user: true,
         product: true,
+        voteCount: true,
         comments: {
           include: {
             user: true,

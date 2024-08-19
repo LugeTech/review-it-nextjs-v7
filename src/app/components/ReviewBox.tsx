@@ -1,20 +1,21 @@
 "use client";
 import { useEffect, useState } from "react";
 import { iReview } from "../util/Interfaces";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import DOMPurify from "dompurify";
 import Link from "next/link";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
-// import { useAtom } from "jotai";
-// import { currentReviewAtom } from "../store/store";
 import dayjs from "dayjs";
+import ReviewStats from "./ReviewStats";
+import { useAtom } from "jotai";
+import { currentReviewAtom } from "../store/store";
 
 interface ReviewBoxProps {
   review: iReview;
 }
 
 const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
-  // const [reviewAtom, setReview] = useAtom(currentReviewAtom);
+  const [reviewAtom, setReview] = useAtom(currentReviewAtom);
 
   const [reviewBody, setReviewBody] = useState(review.body);
   useEffect(() => {
@@ -25,20 +26,18 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
   }, [reviewBody]);
 
   return (
-    <div className=" my-1 flex-col h-full max-w-sm border p-2 pl-3 sm:p-4 bg-white dark:bg-myTheme-niceBlack border-[#E5E5DD] dark:border-gray-700 rounded-xl shadow-md">
+    <div className=" my-1 flex-col h-full max-w-full border p-2 pl-3 sm:p-4 bg-white dark:bg-myTheme-niceBlack border-[#E5E5DD] dark:border-gray-700 rounded-xl shadow-md">
       <div className=" flex flex-row h-auto w-full gap-1 sm:gap-2 pb-1  ">
         <div
-          // href={`/userprofile/${review?.user?.id}`}
-          className="sm:text-xl flex w-[40px] h-[40px] hover:underline justify-start items-start"
+          className="sm:text-xl flex  hover:underline justify-start items-start"
         >
-          {/* user image */}
           {review?.user ? (
             <Image
               src={review?.user.avatar!}
               alt="avatar"
-              width={40}
-              height={40}
-              className=" rounded-full object-cover w-[40px] h-[40px] md:w-[40px] md:h-[40px]"
+              width={60}
+              height={60}
+              className=" rounded object-cover w-[60px] h-[60px] md:w-[60px] md:h-[60px]"
             />
           ) : null}
         </div>
@@ -55,12 +54,12 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
               {review.product?.tags[0]}
             </p>
           </div>
-          <p className="text-md font-thin italic text-gray-500 pl-2 ">
-            3.5/5.0
-          </p>
+          <div className="w-full pl-2 ">
+            <ReviewStats review={review} setReview={() => { setReview(review) }} />
+          </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-start items-start gap-2 pb-2 border-b-2 border-b-gray-100 dark:border-gray-700 ">
+      <div className="flex flex-wrap justify-start items-start gap-2   ">
         <Link
           href={`/userprofile/${review?.user?.id}`}
           className="flex hover:underline justify-start items-start"

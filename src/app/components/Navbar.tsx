@@ -5,7 +5,7 @@ import TopLinks from "./TopLinks";
 import SideLinks from "./SideLinks";
 import NavbarAuth from "./NavbarAuth";
 import { Suspense } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useState } from "react";
 import { Toaster } from "sonner";
 
@@ -26,7 +26,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         onChange={() => setIsDrawerOpen(!isDrawerOpen)}
       />
       <div className="drawer-content flex flex-col">
-        <div className="w-full navbar bg-myTheme-secondary dark:bg-myTheme-niceBlack z-10">
+        <div className="w-full navbar bg-white dark:bg-myTheme-niceBlack z-10">
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg

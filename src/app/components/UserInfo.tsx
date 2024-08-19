@@ -1,6 +1,6 @@
 import React from "react";
 import { iUser } from "@/app/util/Interfaces";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 
 interface UserInfoProps {

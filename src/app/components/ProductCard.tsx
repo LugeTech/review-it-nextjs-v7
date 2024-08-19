@@ -22,7 +22,7 @@
  */
 "use client";
 import { iProduct, iReview } from "@/app/util/Interfaces"; // Update with the actual path
-import Image from "next/image";
+import Image from "next/legacy/image";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
 // import { useState } from 'react';
 import Link from "next/link";
@@ -91,7 +91,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div className="flex flex-col hover:border-myTheme-accent w-full rounded-lg shadow-md p-2 border-zinc-200 dark:border-zinc-600 border-2 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
+    <div className="flex flex-col hover:border-myTheme-primary w-full rounded-lg shadow-md p-2 border-zinc-200 dark:border-zinc-600 border-2 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
       <div className="flex flex-row bg-myTheme-white dark:bg-myTheme-niceGrey text-myTheme-dark rounded-lg">
         <Link
           href={`/reviews?id=${currentProduct?.id}`}
@@ -105,7 +105,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     src={currentProduct.display_image}
                     alt={`${currentProduct.name} Image`}
                     className=" object-cover rounded-lg "
-                    fill
+                    layout="fill"
                   />
                 </div>
               </div>

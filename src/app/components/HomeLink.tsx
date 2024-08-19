@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import BungeeTintText from "../util/BungeeFont";
 
 const HomeLink = () => {
   return (
@@ -10,7 +11,7 @@ const HomeLink = () => {
       >
         <Image src="/logo.png" alt="logo" width={30} height={30} className="" />
         <div className=" flex items-center justify-center text-center align-middle ml-1 self-center md:text-xl font-semibold  dark:text-myTheme-light  hover:text-myTheme-accent duration-300 ease-linear transition-all">
-          [REVIEW IT]
+          <BungeeTintText>[REVIEW IT]</BungeeTintText>
         </div>
       </Link>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 import { iProduct, iReview } from "@/app/util/Interfaces";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
 import { useState } from "react";
 import Link from "next/link";

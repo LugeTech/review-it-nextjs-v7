@@ -41,11 +41,11 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
   }
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full ">
       <button
         type="button"
         onClick={openModal}
-        className=" bg-myTheme-accent hover:bg-myTheme-secondary text-white font-base p-2 rounded-md w-full"
+        className=" bg-myTheme-accent hover:bg-myTheme-secondary text-white font-base p-3 rounded-md w-full"
       >
         Preview
       </button>
@@ -93,7 +93,7 @@ const EditorPreview = ({ reviewData }: editorPreviewProps) => {
                           <RatingModule
                             name="rating"
                             rating={reviewData.rating}
-                            ratingChanged={() => {}}
+                            ratingChanged={() => { }}
                             size={"rating-xs"}
                           />
                         </Suspense>

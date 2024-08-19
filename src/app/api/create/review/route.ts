@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    console.log(reviewData);
     const review = await prisma.$transaction(async (prisma) => {
       const newReview = await prisma.review.create({
         data: {
