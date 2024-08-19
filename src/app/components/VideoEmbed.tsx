@@ -120,7 +120,7 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
             className="absolute inset-0 cursor-pointer"
             onClick={() => setIsVideoLoaded(true)}
           >
-            <img src={thumbnailUrl} alt="Video Thumbnail" className="w-full h-full object-cover" />
+            <img src={thumbnailUrl} alt="Video Thumbnail" className="w-auto h-auto object-cover" />
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <button className="text-white text-2xl">Play</button>
             </div>
@@ -128,7 +128,7 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
         )}
         {embedCode && (isVideoLoaded || videoType === 'youtube') && (
           <div
-            className="absolute inset-0 w-full h-full"
+            className=" "
             dangerouslySetInnerHTML={{ __html: embedCode }}
           />
         )}
