@@ -28,6 +28,7 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const reviews = data?.data.reviews as iReview[];
+  console.log(reviews);
   if (reviews.length === 0) {
     const productIfNoReviews = data.data.product as iProduct;
     return (

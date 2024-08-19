@@ -28,7 +28,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
   }, [reviewBody]);
 
   return (
-    <div className=" my-1 flex-col h-full max-w-sm border p-2 pl-3 sm:p-4 bg-white dark:bg-myTheme-niceBlack border-[#E5E5DD] dark:border-gray-700 rounded-xl shadow-md">
+    <div className=" my-1 flex-col h-full max-w-full border p-2 pl-3 sm:p-4 bg-white dark:bg-myTheme-niceBlack border-[#E5E5DD] dark:border-gray-700 rounded-xl shadow-md">
       <div className=" flex flex-row h-auto w-full gap-1 sm:gap-2 pb-1  ">
         <div
           className="sm:text-xl flex  hover:underline justify-start items-start"
