@@ -20,8 +20,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
   };
 
   return (
-    <>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+    <div className="w-full">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4 ">
         {images.map((imageUrl, index) => (
           <div
             key={index}
@@ -62,7 +62,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
