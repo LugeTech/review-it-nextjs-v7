@@ -17,7 +17,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="drawer sticky top-0 ">
+    <div className="drawer sticky top-0 text-myTheme-dark">
       <input
         id="my-drawer-3"
         type="checkbox"
