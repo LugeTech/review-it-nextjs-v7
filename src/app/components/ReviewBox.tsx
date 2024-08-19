@@ -61,7 +61,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-start items-start gap-2 pb-2 border-b-2 border-b-gray-100 dark:border-gray-700 ">
+      <div className="flex flex-wrap justify-start items-start gap-2   ">
         <Link
           href={`/userprofile/${review?.user?.id}`}
           className="flex hover:underline justify-start items-start"

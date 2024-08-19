@@ -19,10 +19,10 @@ const categories: Category[] = [
 
 const CompanyCategories: React.FC = () => {
   return (
-    <div className=" text-myTheme-light dark:bg-myTheme-dark w-full">
+    <div className=" text-myTheme-dark dark:bg-myTheme-dark w-full">
       <div className="container mx-auto py-16 px-4">
-        <div className="bg-myTheme-primary text-center mb-2">
-          <h2 className="text-3xl font-bold mb-2">Companies categories</h2>
+        <div className="bg-white text-center mb-2">
+          <h2 className="text-3xl font-bold mb-2">Company categories</h2>
           <p className="text-gray-800">Click on what interests you</p>
         </div>
         <div className="flex justify-center">
