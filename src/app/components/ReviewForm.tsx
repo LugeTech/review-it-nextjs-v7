@@ -267,7 +267,7 @@ const ReviewForm = () => {
           <Editor onEditorValue={handleEditorValue} />
         </div>
         <div className="container mx-auto px-4">
-          <h1 className="text-2xl font-bold mb-4">Video Embed Generator</h1>
+          <h1 className="text-2xl font-bold mb-4">Embed Video</h1>
           <input
             type="text"
             name="videoUrl"

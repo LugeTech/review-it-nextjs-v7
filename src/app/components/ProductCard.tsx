@@ -91,7 +91,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div className="flex flex-col hover:border-myTheme-accent w-full rounded-lg shadow-md p-2 border-zinc-200 dark:border-zinc-600 border-2 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
+    <div className="flex flex-col hover:border-myTheme-primary w-full rounded-lg shadow-md p-2 border-zinc-200 dark:border-zinc-600 border-2 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
       <div className="flex flex-row bg-myTheme-white dark:bg-myTheme-niceGrey text-myTheme-dark rounded-lg">
         <Link
           href={`/reviews?id=${currentProduct?.id}`}

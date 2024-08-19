@@ -15,6 +15,7 @@ import { MdOutlineThumbUp } from "react-icons/md";
 import { toast } from "sonner";
 import ImageGallery from "./ImageGallery";
 import VideoEmbed from "./VideoEmbed";
+import ReviewStats from "./ReviewStats";
 
 interface ReviewCardProps {
   review: iReview;
@@ -68,9 +69,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl">
-      <div className="p-6">
-        <div className="flex items-center mb-4">
-          <Link href={`/userprofile/${review.user?.id}`} className="flex items-center">
+      <div className="flex flex-col p-6">
+        <div className="flex items-center justify-start">
+          <Link href={`/userprofile/${review.user?.id}`} className="w-full flex items-center">
             <Image
               src={user?.avatar || "/logo.png"}
               alt={user?.id!}
@@ -78,21 +79,28 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
               height={60}
               className="rounded-full object-cover"
             />
-            <div className="ml-4">
-              <p className="font-semibold text-lg dark:text-white">@{user?.userName}</p>
-              <div className="flex items-center">
-                <RatingModule
-                  name={review.id!}
-                  rating={rating}
-                  ratingChanged={() => { }}
-                  size="rating-sm"
-                />
-                <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
-                  {dayjs(createdDate?.toString()).format("MMMM D, YYYY")}
-                </span>
+            <div className="flex h-full w-full justify-start">
+              <div className="flex flex-col">
+                <div className="ml-4">
+                  <p className="font-semibold text-base dark:text-white">@{user?.userName}</p>
+                  <div className="flex items-center">
+                    <RatingModule
+                      name={review.id!}
+                      rating={rating}
+                      ratingChanged={() => { }}
+                      size="rating-sm"
+                    />
+                  </div>
+                  <div className="ml-2 text-xs text-gray-600 dark:text-gray-400">
+                    {dayjs(createdDate?.toString()).format("MMMM D, YYYY")}
+                  </div>
+                </div>
               </div>
             </div>
           </Link>
+          <div className="flex w-full items-center">
+            <ReviewStats review={review} setReview={() => { setReview(review) }} />
+          </div>
         </div>
 
         <Link
