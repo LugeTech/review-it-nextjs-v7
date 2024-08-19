@@ -28,14 +28,18 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
   }, []);
 
   const getYouTubeEmbedCode = useCallback((videoId: string): string => {
-    return `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    const frame = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
+    return frame;
   }, []);
 
   const getTikTokEmbedCode = useCallback(async (url: string): Promise<{ embedCode: string, thumbnailUrl: string }> => {
     try {
       if (url.includes('vm.tiktok.com')) {
-        setError('TikTok mobile link not supported. Please open this link in your browser and use the expanded link.');
+        setError('TikTok mobile link not supported please open this link in your browser and use the expanded link');
+        // throw new Error('TikTok mobile link not supported please open this link in your browser and use the expanded link');
         return { embedCode: '', thumbnailUrl: '' };
+        // const response = await fetch(url, { method: 'HEAD', redirect: 'follow' });
+        // url = response.url; // This will be the full URL after redirection
       }
 
       const response = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`);
@@ -45,6 +49,8 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
       const data = await response.json();
       return { embedCode: data.html, thumbnailUrl: data.thumbnail_url };
     } catch (error) {
+      // console.error('Error fetching TikTok embed code:', error);
+      // setError(error as string);
       throw new Error('Failed to fetch TikTok embed code');
     }
   }, []);
@@ -59,26 +65,23 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
     try {
       switch (type) {
         case 'youtube': {
-          const youtubeId = url.includes('youtu.be')
-            ? url.split('/').pop()
-            : url.split('v=')[1]?.split('&')[0];
+          const youtubeId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
           if (!youtubeId) {
             return { error: 'Invalid YouTube URL', embedCode: '', thumbnailUrl: '', videoType: type };
           }
-          const thumbnailUrl = `https://img.youtube.com/vi/${youtubeId}/0.jpg`;
-          return { error: '', embedCode: getYouTubeEmbedCode(youtubeId), thumbnailUrl, videoType: type };
+          return { error: '', embedCode: getYouTubeEmbedCode(youtubeId), thumbnailUrl: '', videoType: type };
         }
         case 'tiktok': {
           const { embedCode, thumbnailUrl } = await getTikTokEmbedCode(url);
           if (!embedCode && url.includes('vm.tiktok.com')) {
-            return { error: 'Mobile TikTok link not supported. Please open this link in your browser and use the expanded link.', embedCode: '', thumbnailUrl: '', videoType: type };
+            return { error: 'mobile tik tok link not supported, please open this link in your browser and use the expanded link', embedCode: '', thumbnailUrl: '', videoType: type };
           } else if (!embedCode) {
             return { error: 'Invalid TikTok URL', embedCode: '', thumbnailUrl: '', videoType: type };
           }
           return { error: '', embedCode, thumbnailUrl, videoType: type };
         }
         default:
-          return { error: 'Unsupported video platform. Please use YouTube or TikTok.', embedCode: '', thumbnailUrl: '', videoType: 'unknown' };
+          return { error: 'Unsupported video platform. Please use YouTube, or TikTok.', embedCode: '', thumbnailUrl: '', videoType: 'unknown' };
       }
     } catch (error) {
       return { error: `Error generating embed code: ${error instanceof Error ? error.message : String(error)}`, embedCode: '', thumbnailUrl: '', videoType: type };
@@ -108,31 +111,28 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
   }, [videoType, embedCode, isVideoLoaded]);
 
   return (
-    <div className="w-80 mx-auto mt-4">
+    <div className="w-80  mx-auto mt-4">
       {error && (
         <Alert variant="destructive" className="mb-4">
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
-      <div className="relative" style={{ paddingBottom: videoType === 'youtube' ? '56.25%' : '177.77%' }}>
-        {thumbnailUrl && !isVideoLoaded && (
-          <div
-            className="absolute inset-0 cursor-pointer"
-            onClick={() => setIsVideoLoaded(true)}
-          >
-            <img src={thumbnailUrl} alt="Video Thumbnail" className="w-auto h-auto object-cover" />
-            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <button className="text-white text-2xl">Play</button>
-            </div>
+      {thumbnailUrl && !isVideoLoaded && (
+        <div className="relative cursor-pointer" onClick={() => setIsVideoLoaded(true)}>
+          <img src={thumbnailUrl} alt="TikTok Thumbnail" className="w-full h-auto" />
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <button className="text-white text-2xl">Play</button>
           </div>
-        )}
-        {embedCode && (isVideoLoaded || videoType === 'youtube') && (
+        </div>
+      )}
+      {embedCode && (
+        <div className="relative" style={{ paddingBottom: videoType === 'youtube' ? '56.25%' : '' }}>
           <div
-            className=" "
+            className=" w-full h-full"
             dangerouslySetInnerHTML={{ __html: embedCode }}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 });

@@ -9,7 +9,7 @@ const HeroSection = () => {
         alt="Background Image"
         layout="fill"
         className="fixed inset-0 object-cover object-center"
-        style={{ objectFit: "cover" }}
+        // style={{ objectFit: "cover" }}
         quality={75}
         priority
       />
