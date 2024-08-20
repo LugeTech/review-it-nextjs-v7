@@ -68,14 +68,17 @@ model Review {
 }
 
 model Comment {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   body        String
-  createdDate DateTime @default(now())
-  review      Review   @relation(fields: [reviewId], references: [id])
-  user        User     @relation(fields: [userId], references: [id])
+  createdDate DateTime  @default(now())
+  review      Review    @relation(fields: [reviewId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
   reviewId    String
   userId      String
-  isDeleted   Boolean? @default(false)
+  isDeleted   Boolean?  @default(false)
+  parentId    String?
+  replies     Comment[] @relation("CommentReplies")
+  parent      Comment?  @relation("CommentReplies", fields: [parentId], references: [id]) // Added this line for the opposite relation
 }
 
 model User {

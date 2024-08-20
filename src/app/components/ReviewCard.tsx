@@ -116,7 +116,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
             __html: DOMPurify.sanitize(formattedBody),
           }}
         />
-        <div className="flex  items-center justify-center ">
+        <div className="flex  items-center justify-center w-full ">
           {images && images.length > 0 && (
             <ImageGallery images={images} />
           )}

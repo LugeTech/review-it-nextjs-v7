@@ -150,14 +150,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     "No Reviews Yet"
                   )}
                 </div>
-                {allReviews.length === 0 && (
-                  <Link
-                    href={`/cr/?id=${currentProduct?.id}&rating=3`}
-                    className="hover:underline "
-                  >
-                    Write Review
-                  </Link>
-                )}
+                {/* {allReviews.length === 0 && ( */}
+                {/*   <Link */}
+                {/*     href={`/cr/?id=${currentProduct?.id}&rating=3`} */}
+                {/*     className="hover:underline " */}
+                {/*   > */}
+                {/*     Write Review! */}
+                {/*   </Link> */}
+                {/* )} */}
               </div>
             </div>
           </div>
@@ -187,7 +187,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               Write Review
             </Link>
           ) : (
-            ""
+            "Report Product"
           )}
         </div>
       </div>

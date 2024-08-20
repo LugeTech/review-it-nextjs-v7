@@ -32,7 +32,7 @@ const CommentForm = ({ isOpen, onSubmit }: Props) => {
             </label>
           </div>
           <textarea
-            className="w-full border p-2 mb-2 h-36"
+            className="w-full border p-2 mb-2 h-36 bg-white"
             placeholder="Enter your comment"
             name="body"
             value={textAreaValue}
