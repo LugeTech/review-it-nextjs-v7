@@ -1,3 +1,5 @@
+// Ensure foreign key relationships are correctly defined in your schema
+
 generator client {
   provider = "prisma-client-js"
 }
