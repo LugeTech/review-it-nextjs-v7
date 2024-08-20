@@ -15,6 +15,12 @@ export interface ReviewLike {
   user: iUser;
 }
 
+export interface iCalculatedRating {
+  roundedRating: number;
+  roundedRatingOneDecimalPlace: number;
+  numberOfReviews: number;
+}
+
 export interface iProduct {
   id?: string;
   address?: string | null;

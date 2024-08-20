@@ -1,18 +1,25 @@
-import React from "react";
-interface iTag {
+interface iTagViewProps {
   tag: string;
+  isSelected: boolean;
+  onClick: () => void;
 }
 
-const TagView = (props: iTag) => {
+const TagView = ({ tag, isSelected, onClick }: iTagViewProps) => {
   return (
-    <div>
+    <div
+      className={`flex items-center gap-2 cursor-pointer hover:bg-myTheme-primary hover:text-myTheme-dark rounded-md px-2 py-1 ${
+        isSelected ? "bg-myTheme-primary text-myTheme-dark" : ""
+      }`}
+      onClick={onClick}
+    >
       <input
         type="checkbox"
-        key={props.tag}
-        value={props.tag}
-        className="w-4"
+        checked={isSelected}
+        value={tag}
+        className="w-4 h-4"
+        readOnly
       />
-      {props.tag}
+      <span>{tag}</span>
     </div>
   );
 };

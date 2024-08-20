@@ -32,6 +32,7 @@ import { getReviews } from "../util/serverFunctions";
 import { calculateAverageReviewRating } from "../util/calculateAverageReviewRating";
 import LoadingSpinner from "./LoadingSpinner";
 import VerticalLinks from "./VerticalLinks";
+import { iCalculatedRating } from "@/app/util/Interfaces";
 
 interface ProductCardProps {
   reviews?: iReview[] | null;
@@ -43,11 +44,7 @@ interface ProductCardProps {
   };
   product?: iProduct | null;
 }
-interface iCalculatedRating {
-  roundedRating: number;
-  roundedRatingOneDecimalPlace: number;
-  numberOfReviews: number;
-}
+
 
 const ProductCard: React.FC<ProductCardProps> = ({
   reviews,
