@@ -32,7 +32,7 @@ const Page = () => {
   const user: iUser | undefined = data?.data as iUser;
 
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md p-2 my-2 justify-center items-center bg-myTheme-lightbg dark:bg-myTheme-niceGrey ">
+    <div className="flex flex-col w-full rounded-lg shadow-md p-2 my-2 justify-center items-center bg-myTheme-lightbg ">
       <div className="flex flex-row gap-2 items-center">
         {auth.isSignedIn ?? (
           <Image

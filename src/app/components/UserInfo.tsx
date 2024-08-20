@@ -11,12 +11,12 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
   const { firstName, lastName, avatar, reviews, comments, likedReviews } = user;
 
   return (
-    <div className="bg-white dark:bg-myTheme-niceBlack rounded-lg shadow-lg overflow-hidden">
-      <div className="relative h-48 bg-gradient-to-r from-myTheme-primary to-myTheme-secondary dark:from-myTheme-accent dark:to-myTheme-secondary">
-        <div className="absolute inset-0 bg-opacity-25 bg-pattern"></div>
-        <div className="relative flex items-center justify-center h-full">
+    <div className="overflow-hidden rounded-lg bg-white shadow-lg ">
+      <div className="relative h-48 bg-gradient-to-r from-myTheme-primary to-myTheme-secondary ">
+        <div className="bg-pattern absolute inset-0 bg-opacity-25"></div>
+        <div className="relative flex h-full items-center justify-center">
           {avatar && (
-            <div className="relative h-32 w-32 rounded-full overflow-hidden ring-2 ring-white dark:ring-myTheme-niceBlack">
+            <div className="relative h-32 w-32 overflow-hidden rounded-full ring-2 ring-white ">
               <Image
                 src={avatar}
                 alt={firstName}
@@ -29,32 +29,32 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
       </div>
 
       <div className="p-6 md:p-8 lg:p-10">
-        <div className="text-center mb-6">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 dark:text-myTheme-light">
+        <div className="mb-6 text-center">
+          <h2 className="text-2xl font-bold text-gray-800  md:text-3xl lg:text-4xl">
             {`${firstName} ${lastName}`}
           </h2>
-          <p className="text-gray-600 dark:text-myTheme-light">
+          <p className="text-gray-600 ">
             @{firstName.toLowerCase()}
           </p>
         </div>
 
         <div className="mb-6 md:mb-8 lg:mb-10">
-          <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-800 dark:text-myTheme-light mb-2">
+          <h3 className="mb-2 text-lg font-semibold text-gray-800  md:text-xl lg:text-2xl">
             Reviews
           </h3>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {reviews?.map((review) => (
               <li
                 key={review.id}
-                className="bg-gray-100 dark:bg-myTheme-niceGrey rounded-lg p-4 text-gray-600 dark:text-myTheme-light"
+                className="rounded-lg bg-gray-100 p-4 text-gray-600 "
               >
                 <Link
                   href={`/fr/${review.id}`}
-                  className="text-myTheme-primary dark:text-myTheme-accent hover:underline hover:text-myTheme-accent dark:hover:text-myTheme-accent transition duration-200"
+                  className="text-myTheme-primary transition duration-200 hover:text-myTheme-accent hover:underline "
                 >
                   {review.title}
                 </Link>
-                <span className="block text-gray-500 dark:text-myTheme-light mt-1">
+                <span className="mt-1 block text-gray-500 ">
                   4 Comments
                 </span>
               </li>
@@ -63,53 +63,53 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
         </div>
 
         <div className="mb-6 md:mb-8 lg:mb-10">
-          <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-800 dark:text-myTheme-light mb-2">
+          <h3 className="mb-2 text-lg font-semibold text-gray-800  md:text-xl lg:text-2xl">
             Comments
           </h3>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {comments?.map((comment) => (
               <li
                 key={comment.id}
-                className="bg-gray-100 dark:bg-myTheme-niceGrey rounded-lg p-4 text-gray-600 dark:text-myTheme-light"
+                className="rounded-lg bg-gray-100 p-4 text-gray-600 "
               >
                 <Link
                   href={`/fr/${comment.reviewId}`}
-                  className="text-indigo-500 dark:text-myTheme-accent hover:underline hover:text-indigo-600 dark:hover:text-myTheme-accent transition duration-200"
+                  className="text-indigo-500 transition duration-200 hover:text-indigo-600 hover:underline "
                 >
                   {comment.body.slice(0, 40)}...
                 </Link>
-                <span className="block text-gray-500 dark:text-myTheme-light mt-1">
+                <span className="mt-1 block text-gray-500 ">
                   16 Likes
                 </span>
               </li>
             ))}
           </ul>
-          <div className="flex justify-center mt-4">
+          <div className="mt-4 flex justify-center">
             {/* Pagination */}
             {/* Same as above */}
           </div>
         </div>
 
         <div>
-          <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-800 dark:text-myTheme-light mb-2">
+          <h3 className="mb-2 text-lg font-semibold text-gray-800  md:text-xl lg:text-2xl">
             Likes
           </h3>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {likedReviews?.map((liked) => (
               <li
                 key={liked.id}
-                className="bg-gray-100 dark:bg-myTheme-niceGrey rounded-lg p-4 text-gray-600 dark:text-myTheme-light"
+                className="rounded-lg bg-gray-100 p-4 text-gray-600 "
               >
                 <Link
                   href={`/fr/${liked.id}`}
-                  className="text-indigo-500 dark:text-myTheme-accent hover:underline hover:text-indigo-600 dark:hover:text-myTheme-accent transition duration-200"
+                  className="text-indigo-500 transition duration-200 hover:text-indigo-600 hover:underline "
                 >
                   {liked.title}
                 </Link>
               </li>
             ))}
           </ul>
-          <div className="flex justify-center mt-4">
+          <div className="mt-4 flex justify-center">
             {/* Pagination */}
             {/* Same as above */}
           </div>

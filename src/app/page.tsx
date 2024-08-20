@@ -6,7 +6,7 @@ import ReviewCategories from "./components/ReviewCategories";
 // import Token from "./components/Token";
 export default async function Home() {
   return (
-    <div className=" flex h-full flex-col justify-start bg-myTheme-lightbg dark:bg-myTheme-niceBlack dark:text-myTheme-light">
+    <div className=" flex h-full flex-col justify-start bg-myTheme-lightbg ">
       <div className="flex flex-row">
         <HeroSection />
       </div>

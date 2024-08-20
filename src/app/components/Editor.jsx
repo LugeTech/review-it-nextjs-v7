@@ -4,13 +4,13 @@ import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Placeholder from "@tiptap/extension-placeholder";
 
-interface EditorComponentProps {
-  onEditorValue: (value: string) => void;
-}
+// interface EditorComponentProps {
+//   onEditorValue: (value: string) => void;
+// }
 
 const content = "";
 
-export default function Editor({ onEditorValue }: EditorComponentProps) {
+export default function Editor(onEditorValue) {
   const editor = useEditor({
     extensions: [
       StarterKit,

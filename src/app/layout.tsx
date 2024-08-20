@@ -89,7 +89,7 @@ export default function RootLayout({
       <ClerkProvider>
         <QueryProvider>
           <html
-            className="bg-myTheme-lightbg dark:bg-myTheme-niceBlack"
+            className="bg-myTheme-lightbg "
             lang="en"
           >
             <head>
@@ -99,7 +99,7 @@ export default function RootLayout({
               />
             </head>
             <body
-              className={`${poppins.className} bg-myTheme-lightbg dark:bg-myTheme-niceBlack `}
+              className={`${poppins.className} bg-myTheme-lightbg  `}
             >
               <Navbar>{children}</Navbar>
               <Analytics />

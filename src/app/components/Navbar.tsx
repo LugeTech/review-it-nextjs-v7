@@ -17,7 +17,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="drawer sticky top-0 ">
+    <div className="drawer sticky top-0 text-myTheme-dark">
       <input
         id="my-drawer-3"
         type="checkbox"
@@ -26,7 +26,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         onChange={() => setIsDrawerOpen(!isDrawerOpen)}
       />
       <div className="drawer-content flex flex-col">
-        <div className="w-full navbar bg-white dark:bg-myTheme-niceBlack z-10">
+        <div className="w-full navbar bg-white  z-10">
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
@@ -71,7 +71,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
       </div>
       <div className="drawer-side ">
         <label htmlFor="my-drawer-3" className="drawer-overlay "></label>
-        <div className="flex flex-col gap-4 font-bold menu p-4 w-60 h-full bg-myTheme-lightbg dark:bg-myTheme-niceBlack">
+        <div className="flex flex-col gap-4 font-bold menu p-4 w-60 h-full bg-myTheme-lightbg ">
           {/* <HomeLink /> */}
           <SideLinks onSideLinkClick={handleSideLinkClick} />
           <div className="flex justify-center items-end p-4">

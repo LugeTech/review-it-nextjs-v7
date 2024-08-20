@@ -49,54 +49,54 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
     productDescription = product.description;
   }
   return (
-    <div className="flex hover:bg-myTheme-success dark:hover:bg-myTheme-niceBlack flex-col w-full rounded-lg shadow-md p-1 text-myTheme-lightTextBody bg-myTheme-lightbg dark:bg-myTheme-niceGrey dark:text-myTheme-darkTextBody justify-start items-start">
+    <div className="flex w-full flex-col items-start justify-start rounded-lg bg-myTheme-lightbg p-1 text-myTheme-lightTextBody shadow-md hover:bg-myTheme-success ">
       <Link
         href={`/reviews?id=${product.id}`}
-        className="   dark:hover:bg-myTheme-darkbg/60  w-full"
+        className="  w-full"
       >
-        <div className="flex justify-start items-center gap-2 h-full">
+        <div className="flex h-full items-center justify-start gap-2">
           {product.display_image && (
-            <div className="flex justify-center items-center w-20 h-20 object-cover">
+            <div className="flex h-20 w-20 items-center justify-center object-cover">
               <Image
                 src={product.display_image}
                 alt={`${product.name} Image`}
-                className=" rounded-lg w-16 h-16 object-contain"
+                className=" h-16 w-16 rounded-lg object-contain"
                 width={64}
                 height={64}
               />
             </div>
           )}
-          <div className="flex w-full h-full justify-start items-center">
-            <div className="flex flex-col w-full">
-              <p className="text-sm text-black dark:text-myTheme-darkTextBody font-semibold text-left">
+          <div className="flex h-full w-full items-center justify-start">
+            <div className="flex w-full flex-col">
+              <p className="text-left text-sm font-semibold text-black ">
                 {product.name}
               </p>
-              <div className="text-[10px] sm:text-xs text-myTheme-lightTextBody dark:text-myTheme-darkTextBody flex justify-start items-center gap-1 font-thin ">
-                <div className="flex flex-nowrap justify-start items-center text-left">
+              <div className="flex items-center justify-start gap-1 text-[10px] font-thin text-myTheme-lightTextBody  sm:text-xs ">
+                <div className="flex flex-nowrap items-center justify-start text-left">
                   {productAddress.length > 40
                     ? productAddress.slice(0, 40) + "..."
                     : productAddress}
                 </div>
               </div>
-              <div className="text-[10px] sm:text-xs text-myTheme-lightTextBody dark:text-myTheme-darkTextBody text-left font-thin ">
+              <div className="text-left text-[10px] font-thin text-myTheme-lightTextBody  sm:text-xs ">
                 {/* {product.telephone !== null ? "# " : ""} */}
                 {productDescription.length > 80
                   ? productDescription.slice(0, 80) + "..."
                   : productDescription}
               </div>
-              <div className="text-[10px] sm:text-xs text-myTheme-lightTextBody dark:text-myTheme-darkTextBody text-left font-thin ">
+              <div className="text-left text-[10px] font-thin text-myTheme-lightTextBody  sm:text-xs ">
                 {/* {product.telephone !== null ? "# " : ""} */}
                 {product.telephone}
               </div>
             </div>
           </div>
-          <div className="flex flex-col h-full w-auto justify-start items-start ">
-            <div className="flex  h-auto w-auto justify-center items-start">
-              <p className="text-[10px] text-myTheme-lightTextBody/50 dark:text-myTheme-darkTextBody font-thin text-cente">
+          <div className="flex h-full w-auto flex-col items-start justify-start ">
+            <div className="flex  h-auto w-auto items-start justify-center">
+              <p className="text-cente text-[10px] font-thin text-myTheme-lightTextBody/50 ">
                 {numberOfReviews ? numberOfReviews : 0} reviews
               </p>
             </div>
-            <div className="flex  h-auto w-auto justify-start items-center gap-1 ">
+            <div className="flex  h-auto w-auto items-center justify-start gap-1 ">
               {roundedRating ? (
                 <RatingModuleMini
                   name={product.id!}
@@ -107,7 +107,7 @@ const ProductCardSlim: React.FC<ProductCardProps> = ({ product, options }) => {
               ) : (
                 ""
               )}
-              <p className="text-xs text-myTheme-lightTextBody dark:text-myTheme-darkTextBody font-semibold flex justify-start items-start">
+              <p className="flex items-start justify-start text-xs font-semibold text-myTheme-lightTextBody ">
                 {roundedRatingOneDecimalPlace}
               </p>
             </div>

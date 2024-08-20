@@ -16,7 +16,7 @@ interface BungeeTintTextProps {
 
 const BungeeTintText: FC<BungeeTintTextProps> = ({
   children,
-  className = "",
+  className = "text-myTheme-dark",
 }) => {
   return (
     <span className={`${bungeeTint.className} ${className}`}>

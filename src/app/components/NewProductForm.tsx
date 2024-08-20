@@ -103,7 +103,7 @@ const NewProductForm = (): JSX.Element => {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-white dark:bg-gray-800 shadow-lg">
+    <Card className="w-full max-w-2xl mx-auto bg-white  shadow-lg">
       <CardHeader>
         <CardTitle className="text-2xl font-bold text-center">Create New Product</CardTitle>
       </CardHeader>
@@ -111,7 +111,7 @@ const NewProductForm = (): JSX.Element => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <Label htmlFor="image-upload">Upload Image</Label>
-            <div className="relative border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors">
+            <div className="relative border-2 border-dashed border-gray-300  rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors">
               <input
                 id="image-upload"
                 type="file"
@@ -121,7 +121,7 @@ const NewProductForm = (): JSX.Element => {
               />
               <div className="flex flex-col items-center justify-center">
                 <Upload className="w-10 h-10 text-gray-400" />
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mt-2 text-sm text-gray-500 ">
                   {imagePreview ? "Change Image" : "Click to upload or drag and drop"}
                 </p>
               </div>

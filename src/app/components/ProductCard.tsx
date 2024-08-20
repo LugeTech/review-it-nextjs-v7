@@ -91,34 +91,34 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div className="flex flex-col hover:border-myTheme-primary w-full rounded-lg shadow-md p-2 border-zinc-200 dark:border-zinc-600 border-2 bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark">
-      <div className="flex flex-row bg-myTheme-white dark:bg-myTheme-niceGrey text-myTheme-dark rounded-lg">
+    <div className="flex w-full flex-col rounded-lg border-2 border-zinc-200 bg-myTheme-lightbg p-2  text-myTheme-dark shadow-md  hover:border-myTheme-primary">
+      <div className="flex flex-row rounded-lg  bg-myTheme-white text-myTheme-dark">
         <Link
           href={`/reviews?id=${currentProduct?.id}`}
-          className="  w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark "
+          className="  w-full bg-myTheme-lightbg  text-myTheme-dark "
         >
-          <div className="flex justify-start items-center gap-2 w-full bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-niceGrey dark:text-myTheme-light">
+          <div className="flex w-full items-center justify-start gap-2 bg-myTheme-lightbg  text-myTheme-niceGrey ">
             {currentProduct?.display_image && (
-              <div className=" flex items-start justify-start bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark dark:text-myTheme-light">
-                <div className="relative w-20 h-20">
+              <div className=" flex items-start justify-start bg-myTheme-lightbg text-myTheme-dark ">
+                <div className="relative h-20 w-20">
                   <Image
                     src={currentProduct.display_image}
                     alt={`${currentProduct.name} Image`}
-                    className=" object-cover rounded-lg "
+                    className=" rounded-lg object-cover "
                     layout="fill"
                   />
                 </div>
               </div>
             )}
-            <div className="mb-2 flex flex-col gap-1 w-full">
-              <div className="p-1 flex flex-col bg-myTheme-lightbg dark:bg-myTheme-niceGrey text-myTheme-dark dark:text-myTheme-light rounded-lg">
-                <div className="md:leading-5 text-base flex md:text-xl font-semibold text-black dark:text-white ">
+            <div className="mb-2 flex w-full flex-col gap-1">
+              <div className="flex flex-col rounded-lg bg-myTheme-lightbg p-1 text-myTheme-dark ">
+                <div className="flex text-base font-semibold text-black  md:text-xl md:leading-5 ">
                   {currentProduct?.name}
                 </div>
-                <div className="text-xs font-extralight md:text-sm md:font-extralight text-black dark:text-white border-b-2 border-gray-200 dark:border-gray-500">
+                <div className="border-b-2 border-gray-200 text-xs font-extralight text-black  md:text-sm md:font-extralight">
                   {currentProduct?.address}
                 </div>
-                <p className="hidden text-xs md:flex md:text-sm leading-snug text-black/70 dark:text-white">
+                <p className="hidden text-xs leading-snug text-black/70  md:flex md:text-sm">
                   &quot;
                   {currentProduct && currentProduct.description?.length > 80
                     ? `${currentProduct.description.slice(0, 80)}...`
@@ -129,10 +129,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <div className="flex justify-between md:justify-start md:gap-2 ">
                 <div className="flex gap-2">
                   <span
-                    className={`rounded flex items-center text-xs md:text-base px-1 ${handleRating(roundedRating)}`}
+                    className={`flex items-center rounded px-1 text-xs md:text-base ${handleRating(roundedRating)}`}
                   >
                     {allReviews.length > 0 ? (
-                      <div className="flex gap-1 items-center justify-center text-black/70 text-sm ">
+                      <div className="flex items-center justify-center gap-1 text-sm text-black/70 ">
                         {roundedRatingOneDecimalPlace!}{" "}
                         {`(${numberOfReviews!} reviews)`}
                       </div>
@@ -167,22 +167,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {/* <div className="flex sm:hidden w-full justify-between"> */}
       {/*   {<VerticalLinks />} */}
       {/* </div> */}
-      <div className="bg-myTheme-primary/10 flex w-full text-xs md:text-base justify-evenly items-center pr-2 rounded-lg ">
+      <div className="flex w-full items-center justify-evenly rounded-lg bg-myTheme-primary/10 pr-2 text-xs md:text-base ">
         {<VerticalLinks />}
 
         {options.showClaimThisProduct && (
-          <div className="flex w-full justify-center items-center text-black dark:text-white hover:underline ">
+          <div className="flex w-full items-center justify-center text-black hover:underline ">
             Claim Product
           </div>
         )}
         <div
           id="reviews_operations_div"
-          className="flex w-full justify-end items-center "
+          className="flex w-full items-center justify-end "
         >
           {options.showWriteReview ? (
             <Link
               href={`/cr/?id=${currentProduct?.id}&rating=3`}
-              className="text-black dark:text-white hover:underline"
+              className="text-black hover:underline "
             >
               Write Review
             </Link>

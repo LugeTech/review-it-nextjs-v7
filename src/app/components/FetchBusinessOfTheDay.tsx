@@ -28,11 +28,11 @@ const page = async ({ params }: Props) => {
   // await client.close();
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className=" flex flex-1 justify-center mt-2 text-xl font-bold text-myTheme-dark dark:text-myTheme-light">
+      <h1 className=" flex flex-1 justify-center mt-2 text-xl font-bold text-myTheme-dark ">
         Business Of The Day
       </h1>
       {reviewsData ? (
-        <h1 className="flex flex-1 justify-center mt-2 text-sm  text-myTheme-dark dark:text-myTheme-light">
+        <h1 className="flex flex-1 justify-center mt-2 text-sm  text-myTheme-dark ">
           {JSON.stringify(reviewsData.data.id)}
         </h1>
       ) : (

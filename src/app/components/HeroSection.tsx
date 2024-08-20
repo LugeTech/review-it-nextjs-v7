@@ -13,7 +13,7 @@ const HeroSection = () => {
         quality={75}
         priority
       />
-      <div className=" flex  justify-center items-center absolute top-0 left-0 right-0 bottom-0 text-center text-white bg-opacity-40 dark:bg-opacity-80 bg-myTheme-neutral">
+      <div className=" flex  justify-center items-center absolute top-0 left-0 right-0 bottom-0 text-center text-white bg-opacity-40  bg-myTheme-neutral">
         <div className="flex flex-1 justify-center flex-col">
           {/* <h1 className=" mt-28 text-4xl font-black text-myTheme-neutral"> */}
           {/*   Welcome */}

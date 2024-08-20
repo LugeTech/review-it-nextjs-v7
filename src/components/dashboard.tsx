@@ -50,7 +50,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium">John Doe</CardTitle>
-            <CardDescription className="text-xs text-gray-500 dark:text-gray-400">
+            <CardDescription className="text-xs text-gray-500 ">
               Dec 7, 2023
             </CardDescription>
           </CardHeader>
@@ -70,7 +70,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium">John Doe</CardTitle>
-            <CardDescription className="text-xs text-gray-500 dark:text-gray-400">
+            <CardDescription className="text-xs text-gray-500 ">
               Dec 7, 2023
             </CardDescription>
           </CardHeader>
@@ -90,7 +90,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-sm font-medium">John Doe</CardTitle>
-            <CardDescription className="text-xs text-gray-500 dark:text-gray-400">
+            <CardDescription className="text-xs text-gray-500 ">
               Dec 7, 2023
             </CardDescription>
           </CardHeader>

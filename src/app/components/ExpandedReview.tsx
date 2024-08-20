@@ -108,7 +108,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   };
 
   return (
-    <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg dark:bg-myTheme-niceBlack">
+    <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
       <div className="mb-4">
         <ProductCard product={review?.product!} options={productCardOptions} />
       </div>

@@ -7,7 +7,7 @@ const ArrangeByPanel = (props: { products: iProduct[] }) => {
   const uniqueTagsSet = new Set(allTags);
   const uniqueTags = [...uniqueTagsSet];
   return (
-    <div className="flex flex-1 flex-col p-2 w-full bg-myTheme-lightbg dark:bg-myTheme-niceBlack dark:text-myTheme-light">
+    <div className="flex flex-1 flex-col p-2 w-full bg-myTheme-lightbg ">
       <div className="flex w-full">
         <p className="flex-1 text-center">Arrange by rating</p>
       </div>

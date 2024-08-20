@@ -29,7 +29,7 @@ const RatingModule = ({
   return (
     <div className="flex flex-grow-0">
       <div
-        className={` w-auto rating gap-1 ${size} items-center justify-center  p-1 rounded-md bg-gray-700 dark:bg-gray-900 `}
+        className={` w-auto rating gap-1 ${size} items-center justify-center  p-1 rounded-md bg-gray-700 `}
       >
         <input
           type="radio"
@@ -38,7 +38,7 @@ const RatingModule = ({
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 1}
           readOnly
-          // onChange={() => ratingChanged(1)}
+        // onChange={() => ratingChanged(1)}
         />
         <input
           type="radio"
@@ -47,7 +47,7 @@ const RatingModule = ({
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 2}
           readOnly
-          // onChange={() => ratingChanged(2)}
+        // onChange={() => ratingChanged(2)}
         />
         <input
           type="radio"
@@ -56,7 +56,7 @@ const RatingModule = ({
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 3}
           readOnly
-          // onChange={() => ratingChanged(3)}
+        // onChange={() => ratingChanged(3)}
         />
         <input
           type="radio"
@@ -65,7 +65,7 @@ const RatingModule = ({
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 4}
           readOnly
-          // onChange={() => ratingChanged(4)}
+        // onChange={() => ratingChanged(4)}
         />
         <input
           type="radio"
@@ -74,7 +74,7 @@ const RatingModule = ({
           className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
           checked={rating === 5}
           readOnly
-          // onChange={() => ratingChanged(5)}
+        // onChange={() => ratingChanged(5)}
         />
       </div>
     </div>

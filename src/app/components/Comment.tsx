@@ -13,7 +13,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
     return <p>No comment</p>;
   }
   return (
-    <div className="flex w-full flex-col md:w-full  p-2 rounded-lg shadow-md mb-1 bg-myTheme-lightbg dark:bg-myTheme-niceGrey border-l-8 ml-2 ">
+    <div className="flex w-full flex-col md:w-full  p-2 rounded-lg shadow-md mb-1 bg-myTheme-lightbg  border-l-8 ml-2 ">
       <div className="flex items-center mb-1">
         <Image
           src={comment?.user?.avatar || "/default-avatar.png"} // Use a default avatar if no avatar is provided
@@ -23,7 +23,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
           height={50}
         />
         <Link href={`/userprofile/${comment?.user?.id}`}>
-          <span className="text-myTheme-dark dark:text-myTheme-light font-semibold">
+          <span className="text-myTheme-dark  font-semibold">
             @{comment?.user?.userName}
           </span>
           <span className="text-gray-500 text-xs ml-2">
@@ -32,7 +32,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
           </span>
         </Link>
       </div>
-      <div className="text-myTheme-lightTextBody dark:text-myTheme-darkTextBody text-sm">
+      <div className="text-myTheme-lightTextBody  text-sm">
         {comment.body && comment.body.length > 90
           ? comment.body.slice(0, 90) + "...read more"
           : comment.body}
