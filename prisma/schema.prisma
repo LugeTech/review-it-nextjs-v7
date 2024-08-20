@@ -97,15 +97,4 @@ model User {
   isDeleted    Boolean?  @default(false)
   comments     Comment[]
   likedReviews Review[]  @relation("ReviewLike")
-  // reviewLike   ReviewLike[]
 }
-
-// model ReviewLike {
-//   reviewId String
-//   userId   String
-//
-//   review Review @relation(fields: [reviewId], references: [id])
-//   user   User   @relation(fields: [userId], references: [id])
-//
-//   @@id([reviewId, userId])
-// }

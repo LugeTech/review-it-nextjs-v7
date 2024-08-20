@@ -120,3 +120,24 @@ export const createCommentOnReview = async (comment: iComment) => {
   const data = (await response.json()) as unknown as iComment;
   return data;
 };
+
+export const createReplyOnComment = async (reply: iComment): Promise<iComment> => {
+  if (reply.body === "") {
+    throw new Error("Reply body cannot be empty");
+  }
+
+  const response = await fetch(`${apiUrl}/create/reply`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reply),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json() as iComment;
+  return data;
+};
