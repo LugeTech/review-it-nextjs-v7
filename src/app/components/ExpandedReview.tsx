@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { currentReviewAtom, currentUserAtom } from "../store/store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { iReview, iComment } from "../util/Interfaces";
-import { createCommentOnReview, getReview } from "../util/serverFunctions";
+import { createCommentOnReview, createReplyOnComment, getReview } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
@@ -14,6 +14,7 @@ import ProductCard from "./ProductCard";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import CommentList from "./CommentList";
 
 const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const auth = useAuth();
@@ -49,6 +50,61 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     },
   });
 
+  const commentMutation = useMutation({
+    mutationFn: async (comment: iComment) => {
+      const data = createCommentOnReview(comment);
+      toast.promise(data, {
+        loading: "Loading...",
+        success: () => "Comment saved successfully!",
+        error: "Error saving comment",
+      });
+    },
+    onMutate: (newData: iComment) => {
+      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
+        newData.reviewId = reviewId;
+        newData.isDeleted = false;
+        newData.user = currentUser;
+        let iReviewOldData: iReview = { ...oldData };
+        iReviewOldData.comments = [...(iReviewOldData.comments || []), newData];
+        return iReviewOldData;
+      });
+    },
+    onError: (error: Error) => {
+      <DisplayError error={error.message} />;
+      console.error(error);
+    },
+  })
+
+  const replyMutation = useMutation({
+    mutationFn: async (reply: iComment) => {
+      const data = createReplyOnComment(reply);
+      toast.promise(data, {
+        loading: "Loading...",
+        success: () => "Reply saved successfully!",
+        error: "Error saving reply",
+      });
+    },
+    onMutate: (newReply: iComment) => {
+      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
+        let iReviewOldData: iReview = { ...oldData };
+        const updatedComments = iReviewOldData.comments?.map(comment => {
+          if (comment.id === newReply.parentId) {
+            return {
+              ...comment,
+              replies: [...(comment.replies || []), newReply],
+            };
+          }
+          return comment;
+        });
+        iReviewOldData.comments = updatedComments;
+        return iReviewOldData;
+      });
+    },
+    onError: (error: Error) => {
+      <DisplayError error={error.message} />;
+      console.error(error);
+    },
+  });
   const [comment, setComment] = useState<iComment>({
     reviewId: "",
     body: "",
@@ -77,7 +133,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   };
 
   const handleReply = useCallback(async (parentId: string, body: string) => {
-    mutations.mutate({ ...comment, body });
+    replyMutation.mutate({ ...comment, body, parentId });
   }, [mutations, comment]);
 
   const handleEdit = async (commentId: string, body: string) => {
@@ -138,16 +194,12 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       <div className="space-y-1 mt-2 gap-1 flex flex-col w-full justify-end items-end ">
         <h2>Comments</h2>
         {sortedComments.length > 0 ? (
-          sortedComments.map((comment: iComment) => (
-            <div className="w-full px-4 py-2" key={comment.id}>
-              <Comment
-                comment={comment}
-                onReply={handleReply}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-            </div>
-          ))
+          <CommentList
+            comments={sortedComments}
+            onReply={handleReply}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
         ) : (
           <div>No comments yet</div>
         )}
