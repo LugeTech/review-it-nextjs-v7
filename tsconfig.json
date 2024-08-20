@@ -34,7 +34,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/components/Editor.jsx"
+    "src/app/components/Editor.tsx"
   ],
   "exclude": [
     "node_modules"

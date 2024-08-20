@@ -24,7 +24,7 @@ export default function ReviewStats({ review, setReview }: reviewStatsProps) {
       )
         : null}
       {review.voteCount?.helpfulVotes! > 0 ? (
-        <div className="flex items-center justify-center rounded-md bg-yellow-300 p-1">
+        <div className="flex items-center justify-center rounded-md bg-orange-400 p-1 text-gray-600">
           <div className="font-light">
             {review.voteCount?.helpfulVotes}
           </div>

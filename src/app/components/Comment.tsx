@@ -12,6 +12,7 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedBody, setEditedBody] = useState(comment.body);
   const [showFullComment, setShowFullComment] = useState(false);
+  const [replies, setReplies] = useState<iComment[]>([]); // State for replies
 
   if (!comment) {
     return <p>No comment</p>;
@@ -32,8 +33,16 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
   };
 
   const handleReply = () => {
-    // TODO: Implement reply logic
-    console.log("Reply to comment");
+    // Add a new reply to the replies state
+    const newReply: iComment = {
+      reviewId: comment.reviewId,
+      id: Date.now().toString(), // Temporary ID for the reply
+      body: editedBody,
+      createdDate: new Date(),
+      user: comment.user, // Assuming the same user for simplicity
+    };
+    setReplies([...replies, newReply]);
+    setEditedBody(""); // Clear the edited body after replying
   };
 
   return (
@@ -105,6 +114,12 @@ const Comment: React.FC<CommentProps> = ({ comment }) => {
         >
           Delete
         </button>
+      </div>
+      {/* Render replies */}
+      <div className="mt-2">
+        {replies.map((reply) => (
+          <Comment key={reply.id} comment={reply} />
+        ))}
       </div>
       {/* TODO: Add nested replies here */}
     </div>
