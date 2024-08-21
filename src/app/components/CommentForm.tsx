@@ -11,7 +11,6 @@ import { currentUserAtom } from "@/app/store/store";
 const CommentForm = ({ isOpen, onSubmit }: Props) => {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [currentUser, _] = useAtom(currentUserAtom);
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -20,19 +19,19 @@ const CommentForm = ({ isOpen, onSubmit }: Props) => {
   return (
     // I originally wanted to hide and show this component, will leave the functionality late might add it back
     <div
-      className={` ${isOpen ? "flex" : "hidden"} flex-col justify-center item-start w-full bg-myTheme-lightbg `}
+      className={` ${isOpen ? "flex" : "hidden"} flex-col justify-center item-start w-full bg-myTheme-lightbg dark:bg-myTheme-niceBlack`}
     >
-      <div className="bg-myTheme-lightbg  rounded-lg p-4 shadow-md w-full">
+      <div className="bg-myTheme-lightbg dark:bg-myTheme-niceGrey rounded-lg p-4 shadow-md w-full">
         <form onSubmit={handleSubmit}>
           {/* Your comment input fields */}
           <div>
-            <label className="block text-gray-700  text-sm font-bold mb-2">
+            <label className="block text-gray-700 dark:text-myTheme-light text-sm font-bold mb-2">
               {/*FIX: when the user sign out the atom isn't cleared #bug */}
               Commenting as {currentUser?.firstName ?? "Guest"}
             </label>
           </div>
           <textarea
-            className="w-full border p-2 mb-2 h-36 bg-white"
+            className="w-full border p-2 mb-2 h-36"
             placeholder="Enter your comment"
             name="body"
             value={textAreaValue}

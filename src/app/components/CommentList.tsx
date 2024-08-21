@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { iComment } from "../util/Interfaces";
 import Comment from './Comment';
 
@@ -10,6 +10,8 @@ interface CommentListProps {
 }
 
 const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, onDelete }) => {
+  const [organizedComments, setOrganizedComments] = useState<iComment[]>([]);
+
   // Function to organize comments into a tree structure
   const organizeComments = (comments: iComment[]): iComment[] => {
     const commentMap = new Map<string, iComment>();
@@ -36,13 +38,15 @@ const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, on
     return rootComments;
   };
 
-  const organizedComments = organizeComments(comments);
+  useEffect(() => {
+    setOrganizedComments(organizeComments(comments));
+  }, [comments]);
 
   return (
-    <div>
+    <div className="flex flex-col w-full p-2  sm:pt-8 bg-myTheme-lightbg ">
       {organizedComments.map(comment => (
         <Comment
-          key={comment.id}
+          key={comment.id || "no key"}
           comment={comment}
           onReply={onReply}
           onEdit={onEdit}

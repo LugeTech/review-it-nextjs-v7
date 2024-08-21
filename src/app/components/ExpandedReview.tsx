@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import CommentList from "./CommentList";
 
+// export const dynamic = 'force-dynamic'
 const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const auth = useAuth();
   const queryClient = useQueryClient();
@@ -35,7 +36,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       });
     },
     onMutate: (newData: iComment) => {
-      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
+      queryClient.setQueryData(["review"], (oldData: any) => {
         newData.reviewId = reviewId;
         newData.isDeleted = false;
         newData.user = currentUser;
@@ -58,9 +59,13 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         success: () => "Comment saved successfully!",
         error: "Error saving comment",
       });
+      if (await data) {
+        queryClient.refetchQueries({ queryKey: ["review"] });
+        console.log("refetched with this data, the comment now has id", data);
+      }
     },
     onMutate: (newData: iComment) => {
-      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
+      queryClient.setQueryData(["review"], (oldData: any) => {
         newData.reviewId = reviewId;
         newData.isDeleted = false;
         newData.user = currentUser;
@@ -79,13 +84,16 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     mutationFn: async (reply: iComment) => {
       const data = createReplyOnComment(reply);
       toast.promise(data, {
-        loading: "Loading...",
+        loading: "Saving reply...",
         success: () => "Reply saved successfully!",
         error: "Error saving reply",
       });
+      if (await data) {
+        queryClient.refetchQueries({ queryKey: ["review"] });
+      }
     },
     onMutate: (newReply: iComment) => {
-      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
+      queryClient.setQueryData(["replies"], (oldData: any) => {
         let iReviewOldData: iReview = { ...oldData };
         const updatedComments = iReviewOldData.comments?.map(comment => {
           if (comment.id === newReply.parentId) {
@@ -105,6 +113,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       console.error(error);
     },
   });
+
   const [comment, setComment] = useState<iComment>({
     reviewId: "",
     body: "",
@@ -122,7 +131,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     }
     setTextAreaValue(newTextAreaValue);
     setIsOpen(!isOpen);
-    mutations.mutate({ ...comment, body: newTextAreaValue });
+    commentMutation.mutate({ ...comment, body: newTextAreaValue });
   }, [auth.isLoaded, auth.isSignedIn, router, isOpen, mutations, comment]);
 
   const productCardOptions = {
@@ -134,6 +143,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
 
   const handleReply = useCallback(async (parentId: string, body: string) => {
     replyMutation.mutate({ ...comment, body, parentId });
+    console.log("Reply mutation called");
   }, [mutations, comment]);
 
   const handleEdit = async (commentId: string, body: string) => {
@@ -145,7 +155,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   };
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["review", reviewId],
+    queryKey: ["review"],
     queryFn: async () => {
       if (reviewAtom !== null) {
         return reviewAtom;
@@ -153,7 +163,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       const data: any = await getReview(reviewId);
       return data.data;
     },
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 
   useEffect(() => {

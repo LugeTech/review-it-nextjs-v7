@@ -56,7 +56,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
     onError: (err, variables, context) => {
       toast.error("Like failed!");
       if (context) {
-        queryClient.setQueryData(["review", review.id], context);
+        queryClient.setQueryData(["review"], context);
       }
     },
   });
