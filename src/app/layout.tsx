@@ -7,6 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "./util/QueryProvider";
 import JotaiProvider from "./util/JotaiProvider";
 import type { Metadata, Viewport } from "next";
+import Footer from "./components/Footer";
 
 const APP_NAME = "Review It";
 const APP_DEFAULT_TITLE = "Review It";
@@ -104,8 +105,8 @@ export default function RootLayout({
             >
               <Navbar>{children}</Navbar>
               <Analytics />
+              <ReactQueryDevtools initialIsOpen={true} />
             </body>
-            <ReactQueryDevtools initialIsOpen={true} />
 
           </html>
         </QueryProvider>

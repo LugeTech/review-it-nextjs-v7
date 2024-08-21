@@ -3,6 +3,7 @@ import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
 import ReviewCategories from "./components/ReviewCategories";
+import ManageYourBusiness from "./components/ManageYourBusiness";
 // import Token from "./components/Token";
 export default async function Home() {
   return (
@@ -17,14 +18,12 @@ export default async function Home() {
         </div>
         <div className="mt-4 flex flex-1 flex-col">
           <div className="flex flex-col justify-center">
+            <div className="mb-4 mt-4 flex w-full justify-center">
+              <ManageYourBusiness />
+            </div>
             {/* this is the top reviews container*/}
             <div className="mt-2 flex w-full">
               <ReviewCategories />
-            </div>
-            <div className="mb-4 mt-4 flex w-full h-full flex-col justify-center">
-              <div className="text-md mx-4 flex items-center justify-center">
-                Business of the day goes here!
-              </div>
             </div>
             {/* <Token /> */}
           </div>
