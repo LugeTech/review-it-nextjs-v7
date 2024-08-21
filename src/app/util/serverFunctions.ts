@@ -33,7 +33,7 @@ export const getUserWithId = async (userId: string) => {
 };
 // this is the user api yrl error
 export const getUser = async () => {
-  const user = await fetch(`${apiUrl}/get/user/`, {
+  const user = await fetch(`${apiUrl}/get/user`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -118,5 +118,26 @@ export const createCommentOnReview = async (comment: iComment) => {
     body: JSON.stringify(comment),
   });
   const data = (await response.json()) as unknown as iComment;
+  return data;
+};
+
+export const createReplyOnComment = async (reply: iComment): Promise<iComment> => {
+  if (reply.body === "") {
+    throw new Error("Reply body cannot be empty");
+  }
+
+  const response = await fetch(`${apiUrl}/create/comment/reply`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reply),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json() as iComment;
   return data;
 };

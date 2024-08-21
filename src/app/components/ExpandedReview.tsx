@@ -1,20 +1,22 @@
 "use client";
 import ReviewCard from "./ReviewCard";
-
 import { useAtom } from "jotai";
 import { currentReviewAtom, currentUserAtom } from "../store/store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { iReview, iComment } from "../util/Interfaces";
-import { createCommentOnReview, getReview } from "../util/serverFunctions";
+import { createCommentOnReview, createReplyOnComment, getReview } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import DisplayError from "./DisplayError";
 import ProductCard from "./ProductCard";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import CommentList from "./CommentList";
+
+// export const dynamic = 'force-dynamic'
 const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const auth = useAuth();
   const queryClient = useQueryClient();
@@ -24,81 +26,113 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const [currentUser] = useAtom(currentUserAtom);
   const router = useRouter();
 
-  const [comment, setComment] = useState<iComment>({
-    reviewId: reviewId,
-    body: textAreaValue,
-    createdDate: new Date(),
-  });
-
   const mutations = useMutation({
     mutationFn: async (comment: iComment) => {
       const data = createCommentOnReview(comment);
       toast.promise(data, {
         loading: "Loading...",
-        success: () => {
-          return "Comment saved successfully!";
-        },
+        success: () => "Comment saved successfully!",
         error: "Error saving comment",
       });
     },
     onMutate: (newData: iComment) => {
-      // Update the UI optimistically before the actual mutation
-      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
-        // create a structure like the old data but with the new data
+      queryClient.setQueryData(["review"], (oldData: any) => {
         newData.reviewId = reviewId;
         newData.isDeleted = false;
-        newData.user = currentUser; //FIX: this works i just need to get my user // I want to remove atoms if possible -- or maybe i keep this it is convenient
+        newData.user = currentUser;
         let iReviewOldData: iReview = { ...oldData };
-        iReviewOldData?.comments!.push(newData);
-        iReviewOldData.comments = iReviewOldData?.comments!.reverse();
-        return { ...iReviewOldData };
+        iReviewOldData.comments = [...(iReviewOldData.comments || []), newData];
+        return iReviewOldData;
       });
     },
-    // onSuccess: (data: iComment) => {
-    // console.log('this is the comment', data);
-    //pop up a notofication or a saving spinner on the comment
-    // },
     onError: (error: Error) => {
       <DisplayError error={error.message} />;
       console.error(error);
     },
   });
 
-  const handleCommentSubmit = async (newTextAreaValue: string) => {
+  const commentMutation = useMutation({
+    mutationFn: async (comment: iComment) => {
+      const data = createCommentOnReview(comment);
+      toast.promise(data, {
+        loading: "Loading...",
+        success: () => "Comment saved successfully!",
+        error: "Error saving comment",
+      });
+      if (await data) {
+        queryClient.refetchQueries({ queryKey: ["review"] });
+        console.log("refetched with this data, the comment now has id", data);
+      }
+    },
+    onMutate: (newData: iComment) => {
+      queryClient.setQueryData(["review"], (oldData: any) => {
+        newData.reviewId = reviewId;
+        newData.isDeleted = false;
+        newData.user = currentUser;
+        let iReviewOldData: iReview = { ...oldData };
+        iReviewOldData.comments = [...(iReviewOldData.comments || []), newData];
+        return iReviewOldData;
+      });
+    },
+    onError: (error: Error) => {
+      <DisplayError error={error.message} />;
+      console.error(error);
+    },
+  })
+
+  const replyMutation = useMutation({
+    mutationFn: async (reply: iComment) => {
+      const data = createReplyOnComment(reply);
+      toast.promise(data, {
+        loading: "Saving reply...",
+        success: () => "Reply saved successfully!",
+        error: "Error saving reply",
+      });
+      if (await data) {
+        queryClient.refetchQueries({ queryKey: ["review"] });
+      }
+    },
+    onMutate: (newReply: iComment) => {
+      queryClient.setQueryData(["replies"], (oldData: any) => {
+        let iReviewOldData: iReview = { ...oldData };
+        const updatedComments = iReviewOldData.comments?.map(comment => {
+          if (comment.id === newReply.parentId) {
+            return {
+              ...comment,
+              replies: [...(comment.replies || []), newReply],
+            };
+          }
+          return comment;
+        });
+        iReviewOldData.comments = updatedComments;
+        return iReviewOldData;
+      });
+    },
+    onError: (error: Error) => {
+      <DisplayError error={error.message} />;
+      console.error(error);
+    },
+  });
+
+  const [comment, setComment] = useState<iComment>({
+    reviewId: "",
+    body: "",
+    createdDate: new Date(),
+    user: currentUser,
+    review: reviewAtom || {} as iReview,
+    userId: currentUser?.id || "",
+    isDeleted: false,
+  });
+
+  const handleCommentSubmit = useCallback(async (newTextAreaValue: string) => {
     if (auth.isLoaded && !auth.isSignedIn) {
       router.push("/sign-in");
       return;
     }
     setTextAreaValue(newTextAreaValue);
     setIsOpen(!isOpen);
-    mutations.mutate({ reviewId, body: newTextAreaValue });
-  };
-
-  useEffect(() => {
-    setComment({
-      ...comment,
-      body: textAreaValue,
-    });
-  }, [textAreaValue]);
-
-  // NOTE: query to get the comments... really it gets the review and it contains the comments
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["review", reviewId],
-    queryFn: async () => {
-      if (reviewAtom !== null) {
-        const data = reviewAtom;
-        return data;
-      }
-      // else return getProduct(id)
-      const data: any = await getReview(reviewId);
-      return data.data;
-    },
-    refetchOnWindowFocus: false,
-  }) as any;
-
-  if (isLoading) return <LoadingSpinner />;
-  if (isError) return <p>fetch error</p>;
-  const review = data as iReview;
+    commentMutation.mutate({ ...comment, body: newTextAreaValue });
+  }, [auth.isLoaded, auth.isSignedIn, router, isOpen, mutations, comment]);
 
   const productCardOptions = {
     showLatestReview: true,
@@ -107,44 +141,75 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     showClaimThisProduct: true,
   };
 
+  const handleReply = useCallback(async (parentId: string, body: string) => {
+    replyMutation.mutate({ ...comment, body, parentId });
+    console.log("Reply mutation called");
+  }, [mutations, comment]);
+
+  const handleEdit = async (commentId: string, body: string) => {
+    // Implement API call to edit a comment
+  };
+
+  const handleDelete = async (commentId: string) => {
+    // Implement API call to delete a comment
+  };
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["review"],
+    queryFn: async () => {
+      if (reviewAtom !== null) {
+        return reviewAtom;
+      }
+      const data: any = await getReview(reviewId);
+      return data.data;
+    },
+    refetchOnWindowFocus: true,
+  });
+
+  useEffect(() => {
+    if (data) {
+      setComment(prevComment => ({
+        ...prevComment,
+        reviewId: reviewId,
+        body: textAreaValue,
+        createdDate: new Date(),
+        user: currentUser,
+        review: reviewAtom || data,
+        userId: currentUser?.id || "",
+      }));
+    }
+  }, [data, textAreaValue, currentUser, reviewAtom, reviewId]);
+
+  const sortedComments = useMemo(() => {
+    return data?.comments?.slice().sort((a: iComment, b: iComment) =>
+      new Date(b.createdDate!).valueOf() - new Date(a.createdDate!).valueOf()
+    ) || [];
+  }, [data?.comments]);
+
+  if (isLoading) return <LoadingSpinner />;
+  if (isError) return <p>fetch error</p>;
+  if (!data) return null;
+
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
       <div className="mb-4">
-        <ProductCard product={review?.product!} options={productCardOptions} />
+        <ProductCard product={data?.product!} options={productCardOptions} />
       </div>
-      {review ? (
-        <>
-          <ReviewCard review={review} />
-          {/* create submit commit form here i removed the ! from setIsOpen to disable hiding the form */}
-          <CommentForm
-            onSubmit={handleCommentSubmit}
-            isOpen={isOpen}
-            onClose={(isOpen: boolean) => {
-              setIsOpen(isOpen);
-            }}
-          />
-        </>
-      ) : (
-        <LoadingSpinner />
-      )}
+      <ReviewCard review={data} />
+      <CommentForm
+        onSubmit={handleCommentSubmit}
+        isOpen={isOpen}
+        onClose={setIsOpen}
+      />
       <div className="space-y-1 mt-2 gap-1 flex flex-col w-full justify-end items-end ">
         <h2>Comments</h2>
-        {/* arrange comments from newest to oldest */}
-        {review?.comments!.length > 0 ? (
-          <>
-            {review
-              ?.comments!.slice()
-              .sort(
-                (a, b) =>
-                  new Date(b.createdDate!).valueOf() -
-                  new Date(a.createdDate!).valueOf(),
-              )
-              .map((comment, index) => (
-                <div className="w-full px-4 py-2" key={index}>
-                  <Comment comment={comment} key={index} />
-                </div>
-              ))}
-          </>
+        {sortedComments.length > 0 ? (
+          <CommentList
+            comments={sortedComments}
+            onReply={handleReply}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
         ) : (
           <div>No comments yet</div>
         )}

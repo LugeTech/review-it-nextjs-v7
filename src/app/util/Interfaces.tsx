@@ -81,12 +81,15 @@ export interface iReview {
 export interface iComment {
   id?: string;
   body: string;
-  createdDate?: Date;
-  review?: iReview;
-  user?: iUser;
+  createdDate: Date;
+  review: iReview;
+  user: iUser;
   reviewId: string;
-  userId?: string;
-  isDeleted?: boolean;
+  userId: string;
+  isDeleted: boolean | false;
+  parentId?: string | null;
+  replies?: iComment[];
+  parent?: iComment;
 }
 
 export interface iUser {
