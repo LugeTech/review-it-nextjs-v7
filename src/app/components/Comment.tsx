@@ -23,24 +23,25 @@ const Comment: React.FC<CommentProps> = ({ comment, onReply, onEdit, onDelete })
   const [replyBody, setReplyBody] = useState("");
   const [replies, setReplies] = useState<iComment[]>(comment.replies || []);
 
-  // const handleReply = async () => {
-  //   if (comment.id) {
-  //     await onReply(comment.id, replyBody);
-  //     setReplies([...replies, {
-  //       id: Date.now().toString(),
-  //       body: replyBody,
-  //       user: { ...comment.user },
-  //       createdDate: new Date(),
-  //       review: comment.review,
-  //       parentId: comment.id,
-  //       userId: comment.userId,
-  //       isDeleted: false,
-  //       reviewId: comment.reviewId,
-  //     }]);
-  //     setIsReplying(false);
-  //     setReplyBody("");
-  //   }
-  // };
+  const handleReply = async () => {
+    if (comment.id) {
+      await onReply(comment.id, replyBody);
+      setReplies([...replies, {
+        id: Date.now().toString(),
+        body: replyBody,
+        user: { ...comment.user },
+        createdDate: new Date(),
+        review: comment.review,
+        parentId: comment.id,
+        userId: comment.userId,
+        isDeleted: false,
+        reviewId: comment.reviewId,
+      }]);
+      setIsReplying(false);
+      setReplyBody("");
+    }
+  };
+
   {
     replies.length > 0 && (
       <div className="mt-2 ml-4">
@@ -81,14 +82,14 @@ const Comment: React.FC<CommentProps> = ({ comment, onReply, onEdit, onDelete })
     }
   };
 
-  const handleReply = async () => {
-
-    if (comment.id) {
-      await onReply(comment.id, replyBody);
-    }
-    setIsReplying(false);
-    setReplyBody("");
-  };
+  // const handleReply = async () => {
+  //
+  //   if (comment.id) {
+  //     await onReply(comment.id, replyBody);
+  //   }
+  //   setIsReplying(false);
+  //   setReplyBody("");
+  // };
 
   return (
     <div className="flex w-full flex-col md:w-full p-2  mb-1 bg-myTheme-lightbg border-l-2 ">
