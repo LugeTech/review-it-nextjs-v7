@@ -32,13 +32,11 @@ const Page = () => {
   const products: iProduct[] | undefined = data?.data as iProduct[];
 
   const filteredProducts = products.filter((product) => {
-    console.log("selected rating", selectedRating);
     if (product.reviews !== undefined) {
       const rating = calculateAverageReviewRating(
         product.reviews,
       ) as unknown as iCalculatedRating;
       if (selectedRating && rating.roundedRating !== selectedRating) {
-        console.log(rating.roundedRating, "is less than", selectedRating);
         return false;
       }
       if (
