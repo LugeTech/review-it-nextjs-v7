@@ -15,6 +15,13 @@ export async function POST(request: NextRequest) {
 
   try {
     const products = (await prisma.product.findMany({
+      include: {
+        reviews: {
+          where: {
+            isPublic: true,
+          },
+        },
+      },
       orderBy: {
         createdDate: "desc",
       },
