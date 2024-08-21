@@ -1,9 +1,11 @@
 import { iProduct } from "../util/Interfaces";
 import TagView from "@/app/components/TagView";
 import SearchBox from "@/app/components/SearchBox";
+import { useState } from "react";
 
 const ArrangeByPanel = ({
   products,
+  selectedRating,
   setSelectedRating,
   selectedTags,
   setSelectedTags,
@@ -11,11 +13,13 @@ const ArrangeByPanel = ({
   products: iProduct[];
   setSelectedRating: (rating: number | null) => void;
   selectedTags: string[];
+  selectedRating: number | null;
   setSelectedTags: (tags: string[]) => void;
 }) => {
   const allTags = products.flatMap((item) => item.tags);
   const uniqueTagsSet = new Set(allTags);
   const uniqueTags = [...uniqueTagsSet];
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleTagClick = (tag: string) => {
     if (selectedTags.includes(tag)) {
@@ -28,6 +32,7 @@ const ArrangeByPanel = ({
   const handleClearAll = () => {
     setSelectedTags([]);
     setSelectedRating(null);
+    setSearchTerm("");
   };
 
   return (
@@ -56,22 +61,26 @@ const ArrangeByPanel = ({
         </button>
         <button
           className="btn flex-1 bg-myTheme-primary text-myTheme-dark "
-          onClick={() => setSelectedRating(4.5)}
+          onClick={() => setSelectedRating(5)}
         >
           4.5+
         </button>
       </div>
       <div className="w-full">
-        <SearchBox />
+        <SearchBox searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
-      <div className="flex w-full ">
-        <button
-          className="btn btn-outline btn-primary"
-          onClick={handleClearAll}
-        >
-          Clear
-        </button>
-      </div>
+      {(searchTerm.length > 0 ||
+        selectedRating !== null ||
+        selectedTags.length > 0) && (
+        <div className="flex w-full">
+          <button
+            className="btn btn-outline btn-primary"
+            onClick={handleClearAll}
+          >
+            Clear
+          </button>
+        </div>
+      )}
       <div className="flex flex-col w-full">
         {uniqueTags.map((tag) => (
           <TagView
