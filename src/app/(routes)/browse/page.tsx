@@ -17,10 +17,10 @@ const Page = () => {
     queryFn: getProducts,
     refetchOnWindowFocus: false,
   }) as any;
+
+  const [_, setCurrentProduct] = useAtom(allProductsAtom);
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [_, setCurrentProduct] = useAtom(allProductsAtom);
-  //testing comments to trigger vercel redeploy
 
   useEffect(() => {
     if (data?.data) setCurrentProduct(data.data);
