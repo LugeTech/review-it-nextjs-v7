@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { useQueryClient } from "@tanstack/react-query";
+import { FaReply, FaEdit, FaTrash, FaSave } from 'react-icons/fa';
 
 interface CommentProps {
   comment: iComment;
@@ -129,32 +130,37 @@ const Comment: React.FC<CommentProps> = ({ comment, onReply, onEdit, onDelete })
           </>
         )}
       </div>
-      <div className="mt-2 flex space-x-2">
+
+      <div className="mt-2 flex space-x-2 justify-start items-start">
         <button
           onClick={() => setIsReplying(!isReplying)}
-          className="text-blue-500 hover:underline text-sm"
+          className="text-blue-500 hover:underline text-sm flex items-center"
         >
+          <FaReply className="inline mr-1" />
           Reply
         </button>
         {isEditing ? (
           <button
             onClick={handleSave}
-            className="text-green-500 hover:underline text-sm"
+            className="text-green-500 hover:underline text-sm flex items-center"
           >
+            <FaSave className="inline mr-1" />
             Save
           </button>
         ) : (
           <button
             onClick={handleEdit}
-            className="text-yellow-500 hover:underline text-sm"
+            className="text-blue-500 hover:underline text-sm flex items-center"
           >
+            <FaEdit className="inline mr-1" />
             Edit
           </button>
         )}
         <button
           onClick={handleDelete}
-          className="text-red-500 hover:underline text-sm"
+          className="text-red-500 hover:underline text-sm flex items-center"
         >
+          <FaTrash className="inline mr-1" />
           Delete
         </button>
       </div>

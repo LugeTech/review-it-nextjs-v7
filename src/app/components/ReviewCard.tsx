@@ -65,7 +65,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
     mutation.mutate();
   };
 
-  const hasUserLiked = review.likedBy.some((user) => user.id === userInDbId);
+  const likedData = review.likedBy || reviewAtom?.likedBy || [];
+  const hasUserLiked = likedData.some((user) => user.id === userInDbId);
 
   return (
     <div className="bg-white  rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl">
