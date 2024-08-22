@@ -42,17 +42,22 @@ const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, on
     setOrganizedComments(organizeComments(comments));
   }, [comments]);
 
+  const renderComment = (comment: iComment, depth: number = 0) => (
+    <Comment
+      key={comment.id || "no key"}
+      comment={comment}
+      onReply={onReply}
+      onEdit={onEdit}
+      onDelete={onDelete}
+      depth={depth}
+    >
+      {comment.replies && comment.replies.map(reply => renderComment(reply, depth + 1))}
+    </Comment>
+  );
+
   return (
-    <div className="flex flex-col w-full p-2  sm:pt-8 bg-myTheme-lightbg ">
-      {organizedComments.map(comment => (
-        <Comment
-          key={comment.id || "no key"}
-          comment={comment}
-          onReply={onReply}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
-      ))}
+    <div className="flex flex-col w-full p-2 sm:pt-8 bg-myTheme-lightbg">
+      {organizedComments.map(comment => renderComment(comment))}
     </div>
   );
 };

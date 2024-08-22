@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, ReactNode } from "react";
 import { iComment } from "../util/Interfaces";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { useQueryClient } from "@tanstack/react-query";
-import { ReplyIcon, PencilIcon, TrashIcon, SaveIcon } from 'lucide-react';
+import { ReplyIcon, PencilIcon, TrashIcon, SaveIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,9 +12,13 @@ interface CommentProps {
   onReply: (parentId: string, body: string) => Promise<void>;
   onEdit: (commentId: string, body: string) => Promise<void>;
   onDelete: (commentId: string) => Promise<void>;
+  depth: number;
+  children?: ReactNode;
 }
 
-const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onEdit, onDelete }) => {
+const MAX_VISIBLE_DEPTH = 3;
+
+const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onEdit, onDelete, depth = 0 }) => {
   const [comment, setComment] = useState(initialComment);
   const [isEditing, setIsEditing] = useState(false);
   const [editedBody, setEditedBody] = useState(comment.body);
@@ -24,7 +27,7 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
   const [replyBody, setReplyBody] = useState("");
   const [replies, setReplies] = useState<iComment[]>(comment.replies || []);
   const [newReplyId, setNewReplyId] = useState<string | null>(null);
-  const queryClient = useQueryClient();
+  const [showReplies, setShowReplies] = useState(depth < MAX_VISIBLE_DEPTH);
 
   useEffect(() => {
     setComment(initialComment);
@@ -50,6 +53,7 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
       setNewReplyId(newReply.id!);
       setIsReplying(false);
       setReplyBody("");
+      setShowReplies(true);
     }
   };
 
@@ -80,33 +84,54 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
       };
 
       setComment(deletedComment);
-
     }
   };
 
+  const toggleReplies = () => {
+    setShowReplies(!showReplies);
+  };
+
+  const renderReplies = () => {
+    if (!replies || replies.length === 0) return null;
+
+    return (
+      <div className={`mt-2 ${depth >= MAX_VISIBLE_DEPTH - 1 ? 'border-l-2 border-gray-300 pl-2' : 'ml-4'}`}>
+        {replies.map((reply) => (
+          <Comment
+            key={reply.id}
+            comment={reply}
+            onReply={onReply}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            depth={depth + 1}
+          />
+        ))}
+      </div>
+    );
+  };
 
   return (
-    <div className="w-full bg-white rounded-lg shadow-md p-2 sm:p-2 mb-2 sm:mb-2">
-      <div className="flex items-start space-x-1 sm:space-x-2">
-        <Avatar className="w-6 h-6 sm:w-10 sm:h-10">
+    <div className={`w-full bg-white rounded-lg shadow-md p-2 mb-2 ${depth > 0 ? 'ml-2' : ''}`}>
+      <div className="flex items-start space-x-2">
+        <Avatar className="w-8 h-8">
           <AvatarImage src={comment.user?.avatar || "/default-avatar.png"} alt={`${comment.user?.firstName} ${comment.user?.lastName}`} />
           <AvatarFallback>{comment.user?.firstName?.charAt(0)}{comment.user?.lastName?.charAt(0)}</AvatarFallback>
         </Avatar>
         <div className="flex-1">
-          <div className="flex flex-col sm:flex-row sm:items-center mb-1">
-            <Link href={`/userprofile/${comment.user?.id}`} className="font-semibold text-blue-600 hover:underline text-sm sm:text-base">
+          <div className="flex items-center mb-1">
+            <Link href={`/userprofile/${comment.user?.id}`} className="font-semibold text-blue-600 hover:underline text-sm">
               @{comment.user?.userName}
             </Link>
-            <span className="text-gray-400 text-xs sm:ml-2">
+            <span className="text-gray-400 text-xs ml-2">
               {dayjs(comment.createdDate).format("MMM D, YYYY [at] h:mm A")}
             </span>
           </div>
-          <div className="text-gray-700 text-sm sm:text-base">
+          <div className="text-gray-700 text-sm">
             {isEditing ? (
               <Textarea
                 value={editedBody}
                 onChange={(e) => setEditedBody(e.target.value)}
-                className="w-full mt-2 text-sm sm:text-base"
+                className="w-full mt-2 text-sm"
               />
             ) : comment.isDeleted ? (
               <span className="italic text-gray-500">{comment.body}</span>
@@ -125,58 +150,55 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
             )}
           </div>
           {!comment.isDeleted && (
-            <div className="mt-2 sm:mt-3 flex flex-wrap gap-2">
-              <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1" onClick={() => setIsReplying(!isReplying)}>
-                <ReplyIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+            <div className="mt-2 flex flex-wrap gap-2">
+              <Button variant="outline" size="sm" className="text-xs px-2 py-1" onClick={() => setIsReplying(!isReplying)}>
+                <ReplyIcon className="w-3 h-3 mr-1" />
                 Reply
               </Button>
               {isEditing ? (
-                <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1" onClick={handleSave}>
-                  <SaveIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                <Button variant="outline" size="sm" className="text-xs px-2 py-1" onClick={handleSave}>
+                  <SaveIcon className="w-3 h-3 mr-1" />
                   Save
                 </Button>
               ) : (
-                <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1 hover:bg-yellow-500 hover:text-white" onClick={handleEdit}>
-                  <PencilIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                <Button variant="outline" size="sm" className="text-xs px-2 py-1 hover:bg-yellow-500 hover:text-white" onClick={handleEdit}>
+                  <PencilIcon className="w-3 h-3 mr-1" />
                   Edit
                 </Button>
               )}
-              <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1 hover:bg-red-500 hover:text-white" onClick={handleDelete}>
-                <TrashIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+              <Button variant="outline" size="sm" className="text-xs px-2 py-1 hover:bg-red-500 hover:text-white" onClick={handleDelete}>
+                <TrashIcon className="w-3 h-3 mr-1" />
                 Delete
               </Button>
             </div>
           )}
           {isReplying && (
-            <div className="mt-2 sm:mt-3">
+            <div className="mt-2">
               <Textarea
                 value={replyBody}
                 onChange={(e) => setReplyBody(e.target.value)}
-                className="w-full text-sm sm:text-base"
+                className="w-full text-sm"
                 placeholder="Write your reply..."
               />
-              <Button className="mt-2 bg-green-500 text-white text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1" onClick={handleReply}>
+              <Button className="mt-2 bg-green-500 text-white text-xs px-2 py-1" onClick={handleReply}>
                 Submit Reply
               </Button>
             </div>
           )}
         </div>
       </div>
-      {replies && replies.length > 0 && (
-        <div className="mt-2 sm:mt-4 ml-4 sm:ml-10 space-y-2 sm:space-y-2">
-          {replies.map((reply) => (
-            <div
-              key={reply.id}
-              className={`transition-all duration-500 ${reply.id === newReplyId ? 'bg-yellow-100' : ''}`}
-            >
-              <Comment
-                comment={reply}
-                onReply={onReply}
-                onEdit={onEdit}
-                onDelete={onDelete}
-              />
-            </div>
-          ))}
+      {replies.length > 0 && (
+        <div className="mt-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-xs px-2 py-1"
+            onClick={toggleReplies}
+          >
+            {showReplies ? <ChevronUpIcon className="w-3 h-3 mr-1" /> : <ChevronDownIcon className="w-3 h-3 mr-1" />}
+            {showReplies ? 'Hide' : 'Show'} {replies.length} {replies.length === 1 ? 'Reply' : 'Replies'}
+          </Button>
+          {showReplies && renderReplies()}
         </div>
       )}
     </div>
