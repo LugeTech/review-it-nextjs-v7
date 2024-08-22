@@ -39,6 +39,7 @@ const Comment: React.FC<CommentProps> = ({ comment, onReply, onEdit, onDelete })
       }]);
       setIsReplying(false);
       setReplyBody("");
+      // queryClient.invalidateQueries({ queryKey: ["review"] });
     }
   };
 
@@ -181,9 +182,9 @@ const Comment: React.FC<CommentProps> = ({ comment, onReply, onEdit, onDelete })
           </button>
         </div>
       )}
-      {comment.replies && comment.replies.length > 0 && (
+      {replies && replies.length > 0 && (
         <div className="mt-2 ml-2">
-          {comment.replies.map((reply) => (
+          {replies.map((reply) => (
             <Comment
               key={reply.id}
               comment={reply} // Change this line to use iComment directly
