@@ -133,7 +133,7 @@ const Comment: React.FC<CommentProps> = ({ comment, onReply, onEdit, onDelete })
         )}
       </div>
 
-      <div className="mt-2 flex space-x-2 justify-start items-start">
+      <div className="mt-2 flex space-x-4 justify-start items-start">
         <button
           onClick={() => setIsReplying(!isReplying)}
           className="text-blue-500 hover:underline text-sm flex items-center"
