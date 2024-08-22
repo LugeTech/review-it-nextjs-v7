@@ -26,7 +26,12 @@ const Page = () => {
     if (data?.data) setCurrentProduct(data.data);
   }, [data?.data, setCurrentProduct]);
 
-  if (isLoading) return <div className="flex h-screen"><LoadingSpinner /></div>;
+  if (isLoading)
+    return (
+      <div className="flex h-full">
+        <LoadingSpinner />
+      </div>
+    );
   if (isError) return <p>{error?.toString()}</p>;
 
   const products: iProduct[] | undefined = data?.data as iProduct[];
