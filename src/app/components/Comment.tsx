@@ -16,7 +16,7 @@ interface CommentProps {
   children?: ReactNode;
 }
 
-const MAX_VISIBLE_DEPTH = 3;
+const MAX_VISIBLE_DEPTH = 5;
 
 const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onEdit, onDelete, depth = 0 }) => {
   const [comment, setComment] = useState(initialComment);
