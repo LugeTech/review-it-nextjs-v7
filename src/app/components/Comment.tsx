@@ -1,66 +1,58 @@
-import React, { useState } from "react";
-import { Comment as CommentType, User } from "@prisma/client";
+import React, { useState, useEffect, useRef } from "react";
 import { iComment } from "../util/Interfaces";
 import dayjs from "dayjs";
-import Image from "next/legacy/image";
 import Link from "next/link";
 import { useQueryClient } from "@tanstack/react-query";
-import { FaReply, FaEdit, FaTrash, FaSave } from 'react-icons/fa';
+import { ReplyIcon, PencilIcon, TrashIcon, SaveIcon } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface CommentProps {
   comment: iComment;
-  // comment: CommentType & { user: User; replies?: CommentType[] };
   onReply: (parentId: string, body: string) => Promise<void>;
   onEdit: (commentId: string, body: string) => Promise<void>;
   onDelete: (commentId: string) => Promise<void>;
+  updateParentReplies: (updatedReply: iComment) => void;
 }
 
-const Comment: React.FC<CommentProps> = ({ comment, onReply, onEdit, onDelete }) => {
+const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onEdit, onDelete, updateParentReplies }) => {
+  const [comment, setComment] = useState(initialComment);
   const [isEditing, setIsEditing] = useState(false);
   const [editedBody, setEditedBody] = useState(comment.body);
   const [showFullComment, setShowFullComment] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
   const [replyBody, setReplyBody] = useState("");
   const [replies, setReplies] = useState<iComment[]>(comment.replies || []);
-
-  // const handleReply = async () => {
-  //   if (comment.id) {
-  //     await onReply(comment.id, replyBody);
-  //     setReplies([...replies, {
-  //       id: Date.now().toString(),
-  //       body: replyBody,
-  //       user: { ...comment.user },
-  //       createdDate: new Date(),
-  //       review: comment.review,
-  //       parentId: comment.id,
-  //       userId: comment.userId,
-  //       isDeleted: false,
-  //       reviewId: comment.reviewId,
-  //     }]);
-  //     setIsReplying(false);
-  //     setReplyBody("");
-  //   }
-  // };
-  {
-    replies.length > 0 && (
-      <div className="mt-2 ml-4">
-        {replies.map((reply) => (
-          <Comment
-            key={reply.id}
-            comment={reply as iComment}
-            onReply={onReply}
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
-        ))}
-      </div>
-    )
-  }
+  const [newReplyId, setNewReplyId] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
-  if (!comment) {
-    return <p>No comment</p>;
-  }
+  useEffect(() => {
+    setComment(initialComment);
+    setEditedBody(initialComment.body);
+    setReplies(initialComment.replies || []);
+  }, [initialComment]);
+
+  const handleReply = async () => {
+    if (comment.id) {
+      await onReply(comment.id, replyBody);
+      const newReply: iComment = {
+        id: Date.now().toString(),
+        body: replyBody,
+        user: { ...comment.user },
+        createdDate: new Date(),
+        review: comment.review,
+        parentId: comment.id,
+        userId: comment.userId,
+        isDeleted: false,
+        reviewId: comment.reviewId,
+      };
+      setReplies([newReply, ...replies]);
+      setNewReplyId(newReply.id!);
+      setIsReplying(false);
+      setReplyBody("");
+    }
+  };
 
   const handleEdit = () => {
     if (comment.id) {
@@ -70,126 +62,134 @@ const Comment: React.FC<CommentProps> = ({ comment, onReply, onEdit, onDelete })
 
   const handleSave = async () => {
     if (comment.id) {
-      await onEdit(comment?.id!, editedBody);
+      await onEdit(comment.id, editedBody);
+      const updatedComment = { ...comment, body: editedBody };
+      setComment(updatedComment);
       setIsEditing(false);
+      if (updateParentReplies) {
+        updateParentReplies(updatedComment);
+      }
     }
   };
 
   const handleDelete = async () => {
-    if (comment.id) {
-      await onDelete(comment?.id!);
+    if (comment.id && window.confirm("Are you sure you want to delete this comment?")) {
+      await onDelete(comment.id);
+
+      const deletedComment = {
+        ...comment,
+        isDeleted: true,
+        body: "This comment has been deleted",
+        user: { ...comment.user, userName: "Deleted User" }
+      };
+
+      setComment(deletedComment);
+
+      if (updateParentReplies) {
+        updateParentReplies(deletedComment);
+      }
     }
   };
 
-  const handleReply = async () => {
-
-    if (comment.id) {
-      await onReply(comment.id, replyBody);
-    }
-    setIsReplying(false);
-    setReplyBody("");
+  const handleReplyUpdate = (updatedReply: iComment) => {
+    setReplies(prevReplies =>
+      prevReplies.map(reply => reply.id === updatedReply.id ? updatedReply : reply)
+    );
+    updateParentReplies(updatedReply);
   };
 
   return (
-    <div className="flex w-full flex-col md:w-full p-2  mb-1 bg-myTheme-lightbg border-l-2 ">
-      <div className="flex items-center mb-1">
-        <Image
-          src={comment.user?.avatar || "/default-avatar.png"}
-          alt={`${comment.user?.firstName} ${comment.user?.lastName}`}
-          className="w-8 h-8 rounded-full mr-2"
-          width={32}
-          height={32}
-        />
-        <Link href={`/userprofile/${comment.user?.id}`}>
-          <span className="text-myTheme-dark text-sm ml-1 font-semibold">
-            @{comment.user?.userName}
-          </span>
-        </Link>
-        <span className="text-gray-500 text-xs ml-2">
-          {dayjs(comment.createdDate).format("MM/DD/YYYY h:mm A")}
-        </span>
-      </div>
-      <div className="text-myTheme-lightTextBody text-sm">
-        {isEditing ? (
-          <textarea
-            value={editedBody}
-            onChange={(e) => setEditedBody(e.target.value)}
-            className="w-full p-2 border rounded bg-white"
-          />
-        ) : showFullComment || comment.body.length <= 90 ? (
-          comment.body
-        ) : (
-          <>
-            {comment.body.slice(0, 90)}...
-            <button
-              onClick={() => setShowFullComment(true)}
-              className="text-blue-500 hover:underline"
-            >
-              read more
-            </button>
-          </>
-        )}
-      </div>
-
-      <div className="mt-2 flex space-x-2 justify-start items-start">
-        <button
-          onClick={() => setIsReplying(!isReplying)}
-          className="text-blue-500 hover:underline text-sm flex items-center"
-        >
-          <FaReply className="inline mr-1" />
-          Reply
-        </button>
-        {isEditing ? (
-          <button
-            onClick={handleSave}
-            className="text-green-500 hover:underline text-sm flex items-center"
-          >
-            <FaSave className="inline mr-1" />
-            Save
-          </button>
-        ) : (
-          <button
-            onClick={handleEdit}
-            className="text-blue-500 hover:underline text-sm flex items-center"
-          >
-            <FaEdit className="inline mr-1" />
-            Edit
-          </button>
-        )}
-        <button
-          onClick={handleDelete}
-          className="text-red-500 hover:underline text-sm flex items-center"
-        >
-          <FaTrash className="inline mr-1" />
-          Delete
-        </button>
-      </div>
-      {isReplying && (
-        <div className="mt-2">
-          <textarea
-            value={replyBody}
-            onChange={(e) => setReplyBody(e.target.value)}
-            className="w-full p-2 border rounded bg-white"
-            placeholder="Write your reply..."
-          />
-          <button
-            onClick={handleReply}
-            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Submit Reply
-          </button>
+    <div className="w-full bg-white rounded-lg shadow-md p-2 sm:p-4 mb-2 sm:mb-4">
+      <div className="flex items-start space-x-1 sm:space-x-2">
+        <Avatar className="w-6 h-6 sm:w-10 sm:h-10">
+          <AvatarImage src={comment.user?.avatar || "/default-avatar.png"} alt={`${comment.user?.firstName} ${comment.user?.lastName}`} />
+          <AvatarFallback>{comment.user?.firstName?.charAt(0)}{comment.user?.lastName?.charAt(0)}</AvatarFallback>
+        </Avatar>
+        <div className="flex-1">
+          <div className="flex flex-col sm:flex-row sm:items-center mb-1">
+            <Link href={`/userprofile/${comment.user?.id}`} className="font-semibold text-blue-600 hover:underline text-sm sm:text-base">
+              @{comment.user?.userName}
+            </Link>
+            <span className="text-gray-400 text-xs sm:ml-2">
+              {dayjs(comment.createdDate).format("MMM D, YYYY [at] h:mm A")}
+            </span>
+          </div>
+          <div className="text-gray-700 text-sm sm:text-base">
+            {isEditing ? (
+              <Textarea
+                value={editedBody}
+                onChange={(e) => setEditedBody(e.target.value)}
+                className="w-full mt-2 text-sm sm:text-base"
+              />
+            ) : comment.isDeleted ? (
+              <span className="italic text-gray-500">{comment.body}</span>
+            ) : showFullComment || comment.body.length <= 100 ? (
+              comment.body
+            ) : (
+              <>
+                {comment.body.slice(0, 100)}...
+                <button
+                  onClick={() => setShowFullComment(true)}
+                  className="text-blue-500 hover:underline ml-1 text-sm"
+                >
+                  read more
+                </button>
+              </>
+            )}
+          </div>
+          {!comment.isDeleted && (
+            <div className="mt-2 sm:mt-3 flex flex-wrap gap-2">
+              <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1" onClick={() => setIsReplying(!isReplying)}>
+                <ReplyIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                Reply
+              </Button>
+              {isEditing ? (
+                <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1" onClick={handleSave}>
+                  <SaveIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                  Save
+                </Button>
+              ) : (
+                <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1 hover:bg-yellow-500 hover:text-white" onClick={handleEdit}>
+                  <PencilIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                  Edit
+                </Button>
+              )}
+              <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1 hover:bg-red-500 hover:text-white" onClick={handleDelete}>
+                <TrashIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                Delete
+              </Button>
+            </div>
+          )}
+          {isReplying && (
+            <div className="mt-2 sm:mt-3">
+              <Textarea
+                value={replyBody}
+                onChange={(e) => setReplyBody(e.target.value)}
+                className="w-full text-sm sm:text-base"
+                placeholder="Write your reply..."
+              />
+              <Button className="mt-2 bg-green-500 text-white text-xs sm:text-sm px-2 py-1 sm:px-3 sm:py-1" onClick={handleReply}>
+                Submit Reply
+              </Button>
+            </div>
+          )}
         </div>
-      )}
-      {comment.replies && comment.replies.length > 0 && (
-        <div className="mt-2 ml-2">
-          {comment.replies.map((reply) => (
-            <Comment
+      </div>
+      {replies && replies.length > 0 && (
+        <div className="mt-2 sm:mt-4 ml-6 sm:ml-14 space-y-2 sm:space-y-4">
+          {replies.map((reply) => (
+            <div
               key={reply.id}
-              comment={reply} // Change this line to use iComment directly
-              onReply={onReply}
-              onEdit={onEdit}
-              onDelete={onDelete}
-            />
+              className={`transition-all duration-500 ${reply.id === newReplyId ? 'bg-yellow-100' : ''}`}
+            >
+              <Comment
+                comment={reply}
+                onReply={onReply}
+                onEdit={onEdit}
+                onDelete={onDelete}
+                updateParentReplies={handleReplyUpdate}
+              />
+            </div>
           ))}
         </div>
       )}

@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import Image from "next/legacy/image";
 import { useState } from "react";
 import { Toaster } from "sonner";
+import Footer from "./Footer";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -67,6 +68,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         <div className=" flex flex-col w-full h-full overflow-y-auto ">
           <Toaster position="top-right" />
           {children}
+          <Footer />
         </div>
       </div>
       <div className="drawer-side ">

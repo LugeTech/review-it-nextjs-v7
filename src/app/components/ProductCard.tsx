@@ -164,7 +164,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {/* <div className="flex sm:hidden w-full justify-between"> */}
       {/*   {<VerticalLinks />} */}
       {/* </div> */}
-      <div className="flex w-full items-center justify-evenly rounded-lg bg-myTheme-primary/10 pr-2 text-xs md:text-base ">
+      <div className="flex w-full items-center justify-evenly rounded-lg pr-2 text-xs md:text-base ">
         {<VerticalLinks />}
 
         {options.showClaimThisProduct && (

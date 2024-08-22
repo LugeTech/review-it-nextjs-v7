@@ -59,10 +59,10 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         success: () => "Comment saved successfully!",
         error: "Error saving comment",
       });
-      if (await data) {
-        queryClient.refetchQueries({ queryKey: ["review"] });
-        console.log("refetched with this data, the comment now has id", data);
-      }
+      // if (await data) {
+      //   queryClient.refetchQueries({ queryKey: ["review"] });
+      //   console.log("refetched with this data, the comment now has id", data);
+      // }
     },
     onMutate: (newData: iComment) => {
       queryClient.setQueryData(["review"], (oldData: any) => {
@@ -152,6 +152,14 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
 
   const handleDelete = async (commentId: string) => {
     // Implement API call to delete a comment
+    //       const deletedComment = {
+    //   ...comment,
+    //   isDeleted: true,
+    //   body: "This comment has been deleted",
+    //   user: { ...comment.user, userName: "Deleted User" }
+    // };
+
+
   };
 
   const { data, isLoading, isError } = useQuery({

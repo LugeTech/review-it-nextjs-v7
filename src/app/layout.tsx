@@ -104,8 +104,8 @@ export default function RootLayout({
             >
               <Navbar>{children}</Navbar>
               <Analytics />
+              <ReactQueryDevtools initialIsOpen={true} />
             </body>
-            <ReactQueryDevtools initialIsOpen={true} />
 
           </html>
         </QueryProvider>

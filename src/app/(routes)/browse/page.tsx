@@ -26,7 +26,12 @@ const Page = () => {
     if (data?.data) setCurrentProduct(data.data);
   }, [data?.data, setCurrentProduct]);
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading)
+    return (
+      <div className="flex h-full">
+        <LoadingSpinner />
+      </div>
+    );
   if (isError) return <p>{error?.toString()}</p>;
 
   const products: iProduct[] | undefined = data?.data as iProduct[];
@@ -56,7 +61,7 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col w-full h-screen p-2 sm:pt-8 bg-myTheme-lightbg">
+    <div className="flex flex-col w-full h-full p-2 sm:pt-8 bg-myTheme-lightbg">
       <div className="flex flex-col w-full lg:flex-row justify-evenly items-center gap-2">
         <div className="flex flex-col h-full w-full lg:w-1/4 justify-start items-center gap-2">
           <ArrangeByPanel
