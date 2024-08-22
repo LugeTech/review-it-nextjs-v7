@@ -69,7 +69,7 @@ const Comment: React.FC<CommentProps> = ({ comment, onReply, onEdit, onDelete })
   }
   return (
     <div className="w-full bg-white rounded-lg shadow-md p-2 sm:p-4 mb-2 sm:mb-4">
-      <div className="flex items-start space-x-2 sm:space-x-4">
+      <div className="flex items-start space-x-1 sm:space-x-2">
         <Avatar className="w-6 h-6 sm:w-10 sm:h-10">
           <AvatarImage src={comment.user?.avatar || "/default-avatar.png"} alt={`${comment.user?.firstName} ${comment.user?.lastName}`} />
           <AvatarFallback>{comment.user?.firstName?.charAt(0)}{comment.user?.lastName?.charAt(0)}</AvatarFallback>
