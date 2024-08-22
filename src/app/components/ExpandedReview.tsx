@@ -152,6 +152,14 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
 
   const handleDelete = async (commentId: string) => {
     // Implement API call to delete a comment
+    //       const deletedComment = {
+    //   ...comment,
+    //   isDeleted: true,
+    //   body: "This comment has been deleted",
+    //   user: { ...comment.user, userName: "Deleted User" }
+    // };
+
+
   };
 
   const { data, isLoading, isError } = useQuery({
