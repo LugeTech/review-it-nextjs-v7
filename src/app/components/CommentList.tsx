@@ -7,10 +7,9 @@ interface CommentListProps {
   onReply: (parentId: string, body: string) => Promise<void>;
   onEdit: (commentId: string, body: string) => Promise<void>;
   onDelete: (commentId: string) => Promise<void>;
-  updateParentReplies: (updatedReply: iComment) => void;
 }
 
-const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, onDelete, updateParentReplies }) => {
+const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, onDelete }) => {
   const [organizedComments, setOrganizedComments] = useState<iComment[]>([]);
 
   // Function to organize comments into a tree structure
@@ -52,7 +51,6 @@ const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, on
           onReply={onReply}
           onEdit={onEdit}
           onDelete={onDelete}
-          updateParentReplies={updateParentReplies}
         />
       ))}
     </div>

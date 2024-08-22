@@ -217,7 +217,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
             onReply={handleReply}
             onEdit={handleEdit}
             onDelete={handleDelete}
-          // updateParentReplies={handleReplyUpdate}
           />
         ) : (
           <div>No comments yet</div>

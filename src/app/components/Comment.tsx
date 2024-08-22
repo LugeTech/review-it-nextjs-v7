@@ -13,10 +13,9 @@ interface CommentProps {
   onReply: (parentId: string, body: string) => Promise<void>;
   onEdit: (commentId: string, body: string) => Promise<void>;
   onDelete: (commentId: string) => Promise<void>;
-  updateParentReplies: (updatedReply: iComment) => void;
 }
 
-const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onEdit, onDelete, updateParentReplies }) => {
+const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onEdit, onDelete }) => {
   const [comment, setComment] = useState(initialComment);
   const [isEditing, setIsEditing] = useState(false);
   const [editedBody, setEditedBody] = useState(comment.body);
@@ -66,9 +65,6 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
       const updatedComment = { ...comment, body: editedBody };
       setComment(updatedComment);
       setIsEditing(false);
-      if (updateParentReplies) {
-        updateParentReplies(updatedComment);
-      }
     }
   };
 
@@ -80,23 +76,14 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
         ...comment,
         isDeleted: true,
         body: "This comment has been deleted",
-        user: { ...comment.user, userName: "Deleted User" }
+        user: { ...comment.user, userName: "Deleted User", avatar: "/logo.png" },
       };
 
       setComment(deletedComment);
 
-      if (updateParentReplies) {
-        updateParentReplies(deletedComment);
-      }
     }
   };
 
-  const handleReplyUpdate = (updatedReply: iComment) => {
-    setReplies(prevReplies =>
-      prevReplies.map(reply => reply.id === updatedReply.id ? updatedReply : reply)
-    );
-    updateParentReplies(updatedReply);
-  };
 
   return (
     <div className="w-full bg-white rounded-lg shadow-md p-2 sm:p-4 mb-2 sm:mb-4">
@@ -187,7 +174,6 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
                 onReply={onReply}
                 onEdit={onEdit}
                 onDelete={onDelete}
-                updateParentReplies={handleReplyUpdate}
               />
             </div>
           ))}
