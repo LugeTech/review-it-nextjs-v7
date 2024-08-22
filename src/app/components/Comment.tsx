@@ -86,7 +86,7 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
 
 
   return (
-    <div className="w-full bg-white rounded-lg shadow-md p-2 sm:p-4 mb-2 sm:mb-4">
+    <div className="w-full bg-white rounded-lg shadow-md p-2 sm:p-2 mb-2 sm:mb-2">
       <div className="flex items-start space-x-1 sm:space-x-2">
         <Avatar className="w-6 h-6 sm:w-10 sm:h-10">
           <AvatarImage src={comment.user?.avatar || "/default-avatar.png"} alt={`${comment.user?.firstName} ${comment.user?.lastName}`} />
@@ -163,7 +163,7 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
         </div>
       </div>
       {replies && replies.length > 0 && (
-        <div className="mt-2 sm:mt-4 ml-6 sm:ml-14 space-y-2 sm:space-y-4">
+        <div className="mt-2 sm:mt-4 ml-4 sm:ml-10 space-y-2 sm:space-y-2">
           {replies.map((reply) => (
             <div
               key={reply.id}
