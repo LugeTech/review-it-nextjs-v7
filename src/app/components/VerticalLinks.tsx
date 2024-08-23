@@ -6,9 +6,6 @@ const VerticalLinks: React.FC = () => {
     { Icon: HomeIcon, label: 'Home' },
     { Icon: MailIcon, label: 'Email' },
     { Icon: PhoneIcon, label: 'Phone' },
-    { Icon: HomeIcon, label: 'Home' },
-    { Icon: MailIcon, label: 'Email' },
-    { Icon: PhoneIcon, label: 'Phone' },
   ];
 
   return (

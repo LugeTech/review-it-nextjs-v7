@@ -25,7 +25,7 @@ interface UserDATA {
 }
 export async function POST(request: NextRequest) {
 
-  const comment: iComment = await request.json();
+  const comment: { id: string } = await request.json();
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
   let userIdFromClerk = null;

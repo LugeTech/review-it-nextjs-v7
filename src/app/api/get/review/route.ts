@@ -1,5 +1,7 @@
 
+import { iReview } from "@/app/util/Interfaces";
 import { prisma } from "@/app/util/prismaClient";
+import { sanitizeDeletedCommentsInReview } from "@/app/util/sanitizeDeletedComments";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -10,7 +12,7 @@ export async function POST(request: NextRequest) {
 
   const body: Body = await request.json();
   try {
-    const reviews = await prisma.review.findUnique({
+    const review = await prisma.review.findUnique({
       where: { isPublic: true, id: body.id },
       include: {
         user: true,
@@ -24,12 +26,13 @@ export async function POST(request: NextRequest) {
         likedBy: true,
       }
     })
-    // FIX: modify the deleted comment before sending to the frontend to avoid the frontend from getting the deleted comment
+
+    const treatedReview = sanitizeDeletedCommentsInReview(review as iReview);
 
     return NextResponse.json({
       success: true,
       status: 200,
-      data: reviews,
+      data: treatedReview,
     });
   } catch (error) {
     let e = error as Error;
@@ -40,3 +43,4 @@ export async function POST(request: NextRequest) {
     });
   }
 }
+

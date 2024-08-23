@@ -21,6 +21,21 @@ export const updateHelpfulVote = async (data: helpfulData) => {
   return await response.json();
 };
 
+export const deleteComment = async (id: string) => {
+  const body = {
+    id: id
+  };
+  const response = await fetch(`${apiUrl}/update/comment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    cache: "no-store",
+    body: JSON.stringify(body),
+  });
+  return await response.json();
+};
+
 export const getUserWithId = async (userId: string) => {
   const user = await fetch(`${apiUrl}/get/userwithid`, {
     method: "POST",

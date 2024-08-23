@@ -1,7 +1,9 @@
+import { sanitizeDeletedCommentsInReviews } from "@/app/util/sanitizeDeletedComments";
 import { prisma } from "@/app/util/prismaClient";
 import { allowedDomains } from "@/lib/allowedDomains";
 import { checkReferer } from "@/lib/checkReferrer";
 import { NextRequest, NextResponse } from "next/server";
+import { iReview } from "@/app/util/Interfaces";
 
 export async function POST(request: NextRequest) {
   const referer = request.headers.get("referer") as string;
@@ -19,22 +21,25 @@ export async function POST(request: NextRequest) {
   }
 
   const body: Body = await request.json();
-  // console.log(body);
+
   try {
     const reviews = await prisma.review.findMany({
-      where: { isPublic: true },
+      where: { isPublic: true, isDeleted: false },
       include: {
         user: body.user,
         product: body.product,
+        comments: true,
       },
     });
 
-    // FIX: modify the deleted comment before sending to the frontend to avoid the frontend from getting the deleted comment
+
+    const treatedReviews = sanitizeDeletedCommentsInReviews(reviews as iReview[]);
+
     return NextResponse.json({
       success: true,
       status: 200,
-      dataLength: reviews.length,
-      data: reviews,
+      dataLength: treatedReviews.length,
+      data: treatedReviews,
     });
   } catch (error) {
     let e = error as Error;

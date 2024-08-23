@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { currentReviewAtom, currentUserAtom } from "../store/store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { iReview, iComment } from "../util/Interfaces";
-import { createCommentOnReview, createReplyOnComment, getReview } from "../util/serverFunctions";
+import { createCommentOnReview, createReplyOnComment, deleteComment, getReview } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
@@ -24,6 +24,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [textAreaValue, setTextAreaValue] = useState("");
   const [currentUser] = useAtom(currentUserAtom);
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
   const mutations = useMutation({
@@ -151,16 +152,14 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   };
 
   const handleDelete = async (commentId: string) => {
-    // Implement API call to delete a comment
-    //       const deletedComment = {
-    //   ...comment,
-    //   isDeleted: true,
-    //   body: "This comment has been deleted",
-    //   user: { ...comment.user, userName: "Deleted User" }
-    // };
-
-
-  };
+    const deleteResponse = await deleteComment(commentId);
+    if (deleteResponse.success) {
+      console.log(deleteResponse.success);
+      toast.message("Comment successfully deleted!");
+    } else {
+      toast.error(deleteResponse.message);
+    };
+  }
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["review"],
