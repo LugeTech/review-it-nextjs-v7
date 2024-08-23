@@ -26,84 +26,57 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
   }, [reviewBody]);
 
   return (
-    <div className=" my-1 flex-col h-full max-w-full border p-2 pl-3 sm:p-4 bg-white  border-[#E5E5DD]  rounded-xl shadow-md">
-      <div className=" flex flex-row h-auto w-full gap-1 sm:gap-2 pb-1  ">
-        <div
-          className="sm:text-xl flex  hover:underline justify-start items-start"
-        >
-          {review?.user ? (
-            <Image
-              src={review?.user.avatar!}
-              alt="avatar"
-              width={60}
-              height={60}
-              className=" rounded object-cover w-[60px] h-[60px] md:w-[60px] md:h-[60px]"
-            />
-          ) : null}
-        </div>
-        <div className="flex flex-row w-full">
-          <div className="flex flex-col justify-start items-start gap-2 ">
-            <div className="flex justify-start items-start ">
+    <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+      <div className="flex items-start space-x-4">
+        {review?.user && (
+          <Image
+            src={review.user.avatar!}
+            alt="User avatar"
+            width={48}
+            height={48}
+            className="rounded-full object-cover"
+          />
+        )}
+        <div className="flex-grow">
+          <div className="flex items-center justify-between mb-2">
+            <div>
               <RatingModuleReadOnly
                 name={review.id!}
                 rating={review.rating}
-                size={"rating-sm"}
+                size="rating-sm"
               />
+              <p className="text-xs text-gray-500 mt-1">{review.product?.tags[0]}</p>
             </div>
-            <p className="text-sm text-gray-500 ">
-              {review.product?.tags[0]}
+            <ReviewStats review={review} setReview={() => setReview(review)} />
+          </div>
+          <div className="flex items-center space-x-2 text-sm mb-2">
+            <Link href={`/userprofile/${review?.user?.id}`} className="font-medium text-myTheme-reviewBlue hover:underline">
+              @{review.user?.userName}
+            </Link>
+            <span className="text-gray-500">reviewed</span>
+            <Link href={`/reviews?id=${review?.product?.id}`} className="font-medium text-myTheme-reviewBlue hover:underline">
+              {review.product?.name}
+            </Link>
+          </div>
+          <h3 className="font-semibold text-gray-800 mb-1">{review.title}</h3>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(
+                `${review.body.length > 100 ? `${review.body.slice(0, 100)}...` : review.body}`
+              ),
+            }}
+            className="text-sm text-gray-600 mb-2"
+          />
+          <div className="flex items-center justify-between text-xs">
+            <p className="text-gray-500">
+              {dayjs(review?.createdDate?.toString()).format("MMMM D, YYYY h:mm A")}
             </p>
-          </div>
-          <div className="w-full pl-2 ">
-            <ReviewStats review={review} setReview={() => { setReview(review) }} />
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-wrap justify-start items-start gap-2   ">
-        <Link
-          href={`/userprofile/${review?.user?.id}`}
-          className="flex hover:underline justify-start items-start"
-        >
-          <p className="text-sm font-bold text-gray-700 ">
-            @{review.user?.userName}
-          </p>
-        </Link>
-        <p className="text-sm text-gray-500 ">reviewed</p>
-        <Link href={`/reviews?id=${review?.product?.id}`} onClick={() => { }}>
-          <p className="text-sm hover:underline font-bold text-myTheme-accent  ">
-            {review.product?.name}
-          </p>
-        </Link>
-      </div>
-      <div className="bg-white  pt-2 w-full flex flex-col  justify-start items-start ">
-        <div
-          // href={`/fr/${review?.id}`}
-          className=" hover:bg-gray-100  text-base w-full"
-        >
-          <p className="md:text-md font-bold text-myTheme-lightTextBody/80 ">
-            {review.title}
-          </p>
-          <div className="flex flex-wrap  ">
-            <span
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(
-                  `${review.body.length > 100 ? `${review.body.slice(0, 100)}...` : review.body}`,
-                ),
-              }}
-              className="mb-1 text-sm md:text-md leading-tight font-extralight "
-            />
-          </div>
-          <div className=" w-full  tracking-tight flex justify-between ">
-            <p className="text-sm font-light text-gray-500 ">
-              {dayjs(review?.createdDate?.toString()).format(
-                "MMMM D, YYYY h:mm A",
-              )}
-            </p>
-            <Link href={`/fr/${review?.id}`}
-              className="bg-myTheme-accent text-myTheme-light hover:bg-myTheme-success hover:text-black px-2 py-2 rounded-sm transition-colors">
+            <Link
+              href={`/fr/${review?.id}`}
+              className="bg-blue-500 text-white hover:bg-blue-600 px-3 py-1 rounded transition-colors duration-200"
+            >
               Read review
             </Link>
-
           </div>
         </div>
       </div>

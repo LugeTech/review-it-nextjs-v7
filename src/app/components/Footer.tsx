@@ -4,7 +4,7 @@ import Image from 'next/image'
 const Footer = () => {
   return (
 
-    <section className="w-full py-6 bg-gradient-to-r from-myTheme-accent to-myTheme-primary">
+    <section className="w-full py-6 bg-gradient-to-r from-myTheme-accent to-myTheme-reviewBlue">
       <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
         <div className="text-center xl:flex xl:items-center xl:justify-between xl:text-left">
           <div className="xl:flex xl:items-center xl:justify-start">

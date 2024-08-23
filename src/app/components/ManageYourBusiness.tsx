@@ -2,7 +2,7 @@ import React from 'react'
 
 const ManageYourBusiness = () => {
   return (
-    <section className="w-full py-5 bg-gradient-to-r from-fuchsia-600 to-blue-600 sm:py-6">
+    <section className="w-full py-5 bg-gradient-to-r from-myTheme-reviewBlue to-myTheme-accent sm:py-6">
       <div className="px-4 mx-auto sm:px-6 lg:px-8 w-full ">
         <div className="text-center sm:flex sm:items-center sm:justify-center sm:text-left">
           <h2 className="text-4xl font-bold text-white">Get full access to your product</h2>
