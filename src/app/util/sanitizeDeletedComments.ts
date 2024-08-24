@@ -8,7 +8,7 @@ export function sanitizeDeletedCommentsInReviews(reviews: iReview[]): iReview[] 
           comment.body = "This comment has been deleted.";
           if (comment.user) {
             comment.user.userName = "Deleted User";
-            comment.user.avatar = undefined;
+            comment.user.avatar = "/deleted-user.svg";
           }
         }
       });
@@ -27,7 +27,7 @@ export function sanitizeDeletedCommentsInProducts(products: iProduct[]): iProduc
             comment.body = "This comment has been deleted.";
             if (comment.user) {
               comment.user.userName = "Deleted User";
-              comment.user.avatar = undefined;
+              comment.user.avatar = "/deleted-user.svg";
             }
           }
         });
@@ -45,7 +45,7 @@ export function sanitizeDeletedCommentsInReview(review: iReview): iReview {
         comment.body = "This comment has been deleted.";
         if (comment.user) {
           comment.user.userName = "Deleted User";
-          comment.user.avatar = undefined;
+          comment.user.avatar = "/deleted-user.svg";
         }
       }
     });
@@ -62,7 +62,7 @@ export function sanitizeDeletedCommentsInProduct(product: iProduct): iProduct {
           comment.body = "This comment has been deleted.";
           if (comment.user) {
             comment.user.userName = "Deleted User";
-            comment.user.avatar = undefined;
+            comment.user.avatar = "/deleted-user.svg";
           }
         }
       });

@@ -6,7 +6,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { iReview, iComment } from "../util/Interfaces";
 import { createCommentOnReview, createReplyOnComment, deleteComment, getReview } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
-import Comment from "./Comment";
 import CommentForm from "./CommentForm";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import DisplayError from "./DisplayError";
@@ -26,6 +25,8 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const [currentUser] = useAtom(currentUserAtom);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const { userId } = useAuth();
+  const clerkUserId = userId as string;
 
   const mutations = useMutation({
     mutationFn: async (comment: iComment) => {
@@ -212,6 +213,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         <h2>Comments</h2>
         {sortedComments.length > 0 ? (
           <CommentList
+            clerkUserId={clerkUserId}
             comments={sortedComments}
             onReply={handleReply}
             onEdit={handleEdit}
