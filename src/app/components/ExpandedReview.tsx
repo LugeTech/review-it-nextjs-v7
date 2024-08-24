@@ -149,7 +149,6 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   }, [mutations, comment]);
 
   const handleEdit = async (commentId: string, body: string) => {
-    // Implement API call to edit a comment
   };
 
   const handleDelete = async (commentId: string) => {

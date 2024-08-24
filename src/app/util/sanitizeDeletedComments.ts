@@ -1,4 +1,4 @@
-import { iProduct, iReview } from "./Interfaces";
+import { iComment, iProduct, iReview } from "./Interfaces";
 
 export function sanitizeDeletedCommentsInReviews(reviews: iReview[]): iReview[] {
   reviews.forEach(review => {
@@ -72,3 +72,14 @@ export function sanitizeDeletedCommentsInProduct(product: iProduct): iProduct {
   return product;
 }
 
+export function sanitizeDeletedCommentsInComment(comment: iComment): iComment {
+  if (comment.isDeleted) {
+    comment.body = "This comment has been deleted.";
+    if (comment.user) {
+      comment.user.userName = "Deleted User";
+      comment.user.avatar = "/deleted-user.svg";
+    }
+  }
+
+  return comment as iComment;
+}

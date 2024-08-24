@@ -4,6 +4,7 @@ import { getAuth, clerkClient } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 import { iComment } from "@/app/util/Interfaces";
 import { addUserToDb } from "@/app/util/addUserToDb";
+import { sanitizeDeletedCommentsInComment } from "@/app/util/sanitizeDeletedComments";
 
 // Interface representing user data
 interface UserDATA {
@@ -69,13 +70,12 @@ export async function POST(request: NextRequest) {
     },
     );
 
-    // FIX: modify the deleted comment before sending to the frontend to avoid the frontend from getting the deleted comment
-
+    const editedComment = sanitizeDeletedCommentsInComment(deletedComment as iComment);
 
     return NextResponse.json({
       success: true,
       status: 200,
-      data: deletedComment,
+      data: editedComment,
     });
 
   } catch (error) {
