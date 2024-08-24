@@ -14,7 +14,11 @@ interface OptionsMenuProps {
   setIsEditing: Dispatch<SetStateAction<boolean>>;
 }
 
-const OptionsMenu: React.FC<OptionsMenuProps> = ({ onEdit, onDelete }) => {
+const OptionsMenu: React.FC<OptionsMenuProps> = ({ onEdit, onDelete, setIsEditing }) => {
+  const handleEdit = () => {
+    setIsEditing(true);
+    onEdit();
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -23,7 +27,7 @@ const OptionsMenu: React.FC<OptionsMenuProps> = ({ onEdit, onDelete }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={onEdit}>
+        <DropdownMenuItem onClick={handleEdit}>
           <PencilIcon className="mr-2 h-4 w-4" />
           <span>Edit</span>
         </DropdownMenuItem>

@@ -130,7 +130,7 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
               <span className="mx-1">•</span>
               <span>{dayjs(comment.createdDate).format("MMM D, YYYY")}</span>
             </div>
-            {!comment.isDeleted && isCommentOwner && <OptionsMenu onEdit={handleEdit} onDelete={handleDelete} setIsEditing={setIsEditing} />}
+            {!comment.isDeleted && isCommentOwner && !isEditing && <OptionsMenu onEdit={handleEdit} onDelete={handleDelete} setIsEditing={setIsEditing} />}
           </div>
           <div className="text-sm text-gray-700">
             {isEditing ? (
@@ -155,9 +155,9 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
               </>
             )}
           </div>
-          {!comment.isDeleted && !isEditing && (
+          {!comment.isDeleted && (
             <div className="mt-2 flex flex-wrap gap-2">
-              {canReply && (
+              {canReply && !isEditing && (
                 <Button variant="ghost" size="sm" className="text-xs px-2 py-0 h-6" onClick={() => setIsReplying(!isReplying)}>
                   <ReplyIcon className="w-3 h-3 mr-1" />
                   Reply
