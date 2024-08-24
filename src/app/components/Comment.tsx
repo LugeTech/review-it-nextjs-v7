@@ -85,7 +85,7 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
         ...comment,
         isDeleted: true,
         body: "This comment has been deleted",
-        user: { ...comment.user, userName: "Deleted User", avatar: "/logo.png" },
+        user: { ...comment.user, userName: "Deleted User", avatar: "/deleted-user.svg" },
       };
       setComment(deletedComment);
     }
