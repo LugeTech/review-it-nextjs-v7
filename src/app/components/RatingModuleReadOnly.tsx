@@ -1,84 +1,46 @@
 "use client";
 import React from "react";
 
-const RatingModule = ({
-  name,
-  rating = 1,
-  // ratingChanged = () => { },
-  size = "rating-lg",
-}: {
+const RatingModuleReadOnly: React.FC<{
   name: string;
   rating: number;
-  // ratingChanged: (rating: number) => void;
   size: string;
-}) => {
-  const handleRating = (rating: number) => {
-    switch (rating) {
-      case 1:
-        return "bg-myTheme-ratingRed";
-      case 2:
-        return "bg-myTheme-ratingOrange";
-      case 3:
-        return "bg-myTheme-ratingYellow";
-      case 4:
-        return "bg-myTheme-ratingLightGreen";
-      case 5:
-        return "bg-myTheme-ratingGreen";
-    }
-  };
+}> = ({ name, rating = 1, size = "rating-lg" }) => {
+  const ratingColors = [
+    "text-red-500",
+    "text-orange-500",
+    "text-yellow-500",
+    "text-lime-500",
+    "text-green-500",
+  ];
+
+  const getRatingColor = (value: number) => ratingColors[value - 1] || ratingColors[0];
+
   return (
-    <div className="flex flex-grow-0">
-      <div
-        className={` w-auto rating gap-1 ${size} items-center justify-center  p-1 rounded-md bg-gray-700 `}
-      >
-        <input
-          type="radio"
-          name={name}
-          value={1}
-          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
-          checked={rating === 1}
-          readOnly
-        // onChange={() => ratingChanged(1)}
-        />
-        <input
-          type="radio"
-          name={name}
-          value={2}
-          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
-          checked={rating === 2}
-          readOnly
-        // onChange={() => ratingChanged(2)}
-        />
-        <input
-          type="radio"
-          name={name}
-          value={3}
-          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
-          checked={rating === 3}
-          readOnly
-        // onChange={() => ratingChanged(3)}
-        />
-        <input
-          type="radio"
-          name={name}
-          value={4}
-          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
-          checked={rating === 4}
-          readOnly
-        // onChange={() => ratingChanged(4)}
-        />
-        <input
-          type="radio"
-          name={name}
-          value={5}
-          className={` mask mask-star ${handleRating(rating)} hover:${handleRating(rating)}`}
-          checked={rating === 5}
-          readOnly
-        // onChange={() => ratingChanged(5)}
-        />
-      </div>
+    <div className="inline-flex items-center bg-gray-100 rounded-full px-3 py-1">
+      {[1, 2, 3, 4, 5].map((value) => (
+        <label key={value} className={`cursor-pointer ${size}`}>
+          <input
+            type="radio"
+            name={name}
+            value={value}
+            checked={rating === value}
+            readOnly
+            className="hidden"
+          />
+          <svg
+            className={`w-6 h-6 ${value <= rating ? getRatingColor(rating) : "text-gray-300"
+              }`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        </label>
+      ))}
     </div>
   );
 };
 
-export default RatingModule;
+export default RatingModuleReadOnly;

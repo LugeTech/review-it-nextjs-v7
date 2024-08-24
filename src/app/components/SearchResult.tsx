@@ -1,6 +1,5 @@
 import React from "react";
 import { iProduct } from "../util/Interfaces";
-// import Link from 'next/link';
 import ProductCardSlim from "@/app/components/ProductCardSlim";
 
 interface SearchResultsProps {
@@ -13,18 +12,25 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   };
 
   return (
-    <div className="  mt-1 gap-2 p-4 flex w-full max-h-[460px] flex-col justify-center items-center bg-myTheme-accent  shadow-2xl rounded-md z-10">
-      <div className="mt-2 flex flex-col gap-2">
-        <p className="text-xl font-bold text-left">Products</p>
-        {results.slice(0, 3).map((result) => (
-          <ProductCardSlim
-            options={productCardOptions}
-            product={result}
-            key={result.id}
-          />
-        ))}
-        <p className="text-xl font-bold text-left">Categories</p>
-        Category list
+    <div className="mt-1 w-full max-h-[460px] bg-white shadow-lg rounded-lg overflow-hidden z-10">
+      <div className="p-4 space-y-4">
+        <section>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">Products</h2>
+          <div className="space-y-2">
+            {results.slice(0, 3).map((result) => (
+              <ProductCardSlim
+                options={productCardOptions}
+                product={result}
+                key={result.id}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">Categories</h2>
+          <p className="text-gray-600">Category list (to be implemented)</p>
+        </section>
       </div>
     </div>
   );
