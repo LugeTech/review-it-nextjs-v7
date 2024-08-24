@@ -25,7 +25,7 @@ export const deleteComment = async (id: string) => {
   const body = {
     id: id
   };
-  const response = await fetch(`${apiUrl}/update/comment`, {
+  const response = await fetch(`${apiUrl}/delete/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -157,15 +157,15 @@ export const createReplyOnComment = async (reply: iComment): Promise<iComment> =
   return data;
 };
 
-export const editComment = async (id: string, updatedComment: iComment) => {
-  if (updatedComment.body === "") return new Error("Comment body cannot be empty");
+export const editComment = async (id: string, commentBody: string) => {
+  if (commentBody === "") return new Error("Comment body cannot be empty");
 
-  const response = await fetch(`${apiUrl}/edit/comment`, {
+  const response = await fetch(`${apiUrl}/update/comment/edit`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ id, ...updatedComment }),
+    body: JSON.stringify({ id, commentBody }),
   });
 
   if (!response.ok) {

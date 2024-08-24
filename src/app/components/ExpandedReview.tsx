@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { currentReviewAtom, currentUserAtom } from "../store/store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { iReview, iComment } from "../util/Interfaces";
-import { createCommentOnReview, createReplyOnComment, deleteComment, getReview } from "../util/serverFunctions";
+import { createCommentOnReview, createReplyOnComment, deleteComment, editComment, getReview } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 import CommentForm from "./CommentForm";
 import { useEffect, useMemo, useState, useCallback } from "react";
@@ -149,6 +149,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   }, [mutations, comment]);
 
   const handleEdit = async (commentId: string, body: string) => {
+    editComment(commentId, body);
   };
 
   const handleDelete = async (commentId: string) => {
