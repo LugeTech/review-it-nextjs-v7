@@ -1,5 +1,7 @@
 import { iComment, iProduct, iReview } from "@/app/util/Interfaces";
 import { apiUrl } from "./apiUrl";
+import { cleanReview, cleanReviews, createFilter } from "../store/badWordsFilter";
+const filter = createFilter();
 
 interface helpfulData {
   reviewId: string;
@@ -62,14 +64,18 @@ export const getReview = async (id: string) => {
     id,
   };
 
-  const review: iReview[] = await fetch(`${apiUrl}/get/review`, {
+  const data: any = await fetch(`${apiUrl}/get/review`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
   }).then((res) => res.json());
-  return review;
+  if (data.reviews) {
+    const review = cleanReview(await filter, data.review as iReview);
+    return { ...data, review };
+  }
+  return data;
 };
 
 export const getReviews = async (id: string) => {
@@ -82,24 +88,32 @@ export const getReviews = async (id: string) => {
     likedBy: true,
   };
 
-  const reviews: iReview[] = await fetch(`${apiUrl}/get/reviews`, {
+  const data: any = await fetch(`${apiUrl}/get/reviews`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
   }).then((res) => res.json());
-  return reviews;
+  if (data.reviews) {
+    const reviews = cleanReviews(await filter, data.reviews as iReview[]);
+    return { ...data, reviews };
+  }
+  return data;
 };
 
 export const getLatestReviews = async () => {
-  const reviews: iReview[] = await fetch(`${apiUrl}/get/review/latest`, {
+  const data: any = await fetch(`${apiUrl}/get/review/latest`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
   }).then((res) => res.json());
-  return reviews;
+  if (data.reviews) {
+    const reviews = cleanReviews(await filter, data.reviews as iReview[]);
+    return { ...data, reviews };
+  }
+  return data;
 };
 
 export const getProduct = async (id: string) => {

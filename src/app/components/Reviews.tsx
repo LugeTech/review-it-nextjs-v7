@@ -11,6 +11,7 @@ import Link from "next/link";
 import WriteAReview from "./WriteAReview";
 import ReviewsSummary from "@/components/reviews-summary";
 import { toast } from "sonner";
+
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["reviews", productId],
@@ -28,7 +29,7 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const reviews = data?.data.reviews as iReview[];
-  console.log(reviews);
+
   if (reviews.length === 0) {
     const productIfNoReviews = data.data.product as iProduct;
     return (

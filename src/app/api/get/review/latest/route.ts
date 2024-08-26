@@ -20,7 +20,6 @@ export async function POST(request: NextRequest) {
       },
       take: 6,
     });
-    // FIX: modify the deleted comment before sending to the frontend to avoid the frontend from getting the deleted comment
 
     return NextResponse.json({
       success: true,

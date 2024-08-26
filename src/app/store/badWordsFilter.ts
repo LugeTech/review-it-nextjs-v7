@@ -5,12 +5,13 @@ import { iComment, iReview } from '../util/Interfaces';
 
 // Function to fetch bad words from the API
 export async function fetchBadWords(): Promise<string[]> {
-  const response = await fetch("http://localhost/badwords");
+  const response = await fetch("http://127.0.0.1:3002/words");
   return response.json();
 }
 
 export async function createFilter(): Promise<Filter> {
   const badWords = await fetchBadWords();
+  console.log("this is list", badWords)
   const filter = new Filter();
   filter.addWords(...badWords);
   return filter;
@@ -28,7 +29,12 @@ export function cleanReview(filter: Filter, review: iReview): iReview {
   if (cleanedReview.comments) {
     cleanedReview.comments = cleanedReview.comments.map(comment => cleanComment(filter, comment));
   }
+
   return cleanedReview;
+}
+
+export function cleanReviews(filter: Filter, reviews: iReview[]): iReview[] {
+  return reviews.map(review => cleanReview(filter, review));
 }
 
 function cleanComment(filter: Filter, comment: iComment): iComment {
