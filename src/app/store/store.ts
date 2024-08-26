@@ -12,3 +12,4 @@ export const currentUserAtom = atom(async () => {
   const user = res.data as iUser;
   return user;
 });
+export const badWordsAtom = atom<string[]>([]);

@@ -1,13 +1,15 @@
 import React from "react";
-import PropagateLoader from "react-spinners/PropagateLoader";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const LoadingSpinner = () => {
   return (
-    <div className="flex h-screen flex-1 justify-center items-center text-center ">
-      <div className='className="w-16 h-16 flex justify-center items-center' role="status">
-        <PropagateLoader size={10} color="#d5d5d5" />
-        <span className="sr-only">Loading...</span>
+    <div className="flex flex-col h-screen w-full gap-2 justify-center items-center text-center ">
+      <div className='className="w-full h-full flex justify-center items-center' role="status">
+        <PulseLoader color="green" loading={true} />
       </div>
+      {/* <div className="w-full h-full flex justify-center items-center" role="status"> */}
+      {/* <p className="text-gray-400 animate-pulse">Loading...</p> */}
+      {/* </div> */}
     </div>
   );
 };

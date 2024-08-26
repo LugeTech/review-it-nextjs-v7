@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import OptionsMenu from "./CommentOptionsMenu";
 import { useAuth } from "@clerk/nextjs";
-
 interface CommentProps {
   comment: iComment;
   onReply: (parentId: string, body: string) => Promise<void>;

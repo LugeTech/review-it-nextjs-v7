@@ -18,8 +18,10 @@ import { allProductsAtom } from "../store/store";
 import { useRouter, useSearchParams } from "next/navigation";
 import MultiFileUpload from "./fileUpload/MultiFileUpload";
 import VideoEmbed from "./VideoEmbed";
+import { Filter } from 'bad-words'
 
 const ReviewForm = () => {
+  const filter = new Filter();
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchRating = searchParams.get("rating");
@@ -141,7 +143,9 @@ const ReviewForm = () => {
         };
       } else {
         // Handle other fields normally
-        return { ...prevData, [name]: value };
+        filter.isProfane(value) ? setError((prevError) => (prevError = "bad word/s")) : setError((prevError) => (prevError = null));
+        let cleanValue = filter.clean(value);
+        return { ...prevData, [name]: cleanValue };
       }
     });
   };

@@ -14,9 +14,14 @@ import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import CommentList from "./CommentList";
-
+import { Filter } from 'bad-words';
+import { cleanText } from '@/app/store/badWordsFilter';
+interface ExpandedReviewProps {
+  reviewId: string;
+  filter: Filter;
+}
 // export const dynamic = 'force-dynamic'
-const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
+const ExpandedReview = ({ reviewId, filter }: { reviewId: string; filter: Filter }) => {
   const auth = useAuth();
   const queryClient = useQueryClient();
   const [reviewAtom] = useAtom(currentReviewAtom);

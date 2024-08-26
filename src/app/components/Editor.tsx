@@ -3,6 +3,7 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Placeholder from "@tiptap/extension-placeholder";
+import { Filter } from 'bad-words'
 
 interface EditorComponentProps {
   onEditorValue: (value: string) => void;
@@ -11,6 +12,7 @@ interface EditorComponentProps {
 const content = "";
 
 export default function Editor({ onEditorValue }: EditorComponentProps) {
+  const filter = new Filter();
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -24,8 +26,7 @@ export default function Editor({ onEditorValue }: EditorComponentProps) {
     // triggered on every change
     onUpdate: ({ editor }) => {
       const htmlEditorContent = editor.getHTML();
-      // console.log(htmlEditorContent);
-      onEditorValue(htmlEditorContent);
+      onEditorValue(filter.clean(htmlEditorContent));
     },
   });
   return (

@@ -1,0 +1,17 @@
+meta {
+  name: add words
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3002/word
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "words": "fuck"
+  }
+}
