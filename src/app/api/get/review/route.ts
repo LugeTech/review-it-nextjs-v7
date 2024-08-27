@@ -3,6 +3,8 @@ import { iReview } from "@/app/util/Interfaces";
 import { prisma } from "@/app/util/prismaClient";
 import { sanitizeDeletedCommentsInReview } from "@/app/util/sanitizeDeletedComments";
 import { NextRequest, NextResponse } from "next/server";
+import { cleanReview, cleanReviews, createFilter } from "@/app/store/badWordsFilter";
+const filter = createFilter();
 
 export async function POST(request: NextRequest) {
   // console.log("POST /api/reviews");
@@ -27,7 +29,9 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    const treatedReview = sanitizeDeletedCommentsInReview(review as iReview);
+    let treatedReview = sanitizeDeletedCommentsInReview(review as iReview);
+    treatedReview = cleanReview(await filter, treatedReview);
+
 
     return NextResponse.json({
       success: true,

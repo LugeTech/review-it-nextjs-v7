@@ -2,6 +2,8 @@ import { iReview } from "@/app/util/Interfaces";
 import { prisma } from "@/app/util/prismaClient";
 import { sanitizeDeletedCommentsInReviews } from "@/app/util/sanitizeDeletedComments";
 import { NextRequest, NextResponse } from "next/server";
+import { cleanReview, cleanReviews, createFilter } from "@/app/store/badWordsFilter";
+const filter = createFilter();
 
 export async function POST(request: NextRequest) {
   interface Body {
@@ -43,7 +45,8 @@ export async function POST(request: NextRequest) {
         where: { id: body.id },
       });
     }
-    const treatedReviews = sanitizeDeletedCommentsInReviews(reviews as iReview[]);
+    let treatedReviews = sanitizeDeletedCommentsInReviews(reviews as iReview[]);
+    treatedReviews = cleanReviews(await filter, treatedReviews);
 
     return NextResponse.json({
       success: true,
