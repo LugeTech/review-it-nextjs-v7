@@ -1,4 +1,6 @@
+import { iReview } from "@/app/util/Interfaces";
 import { prisma } from "@/app/util/prismaClient";
+import { sanitizeDeletedCommentsInReviews } from "@/app/util/sanitizeDeletedComments";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -41,12 +43,13 @@ export async function POST(request: NextRequest) {
         where: { id: body.id },
       });
     }
+    const treatedReviews = sanitizeDeletedCommentsInReviews(reviews as iReview[]);
 
     return NextResponse.json({
       success: true,
       status: 200,
       data: {
-        reviews,
+        treatedReviews,
         product,
       },
     });

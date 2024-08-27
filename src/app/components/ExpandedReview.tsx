@@ -169,7 +169,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         return reviewAtom;
       }
       const data: any = await getReview(reviewId);
-      return data.data;
+      return data.review;
     },
     refetchOnWindowFocus: true,
   });
