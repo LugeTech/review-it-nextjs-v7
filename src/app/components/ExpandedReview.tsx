@@ -162,7 +162,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     };
   }
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey: ["review"],
     queryFn: async () => {
       if (reviewAtom !== null) {
@@ -194,7 +194,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     ) || [];
   }, [data?.comments]);
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isPending) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
   if (!data) return null;
 

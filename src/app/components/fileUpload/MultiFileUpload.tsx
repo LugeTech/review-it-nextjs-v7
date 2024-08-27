@@ -11,14 +11,15 @@ export const revalidate = 0;
 
 interface FileUploadProps {
   setLinksArray: React.Dispatch<React.SetStateAction<string[]>>;
+  setAllUploaded: React.Dispatch<React.SetStateAction<boolean>>;
+  allUploaded: boolean;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
+const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray, setAllUploaded, allUploaded }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [uploadProgress, setUploadProgress] = useState<number[]>([]);
   const [uploadErrors, setUploadErrors] = useState<string[]>([]);
-  // const [otherFILES, setOtherFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const { processImage, isResizing } = useImageResizer();
 
@@ -60,7 +61,6 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
     }
   }, [processImage]);
 
-
   const removeFile = (index: number) => {
     const updatedFiles = [...files];
     updatedFiles.splice(index, 1);
@@ -71,10 +71,10 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
     setFiles(updatedFiles);
     setImagePreviews(updatedPreviews);
     setUploadProgress(updatedProgress);
-    cancelUpload(index); // keep an eye on this, not tested
+    cancelUpload(index);
   };
 
-  const uploadFile = async (file: File, index: number) => {
+  const uploadFile = async (file: File, index: number): Promise<void> => {
     const formData = new FormData();
     formData.append("file", file);
     const cancelSource = axios.CancelToken.source();
@@ -84,11 +84,11 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data', // Set the content type explicitly
+            'Content-Type': 'multipart/form-data',
           },
           onUploadProgress: (progressEvent) => {
             const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / (progressEvent.total || 1), // Prevent division by zero
+              (progressEvent.loaded * 100) / (progressEvent.total || 1),
             );
             setUploadProgress((prevProgress) => {
               const updatedProgress = [...prevProgress];
@@ -100,22 +100,18 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
         },
       );
 
-      // NOTE: Upload successful; add some feedback here - show download links
       if (response.data.link) {
         setLinksArray((prevLinks) => [...prevLinks, response.data.link]);
       }
-
-      setUploading(false);
     } catch (error) {
       if (axios.isCancel(error)) {
-        // NOTE: User cancelled or removed file
         return;
       }
-
       setUploadErrors((prevErrors) => [
         ...prevErrors,
         `Error uploading ${file.name}: ${error}`,
       ]);
+      throw error;
     }
   };
 
@@ -126,14 +122,24 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
 
   const uploadFiles = async () => {
     setUploading(true);
+    setAllUploaded(false);  // Reset the upload status
 
-    files.forEach(async (file, index) => {
+    const uploadPromises = files.map((file, index) => {
       const cancelSource = axios.CancelToken.source();
       cancelTokenSources[index] = cancelSource;
-      // NOTE create blob or other modification of the file here
-      await uploadFile(file, index);
+      return uploadFile(file, index);
     });
-    // at this pooint update the front end
+
+    try {
+      await Promise.all(uploadPromises);
+      setAllUploaded(true);  // Set to true when all uploads are complete
+    } catch (error) {
+      console.error("Error uploading files:", error);
+      setAllUploaded(false);
+    } finally {
+      setUploading(false);
+
+    }
   };
 
   return (
@@ -170,7 +176,6 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
             cancelUpload={cancelUpload}
           />
           {isResizing && <p>Resizing image...</p>}
-
         </div>
       )}
       {uploadErrors.length > 0 && <UploadError uploadErrors={uploadErrors} />}
@@ -180,7 +185,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray }) => {
           onClick={uploadFiles}
           className="mt-2 rounded-md bg-black px-4 py-2 text-white"
         >
-          Upload Files
+          {allUploaded ? "Uploaded!" : "Upload Files"}
         </button>
       )}
     </div>
