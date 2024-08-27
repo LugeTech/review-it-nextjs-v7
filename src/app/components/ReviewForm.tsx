@@ -29,6 +29,7 @@ const ReviewForm = () => {
   const [linksArray, setLinksArray] = useState<string[]>([]);
   const [videosArray, setVideosArray] = useState<string[]>([]);
   const [url, setUrl] = useState('');
+  const [allUploaded, setAllUploaded] = useState(false);
   // make sure there is an int in searchRating and make sure its between 1 and 5
   const [rating, setRating] = useState(
     searchRating ? parseInt(searchRating) : 2,
@@ -282,7 +283,7 @@ const ReviewForm = () => {
           <VideoEmbed url={url} />
         </div>
         <div className="flex justify-center items-center w-full">
-          <MultiFileUpload setLinksArray={setLinksArray} />
+          <MultiFileUpload setLinksArray={setLinksArray} setAllUploaded={setAllUploaded} allUploaded={allUploaded} />
         </div>
 
         <div className="flex gap-2 h-full">
@@ -291,13 +292,13 @@ const ReviewForm = () => {
               <EditorPreview reviewData={reviewData} />
             </div>
           )}
-          <button
+          {allUploaded && <button
             disabled={disabled}
             type="submit"
             className="w-full bg-myTheme-primary hover:bg-myTheme-secondary text-white font-semibold py-3 px-6 rounded-md transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Submit Review
-          </button>
+          </button>}
         </div>
       </form>
       <DisplayError error={error} />
