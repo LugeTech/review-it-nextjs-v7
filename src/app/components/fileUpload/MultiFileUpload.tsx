@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import axios, { CancelTokenSource } from "axios";
 //@ts-ignore
@@ -22,6 +22,14 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray, setAllUploaded, 
   const [uploadErrors, setUploadErrors] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
   const { processImage, isResizing } = useImageResizer();
+
+  useEffect(() => {
+    if (files.length === 0) {
+      setAllUploaded(true);
+    } else {
+      setAllUploaded(false);
+    }
+  }, [files, setAllUploaded]);
 
   const handleDrop = useCallback(async (
     acceptedFiles: File[],
@@ -121,6 +129,10 @@ const FileUpload: React.FC<FileUploadProps> = ({ setLinksArray, setAllUploaded, 
   };
 
   const uploadFiles = async () => {
+    if (files.length === 0) {
+      setAllUploaded(true);
+      return;
+    }
     setUploading(true);
     setAllUploaded(false);  // Reset the upload status
 
