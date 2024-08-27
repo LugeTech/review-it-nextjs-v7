@@ -25,13 +25,6 @@ export default async function Home() {
             <div className="mt-2 flex w-full">
               <ReviewCategories />
             </div>
-            <button
-              title="Share"
-              className="flex items-center justify-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-full text-sm font-medium transition-colors duration-200"
-            >
-              {/* <Share className="w-5 h-5 mr-2" /> */}
-              <span>Share</span>
-            </button>
             {/* <Token /> */}
           </div>
         </div>

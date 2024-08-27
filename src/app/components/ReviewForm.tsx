@@ -53,18 +53,6 @@ const ReviewForm = () => {
     likedBy: [],
   });
 
-  // useEffect(() => {
-  //   if (url) {
-  //     console.log("here is url", url);
-  //     setReviewData((prevData) => ({
-  //       ...prevData,
-  //       videos: prevData.videos.length > 0
-  //         ? [url, ...prevData.videos.slice(1)] // Update if array has items
-  //         : [url] // Create new array if empty
-  //     }));
-  //   }
-  // }, [url]);
-
   const [products, setProducts] = useAtom(allProductsAtom);
   const productCardOptions = {
     showLatestReview: false,
@@ -80,7 +68,6 @@ const ReviewForm = () => {
         images: linksArray,
       }));
     }
-    console.log(reviewData);
   }, [linksArray]);
 
   const handleEditorValue = (value: string) => {
@@ -158,9 +145,9 @@ const ReviewForm = () => {
       setError("Please fill out all fields");
       return;
     }
-    if (reviewData.body === "" || reviewData.body === null) {
-      setError((prevError) => (prevError = "body empty" + ""));
-      console.log("body is empty");
+    if ((reviewData.body === "" || reviewData.body === null) && linksArray.length === 0) {
+      setError((prevError) => (prevError = "Review body is empty"));
+      setDisabled(false);
       return;
     }
     // INFO: enable this to send to server

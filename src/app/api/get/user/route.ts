@@ -25,7 +25,7 @@ interface UserDATA {
   };
 }
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   let idFromPublicMetaData: string = "";
   let clerkUserData = null;
   try {
