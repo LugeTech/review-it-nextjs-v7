@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import ExpandedReview from '@/app/components/ExpandedReview'
 const page = ({ params }: { params: { id: string } }) => {

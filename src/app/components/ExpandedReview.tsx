@@ -7,15 +7,14 @@ import { iReview, iComment } from "../util/Interfaces";
 import { createCommentOnReview, createReplyOnComment, deleteComment, editComment, getReview } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 import CommentForm from "./CommentForm";
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useMemo, useState, useCallback, lazy, Suspense } from "react";
 import DisplayError from "./DisplayError";
 import ProductCard from "./ProductCard";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import CommentList from "./CommentList";
+const CommentList = lazy(() => import('./CommentList'));
 
-// export const dynamic = 'force-dynamic'
 const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const auth = useAuth();
   const queryClient = useQueryClient();
@@ -28,6 +27,8 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const { userId } = useAuth();
   const clerkUserId = userId as string;
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const mutations = useMutation({
     mutationFn: async (comment: iComment) => {
       const data = createCommentOnReview(comment);
@@ -38,7 +39,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       });
     },
     onMutate: (newData: iComment) => {
-      queryClient.setQueryData(["review"], (oldData: any) => {
+      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
         newData.reviewId = reviewId;
         newData.isDeleted = false;
         newData.user = currentUser;
@@ -61,13 +62,9 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         success: () => "Comment saved successfully!",
         error: "Error saving comment",
       });
-      // if (await data) {
-      //   queryClient.refetchQueries({ queryKey: ["review"] });
-      //   console.log("refetched with this data, the comment now has id", data);
-      // }
     },
     onMutate: (newData: iComment) => {
-      queryClient.setQueryData(["review"], (oldData: any) => {
+      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
         newData.reviewId = reviewId;
         newData.isDeleted = false;
         newData.user = currentUser;
@@ -91,11 +88,11 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         error: "Error saving reply",
       });
       if (await data) {
-        queryClient.refetchQueries({ queryKey: ["review"] });
+        queryClient.refetchQueries({ queryKey: ["review", reviewId] });
       }
     },
     onMutate: (newReply: iComment) => {
-      queryClient.setQueryData(["replies"], (oldData: any) => {
+      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
         let iReviewOldData: iReview = { ...oldData };
         const updatedComments = iReviewOldData.comments?.map(comment => {
           if (comment.id === newReply.parentId) {
@@ -134,7 +131,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     setTextAreaValue(newTextAreaValue);
     setIsOpen(!isOpen);
     commentMutation.mutate({ ...comment, body: newTextAreaValue });
-  }, [auth.isLoaded, auth.isSignedIn, router, isOpen, mutations, comment]);
+  }, [auth.isLoaded, auth.isSignedIn, router, isOpen, commentMutation, comment]);
 
   const productCardOptions = {
     showLatestReview: true,
@@ -146,7 +143,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const handleReply = useCallback(async (parentId: string, body: string) => {
     replyMutation.mutate({ ...comment, body, parentId });
     console.log("Reply mutation called");
-  }, [mutations, comment]);
+  }, [replyMutation, comment]);
 
   const handleEdit = async (commentId: string, body: string) => {
     editComment(commentId, body);
@@ -163,15 +160,18 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   }
 
   const { data, isPending, isError } = useQuery({
-    queryKey: ["review"],
+    queryKey: ["review", reviewId],
     queryFn: async () => {
+      setIsLoading(true);
       if (reviewAtom !== null) {
+        setIsLoading(false);
         return reviewAtom;
       }
       const data: any = await getReview(reviewId);
+      setIsLoading(false);
       return data.review;
     },
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -194,16 +194,20 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     ) || [];
   }, [data?.comments]);
 
-  if (isPending) return <LoadingSpinner />;
+  const reviewData = useMemo(() => {
+    return reviewAtom || data;
+  }, [reviewAtom, data]);
+
+  if (isPending || isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
-  if (!data) return null;
+  if (!reviewData) return null;
 
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
       <div className="mb-4">
-        <ProductCard product={data?.product!} options={productCardOptions} />
+        <ProductCard product={reviewData?.product!} options={productCardOptions} />
       </div>
-      <ReviewCard review={data} />
+      <ReviewCard review={reviewData} />
       <CommentForm
         onSubmit={handleCommentSubmit}
         isOpen={isOpen}
@@ -212,13 +216,15 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
       <div className="space-y-1 mt-2 gap-1 flex flex-col w-full justify-end items-end ">
         <h2>Comments</h2>
         {sortedComments.length > 0 ? (
-          <CommentList
-            clerkUserId={clerkUserId}
-            comments={sortedComments}
-            onReply={handleReply}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
+          <Suspense fallback={<LoadingSpinner />}>
+            <CommentList
+              clerkUserId={clerkUserId}
+              comments={sortedComments}
+              onReply={handleReply}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          </Suspense>
         ) : (
           <div>No comments yet</div>
         )}
