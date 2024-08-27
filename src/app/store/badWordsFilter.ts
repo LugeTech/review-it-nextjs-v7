@@ -11,7 +11,6 @@ export async function fetchBadWords(): Promise<string[]> {
 
 export async function createFilter(): Promise<Filter> {
   const badWords = await fetchBadWords();
-  console.log("this is list", badWords)
   const filter = new Filter();
   filter.addWords(...badWords);
   return filter;

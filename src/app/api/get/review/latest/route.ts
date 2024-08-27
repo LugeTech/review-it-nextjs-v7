@@ -1,9 +1,11 @@
+import { iReview } from "@/app/util/Interfaces";
 import { prisma } from "@/app/util/prismaClient";
+import { sanitizeDeletedCommentsInReviews } from "@/app/util/sanitizeDeletedComments";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const reviews = await prisma.review.findMany({
+    let reviews = await prisma.review.findMany({
       where: { isPublic: true },
       include: {
         user: true,
@@ -19,7 +21,10 @@ export async function POST(request: NextRequest) {
         createdDate: "desc",
       },
       take: 6,
-    });
+    }) as unknown;
+
+    const treatedReviews = sanitizeDeletedCommentsInReviews(reviews as iReview[]);
+    reviews = treatedReviews as iReview[];
 
     return NextResponse.json({
       success: true,

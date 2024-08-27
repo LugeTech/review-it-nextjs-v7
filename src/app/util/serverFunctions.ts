@@ -71,9 +71,10 @@ export const getReview = async (id: string) => {
     },
     body: JSON.stringify(body),
   }).then((res) => res.json());
-  if (data.reviews) {
-    const review = cleanReview(await filter, data.review as iReview);
-    return { ...data, review };
+  if (data.data) {
+    const review = cleanReview(await filter, data.data as iReview);
+    delete data.data;
+    return { review, ...data };
   }
   return data;
 };
@@ -95,10 +96,18 @@ export const getReviews = async (id: string) => {
     },
     body: JSON.stringify(body),
   }).then((res) => res.json());
-  if (data.reviews) {
-    const reviews = cleanReviews(await filter, data.reviews as iReview[]);
-    return { ...data, reviews };
+
+  if (data.data.treatedReviews) {
+    const reviews = cleanReviews(await filter, data.data.treatedReviews as iReview[]);
+    const newData = {
+      data: {
+        product: { ...data.data.product },
+        reviews,
+      }, success: true, status: 200
+    }
+    return newData
   }
+
   return data;
 };
 
@@ -109,9 +118,11 @@ export const getLatestReviews = async () => {
       "Content-Type": "application/json",
     },
   }).then((res) => res.json());
-  if (data.reviews) {
-    const reviews = cleanReviews(await filter, data.reviews as iReview[]);
-    return { ...data, reviews };
+  console.log("data", data.data);
+  if (data.data) {
+    const reviews = cleanReviews(await filter, data.data as iReview[]);
+    const clanedReviews = { ...data, reviews }
+    return clanedReviews;
   }
   return data;
 };
