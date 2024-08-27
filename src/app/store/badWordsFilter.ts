@@ -12,7 +12,9 @@ export async function fetchBadWords(): Promise<string[]> {
 export async function createFilter(): Promise<Filter> {
   const badWords = await fetchBadWords();
   const filter = new Filter();
-  filter.addWords(...badWords);
+  if (badWords.length > 0) {
+    filter.addWords(...badWords.map(word => word.toLowerCase()));
+  }
   return filter;
 }
 
