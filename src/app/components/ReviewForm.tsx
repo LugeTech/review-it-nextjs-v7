@@ -145,7 +145,7 @@ const ReviewForm = () => {
       setError("Please fill out all fields");
       return;
     }
-    if ((reviewData.body === "" || reviewData.body === null) && linksArray.length === 0 && videosArray.length === 0) {
+    if ((reviewData.body === "" || reviewData.body === null) && linksArray.length === 0 && reviewData.videos.length === 0) {
       setError((prevError) => (prevError = "Review body is empty"));
       setDisabled(false);
       return;
