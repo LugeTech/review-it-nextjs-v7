@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { currentReviewAtom, currentUserAtom } from "../store/store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { iReview, iComment } from "../util/Interfaces";
-import { createCommentOnReview, createReplyOnComment, deleteComment, editComment, getReview } from "../util/serverFunctions";
+import { createCommentOnReview, createReplyOnComment, deleteComment, editComment, getReview, getReviews } from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 import CommentForm from "./CommentForm";
 import { useEffect, useMemo, useState, useCallback, lazy, Suspense } from "react";
@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 const CommentList = lazy(() => import('./CommentList'));
 
-const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
+const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: string }) => {
   const auth = useAuth();
   const queryClient = useQueryClient();
   const [reviewAtom] = useAtom(currentReviewAtom);
@@ -26,6 +26,7 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   const router = useRouter();
   const { userId } = useAuth();
   const clerkUserId = userId as string;
+  const [allReviews, setAllReviews] = useState<iReview[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -159,6 +160,8 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
     };
   }
 
+  // FIX: Proposed optimazation - get all reviews for this roduct here - filter for the specific one to display - pass all reviews to productCrad
+  // FIX: exp will need to take in productId and reviewId
   const { data, isPending, isError } = useQuery({
     queryKey: ["review", reviewId],
     queryFn: async () => {
@@ -167,9 +170,11 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
         setIsLoading(false);
         return reviewAtom;
       }
-      const data: any = await getReview(reviewId);
+      const data: any = await getReviews(productId);
       setIsLoading(false);
-      return data.review;
+      console.log(data);
+      setAllReviews(data.data.reviews);
+      return data.data.reviews.find((review: iReview) => review.id === reviewId);
     },
     refetchOnWindowFocus: false,
   });
@@ -201,11 +206,11 @@ const ExpandedReview = ({ reviewId }: { reviewId: string }) => {
   if (isPending || isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
   if (!reviewData) return null;
-
+  // productcard makes it's own query for all the reviews for this product
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
-      <div className="mb-4">
-        <ProductCard product={reviewData?.product!} options={productCardOptions} />
+      <div className="mb-4 w-full">
+        <ProductCard product={reviewData?.product!} options={productCardOptions} reviews={allReviews} />
       </div>
       <ReviewCard review={reviewData} />
       <CommentForm
