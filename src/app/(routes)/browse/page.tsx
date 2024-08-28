@@ -35,6 +35,7 @@ const Page = () => {
   if (isError) return <p>{error?.toString()}</p>;
 
   const products: iProduct[] | undefined = data?.data as iProduct[];
+  console.log(products);
 
   const filteredProducts = products.filter((product) => {
     if (product.reviews !== undefined) {
