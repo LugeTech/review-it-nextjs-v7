@@ -50,17 +50,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const currentProduct =
     reviews && reviews.length > 0 ? reviews[0].product : product;
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["reviews", currentProduct?.id],
-    queryFn: () => getReviews(currentProduct?.id!),
-    refetchOnWindowFocus: false,
-    enabled: !!currentProduct && !reviews,
-  }) as any;
 
-  const allReviews = reviews || data?.data.reviews || [];
+  //   queryFn: () => getReviews(currentProduct?.id!),
+  //   refetchOnWindowFocus: false,
+  //   enabled: !!currentProduct && !reviews,
+  // }) as any;
 
-  if (isLoading) return <LoadingSpinner />;
-  if (isError) return <p className="text-red-500 text-sm">{error.message}</p>;
+  const allReviews = reviews as iReview[]
+
+  // if (isLoading) return <LoadingSpinner />;
+  // if (isError) return <p className="text-red-500 text-sm">{error.message}</p>;
 
   const ratingResult = calculateAverageReviewRating(allReviews);
 

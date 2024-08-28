@@ -59,6 +59,7 @@ export const getUser = async () => {
 };
 
 export const getReview = async (id: string) => {
+  console.log("get one review")
   const body = {
     id,
   };
@@ -76,6 +77,7 @@ export const getReview = async (id: string) => {
 };
 
 export const getReviews = async (id: string) => {
+  console.log("get reviews running")
   const body = {
     id,
     isPublic: true,
@@ -114,7 +116,6 @@ export const getLatestReviews = async () => {
       "Content-Type": "application/json",
     },
   }).then((res) => res.json());
-  console.log("data", data.data);
   const reviews = data.data as iReview[]
   return { ...data, reviews };
 };
