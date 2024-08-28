@@ -47,16 +47,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
   options,
   product,
 }) => {
+  if (!product) return <div>No product or reviews found</div>;
   const currentProduct =
     reviews && reviews.length > 0 ? reviews[0].product : product;
 
+  console.log(currentProduct);
 
   //   queryFn: () => getReviews(currentProduct?.id!),
   //   refetchOnWindowFocus: false,
   //   enabled: !!currentProduct && !reviews,
   // }) as any;
 
-  const allReviews = reviews as iReview[]
+  const allReviews = product.reviews || reviews as iReview[]
 
   // if (isLoading) return <LoadingSpinner />;
   // if (isError) return <p className="text-red-500 text-sm">{error.message}</p>;
