@@ -3,6 +3,7 @@ import { iProduct } from "@/app/util/Interfaces";
 import { NextRequest, NextResponse } from "next/server";
 import { allowedDomains } from "@/lib/allowedDomains";
 import { checkReferer } from "@/lib/checkReferrer";
+import { sanitizeTags } from "@/app/util/sanitizeTags";
 
 export async function POST(request: NextRequest) {
   const referer = request.headers.get("referer") as string;
@@ -30,6 +31,10 @@ export async function POST(request: NextRequest) {
         createdDate: "desc",
       },
     })) as unknown as iProduct[];
+
+    products.forEach((product) => {
+      sanitizeTags(product);
+    });
 
     return NextResponse.json({
       success: true,
