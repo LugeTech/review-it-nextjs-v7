@@ -2,7 +2,7 @@
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
 import ExpandedReview from '@/app/components/ExpandedReview'
-const page = ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: { id: string } }) => {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
   const productId = searchParams.get('productId')
@@ -13,4 +13,4 @@ const page = ({ params }: { params: { id: string } }) => {
   )
 }
 
-export default page
+export default Page
