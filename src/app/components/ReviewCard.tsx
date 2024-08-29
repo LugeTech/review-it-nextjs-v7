@@ -139,7 +139,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
               />
             )}
           </div>
-          <Link href={`/fr/${review.id}`} onClick={() => setReview(review)}>
+          <Link href={`/fr?id=${review.id}&productid=${review.productId}`} onClick={() => setReview(review)}>
             <span className="text-sm text-blue-600  hover:underline">
               {comments?.length > 0
                 ? `${comments?.length} comments`

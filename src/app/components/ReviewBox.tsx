@@ -72,7 +72,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
               {dayjs(review?.createdDate?.toString()).format("MMMM D, YYYY h:mm A")}
             </p>
             <Link
-              href={`/fr?id=${review?.id}&productId=${review?.product?.id}`}
+              href={`/fr?id=${review?.id}&productid=${review?.product?.id}`}
               className="bg-blue-600 text-white hover:bg-blue-700 px-3 py-1 rounded transition-colors duration-200"
             >
               View review
