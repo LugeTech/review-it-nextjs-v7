@@ -88,9 +88,9 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
         success: () => "Reply saved successfully!",
         error: "Error saving reply",
       });
-      if (await data) {
-        queryClient.refetchQueries({ queryKey: ["review", reviewId] });
-      }
+      // if (await data) {
+      //   queryClient.refetchQueries({ queryKey: ["review", reviewId] });
+      // }
     },
     onMutate: (newReply: iComment) => {
       queryClient.setQueryData(["review", reviewId], (oldData: any) => {
