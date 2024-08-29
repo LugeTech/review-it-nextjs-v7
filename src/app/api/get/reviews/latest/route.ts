@@ -26,7 +26,13 @@ export async function POST(request: NextRequest) {
     }) as unknown;
 
     const treatedReviews = sanitizeDeletedCommentsInReviews(reviews as iReview[]);
-    reviews = cleanReviews(await filter, treatedReviews);
+    let cleanedReviews;
+    try {
+      cleanedReviews = cleanReviews(await filter, treatedReviews);
+    } catch {
+      cleanedReviews = treatedReviews;
+    }
+    reviews = cleanedReviews;
 
     return NextResponse.json({
       success: true,

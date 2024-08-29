@@ -29,16 +29,16 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const reviews = data?.data.reviews as iReview[];
+  const product = data.data.product as iProduct;
 
   if (reviews.length === 0) {
-    const productIfNoReviews = data.data.product as iProduct;
     return (
       <div className="flex flex-col w-full h-full p-2  sm:pt-8 ">
-        <div className="flex w-full md:w-1/2 mx-auto ">
+        <div className="flex w-full md:max-w-5xl mx-auto ">
           <ProductCardExtended
             options={productCardOptions}
             reviews={reviews}
-            product={productIfNoReviews}
+            product={product}
           />
         </div>
         <Link
@@ -56,7 +56,7 @@ const Reviews = ({ productId }: { productId: string }) => {
         <ProductCard
           reviews={reviews}
           options={productCardOptions}
-          product={null}
+          product={product}
         />
       </div>
       <div className="flex flex-col md:w-1/2 md:flex-row w-full mx-auto justify-center items-center ">

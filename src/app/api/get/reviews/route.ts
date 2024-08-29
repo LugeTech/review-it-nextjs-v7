@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
   const body: Body = await request.json();
 
   try {
-    const reviews = await prisma.review.findMany({
+    let reviews = await prisma.review.findMany({
       where: { isPublic: body.isPublic, productId: body.id },
       orderBy: {
         createdDate: "desc",
@@ -35,24 +35,29 @@ export async function POST(request: NextRequest) {
         voteCount: true,
         likedBy: true,
       },
-    });
+    }) as iReview[];
 
     let product = null;
 
     // If no reviews found, fetch the product details
-    if (reviews.length === 0) {
-      product = await prisma.product.findUnique({
-        where: { id: body.id },
-      });
-    }
+    // FIX: I would like to only fetch the product if there is no reviews. check if there is a product in an atom on front end
+    // if (reviews.length === 0) {
+    product = await prisma.product.findUnique({
+      where: { id: body.id },
+    });
+    // }
     let treatedReviews = sanitizeDeletedCommentsInReviews(reviews as iReview[]);
-    treatedReviews = cleanReviews(await filter, treatedReviews);
-
+    try {
+      treatedReviews = cleanReviews(await filter, treatedReviews);
+    } catch {
+      treatedReviews = treatedReviews;
+    }
+    reviews = treatedReviews as iReview[];
     return NextResponse.json({
       success: true,
       status: 200,
       data: {
-        treatedReviews,
+        reviews,
         product,
       },
     });
