@@ -69,37 +69,33 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   const hasUserLiked = likedData.some((user) => user.id === userInDbId);
 
   return (
-    <div className="bg-white  rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl">
-      <div className="flex flex-col p-6">
-        <div className="flex items-center justify-start">
-          <Link href={`/userprofile/${review.user?.id}`} className="w-full flex items-center">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl">
+      <div className="flex flex-col p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4">
+          <Link href={`/userprofile/${review.user?.id}`} className="flex items-center w-full sm:w-auto">
             <Image
               src={user?.avatar || "/logo.png"}
               alt={user?.id!}
               width={60}
               height={60}
-              className="rounded object-cover"
+              className="rounded-full object-cover w-12 h-12 sm:w-14 sm:h-14"
             />
-            <div className="flex h-full w-full justify-start">
-              <div className="flex flex-col">
-                <div className="ml-4">
-                  <p className="font-semibold text-base ">@{user?.userName}</p>
-                  <div className="flex items-center">
-                    <RatingModule
-                      name={review.id!}
-                      rating={rating}
-                      ratingChanged={() => { }}
-                      size="rating-sm"
-                    />
-                  </div>
-                  <div className="ml-2 text-xs text-gray-600 ">
-                    {dayjs(createdDate?.toString()).format("MMMM D, YYYY")}
-                  </div>
-                </div>
+            <div className="ml-3 sm:ml-4">
+              <p className="font-semibold text-base">@{user?.userName}</p>
+              <div className="flex items-center">
+                <RatingModule
+                  name={review.id!}
+                  rating={rating}
+                  ratingChanged={() => { }}
+                  size="rating-sm"
+                />
+              </div>
+              <div className="text-xs text-gray-600">
+                {dayjs(createdDate?.toString()).format("MMMM D, YYYY")}
               </div>
             </div>
           </Link>
-          <div className="flex w-full items-center">
+          <div className="mt-2 sm:mt-0">
             <ReviewStats review={review} setReview={() => { setReview(review) }} />
           </div>
         </div>
@@ -109,20 +105,20 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
           onClick={() => setReview(review)}
           className="block mb-3 hover:underline"
         >
-          <h2 className="text-xl font-bold text-gray-900 ">{title}</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">{title}</h2>
         </Link>
         <div
-          className="text-gray-700  mb-1"
+          className="text-sm sm:text-base text-gray-700 mb-3"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(formattedBody),
           }}
         />
-        <div className="flex  items-center justify-center w-full ">
+        <div className="mb-3">
           {images && images.length > 0 && (
             <ImageGallery images={images} />
           )}
         </div>
-        <div className="flex items-center justify-center">
+        <div className="mb-3">
           <VideoEmbed url={review.videos[0]} />
         </div>
         <div className="flex items-center justify-between">
@@ -140,7 +136,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
             )}
           </div>
           <Link href={`/fr?id=${review.id}&productid=${review.productId}`} onClick={() => setReview(review)}>
-            <span className="text-sm text-blue-600  hover:underline">
+            <span className="text-sm text-blue-600 hover:underline">
               {comments?.length > 0
                 ? `${comments?.length} comments`
                 : "Add comment"}

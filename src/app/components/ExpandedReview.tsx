@@ -160,8 +160,6 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
     };
   }
 
-  // FIX: Proposed optimazation - get all reviews for this roduct here - filter for the specific one to display - pass all reviews to productCrad
-  // FIX: exp will need to take in productId and reviewId
   const { data, isPending, isError } = useQuery({
     queryKey: ["review", reviewId],
     queryFn: async () => {

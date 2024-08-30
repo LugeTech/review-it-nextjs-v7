@@ -121,7 +121,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <p className="text-xs sm:text-sm text-gray-600 break-words">
             {currentProduct?.address}
           </p>
-          <p className="text-xs text-gray-500 mt-1 line-clamp-10 break-words">
+          <p className="text-sm text-gray-500 mt-1 line-clamp-10 break-words">
             {currentProduct?.description}
           </p>
           <div className="mt-2 flex items-center space-x-2">
