@@ -81,16 +81,16 @@ const ArrangeByPanel = ({
             </button>
           </div>
         )}
-      {/* <div className="flex flex-col w-full"> */}
-      {/*   {uniqueTags.map((tag) => ( */}
-      {/*     <TagView */}
-      {/*       tag={tag} */}
-      {/*       key={tag} */}
-      {/*       onClick={() => handleTagClick(tag)} */}
-      {/*       isSelected={selectedTags.includes(tag)} */}
-      {/*     /> */}
-      {/*   ))} */}
-      {/* </div> */}
+      <div className="flex flex-col w-full">
+        {uniqueTags.map((tag) => (
+          <TagView
+            tag={tag}
+            key={tag}
+            onClick={() => handleTagClick(tag)}
+            isSelected={selectedTags.includes(tag)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
