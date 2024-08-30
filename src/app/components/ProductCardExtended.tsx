@@ -2,9 +2,7 @@
 import { iProduct, iReview } from "@/app/util/Interfaces";
 import Image from "next/legacy/image";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
-import { useState } from "react";
 import Link from "next/link";
-// import YesNoAlert from './YesNoAlert';
 import { useQuery } from "@tanstack/react-query";
 import { getReviews } from "../util/serverFunctions";
 import { calculateAverageReviewRating } from "../util/calculateAverageReviewRating";
@@ -21,19 +19,26 @@ interface ProductCardProps {
   };
   product?: iProduct | null;
 }
+
 interface iCalculatedRating {
   roundedRating: number;
   roundedRatingOneDecimalPlace: number;
   numberOfReviews: number;
 }
 
+const ratingColors = {
+  1: "bg-red-500",
+  2: "bg-orange-500",
+  3: "bg-yellow-500",
+  4: "bg-lime-500",
+  5: "bg-green-500",
+};
+
 const ProductCardExtended: React.FC<ProductCardProps> = ({
   reviews,
   options,
   product,
 }) => {
-  const [showModal, setShowModal] = useState(false);
-
   const currentProduct =
     reviews && reviews.length > 0 ? reviews[0].product : product;
 
@@ -45,7 +50,6 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
   }) as any;
 
   const allReviews = reviews || data?.data.reviews || [];
-  // const totalComments = allReviews.reduce((accumulator, review) => accumulator + review.comments.length, 0);
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error.message}</p>;
@@ -53,104 +57,76 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } =
     calculateAverageReviewRating(allReviews) as unknown as iCalculatedRating;
 
-  let dynamicStyles: any = {};
-  if (roundedRating >= 4) {
-    dynamicStyles.backgroundColor = "#00FF00";
-    dynamicStyles.color = "#006400";
-  } else if (roundedRating === 3) {
-    dynamicStyles.backgroundColor = "#FFFF00";
-    dynamicStyles.color = "#000000";
-  } else if (roundedRating <= 2) {
-    dynamicStyles.backgroundColor = "#FF0000";
-    dynamicStyles.color = "#FFFFFF";
-  }
-
   return (
-    <div className="flex flex-col w-full rounded-lg shadow-md p-4 bg-white">
-      <div className="flex flex-row">
-        <Link href={`/reviews?id=${currentProduct?.id}`} className=" w-full">
-          <div className="flex justify-start items-center gap-2 w-full">
-            {currentProduct?.display_image && (
-              <div className=" flex items-start justify-start">
-                <Image
-                  src={currentProduct.display_image}
-                  alt={`${currentProduct.name} Image`}
-                  className=" rounded-lg w-24 h-24 object-cover"
-                  width={96}
-                  height={96}
-                />
-              </div>
-            )}
-            <div className="mb-2 flex flex-col gap-2">
-              <div className="flex flex-col">
-                <p className="text-base md:text-xl font-semibold ">
-                  {currentProduct?.name}
-                </p>
-                <p className="text-xs md:text-sm text-gray-700">
-                  {currentProduct?.address}
-                </p>
-                <p className="text-xs md:text-sm text-gray-700">
-                  {currentProduct?.description}
-                </p>
-              </div>
-              {allReviews.length > 0 ? (
+    <div className="w-full border border-gray-200 bg-white p-2 sm:p-3 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
+      <Link
+        href={`/reviews?id=${currentProduct?.id}`}
+        className="flex flex-col sm:flex-row items-start sm:space-x-3"
+      >
+        {currentProduct?.display_image && (
+          <div className="flex-shrink-0 w-full sm:w-auto mb-2 sm:mb-0">
+            <Image
+              src={currentProduct.display_image}
+              alt={`${currentProduct.name} Image`}
+              width={64}
+              height={64}
+              className="rounded-md object-cover w-full sm:w-16 h-16"
+            />
+          </div>
+        )}
+        <div className="flex flex-col min-w-0 w-full">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 break-words">
+            {currentProduct?.name}
+          </h2>
+          <p className="text-xs sm:text-sm text-gray-600 break-words">
+            {currentProduct?.address}
+          </p>
+          <p className="text-xs text-gray-500 mt-1 line-clamp-10 break-words">
+            {currentProduct?.description}
+          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            {allReviews.length > 0 ? (
+              <>
+                <span
+                  className={`px-2 py-1 rounded-full text-xs font-medium text-white ${ratingColors[roundedRating as keyof typeof ratingColors]
+                    }`}
+                >
+                  {roundedRatingOneDecimalPlace}
+                </span>
                 <RatingModuleReadOnly
                   name={currentProduct?.id!}
-                  rating={roundedRating!}
+                  rating={roundedRating}
                   size={options.size}
                 />
-              ) : (
-                "No ratings yet"
-              )}
-              <div className="flex gap-1 text-xs md:text-base">
-                <span
-                  className={`mr-0 rounded flex items-start `}
-                  style={dynamicStyles}
-                >
-                  {allReviews.length > 0 ? (
-                    <>
-                      {roundedRatingOneDecimalPlace!}
-                      {`(${numberOfReviews!} reviews)`}
-                    </>
-                  ) : (
-                    "No Reviews"
-                  )}
+                <span className="text-xs text-gray-500">
+                  ({numberOfReviews} reviews)
                 </span>
-                {allReviews.length === 0 && (
-                  <Link
-                    href={`/cr/?id=${currentProduct?.id}&rating=3`}
-                    className="hover:underline p-0 "
-                  >
-                    write first review
-                  </Link>
-                )}
-              </div>
-            </div>
+              </>
+            ) : (
+              <span className="text-xs text-gray-500">No Reviews Yet</span>
+            )}
           </div>
-        </Link>
+        </div>
+      </Link>
+      <div className="mt-3 flex flex-wrap items-center justify-between text-xs gap-2">
         <VerticalLinks />
-      </div>
-      <div className="flex text-xs md:text-base justify-between items-center border-t-2">
-        {options.showClaimThisProduct && (
-          <p className="text-gray-400 hover:underline ">
-            {"Claim this product"}
-          </p>
-        )}
-        <div
-          id="reviews_operations_div"
-          className="flex flex-row justify-end items-center "
-        >
+        <div className="flex gap-2">
+          {options.showClaimThisProduct && (
+            <button className="text-blue-600 hover:underline">
+              Claim Product
+            </button>
+          )}
           {options.showWriteReview ? (
-            <p className="text-gray-400">
-              <Link
-                href={`/cr/?id=${currentProduct?.id}&rating=3`}
-                className="text-gray-400 hover:underline"
-              >
-                Write First Review
-              </Link>
-            </p>
+            <Link
+              href={`/cr/?id=${currentProduct?.id}&rating=3`}
+              className="text-blue-600 hover:underline"
+            >
+              Write Review
+            </Link>
           ) : (
-            ""
+            <button className="text-red-600 hover:underline">
+              Report Product
+            </button>
           )}
         </div>
       </div>

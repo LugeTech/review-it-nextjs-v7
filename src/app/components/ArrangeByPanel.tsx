@@ -72,25 +72,25 @@ const ArrangeByPanel = ({
       {(searchTerm.length > 0 ||
         selectedRating !== null ||
         selectedTags.length > 0) && (
-        <div className="flex w-full">
-          <button
-            className="btn btn-outline btn-primary"
-            onClick={handleClearAll}
-          >
-            Clear
-          </button>
-        </div>
-      )}
-      <div className="flex flex-col w-full">
-        {uniqueTags.map((tag) => (
-          <TagView
-            tag={tag}
-            key={tag}
-            onClick={() => handleTagClick(tag)}
-            isSelected={selectedTags.includes(tag)}
-          />
-        ))}
-      </div>
+          <div className="flex w-full">
+            <button
+              className="btn btn-outline btn-primary"
+              onClick={handleClearAll}
+            >
+              Clear
+            </button>
+          </div>
+        )}
+      {/* <div className="flex flex-col w-full"> */}
+      {/*   {uniqueTags.map((tag) => ( */}
+      {/*     <TagView */}
+      {/*       tag={tag} */}
+      {/*       key={tag} */}
+      {/*       onClick={() => handleTagClick(tag)} */}
+      {/*       isSelected={selectedTags.includes(tag)} */}
+      {/*     /> */}
+      {/*   ))} */}
+      {/* </div> */}
     </div>
   );
 };

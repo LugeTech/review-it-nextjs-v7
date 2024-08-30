@@ -101,7 +101,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <div className="w-full border border-gray-200 bg-white p-3 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
       <Link
         href={`/reviews?id=${currentProduct?.id}`}
-        className="flex items-start space-x-3"
+        className="flex flex-col md:flex-row items-start md:space-x-3"
       >
         {currentProduct?.display_image && (
           <div className="flex-shrink-0">
@@ -115,13 +115,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         )}
         <div className="flex-grow min-w-0">
-          <h2 className="text-lg font-semibold text-gray-900 truncate">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 break-words">
             {currentProduct?.name}
           </h2>
-          <p className="text-sm text-gray-600 truncate">
+          <p className="text-xs sm:text-sm text-gray-600 break-words">
             {currentProduct?.address}
           </p>
-          <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+          <p className="text-xs text-gray-500 mt-1 line-clamp-10 break-words">
             {currentProduct?.description}
           </p>
           <div className="mt-2 flex items-center space-x-2">

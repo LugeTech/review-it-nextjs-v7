@@ -7,9 +7,8 @@ interface iTagViewProps {
 const TagView = ({ tag, isSelected, onClick }: iTagViewProps) => {
   return (
     <div
-      className={`flex items-center gap-2 cursor-pointer hover:bg-myTheme-primary hover:text-myTheme-dark rounded-md px-2 py-1 ${
-        isSelected ? "bg-myTheme-primary text-myTheme-dark" : ""
-      }`}
+      className={`flex items-center gap-2 cursor-pointer hover:bg-myTheme-primary hover:text-myTheme-dark rounded-md px-2 py-1 ${isSelected ? "bg-myTheme-primary text-myTheme-dark" : ""
+        }`}
       onClick={onClick}
     >
       <input
@@ -19,7 +18,7 @@ const TagView = ({ tag, isSelected, onClick }: iTagViewProps) => {
         className="w-4 h-4"
         readOnly
       />
-      <span>{tag}</span>
+      <span className="text-sm break-words">{tag}</span>
     </div>
   );
 };

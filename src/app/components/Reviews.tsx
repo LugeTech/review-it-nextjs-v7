@@ -33,7 +33,7 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (reviews.length === 0) {
     return (
       <div className="flex flex-col w-full h-full p-2  sm:pt-8 ">
-        <div className="flex w-full md:max-w-5xl mx-auto ">
+        <div className="flex w-full md:max-w-5xl md:mx-auto ">
           <ProductCardExtended
             options={productCardOptions}
             reviews={reviews}
