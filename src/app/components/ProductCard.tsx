@@ -86,7 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   } else if (typeof ratingResult === "number") {
     roundedRating = ratingResult;
     roundedRatingOneDecimalPlace = ratingResult.toFixed(1);
-    numberOfReviews = allReviews.length;
+    numberOfReviews = allReviews?.length;
   }
 
   const ratingColors = {
@@ -125,7 +125,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             {currentProduct?.description}
           </p>
           <div className="mt-2 flex items-center space-x-2">
-            {allReviews.length > 0 ? (
+            {allReviews?.length > 0 ? (
               <>
                 <span
                   className={`px-2 py-1 rounded-full text-xs font-medium text-white ${ratingColors[roundedRating as keyof typeof ratingColors]
