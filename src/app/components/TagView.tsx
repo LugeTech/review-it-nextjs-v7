@@ -7,7 +7,7 @@ interface iTagViewProps {
 const TagView = ({ tag, isSelected, onClick }: iTagViewProps) => {
   return (
     <div
-      className={`flex items-center gap-2 cursor-pointer hover:bg-myTheme-primary hover:text-myTheme-dark rounded-md px-2 py-1 ${isSelected ? "bg-myTheme-primary text-myTheme-dark" : ""
+      className={`flex items-start gap-2 cursor-pointer hover:bg-myTheme-primary hover:text-myTheme-dark rounded-md p-2 max-w-full ${isSelected ? "bg-myTheme-primary text-myTheme-dark" : ""
         }`}
       onClick={onClick}
     >
@@ -15,10 +15,10 @@ const TagView = ({ tag, isSelected, onClick }: iTagViewProps) => {
         type="checkbox"
         checked={isSelected}
         value={tag}
-        className="w-4 h-4"
+        className="flex-shrink-0 w-4 h-4 mt-0.5"
         readOnly
       />
-      <span className="text-sm break-words">{tag}</span>
+      <span className="text-xs sm:text-base break-all overflow-hidden">{tag}</span>
     </div>
   );
 };
