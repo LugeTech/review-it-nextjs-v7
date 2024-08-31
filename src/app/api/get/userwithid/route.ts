@@ -9,8 +9,16 @@ export async function POST(request: NextRequest) {
         id: userId,
       },
       include: {
-        comments: true,
-        reviews: true,
+        comments: {
+          include: {
+            review: true,
+          },
+        },
+        reviews: {
+          include: {
+            product: true,
+          },
+        },
         likedReviews: true,
       },
     });

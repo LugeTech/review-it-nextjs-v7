@@ -18,8 +18,6 @@ const TopReviews = () => {
   let reviews = data?.reviews as iReview[];
 
   if (isLoading) return <LoadingSpinner />;
-  console.log("this is data", data)
-  console.log("this is reviews", reviews)
 
   return (
     <div className="flex flex-col w-full h-full justify-center items-center  ">

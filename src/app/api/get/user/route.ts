@@ -57,8 +57,16 @@ export async function GET(request: NextRequest) {
           id: idFromPublicMetaData,
         },
         include: {
-          comments: true,
-          reviews: true,
+          comments: {
+            include: {
+              review: true,
+            },
+          },
+          reviews: {
+            include: {
+              product: true,
+            },
+          },
           likedReviews: true,
         },
       });

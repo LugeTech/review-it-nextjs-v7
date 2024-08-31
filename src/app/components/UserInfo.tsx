@@ -1,122 +1,136 @@
-import React from "react";
-import { iUser } from "@/app/util/Interfaces";
-import Image from "next/legacy/image";
-import Link from "next/link";
-
+import React, { useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Input } from "@/components/ui/input"
+import { MessageCircle, ThumbsUp, FileText, Search } from "lucide-react"
+import { iUser } from "../util/Interfaces"
+import dayjs from "dayjs"
+import relativeTime from 'dayjs/plugin/relativeTime'
 interface UserInfoProps {
-  user: iUser;
+  user: iUser
 }
 
-const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
-  const { firstName, lastName, avatar, reviews, comments, likedReviews } = user;
+export default function UserInfo({ user }: UserInfoProps) {
+  const { firstName, lastName, avatar, reviews, comments, likedReviews } = user
+  const [activeTab, setActiveTab] = useState("reviews")
+  const [searchTerm, setSearchTerm] = useState("")
+  dayjs.extend(relativeTime)
+  const filteredReviews = reviews?.filter((review) =>
+    review.title.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+  const filteredComments = comments?.filter((comment) =>
+    comment.body.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+  const filteredLikes = likedReviews?.filter((liked) => {
+    const likedReviews = liked.title.toLowerCase().includes(searchTerm.toLowerCase()) && liked.userId !== user.id
+    return likedReviews
+  })
 
   return (
-    <div className="overflow-hidden rounded-lg bg-white shadow-lg ">
-      <div className="relative h-48 bg-gradient-to-r from-myTheme-primary to-myTheme-secondary ">
-        <div className="bg-pattern absolute inset-0 bg-opacity-25"></div>
-        <div className="relative flex h-full items-center justify-center">
-          {avatar && (
-            <div className="relative h-32 w-32 overflow-hidden rounded-full ring-2 ring-white ">
-              <Image
-                src={avatar}
-                alt={firstName}
-                className="object-cover"
-                layout="fill"
-              />
-            </div>
-          )}
+    <Card className="w-full max-w-4xl mx-auto">
+      <CardHeader className="relative h-48 sm:h-64 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-75" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Avatar className="h-32 w-32 sm:h-40 sm:w-40 border-4 border-background">
+            <AvatarImage src={avatar} alt={`${firstName} ${lastName}`} />
+            <AvatarFallback>{`${firstName[0]}${lastName[0]}`}</AvatarFallback>
+          </Avatar>
         </div>
-      </div>
-
-      <div className="p-6 md:p-8 lg:p-10">
-        <div className="mb-6 text-center">
-          <h2 className="text-2xl font-bold text-gray-800  md:text-3xl lg:text-4xl">
-            {`${firstName} ${lastName}`}
-          </h2>
-          <p className="text-gray-600 ">
-            @{firstName.toLowerCase()}
-          </p>
+      </CardHeader>
+      <CardContent className="pt-4 sm:pt-6">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold sm:text-3xl">{`${firstName} ${lastName}`}</h2>
+          <p className="text-muted-foreground">@{firstName.toLowerCase()}</p>
         </div>
 
-        <div className="mb-6 md:mb-8 lg:mb-10">
-          <h3 className="mb-2 text-lg font-semibold text-gray-800  md:text-xl lg:text-2xl">
-            Reviews
-          </h3>
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {reviews?.map((review) => (
-              <li
-                key={review.id}
-                className="rounded-lg bg-gray-100 p-4 text-gray-600 "
-              >
-                <Link
-                  href={`/fr/${review.id}`}
-                  className="text-myTheme-primary transition duration-200 hover:text-myTheme-accent hover:underline "
-                >
-                  {review.title}
-                </Link>
-                <span className="mt-1 block text-gray-500 ">
-                  4 Comments
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Tabs defaultValue="reviews" className="w-full" onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-3 mb-4">
+            <TabsTrigger value="reviews">
+              <FileText className="h-4 w-4 mr-2" />
+              Reviews
+            </TabsTrigger>
+            <TabsTrigger value="comments">
+              <MessageCircle className="h-4 w-4 mr-2" />
+              Comments
+            </TabsTrigger>
+            <TabsTrigger value="likes">
+              <ThumbsUp className="h-4 w-4 mr-2" />
+              Likes
+            </TabsTrigger>
+          </TabsList>
 
-        <div className="mb-6 md:mb-8 lg:mb-10">
-          <h3 className="mb-2 text-lg font-semibold text-gray-800  md:text-xl lg:text-2xl">
-            Comments
-          </h3>
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {comments?.map((comment) => (
-              <li
-                key={comment.id}
-                className="rounded-lg bg-gray-100 p-4 text-gray-600 "
-              >
-                <Link
-                  href={`/fr/${comment.reviewId}`}
-                  className="text-indigo-500 transition duration-200 hover:text-indigo-600 hover:underline "
-                >
-                  {comment.body.slice(0, 40)}...
-                </Link>
-                <span className="mt-1 block text-gray-500 ">
-                  16 Likes
-                </span>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4 flex justify-center">
-            {/* Pagination */}
-            {/* Same as above */}
+          <div className="relative mb-4">
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder={`Search ${activeTab}...`}
+              className="pl-8"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-        </div>
 
-        <div>
-          <h3 className="mb-2 text-lg font-semibold text-gray-800  md:text-xl lg:text-2xl">
-            Likes
-          </h3>
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {likedReviews?.map((liked) => (
-              <li
-                key={liked.id}
-                className="rounded-lg bg-gray-100 p-4 text-gray-600 "
-              >
-                <Link
-                  href={`/fr/${liked.id}`}
-                  className="text-indigo-500 transition duration-200 hover:text-indigo-600 hover:underline "
-                >
-                  {liked.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4 flex justify-center">
-            {/* Pagination */}
-            {/* Same as above */}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default UserInfo;
+          <TabsContent value="reviews">
+            <ScrollArea className="h-[300px] w-full rounded-md border p-4">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredReviews.map((review) => (
+                  <Link key={review.id} href={`/fr?id=${review.id}&productid=${review.productId}`} className="block">
+                    <Card>
+                      <CardContent className="p-4">
+                        <Image src={review.product?.display_image || ""} alt={review.title} width={40} height={40} />
+                        <p className="font-medium">{review.title}</p>
+                        <div className="flex justify-between">
+                          <p className="text-sm text-muted-foreground mt-1">{dayjs(review.createdDate).fromNow()}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{review.comments?.length} Comments</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </ScrollArea>
+          </TabsContent>
+          <TabsContent value="comments">
+            <ScrollArea className="h-[300px] w-full rounded-md border p-4">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredComments.map((comment) => (
+                  <Link key={comment.id} href={`/fr?id=${comment.review.id}&productid=${comment.review.productId}`} className="block">
+                    <Card>
+                      <CardContent className="p-4">
+                        <p className="line-clamp-3">{comment.body}</p>
+                        <div className="flex justify-between">
+                          <p className="text-xs font-extralight  mt-1">{dayjs(comment.createdDate).fromNow()}</p>
+                          <p className="text-xs font-extralight ">{comment.replies?.length || "No"} Replies</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </ScrollArea>
+          </TabsContent>
+          <TabsContent value="likes">
+            <ScrollArea className="h-[300px] w-full rounded-md border p-4">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredLikes.map((liked) => (
+                  <Link key={liked.id} href={`/fr?id=${liked.id}&productid=${liked.productId}`} className="block">
+                    <Card>
+                      <CardContent className="p-4">
+                        <p className="font-medium">{liked.title}</p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </ScrollArea>
+          </TabsContent>
+        </Tabs>
+      </CardContent>
+    </Card>
+  )
+}
