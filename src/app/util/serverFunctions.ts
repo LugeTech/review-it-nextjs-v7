@@ -1,5 +1,4 @@
 import { iComment, iProduct, iReview } from "@/app/util/Interfaces";
-import { apiUrl } from "./apiUrl";
 
 interface helpfulData {
   reviewId: string;
