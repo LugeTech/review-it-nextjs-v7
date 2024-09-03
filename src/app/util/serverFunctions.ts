@@ -10,7 +10,7 @@ export const updateHelpfulVote = async (data: helpfulData) => {
     reviewId: data.reviewId,
     userId: data.userInDbId,
   };
-  const response = await fetch(`${apiUrl}/update/helpful`, {
+  const response = await fetch(`/api/update/helpful`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const deleteComment = async (id: string) => {
   const body = {
     id: id
   };
-  const response = await fetch(`${apiUrl}/delete/comment`, {
+  const response = await fetch(`/api/delete/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export const deleteComment = async (id: string) => {
 };
 
 export const getUserWithId = async (userId: string) => {
-  const user = await fetch(`${apiUrl}/get/userwithid`, {
+  const user = await fetch(`/api/get/userwithid`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export const getReview = async (id: string) => {
     id,
   };
 
-  const data: any = await fetch(`${apiUrl}/get/review`, {
+  const data: any = await fetch(`/api/get/review`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -88,7 +88,7 @@ export const getReviews = async (id: string) => {
     likedBy: true,
   };
 
-  const data: any = await fetch(`${apiUrl}/get/reviews`, {
+  const data: any = await fetch(`/api/get/reviews`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export const getReviews = async (id: string) => {
 };
 
 export const getLatestReviews = async () => {
-  const data: any = await fetch(`${apiUrl}/get/reviews/latest`, {
+  const data: any = await fetch(`/api/get/reviews/latest`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -111,7 +111,7 @@ export const getLatestReviews = async () => {
 };
 
 export const getProduct = async (id: string) => {
-  const product: iProduct = await fetch(`${apiUrl}/get/product`, {
+  const product: iProduct = await fetch(`/api/get/product`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -122,7 +122,7 @@ export const getProduct = async (id: string) => {
 };
 
 export const getProducts = async () => {
-  const products: iProduct[] = await fetch(`${apiUrl}/get/all/products`, {
+  const products: iProduct[] = await fetch(`/api/get/all/products`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -133,7 +133,7 @@ export const getProducts = async () => {
 
 export const createCommentOnReview = async (comment: iComment) => {
   if (comment.body === "") return;
-  const response = await fetch(`${apiUrl}/create/comment`, {
+  const response = await fetch(`/api/create/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -149,7 +149,7 @@ export const createReplyOnComment = async (reply: iComment): Promise<iComment> =
     throw new Error("Reply body cannot be empty");
   }
 
-  const response = await fetch(`${apiUrl}/create/comment/reply`, {
+  const response = await fetch(`/api/create/comment/reply`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -168,7 +168,7 @@ export const createReplyOnComment = async (reply: iComment): Promise<iComment> =
 export const editComment = async (id: string, commentBody: string) => {
   if (commentBody === "") return new Error("Comment body cannot be empty");
 
-  const response = await fetch(`${apiUrl}/update/comment/edit`, {
+  const response = await fetch(`/api/update/comment/edit`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
