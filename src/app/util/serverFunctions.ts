@@ -49,7 +49,8 @@ export const getUserWithId = async (userId: string) => {
 
 // this is the user api yrl error
 export const getUser = async () => {
-  const user = await fetch(`${apiUrl}/get/user`, {
+  console.log("get user running")
+  const user = await fetch("api/get/user", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -94,18 +95,6 @@ export const getReviews = async (id: string) => {
     },
     body: JSON.stringify(body),
   }).then((res) => res.json());
-
-  // if (data.data.treatedReviews) {
-  //   const reviews = data.data.treatedReviews;
-  //   const newData = {
-  //     data: {
-  //       product: { ...data.data.product },
-  //       reviews,
-  //     }, success: true, status: 200
-  //   }
-  //   return newData
-  // }
-  console.log("this is data from that fetch", data)
 
   return data;
 };

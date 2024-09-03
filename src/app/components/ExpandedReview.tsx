@@ -170,7 +170,6 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
       }
       const data: any = await getReviews(productId);
       setIsLoading(false);
-      console.log(data);
       setAllReviews(data.data.reviews);
       return data.data.reviews.find((review: iReview) => review.id === reviewId);
     },
