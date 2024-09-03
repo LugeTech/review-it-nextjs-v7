@@ -15,9 +15,10 @@ const TopReviews = () => {
   }) as any;
   if (isError) return <div>Error</div>;
 
-  let reviews = data?.reviews as iReview[];
+  let reviews = data?.reviews as iReview[] || [];
 
   if (isLoading) return <LoadingSpinner />;
+  if (reviews.length === 0) return <div className="text-center">No reviews yet</div>;
 
   return (
     <div className="flex flex-col w-full h-full justify-center items-center  ">
