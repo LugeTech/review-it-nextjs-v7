@@ -95,16 +95,17 @@ export const getReviews = async (id: string) => {
     body: JSON.stringify(body),
   }).then((res) => res.json());
 
-  if (data.data.treatedReviews) {
-    const reviews = data.data.treatedReviews;
-    const newData = {
-      data: {
-        product: { ...data.data.product },
-        reviews,
-      }, success: true, status: 200
-    }
-    return newData
-  }
+  // if (data.data.treatedReviews) {
+  //   const reviews = data.data.treatedReviews;
+  //   const newData = {
+  //     data: {
+  //       product: { ...data.data.product },
+  //       reviews,
+  //     }, success: true, status: 200
+  //   }
+  //   return newData
+  // }
+  console.log("this is data from that fetch", data)
 
   return data;
 };
