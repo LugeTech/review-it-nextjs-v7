@@ -2,7 +2,11 @@ import { iReview } from "@/app/util/Interfaces";
 import { prisma } from "@/app/util/prismaClient";
 import { sanitizeDeletedCommentsInReviews } from "@/app/util/sanitizeDeletedComments";
 import { NextRequest, NextResponse } from "next/server";
-import { cleanReview, cleanReviews, createFilter } from "@/app/store/badWordsFilter";
+import {
+  cleanReview,
+  cleanReviews,
+  createFilter,
+} from "@/app/store/badWordsFilter";
 const filter = createFilter();
 
 export async function POST(request: NextRequest) {
@@ -17,7 +21,7 @@ export async function POST(request: NextRequest) {
   const body: Body = await request.json();
 
   try {
-    let reviews = await prisma.review.findMany({
+    let reviews = (await prisma.review.findMany({
       where: { isPublic: body.isPublic, productId: body.id },
       orderBy: {
         createdDate: "desc",
@@ -27,15 +31,15 @@ export async function POST(request: NextRequest) {
         product: body.product,
         comments: body.comments
           ? {
-            include: {
-              user: true,
-            },
-          }
+              include: {
+                user: true,
+              },
+            }
           : false,
         voteCount: true,
         likedBy: true,
       },
-    }) as iReview[];
+    })) as iReview[];
 
     let product = null;
 
@@ -49,7 +53,8 @@ export async function POST(request: NextRequest) {
     let treatedReviews = sanitizeDeletedCommentsInReviews(reviews as iReview[]);
     try {
       treatedReviews = cleanReviews(await filter, treatedReviews);
-    } catch {
+    } catch (error) {
+      console.log("cleaning reviews had an issue", error);
       treatedReviews = treatedReviews;
     }
     reviews = treatedReviews as iReview[];
