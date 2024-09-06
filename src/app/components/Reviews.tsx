@@ -10,6 +10,7 @@ import ReviewCard from "./ReviewCard";
 import Link from "next/link";
 import WriteAReview from "./WriteAReview";
 import ReviewsSummary from "@/components/reviews-summary";
+import { CompanyActivityCard } from "@/components/company-activity-card";
 
 const Reviews = ({ productId }: { productId: string }) => {
   const { data, isLoading, isError, error } = useQuery({
@@ -33,7 +34,7 @@ const Reviews = ({ productId }: { productId: string }) => {
   if (reviews.length === 0) {
     return (
       <div className="flex flex-col w-full h-full p-2  sm:pt-8 ">
-        <div className="flex w-full md:max-w-5xl md:mx-auto ">
+        <div className="flex w-full">
           <ProductCardExtended
             options={productCardOptions}
             reviews={reviews}
@@ -51,19 +52,19 @@ const Reviews = ({ productId }: { productId: string }) => {
   }
   return (
     <div className="flex flex-col w-full h-full p-2  sm:pt-8 ">
-      <div className="flex w-full md:w-1/2 mx-auto ">
+      <div className="flex w-full ">
         <ProductCard
           reviews={reviews}
           options={productCardOptions}
           product={product}
         />
       </div>
+      <div className="flex flex-col md:flex-row w-full md:max-w-4xl mx-auto ">
+        <CompanyActivityCard />
+        <ReviewsSummary reviews={reviews} />
+      </div>
       <div className="flex flex-col md:w-1/2 md:flex-row w-full mx-auto justify-center items-center ">
         <WriteAReview />
-      </div>
-
-      <div className="flex w-full md:w-1/2 mx-auto ">
-        <ReviewsSummary reviews={reviews} />
       </div>
       <div className="flex flex-col  w-full justify-between items-center ">
         <div className="space-y-4 mt-2 w-full md:w-1/2  ">

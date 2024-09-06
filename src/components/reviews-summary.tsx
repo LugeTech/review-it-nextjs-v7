@@ -23,7 +23,7 @@ const ReviewsSummary: React.FC<SummaryCardProps> = ({ reviews }) => {
 
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } = calculateAverageReviewRating(reviews) as unknown as iCalculatedRating
   return (
-    <div className="w-full mx-auto items-center justify-between bg-myTheme-lightbg  shadow-lg p-6 ">
+    <div className="w-full md:w-1/2 mx-auto items-center justify-between bg-myTheme-lightbg border shadow-sm p-6 ">
       <h2 className="text-xl font-semibold text-center text-myTheme-dark ">All Reviews</h2>
       <div className="flex flex-col mt-1 text-center">
         <p> {roundedRatingOneDecimalPlace} out of 5 </p>

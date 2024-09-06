@@ -51,18 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const currentProduct =
     reviews && reviews.length > 0 ? reviews[0].product : product;
 
-  console.log(currentProduct);
-
-  //   queryFn: () => getReviews(currentProduct?.id!),
-  //   refetchOnWindowFocus: false,
-  //   enabled: !!currentProduct && !reviews,
-  // }) as any;
-
   const allReviews = product.reviews || reviews as iReview[]
-
-  // if (isLoading) return <LoadingSpinner />;
-  // if (isError) return <p className="text-red-500 text-sm">{error.message}</p>;
-
   const ratingResult = calculateAverageReviewRating(allReviews);
 
   // Type guard function
@@ -98,75 +87,77 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div className="w-full border border-gray-200 bg-white p-3 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
-      <Link
-        href={`/reviews?id=${currentProduct?.id}`}
-        className="flex flex-col md:flex-row items-start md:space-x-3"
-      >
-        {currentProduct?.display_image && (
-          <div className="flex-shrink-0">
-            <Image
-              src={currentProduct.display_image}
-              alt={`${currentProduct.name} Image`}
-              width={64}
-              height={64}
-              className="rounded-md object-cover"
-            />
+    <div className="flex justify-center w-full">
+      <div className="w-full max-w-4xl border border-gray-200 bg-white p-3 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
+        <Link
+          href={`/reviews?id=${currentProduct?.id}`}
+          className="flex flex-col md:flex-row items-start md:space-x-3"
+        >
+          {currentProduct?.display_image && (
+            <div className="flex-shrink-0">
+              <Image
+                src={currentProduct.display_image}
+                alt={`${currentProduct.name} Image`}
+                width={64}
+                height={64}
+                className="rounded-md object-cover"
+              />
+            </div>
+          )}
+          <div className="flex-grow min-w-0">
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900 break-words">
+              {currentProduct?.name}
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-600 break-words">
+              {currentProduct?.address}
+            </p>
+            <p className="text-sm text-gray-500 mt-1 line-clamp-10 break-words">
+              {currentProduct?.description}
+            </p>
+            <div className="mt-2 flex items-center space-x-2">
+              {allReviews?.length > 0 ? (
+                <>
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-medium text-white ${ratingColors[roundedRating as keyof typeof ratingColors]
+                      }`}
+                  >
+                    {roundedRatingOneDecimalPlace}
+                  </span>
+                  <RatingModuleReadOnly
+                    name={currentProduct?.id!}
+                    rating={roundedRating}
+                    size={options.size}
+                  />
+                  <span className="text-xs text-gray-500">
+                    ({numberOfReviews} reviews)
+                  </span>
+                </>
+              ) : (
+                <span className="text-xs text-gray-500">No Reviews Yet</span>
+              )}
+            </div>
           </div>
-        )}
-        <div className="flex-grow min-w-0">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900 break-words">
-            {currentProduct?.name}
-          </h2>
-          <p className="text-xs sm:text-sm text-gray-600 break-words">
-            {currentProduct?.address}
-          </p>
-          <p className="text-sm text-gray-500 mt-1 line-clamp-10 break-words">
-            {currentProduct?.description}
-          </p>
-          <div className="mt-2 flex items-center space-x-2">
-            {allReviews?.length > 0 ? (
-              <>
-                <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium text-white ${ratingColors[roundedRating as keyof typeof ratingColors]
-                    }`}
-                >
-                  {roundedRatingOneDecimalPlace}
-                </span>
-                <RatingModuleReadOnly
-                  name={currentProduct?.id!}
-                  rating={roundedRating}
-                  size={options.size}
-                />
-                <span className="text-xs text-gray-500">
-                  ({numberOfReviews} reviews)
-                </span>
-              </>
-            ) : (
-              <span className="text-xs text-gray-500">No Reviews Yet</span>
-            )}
-          </div>
+        </Link>
+        <div className="mt-3 flex items-center justify-between text-xs">
+          <VerticalLinks />
+          {options.showClaimThisProduct && (
+            <button className="text-blue-600 hover:underline">
+              Claim Product
+            </button>
+          )}
+          {options.showWriteReview ? (
+            <Link
+              href={`/cr/?id=${currentProduct?.id}&rating=3`}
+              className="text-blue-600 hover:underline"
+            >
+              Write Review
+            </Link>
+          ) : (
+            <button className="text-red-600 hover:underline">
+              Report Product
+            </button>
+          )}
         </div>
-      </Link>
-      <div className="mt-3 flex items-center justify-between text-xs">
-        <VerticalLinks />
-        {options.showClaimThisProduct && (
-          <button className="text-blue-600 hover:underline">
-            Claim Product
-          </button>
-        )}
-        {options.showWriteReview ? (
-          <Link
-            href={`/cr/?id=${currentProduct?.id}&rating=3`}
-            className="text-blue-600 hover:underline"
-          >
-            Write Review
-          </Link>
-        ) : (
-          <button className="text-red-600 hover:underline">
-            Report Product
-          </button>
-        )}
       </div>
     </div>
   );

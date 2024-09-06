@@ -22,36 +22,37 @@ const Page = () => {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
   useEffect(() => {
     if (data?.data) setCurrentProduct(data.data);
   }, [data?.data, setCurrentProduct]);
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <div className="flex h-full">
         <LoadingSpinner />
       </div>
     );
+  }
   if (isError) return <p>{error?.toString()}</p>;
 
   const products: iProduct[] | undefined = data?.data as iProduct[];
-  console.log(products);
 
   const filteredProducts = products.filter((product) => {
     if (product.reviews !== undefined) {
-      const rating = calculateAverageReviewRating(
-        product.reviews,
-      ) as unknown as iCalculatedRating;
+      const rating = calculateAverageReviewRating(product.reviews) as unknown as iCalculatedRating;
       if (selectedRating && rating.roundedRating !== selectedRating) {
         return false;
       }
-      if (
-        selectedTags.length > 0 &&
-        !selectedTags.some((tag) => product.tags.includes(tag))
-      )
+      if (selectedTags.length > 0 && !selectedTags.some((tag) => product.tags.includes(tag))) {
         return false;
+      }
       return true;
     }
+    return false; // Ensure we return false if reviews are undefined
   });
 
   const productCardOptions = {
@@ -59,6 +60,17 @@ const Page = () => {
     size: "rating-sm",
     showWriteReview: true,
     showClaimThisProduct: true,
+  };
+
+  // Calculate pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -74,8 +86,8 @@ const Page = () => {
           />
         </div>
         <div className="flex flex-col w-full lg:w-1/2 items-center gap-2 rounded-lg sm:px-10">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((product: iProduct) => (
+          {currentItems.length > 0 ? (
+            currentItems.map((product: iProduct) => (
               <ProductCard
                 options={productCardOptions}
                 reviews={null}
@@ -86,6 +98,19 @@ const Page = () => {
           ) : (
             <p>No products match the selected filters.</p>
           )}
+          {/* Pagination Controls */}
+          <div className="flex flex-wrap justify-center mt-4">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+                className={`m-1 px-3 py-1 rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-100'
+                  }`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
