@@ -25,11 +25,9 @@ import { iProduct, iReview, iCalculatedRating } from "@/app/util/Interfaces";
 import Image from "next/legacy/image";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { getReviews } from "../util/serverFunctions";
 import { calculateAverageReviewRating } from "../util/calculateAverageReviewRating";
-import LoadingSpinner from "./LoadingSpinner";
 import VerticalLinks from "./VerticalLinks";
+import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
   reviews?: iReview[] | null;
@@ -47,6 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   options,
   product,
 }) => {
+  const router = useRouter();
   if (!product) return <div>No product or reviews found</div>;
   const currentProduct =
     reviews && reviews.length > 0 ? reviews[0].product : product;
@@ -141,7 +140,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="mt-3 flex items-center justify-between text-xs">
           <VerticalLinks />
           {options.showClaimThisProduct && (
-            <button className="text-blue-600 hover:underline">
+            <button onClick={() => router.push("/pricing")} className="text-blue-600 hover:underline">
               Claim Product
             </button>
           )}

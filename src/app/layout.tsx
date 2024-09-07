@@ -1,13 +1,12 @@
 import "@/app/globals.css";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { Analytics } from "@vercel/analytics/react";
 import { Poppins } from "next/font/google";
 import Navbar from "./components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "./util/QueryProvider";
 import JotaiProvider from "./util/JotaiProvider";
 import type { Metadata, Viewport } from "next";
-
+import Script from 'next/script';
 const APP_NAME = "Review It";
 const APP_DEFAULT_TITLE = "Review It";
 const APP_TITLE_TEMPLATE = "%s - Review It";
@@ -93,12 +92,26 @@ export default function RootLayout({
                 name="viewport"
                 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
               />
+              {/* Google Tag Manager Script */}
+              <Script
+                id="google-analytics"
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-D99RMSQKN0" // Replace with your Measurement ID
+              />
+              <Script id="google-analytics-init" strategy="afterInteractive">
+                {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-D99RMSQKN0'); // Replace with your Measurement ID
+          `}
+              </Script>
             </head>
             <body
               className={`${poppins.className} bg-myTheme-lightbg  `}
             >
               <Navbar>{children}</Navbar>
-              <Analytics />
               <ReactQueryDevtools initialIsOpen={true} />
             </body>
 

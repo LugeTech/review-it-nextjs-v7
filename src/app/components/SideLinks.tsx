@@ -3,6 +3,8 @@ import Version from "./Version";
 import { sideLinks } from "@/app/util/links";
 import { IconContext } from "react-icons";
 import { FiHome, FiPackage, FiGrid, FiPlusSquare, FiUser, FiHelpCircle } from "react-icons/fi";
+import { IoPricetagOutline } from "react-icons/io5";
+
 
 interface SideLinksProps {
   onSideLinkClick: () => void;
@@ -14,6 +16,7 @@ const iconMap: { [key: string]: React.ElementType } = {
   category: FiGrid,
   add: FiPlusSquare,
   user: FiUser,
+  price: IoPricetagOutline,
 };
 
 const SideLinks: React.FC<SideLinksProps> = ({ onSideLinkClick }) => {

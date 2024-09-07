@@ -24,6 +24,12 @@ export const sideLinks = [
     link: "/userprofile",
     icon: "user",
   },
+  {
+    name: "Claim Business",
+    link: "/pricing",
+    icon: "price",
+  },
+
 ];
 
 export const topLinks = [
@@ -42,5 +48,9 @@ export const topLinks = [
   {
     name: "My Activity",
     link: "/userprofile",
+  },
+  {
+    name: "Claim Business",
+    link: "/pricing",
   },
 ];
