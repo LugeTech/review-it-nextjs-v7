@@ -33,7 +33,17 @@ module.exports = withPWA({
       { hostname: "loremflickr.com", protocol: "https" },
       { hostname: "placehold.co", protocol: "https" },
       { hostname: "images.clerk.dev", protocol: "https" },
-      { hostname: "cdn.onesignal.com", protocol: "https" }, // Add OneSignal CDN here
     ],
   },
+  headers: [
+    {
+      source: '/fr',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'no-cache',
+        },
+      ],
+    },
+  ],
 });
