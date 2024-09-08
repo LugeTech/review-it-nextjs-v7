@@ -8,6 +8,7 @@ import JotaiProvider from "./util/JotaiProvider";
 import type { Metadata, Viewport } from "next";
 import Script from 'next/script';
 import OneSignalInit from "./components/OneSignalInit";
+
 const APP_NAME = "Review It";
 const APP_DEFAULT_TITLE = "Review It";
 const APP_TITLE_TEMPLATE = "%s - Review It";
@@ -112,7 +113,7 @@ export default function RootLayout({
             <body
               className={`${poppins.className} bg-myTheme-lightbg  `}
             >
-              <OneSignalInit /> {/* Initialize OneSignal */}
+              <OneSignalInit />
               <Navbar>{children}</Navbar>
               <ReactQueryDevtools initialIsOpen={true} />
             </body>
