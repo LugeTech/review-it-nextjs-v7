@@ -5,8 +5,8 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
-  url      = env("COCKROACH_DATABASE_URL")
+  provider = "postgresql"
+  url      = "postgresql://postgres:wicros-dezJox-6zyhfu@db.lugetech.com:5432/reviewit?sslmode=require"
 }
 
 model Product {
