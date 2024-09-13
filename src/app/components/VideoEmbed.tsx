@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import Image from 'next/image';
 
 type VideoType = 'youtube' | 'tiktok' | 'unknown';
 
@@ -119,7 +120,7 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
       )}
       {thumbnailUrl && !isVideoLoaded && (
         <div className="relative cursor-pointer" onClick={() => setIsVideoLoaded(true)}>
-          <img src={thumbnailUrl} alt="TikTok Thumbnail" className="w-full h-auto" />
+          <Image src={thumbnailUrl} alt="TikTok Thumbnail" height={200} width={150} className="w-full h-auto" />
           <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <button className="text-white text-2xl">Play</button>
           </div>

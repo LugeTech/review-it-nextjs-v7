@@ -1,11 +1,10 @@
-"use client";
 import QuickTabs from "./components/QuickTabs";
 import TopReviews from "./components/TopReviews";
 import HeroSection from "./components/HeroSection";
 import ReviewCategories from "./components/ReviewCategories";
 import ManageYourBusiness from "./components/ManageYourBusiness";
 // import Token from "./components/Token";
-export default async function Home() {
+export default function Home() {
   return (
     <div className=" flex h-full flex-col justify-start bg-myTheme-lightbg ">
       <div className="flex flex-row">

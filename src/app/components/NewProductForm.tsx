@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Upload, X } from "lucide-react";
+import Image from "next/image";
 
 const NewProductForm = (): JSX.Element => {
   const initialProduct: iProduct = {
@@ -95,6 +96,7 @@ const NewProductForm = (): JSX.Element => {
     if (imagePreview) {
       resizeImage(imagePreview).then(() => triggerUploadImage(imagePreview));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imagePreview]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -128,7 +130,7 @@ const NewProductForm = (): JSX.Element => {
             </div>
             {imagePreview && (
               <div className="mt-4 relative">
-                <img src={imagePreview} alt="Preview" className="max-w-xs max-h-36 mx-auto rounded-lg" />
+                <Image src={imagePreview} alt="Preview" width={320} height={144} className="max-w-xs max-h-36 mx-auto rounded-lg " />
                 <Button
                   type="button"
                   variant="destructive"

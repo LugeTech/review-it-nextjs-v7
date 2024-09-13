@@ -1,7 +1,3 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/0knIycQozGW
- */
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +8,7 @@ import {
   CardFooter,
   Card,
 } from "@/components/ui/card";
+import Image from "next/image";
 
 export default function Dashboard() {
   return (
@@ -31,16 +28,16 @@ export default function Dashboard() {
         </nav>
         <div className="flex items-center w-full gap-4 md:ml-auto md:gap-2 lg:gap-4">
           <Button className="rounded-full" size="icon" variant="ghost">
-            <img
+            <Image
               alt="Avatar"
               className="rounded-full"
-              height="32"
+              height={32}
               src="/placeholder.svg"
               style={{
                 aspectRatio: "32/32",
                 objectFit: "cover",
               }}
-              width="32"
+              width={32}
             />
             <span className="sr-only">Toggle user menu</span>
           </Button>

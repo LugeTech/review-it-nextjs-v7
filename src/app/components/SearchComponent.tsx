@@ -35,17 +35,18 @@ const SearchBox = () => {
       clearTimeout(typingTimeout);
     }
     const timeout = setTimeout(() => {
-      // setAllProducts(filteredProducts(allProducts));
       setSearchResults(filteredProducts(allProducts, searchTerm));
-    }, 100); // 500ms delay
+    }, 100);
 
     setTypingTimeout(timeout);
+
     return () => {
       if (typingTimeout) {
         clearTimeout(typingTimeout);
       }
     };
-  }, [searchTerm]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm, allProducts]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 0) {
