@@ -1,101 +1,112 @@
-// Ensure foreign key relationships are correctly defined in your schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = "postgresql://postgres:wicros-dezJox-6zyhfu@db.lugetech.com:5432/reviewit?sslmode=require"
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
 }
 
 model Product {
-  id            String   @id @default(uuid())
-  address       String?
-  createdDate   DateTime @default(now())
-  description   String
-  display_image String
-  images        String[]
-  videos        String[]
-  links         String[]
-  name          String   @unique
-  tags          String[]
-  openingHrs    String?
-  closingHrs    String?
-  telephone     String?
-  website       String[]
-  rating        Int      @default(3)
-  hasOwner      Boolean?
-  ownerId       String?
-  reviews       Review[]
-  createdBy     User?    @relation(fields: [createdById], references: [id])
-  createdById   String
-  isDeleted     Boolean  @default(false)
-  email         String?
+  id              String         @id @default(cuid())
+  address         String?
+  createdDate     DateTime
+  description     String
+  display_image   String
+  images          String[]
+  videos          String[]
+  links           String[]
+  name            String         @unique
+  tags            String[]
+  openingHrs      String?
+  closingHrs      String?
+  telephone       String?
+  website         String[]
+  rating          Int
+  hasOwner        Boolean?
+  ownerId         String?
+  businessOwner   BusinessOwner? @relation(fields: [businessOwnerId], references: [id])
+  reviews         Review[]
+  createdBy       User?          @relation("ProductCreatedBy", fields: [createdById], references: [id])
+  createdById     String
+  isDeleted       Boolean
+  email           String?
+  businessOwnerId String?
 }
 
 model VoteCount {
-  id             String @id @default(uuid())
+  id             String @id @default(cuid())
   reviewId       String @unique
   review         Review @relation(fields: [reviewId], references: [id])
-  helpfulVotes   Int    @default(0)
-  unhelpfulVotes Int    @default(0)
+  helpfulVotes   Int
+  unhelpfulVotes Int
 }
 
 model Review {
-  id             String     @id @default(uuid())
+  id             String     @id @default(cuid())
   body           String
-  createdDate    DateTime   @default(now())
-  helpfulVotes   Int        @default(0)
-  unhelpfulVotes Int        @default(0)
+  createdDate    DateTime
+  helpfulVotes   Int
+  unhelpfulVotes Int
   rating         Int
   title          String
   product        Product?   @relation(fields: [productId], references: [id])
-  user           User?      @relation(fields: [userId], references: [id])
+  user           User?      @relation("UserReviews", fields: [userId], references: [id])
   productId      String
   userId         String
   isVerified     Boolean?
   verifiedBy     String?
-  isPublic       Boolean    @default(true)
+  isPublic       Boolean
   images         String[]
   videos         String[]
   links          String[]
   createdBy      String?
-  isDeleted      Boolean?   @default(false)
+  isDeleted      Boolean?
   comments       Comment[]
   voteCount      VoteCount?
   likedBy        User[]     @relation("ReviewLike")
-  // reviewLike     ReviewLike[]
-
-  @@unique([title, userId, productId], name: "unique_review")
 }
 
 model Comment {
-  id          String    @id @default(uuid())
+  id          String    @id @default(cuid())
   body        String
-  createdDate DateTime  @default(now())
+  createdDate DateTime
   review      Review    @relation(fields: [reviewId], references: [id])
   user        User      @relation(fields: [userId], references: [id])
   reviewId    String
   userId      String
-  isDeleted   Boolean?  @default(false)
+  isDeleted   Boolean?
   parentId    String?
   replies     Comment[] @relation("CommentReplies")
-  parent      Comment?  @relation("CommentReplies", fields: [parentId], references: [id]) // Added this line for the opposite relation
+  parent      Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
 }
 
 model User {
-  id           String    @id @default(uuid())
-  userName     String    @unique
-  avatar       String?
-  createdDate  DateTime  @default(now())
-  email        String    @unique
-  firstName    String
-  lastName     String
-  reviews      Review[]
-  clerkUserId  String
-  product      Product[]
-  isDeleted    Boolean?  @default(false)
-  comments     Comment[]
-  likedReviews Review[]  @relation("ReviewLike")
+  id            String         @id @unique @default(cuid())
+  userName      String?        @unique
+  avatar        String?
+  createdDate   DateTime?      @default(now())
+  email         String
+  firstName     String
+  lastName      String
+  reviews       Review[]       @relation("UserReviews")
+  clerkUserId   String
+  product       Product[]      @relation("ProductCreatedBy")
+  isDeleted     Boolean?       @default(false)
+  comments      Comment[]
+  likedReviews  Review[]       @relation("ReviewLike")
+  businessOwner BusinessOwner?
+}
+
+model BusinessOwner {
+  id                  String    @id @unique @default(cuid())
+  user                User      @relation(fields: [userId], references: [id])
+  userId              String    @unique
+  businessName        String
+  businessDescription String?
+  subscriptionStatus  String
+  subscriptionExpiry  DateTime?
+  products            Product[]
+  createdDate         DateTime? @default(now())
+  isVerified          Boolean?  @default(false)
 }
