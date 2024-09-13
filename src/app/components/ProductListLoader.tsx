@@ -20,7 +20,8 @@ const ProductListLoader = () => {
       const products = data?.data as iProduct[];
       setAllProducts(products);
     }
-  }, [data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isLoading, isError]);
 
   if (isLoading) {
     return (

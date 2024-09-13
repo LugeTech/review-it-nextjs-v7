@@ -28,6 +28,7 @@ import Link from "next/link";
 import { calculateAverageReviewRating } from "../util/calculateAverageReviewRating";
 import VerticalLinks from "./VerticalLinks";
 import { useRouter } from "next/navigation";
+import ClaimProductComponent from "./ClaimProductComponent";
 
 interface ProductCardProps {
   reviews?: iReview[] | null;
@@ -139,11 +140,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </Link>
         <div className="mt-3 flex items-center justify-between text-xs">
           <VerticalLinks />
-          {options.showClaimThisProduct && (
-            <button onClick={() => router.push("/pricing")} className="text-blue-600 hover:underline">
-              Claim Product
-            </button>
-          )}
+          {options.showClaimThisProduct && <ClaimProductComponent />}
           {options.showWriteReview ? (
             <Link
               href={`/cr/?id=${currentProduct?.id}&rating=3`}

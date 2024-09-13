@@ -38,7 +38,7 @@ export default function UserInfo({ user }: UserInfoProps) {
         <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-75" />
         <div className="absolute inset-0 flex items-center justify-center">
           <Avatar className="h-32 w-32 sm:h-40 sm:w-40 border-4 border-background">
-            <AvatarImage src={avatar} alt={`${firstName} ${lastName}`} />
+            <AvatarImage src={avatar || ""} alt={`${firstName} ${lastName}`} />
             <AvatarFallback>{`${firstName[0]}${lastName[0]}`}</AvatarFallback>
           </Avatar>
         </div>

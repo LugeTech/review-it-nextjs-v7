@@ -43,6 +43,9 @@ export interface iProduct {
   createdBy?: iUser | null;
   createdById: string;
   isDeleted: boolean;
+  email?: string | null;
+  businessOwner?: iBusinessOwner | null;
+  businessOwnerId?: string | null;
 }
 
 export interface iVoteCount {
@@ -95,7 +98,7 @@ export interface iComment {
 export interface iUser {
   id: string;
   userName: string;
-  avatar?: string;
+  avatar: string | null;
   createdDate: Date;
   email: string;
   firstName: string;
@@ -103,9 +106,21 @@ export interface iUser {
   reviews: iReview[];
   clerkUserId: string;
   product: iProduct[];
-  isDeleted?: boolean;
+  isDeleted: boolean | null;
   comments: iComment[];
   likedReviews: iReview[];
+  businessOwner: iBusinessOwner | null;
+}
+export interface iBusinessOwner {
+  id: string;
+  user: iUser;
+  userId: string;
+  businessDescription: string | null;
+  subscriptionStatus: string;
+  subscriptionExpiry: Date | null;
+  products: iProduct[];
+  createdDate: Date | null;
+  isVerified: boolean | null;
 }
 
 export interface iService {
