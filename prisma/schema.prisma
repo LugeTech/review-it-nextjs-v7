@@ -6,7 +6,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:wicros-dezJox-6zyhfu@db.lugetech.com:5432/reviewit?sslmode=require"
+  url      = env("DATABASE_URL")
 }
 
 model Product {
