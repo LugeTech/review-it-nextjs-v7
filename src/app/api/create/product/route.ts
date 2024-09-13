@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
           address: product.address,
           telephone: product.telephone,
           website: product.website,
-          createdById: clerkUserId,
+          createdById: clerkUserData?.username ? clerkUserId : "",
         },
       });
       return NextResponse.json({
