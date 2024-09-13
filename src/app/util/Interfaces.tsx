@@ -22,8 +22,8 @@ export interface iCalculatedRating {
 }
 
 export interface iProduct {
-  id?: string;
-  address?: string | null;
+  id: string;
+  address: string | null;
   createdDate: Date;
   description: string;
   display_image: string;
@@ -32,17 +32,20 @@ export interface iProduct {
   links: string[];
   name: string;
   tags: string[];
-  openingHrs?: string | null;
-  closingHrs?: string | null;
-  telephone?: string | null;
+  openingHrs: string | null;
+  closingHrs: string | null;
+  telephone: string | null;
   website: string[];
   rating: number;
-  hasOwner?: boolean | null;
-  ownerId?: string | null;
-  reviews?: iReview[];
-  createdBy?: iUser | null;
+  hasOwner: boolean | null;
+  ownerId: string | null;
+  reviews: iReview[];
+  createdBy: iUser | null;
   createdById: string;
   isDeleted: boolean;
+  email: string | null;
+  businessOwner: iBusinessOwner | null;
+  businessOwnerId: string | null;
 }
 
 export interface iVoteCount {
@@ -95,7 +98,7 @@ export interface iComment {
 export interface iUser {
   id: string;
   userName: string;
-  avatar?: string;
+  avatar: string | null;
   createdDate: Date;
   email: string;
   firstName: string;
@@ -103,9 +106,21 @@ export interface iUser {
   reviews: iReview[];
   clerkUserId: string;
   product: iProduct[];
-  isDeleted?: boolean;
+  isDeleted: boolean | null;
   comments: iComment[];
   likedReviews: iReview[];
+  businessOwner: iBusinessOwner | null;
+}
+export interface iBusinessOwner {
+  id: string;
+  user: iUser;
+  userId: string;
+  businessDescription: string | null;
+  subscriptionStatus: string;
+  subscriptionExpiry: Date | null;
+  products: iProduct[];
+  createdDate: Date | null;
+  isVerified: boolean | null;
 }
 
 export interface iService {

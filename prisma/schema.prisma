@@ -10,28 +10,30 @@ datasource db {
 }
 
 model Product {
-  id            String   @id @default(uuid())
-  address       String?
-  createdDate   DateTime @default(now())
-  description   String
-  display_image String
-  images        String[]
-  videos        String[]
-  links         String[]
-  name          String   @unique
-  tags          String[]
-  openingHrs    String?
-  closingHrs    String?
-  telephone     String?
-  website       String[]
-  rating        Int      @default(3)
-  hasOwner      Boolean?
-  ownerId       String?
-  reviews       Review[]
-  createdBy     User?    @relation(fields: [createdById], references: [id])
-  createdById   String
-  isDeleted     Boolean  @default(false)
-  email         String?
+  id              String         @id @default(uuid())
+  address         String?
+  createdDate     DateTime       @default(now())
+  description     String
+  display_image   String
+  images          String[]
+  videos          String[]
+  links           String[]
+  name            String         @unique
+  tags            String[]
+  openingHrs      String?
+  closingHrs      String?
+  telephone       String?
+  website         String[]
+  rating          Int            @default(3)
+  hasOwner        Boolean?
+  ownerId         String?
+  reviews         Review[]
+  createdBy       User?          @relation(fields: [createdById], references: [id])
+  createdById     String
+  isDeleted       Boolean        @default(false)
+  email           String?
+  businessOwner   BusinessOwner? @relation(fields: [businessOwnerId], references: [id])
+  businessOwnerId String?
 }
 
 model VoteCount {
@@ -85,17 +87,30 @@ model Comment {
 }
 
 model User {
-  id           String    @id @default(uuid())
-  userName     String    @unique
-  avatar       String?
-  createdDate  DateTime  @default(now())
-  email        String    @unique
-  firstName    String
-  lastName     String
-  reviews      Review[]
-  clerkUserId  String
-  product      Product[]
-  isDeleted    Boolean?  @default(false)
-  comments     Comment[]
-  likedReviews Review[]  @relation("ReviewLike")
+  id            String         @id @default(uuid())
+  userName      String         @unique
+  avatar        String?
+  createdDate   DateTime       @default(now())
+  email         String         @unique
+  firstName     String
+  lastName      String
+  reviews       Review[]
+  clerkUserId   String
+  product       Product[]
+  isDeleted     Boolean?       @default(false)
+  comments      Comment[]
+  likedReviews  Review[]       @relation("ReviewLike")
+  businessOwner BusinessOwner?
+}
+
+model BusinessOwner {
+  id                  String    @id @unique @default(cuid())
+  user                User      @relation(fields: [userId], references: [id])
+  userId              String    @unique
+  businessDescription String?
+  subscriptionStatus  String
+  subscriptionExpiry  DateTime?
+  products            Product[]
+  createdDate         DateTime? @default(now())
+  isVerified          Boolean?  @default(false)
 }
