@@ -127,7 +127,7 @@ const EnhancedClaimProductComponent = () => {
           <DialogHeader>
             <DialogTitle>Claim Your product</DialogTitle>
             <DialogDescription>
-              You're about to claim ownership of this product. Please review the information below to ensure it's correct.
+              You&apos;re about to claim ownership of this product. Please review the information below to ensure it&apos;s correct.
             </DialogDescription>
           </DialogHeader>
 
@@ -153,7 +153,7 @@ const EnhancedClaimProductComponent = () => {
                 <div className="flex items-center">
                   <MessageSquare className="h-4 w-4 mr-1" />
                   <span className="text-sm">
-                    Recent review: "Some review title here"
+                    Recent review: &quot;Some review title here&quot;
                   </span>
                 </div>
               </div>
