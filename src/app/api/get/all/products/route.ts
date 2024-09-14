@@ -26,6 +26,7 @@ export async function POST(request: NextRequest) {
             isDeleted: false,
           },
         },
+        businessOwner: true,
       },
       orderBy: {
         createdDate: "desc",

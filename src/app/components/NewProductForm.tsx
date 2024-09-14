@@ -66,7 +66,11 @@ const NewProductForm = (): JSX.Element => {
       });
       return response.json();
     },
-    onSuccess: () => router.push("/browse"),
+    onSuccess: (data) => {
+      // Encode the product data
+      const encodedProduct = encodeURIComponent(JSON.stringify(data));
+      router.push(`/mybusinesses/productsuccess?product=${encodedProduct}`);
+    },
     onError: (error: Error) => console.error(error),
   });
 

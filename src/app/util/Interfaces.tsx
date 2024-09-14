@@ -121,6 +121,7 @@ export interface iBusinessOwner {
   products: iProduct[];
   createdDate: Date | null;
   isVerified: boolean | null;
+  ownerName?: string | null;
 }
 
 export interface iService {

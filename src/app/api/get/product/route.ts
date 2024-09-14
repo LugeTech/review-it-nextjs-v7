@@ -14,10 +14,18 @@ export async function POST(request: NextRequest) {
       where: {
         id: body.id,
       },
-      // include: {
-      //   user: body.user,
-      //   product: body.product,
-      // },
+      include: {
+        businessOwner: true,
+        reviews: {
+          where: {
+            isPublic: true,
+            isDeleted: false,
+          },
+          include: {
+            user: true,
+          },
+        },
+      },
     });
     return NextResponse.json({
       success: true,

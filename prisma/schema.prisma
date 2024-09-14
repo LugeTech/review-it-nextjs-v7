@@ -104,13 +104,13 @@ model User {
 }
 
 model BusinessOwner {
-  id                  String    @id @unique @default(cuid())
-  user                User      @relation(fields: [userId], references: [id])
-  userId              String    @unique
-  businessDescription String?
-  subscriptionStatus  String
-  subscriptionExpiry  DateTime?
-  products            Product[]
-  createdDate         DateTime? @default(now())
-  isVerified          Boolean?  @default(false)
+  id                 String    @id @unique @default(cuid())
+  user               User      @relation(fields: [userId], references: [id])
+  userId             String    @unique
+  subscriptionStatus String
+  subscriptionExpiry DateTime?
+  products           Product[]
+  createdDate        DateTime? @default(now())
+  isVerified         Boolean?  @default(false)
+  ownerName          String?
 }

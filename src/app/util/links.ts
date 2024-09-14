@@ -9,11 +9,11 @@ export const sideLinks = [
     link: "/browse",
     icon: "product",
   },
-  {
-    name: "Browse Categories",
-    link: "/category",
-    icon: "category",
-  },
+  // {
+  //   name: "Browse Categories",
+  //   link: "/category",
+  //   icon: "category",
+  // },
   {
     name: "Add Business",
     link: "/submit",
@@ -25,8 +25,8 @@ export const sideLinks = [
     icon: "user",
   },
   {
-    name: "Claim Business",
-    link: "/pricing",
+    name: "My Businesses",
+    link: "/mybusinesses",
     icon: "price",
   },
 
@@ -37,10 +37,10 @@ export const topLinks = [
     name: "Browse Products",
     link: "/browse",
   },
-  {
-    name: "Browse Categories",
-    link: "/category",
-  },
+  // {
+  //   name: "Browse Categories",
+  //   link: "/category",
+  // },
   {
     name: "Add Business",
     link: "/submit",
@@ -50,7 +50,7 @@ export const topLinks = [
     link: "/userprofile",
   },
   {
-    name: "Claim Business",
-    link: "/pricing",
+    name: "My Businesses",
+    link: "/mybusinesses",
   },
 ];

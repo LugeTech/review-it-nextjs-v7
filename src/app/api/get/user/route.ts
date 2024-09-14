@@ -68,6 +68,11 @@ export async function GET(request: NextRequest) {
             },
           },
           likedReviews: true,
+          businessOwner: {
+            include: {
+              products: true,
+            }
+          },
         },
       });
       return NextResponse.json({
