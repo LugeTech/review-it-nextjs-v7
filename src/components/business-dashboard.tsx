@@ -37,8 +37,8 @@ export function BusinessDashboardComponent() {
             <p className="text-xl mb-4">
               Ready to take your business to the next level? Now is the perfect time to start or expand your small business journey!
             </p>
-            <p className="text-lg mb-6">
-              Join our community of successful entrepreneurs and unlock a world of opportunities. Whether you're just starting out or looking to grow, we're here to support you every step of the way.
+            <p className="text-xl mb-4">
+              Ready to take your business to the next level? Now is the perfect time to start or expand your small business journey!
             </p>
             <Link href="/submit" className="bg-blue-600 text-white hover:bg-blue-700 py-3 px-6 rounded-full text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl">
               Add Your Business
@@ -81,7 +81,7 @@ export function BusinessDashboardComponent() {
               </div>
               <p className="text-sm text-gray-700 mb-2" />
               <p className="text-sm text-gray-700 mb-2">
-                <span className="font-semibold">Latest review:</span> "{product.reviews?.[0]?.title || "No reviews yet"}"
+                <span className="font-semibold">Latest review:</span> &quot;{product.reviews?.[0]?.title || "No reviews yet"}&quot;
               </p>
               <p className="text-gray-600 text-sm">{product.description}</p>
             </CardContent>
