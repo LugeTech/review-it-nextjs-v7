@@ -114,7 +114,7 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
         <div className="mt-3 flex flex-wrap items-center justify-between text-xs gap-2">
           <VerticalLinks />
           <div className="flex gap-2">
-            {options.showClaimThisProduct && (
+            {options.showClaimThisProduct && !currentProduct?.businessOwner && (
               <button onClick={() => router.push("/pricing")} className="text-blue-600 hover:underline">
                 Claim Product
               </button>
