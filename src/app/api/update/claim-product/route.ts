@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
           .id as string;
       }
     }
-    const newBusinessOwner = await prisma.businessOwner.create({
+    const newBusinessOwner = await prisma.business.create({
       data: {
         userId: userIdFromClerk as string,
         subscriptionStatus: "FREE",
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     if (product && product.id) {
       await prisma.product.update({
         where: { id: product.id },
-        data: { businessOwnerId: userIdFromClerk as string }
+        data: { businessId: userIdFromClerk as string }
       });
     }
 

@@ -115,7 +115,7 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
         <div className="mt-3 flex flex-wrap items-center justify-between text-xs gap-2">
           <VerticalLinks />
           <div className="flex gap-2 justify-end items-center text-sm">
-            {options.showClaimThisProduct && (currentProduct?.businessOwnerId === null) && <ClaimProductComponent product={currentProduct} />}
+            {options.showClaimThisProduct && (currentProduct?.businessId === null) && <ClaimProductComponent product={currentProduct} />}
             {options.showWriteReview ? (
               <Link
                 href={`/cr/?id=${currentProduct?.id}&rating=3`}

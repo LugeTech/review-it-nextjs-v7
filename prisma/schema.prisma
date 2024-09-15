@@ -87,20 +87,20 @@ model Comment {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  userName      String    @unique
-  avatar        String?
-  createdDate   DateTime  @default(now())
-  email         String    @unique
-  firstName     String
-  lastName      String
-  reviews       Review[]
-  clerkUserId   String
-  product       Product[]
-  isDeleted     Boolean?  @default(false)
-  comments      Comment[]
-  likedReviews  Review[]  @relation("ReviewLike")
-  businessOwner Business?
+  id           String    @id @default(uuid())
+  userName     String    @unique
+  avatar       String?
+  createdDate  DateTime  @default(now())
+  email        String    @unique
+  firstName    String
+  lastName     String
+  reviews      Review[]
+  clerkUserId  String
+  product      Product[]
+  isDeleted    Boolean?  @default(false)
+  comments     Comment[]
+  likedReviews Review[]  @relation("ReviewLike")
+  business     Business?
 }
 
 model Business {

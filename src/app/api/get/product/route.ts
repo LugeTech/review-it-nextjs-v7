@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
         id: body.id,
       },
       include: {
-        businessOwner: true,
+        business: true,
         reviews: {
           where: {
             isPublic: true,

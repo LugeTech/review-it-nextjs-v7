@@ -44,8 +44,8 @@ export interface iProduct {
   createdById: string;
   isDeleted: boolean;
   email?: string | null;
-  businessOwner?: iBusinessOwner | null;
-  businessOwnerId?: string | null;
+  business?: iBusiness | null;
+  businessId?: string | null;
 }
 
 export interface iVoteCount {
@@ -109,9 +109,9 @@ export interface iUser {
   isDeleted: boolean | null;
   comments: iComment[];
   likedReviews: iReview[];
-  businessOwner: iBusinessOwner | null;
+  business: iBusiness | null;
 }
-export interface iBusinessOwner {
+export interface iBusiness {
   id: string;
   user: iUser;
   userId: string;

@@ -24,9 +24,9 @@ export function BusinessDashboardComponent() {
   const user: iUser | undefined = data?.data as iUser;
   console.log(user)
 
-  const products = user.businessOwner?.products || []
+  const products = user.business?.products || []
 
-  if (!user.businessOwner) {
+  if (!user.business) {
     return (
       <div className="container mx-auto p-6 bg-gray-100 min-h-screen flex items-center justify-center">
         <Card className="w-full max-w-2xl ">

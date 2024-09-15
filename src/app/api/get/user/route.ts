@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
             },
           },
           likedReviews: true,
-          businessOwner: {
+          business: {
             include: {
               products: true,
             }
