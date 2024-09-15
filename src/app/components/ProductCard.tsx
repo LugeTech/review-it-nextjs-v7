@@ -42,7 +42,6 @@ interface ProductCardProps {
     showClaimThisProduct: boolean;
   };
   product?: iProduct | null;
-  currentUserId: string | null
 
 }
 
@@ -50,7 +49,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   reviews,
   options,
   product,
-  currentUserId
 }) => {
   const router = useRouter();
   if (!product) return <div>No product or reviews found</div>;
@@ -67,10 +65,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   //   }
   // }
 
-  const amITheOwner = product.business?.ownerId === currentUserId;
-  console.log("prod owner", product.business?.ownerId)
-  console.log("curr user", currentUserId)
-  console.log("am i the ownner?", amITheOwner)
+  // const amITheOwner = product.business?.ownerId === currentUserId;
+  // console.log("prod owner", product.business?.ownerId)
+  // console.log("curr user", currentUserId)
+  // console.log("am i the ownner?", amITheOwner)
 
   // Type guard function
   function isCalculatedRating(result: any): result is iCalculatedRating {

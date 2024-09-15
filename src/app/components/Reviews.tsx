@@ -60,7 +60,6 @@ const Reviews = ({ productId }: { productId: string }) => {
           reviews={reviews}
           options={productCardOptions}
           product={product}
-          currentUserId={currentUser?.id}
         />
       </div>
       <div className="flex flex-col md:flex-row w-full md:max-w-4xl mx-auto ">

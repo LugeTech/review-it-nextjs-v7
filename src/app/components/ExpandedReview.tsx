@@ -207,7 +207,7 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
       <div className="mb-4 w-full">
-        <ProductCard product={reviewData?.product!} options={productCardOptions} reviews={allReviews} currentUserId={currentUser.id} />
+        <ProductCard product={reviewData?.product!} options={productCardOptions} reviews={allReviews} />
       </div>
       <ReviewCard review={reviewData} />
       <CommentForm
