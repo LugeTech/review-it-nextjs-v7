@@ -16,7 +16,7 @@ import { toast } from "sonner";
 const CommentList = lazy(() => import('./CommentList'));
 
 const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: string }) => {
-  const auth = useAuth();
+  const { userId, isLoaded, isSignedIn } = useAuth();
   const queryClient = useQueryClient();
   const [reviewAtom] = useAtom(currentReviewAtom);
   const [isOpen, setIsOpen] = useState(true);
@@ -24,7 +24,6 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
   const [currentUser] = useAtom(currentUserAtom);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
-  const { userId } = useAuth();
   const clerkUserId = userId as string;
   const [allReviews, setAllReviews] = useState<iReview[]>([]);
 
@@ -125,14 +124,14 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
   });
 
   const handleCommentSubmit = useCallback(async (newTextAreaValue: string) => {
-    if (auth.isLoaded && !auth.isSignedIn) {
+    if (isLoaded && !isSignedIn) {
       router.push("/sign-in");
       return;
     }
     setTextAreaValue(newTextAreaValue);
     setIsOpen(!isOpen);
     commentMutation.mutate({ ...comment, body: newTextAreaValue });
-  }, [auth.isLoaded, auth.isSignedIn, router, isOpen, commentMutation, comment]);
+  }, [isLoaded, isSignedIn, router, isOpen, commentMutation, comment]);
 
   const productCardOptions = {
     showLatestReview: true,
@@ -207,7 +206,7 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
       <div className="mb-4 w-full">
-        <ProductCard product={reviewData?.product!} options={productCardOptions} reviews={allReviews} />
+        <ProductCard product={reviewData?.product!} options={productCardOptions} reviews={allReviews} currentUserId={userId ? userId : null} />
       </div>
       <ReviewCard review={reviewData} />
       <CommentForm

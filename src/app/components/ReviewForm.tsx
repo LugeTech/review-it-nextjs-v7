@@ -73,7 +73,6 @@ const ReviewForm = () => {
   const handleEditorValue = (value: string) => {
     if (value === "" || value === "<p></p>") {
       setReviewData((prevData): iReview => ({ ...prevData, body: "" }));
-
       return;
     }
     setReviewData((prevData): iReview => ({ ...prevData, body: value }));
@@ -180,6 +179,34 @@ const ReviewForm = () => {
   const product = data as iProduct;
   // filter allPproductsatom for id variable and return product
 
+  const amITheOwner = product.business?.ownerId === user?.id;
+  if (amITheOwner) {
+    return (
+      <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+        {amITheOwner ? (
+          <div className="text-center">
+            <p className="text-lg font-semibold text-gray-700 mb-2">
+              You're the owner of this business
+            </p>
+            <p className="text-sm text-gray-600">
+              As the owner, you can't write a review for your own business.
+            </p>
+          </div>
+        ) : (
+          <div className="text-center">
+            <p className="text-lg font-semibold text-green-600 mb-2">
+              You can write a review
+            </p>
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+              Write a Review
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+
   return (
     <div className="pt-8 flex flex-col h-full w-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-white  rounded-lg shadow-md">
       <h1 className="text-3xl font-bold mb-6 text-myTheme-niceGrey ">Write a Review</h1>
@@ -189,7 +216,7 @@ const ReviewForm = () => {
       >
         {product && (
           <div className="flex justify-center items-center mb-4">
-            <ProductCard options={productCardOptions} product={product} />
+            <ProductCard options={productCardOptions} product={product} currentUserId={user?.id ? user.id : null} />
           </div>
         )}
 

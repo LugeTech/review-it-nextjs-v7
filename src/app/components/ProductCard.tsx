@@ -31,7 +31,6 @@ import { useRouter } from "next/navigation";
 import ClaimProductComponent from "./ClaimProductComponent";
 import { MdEmail, MdPhone, MdLanguage, MdAccessTime, MdLocationOn, MdCalendarToday } from 'react-icons/md';
 import AccordianComponent from "./AccordianComponent";
-import { useAuth } from "@clerk/nextjs";
 
 interface ProductCardProps {
   reviews?: iReview[] | null;
@@ -42,6 +41,7 @@ interface ProductCardProps {
     showClaimThisProduct: boolean;
   };
   product?: iProduct | null;
+  currentUserId: string | null;
 
 }
 
@@ -49,8 +49,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   reviews,
   options,
   product,
+  currentUserId
 }) => {
-  const router = useRouter();
+  // const router = useRouter();
   if (!product) return <div>No product or reviews found</div>;
   const currentProduct =
     reviews && reviews.length > 0 ? reviews[0].product : product;
@@ -58,17 +59,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const allReviews = product.reviews || reviews as iReview[]
   const ratingResult = calculateAverageReviewRating(allReviews);
 
-  // if (!currentUserId) {
-  //   const { isSignedIn, userId } = useAuth();
-  //   if (isSignedIn) {
-  //     currentUserId = userId;
-  //   }
-  // }
 
-  // const amITheOwner = product.business?.ownerId === currentUserId;
-  // console.log("prod owner", product.business?.ownerId)
-  // console.log("curr user", currentUserId)
-  // console.log("am i the ownner?", amITheOwner)
+  const amITheOwner = product.business?.ownerId === currentUserId;
+  console.log("am i the owner", amITheOwner)
 
   // Type guard function
   function isCalculatedRating(result: any): result is iCalculatedRating {
@@ -209,14 +202,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="mt-3 flex items-center justify-between text-xs">
           <VerticalLinks />
           {options.showClaimThisProduct && (currentProduct?.business === null) && <ClaimProductComponent product={product} />}
-          {options.showWriteReview ? (
+          {(options.showWriteReview && !amITheOwner) || (!options.showWriteReview && !amITheOwner) ? (
             <Link
               href={`/cr/?id=${currentProduct?.id}&rating=3`}
               className="text-blue-600 hover:underline"
             >
               Write Review
             </Link>
-          ) : null}
+          ) :
+            <p className="font-light bg-myTheme-accent p-1 rounded-md text-white">You own this product</p>
+          }
+
         </div>
       </div>
     </div>

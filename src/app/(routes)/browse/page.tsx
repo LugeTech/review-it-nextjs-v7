@@ -95,6 +95,7 @@ const Page = () => {
                 reviews={null}
                 product={product}
                 key={product.id}
+                currentUserId={userId ? userId : null}
               />
             ))
           ) : (
