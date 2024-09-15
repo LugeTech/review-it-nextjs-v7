@@ -186,10 +186,10 @@ const ReviewForm = () => {
         {amITheOwner ? (
           <div className="text-center">
             <p className="text-lg font-semibold text-gray-700 mb-2">
-              You're the owner of this business
+              You&#39;re the owner of this business
             </p>
             <p className="text-sm text-gray-600">
-              As the owner, you can't write a review for your own business.
+              As the owner, you can&#39;t write a review for your own business.
             </p>
           </div>
         ) : (
@@ -204,6 +204,7 @@ const ReviewForm = () => {
         )}
       </div>
     );
+
   }
 
 
