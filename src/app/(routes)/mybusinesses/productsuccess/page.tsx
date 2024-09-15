@@ -5,51 +5,42 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { iProduct } from "@/app/util/Interfaces"
+import { useCallback, useEffect, useState } from "react"
 
-// Fake product data
-const fakeProduct = {
-  id: "123e4567-e89b-12d3-a456-426614174000",
-  address: "123 Main St, Anytown, USA",
-  createdDate: new Date("2024-09-14T12:00:00Z"),
-  description: "Experience the future of smart home technology with our revolutionary AI-powered assistant.",
-  display_image: "https://example.com/images/smart-home-assistant.jpg",
-  images: [
-    "https://example.com/images/smart-home-assistant-1.jpg",
-    "https://example.com/images/smart-home-assistant-2.jpg",
-  ],
-  videos: ["https://example.com/videos/product-demo.mp4"],
-  links: ["https://example.com/product-page", "https://example.com/user-manual"],
-  name: "SmartHome AI Assistant",
-  tags: ["Smart Home", "AI", "Voice Control", "Energy Efficient"],
-  openingHrs: "09:00",
-  closingHrs: "18:00",
-  telephone: "+1 (555) 123-4567",
-  website: ["https://smarthomeai.com"],
-  rating: 5,
-  hasOwner: true,
-  ownerId: "owner-123",
-  reviews: [
-    { id: "review-1", title: "Amazing product!", content: "This has changed my life!" },
-    { id: "review-2", title: "Highly recommended", content: "Easy to use and very effective." },
-  ],
-  createdById: "user-456",
-  isDeleted: false,
-  email: "info@smarthomeai.com",
-  businessOwnerId: "business-789",
-}
 
 export default function ProductSuccess() {
   // const product = fakeProduct;
   const searchParams = useSearchParams();
   const productParam = searchParams.get('product');
+  const [product, setProduct] = useState<iProduct | null>(null);
 
-  // Parse the product data from the search params
-  const product = productParam ? JSON.parse(decodeURIComponent(productParam)) : null;
+  const parseAndSetProduct = useCallback(() => {
+    const productParam = searchParams.get('product');
+    console.log(productParam);
+
+    if (productParam) {
+      try {
+        const data = JSON.parse(decodeURIComponent(productParam));
+        setProduct(data.data);
+      } catch (error) {
+        console.error('Error parsing product data:', error);
+        setProduct(null);
+      }
+    } else {
+      setProduct(null);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    parseAndSetProduct();
+  }, [parseAndSetProduct]);
+
+  console.log(product);
 
   if (!product) {
     return <div>No product data available</div>;
   }
-
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen flex items-center justify-center">
       <Card className="w-full max-w-3xl">
@@ -71,7 +62,7 @@ export default function ProductSuccess() {
             {/* </div> */}
             <p className="text-gray-700 mb-4">{product.description}</p>
             <div className="flex flex-wrap gap-2 mb-4">
-              {product.tags.map((tag: string, index: number) => (
+              {product.tags && product.tags?.map((tag: string, index: number) => (
                 <Badge key={index} className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
                   <TagIcon className="w-4 h-4 mr-1 inline-block" />
                   {tag}
@@ -81,7 +72,7 @@ export default function ProductSuccess() {
             <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
               <p><ClockIcon className="w-4 h-4 inline-block mr-1" /> {product.openingHrs} - {product.closingHrs}</p>
               <p><PhoneIcon className="w-4 h-4 inline-block mr-1" /> {product.telephone}</p>
-              <p><GlobeIcon className="w-4 h-4 inline-block mr-1" /> {product.website[0]}</p>
+              <p><GlobeIcon className="w-4 h-4 inline-block mr-1" /> {product.website?.length > 0 ? product.website[0] : 'No website provided'}</p>
               <p><MailIcon className="w-4 h-4 inline-block mr-1" /> {product.email}</p>
             </div>
           </div>

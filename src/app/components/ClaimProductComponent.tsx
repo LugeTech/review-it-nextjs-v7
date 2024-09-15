@@ -36,7 +36,7 @@ const ClaimProductComponent = ({ product }: { product: iProduct }) => {
       console.log("product Claimed Successfully!"),
 
         // Redirect to the product update page
-        router.push(`/mybusinesses/${result.productOwnerId}/update`);
+        router.push(`/mybusinesses/`);
     } catch (error) {
       console.log("Error", error);
     } finally {
