@@ -63,10 +63,10 @@ export function BusinessDashboardComponent() {
 
       {/* Add Business Button */}
       <div className="flex justify-center mb-6">
-        <button className="flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors">
+        <Link href="/submit" className="flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors">
           <FaPlus className="w-4 h-4 mr-2" />
           Add New Business
-        </button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
