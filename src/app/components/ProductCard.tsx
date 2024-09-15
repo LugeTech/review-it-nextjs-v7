@@ -60,12 +60,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const allReviews = product.reviews || reviews as iReview[]
   const ratingResult = calculateAverageReviewRating(allReviews);
 
-  if (!currentUserId) {
-    const { isSignedIn, userId } = useAuth();
-    if (isSignedIn) {
-      currentUserId = userId;
-    }
-  }
+  // if (!currentUserId) {
+  //   const { isSignedIn, userId } = useAuth();
+  //   if (isSignedIn) {
+  //     currentUserId = userId;
+  //   }
+  // }
 
   const amITheOwner = product.business?.ownerId === currentUserId;
   console.log("prod owner", product.business?.ownerId)
