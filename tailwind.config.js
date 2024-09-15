@@ -45,9 +45,40 @@ module.exports = {
     },
   },
   //light used to be eee
-  plugins: [require("daisyui"), require("tailwindcss-animate")],
+  plugins: [
+    require("daisyui"),
+    require("tailwindcss-animate"),
+    function ({ addBase, theme }) {
+      addBase({
+        'html': {
+          'color-scheme': 'light !important',
+          'color': theme('colors.myTheme.lightTextBody'),
+        },
+        'body': {
+          'background-color': theme('colors.myTheme.light'),
+          'color': theme('colors.myTheme.lightTextBody'),
+        },
+        '@media (prefers-color-scheme: dark)': {
+          'html, body': {
+            'color-scheme': 'light !important',
+            'background-color': theme('colors.myTheme.light'),
+            'color': theme('colors.myTheme.lightTextBody'),
+          }
+        }
+      })
+    },
+  ],
   // daisyUI config (optional - here are the default values)
   daisyui: {
     logs: false, // Shows info about daisyUI version and used config in the console when building your CSS
+  },
+  variants: {
+    extend: {
+      // This effectively disables all dark: variants
+      backgroundColor: ['dark'],
+      textColor: ['dark'],
+      borderColor: ['dark'],
+      // Add other variants you use with dark mode
+    },
   },
 };

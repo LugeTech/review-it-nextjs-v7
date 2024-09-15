@@ -112,7 +112,7 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
   }, [videoType, embedCode, isVideoLoaded]);
 
   return (
-    <div className="w-80  mx-auto mt-4">
+    <div className="w-full sm:w-80  mx-auto mt-4">
       {error && (
         <Alert variant="destructive" className="mb-4">
           <AlertDescription>{error}</AlertDescription>

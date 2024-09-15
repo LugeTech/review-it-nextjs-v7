@@ -181,7 +181,7 @@ const ReviewForm = () => {
   // filter allPproductsatom for id variable and return product
 
   return (
-    <div className="pt-8 flex flex-col h-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-white  rounded-lg shadow-md">
+    <div className="pt-8 flex flex-col h-full w-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-white  rounded-lg shadow-md">
       <h1 className="text-3xl font-bold mb-6 text-myTheme-niceGrey ">Write a Review</h1>
       <form
         onSubmit={handleSubmit}

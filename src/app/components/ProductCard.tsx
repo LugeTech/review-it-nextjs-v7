@@ -140,7 +140,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </Link>
         <div className="mt-3 flex items-center justify-between text-xs">
           <VerticalLinks />
-          {options.showClaimThisProduct && !currentProduct?.businessOwner && <ClaimProductComponent product={product} />}
+          {options.showClaimThisProduct && (currentProduct?.businessOwner === null) && <ClaimProductComponent product={product} />}
           {options.showWriteReview ? (
             <Link
               href={`/cr/?id=${currentProduct?.id}&rating=3`}
@@ -148,11 +148,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             >
               Write Review
             </Link>
-          ) : (
-            <button className="text-red-600 hover:underline">
-              Report Product
-            </button>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

@@ -1,7 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@layer base {
+  html {
+    color-scheme: light !important;
+  }
+  
+  body {
+    @apply bg-myTheme-light text-myTheme-lightTextBody;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    html, body {
+      color-scheme: light !important;
+      @apply bg-myTheme-light text-myTheme-lightTextBody;
+    }
+  }
+}
 /*.mantine-RichTextEditor-content {*/
 /*  @apply text-base dark:text-myTheme-light h-full dark:bg-myTheme-dark;*/
 /*}*/

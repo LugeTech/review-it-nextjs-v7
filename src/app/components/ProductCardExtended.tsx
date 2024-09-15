@@ -9,6 +9,7 @@ import { calculateAverageReviewRating } from "../util/calculateAverageReviewRati
 import LoadingSpinner from "./LoadingSpinner";
 import VerticalLinks from "./VerticalLinks";
 import { useRouter } from "next/navigation";
+import ClaimProductComponent from "./ClaimProductComponent";
 
 interface ProductCardProps {
   reviews?: iReview[] | null;
@@ -58,7 +59,7 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
 
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } =
     calculateAverageReviewRating(allReviews) as unknown as iCalculatedRating;
-
+  console.log(currentProduct);
   return (
     <div className="flex justify-center w-full">
       <div className="w-full max-w-4xl border border-gray-200 bg-white p-3 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
@@ -113,16 +114,12 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
         </Link>
         <div className="mt-3 flex flex-wrap items-center justify-between text-xs gap-2">
           <VerticalLinks />
-          <div className="flex gap-2">
-            {options.showClaimThisProduct && !currentProduct?.businessOwner && (
-              <button onClick={() => router.push("/pricing")} className="text-blue-600 hover:underline">
-                Claim Product
-              </button>
-            )}
+          <div className="flex gap-2 justify-end items-center text-sm">
+            {options.showClaimThisProduct && (currentProduct?.businessOwnerId === null) && <ClaimProductComponent product={currentProduct} />}
             {options.showWriteReview ? (
               <Link
                 href={`/cr/?id=${currentProduct?.id}&rating=3`}
-                className="text-blue-600 hover:underline"
+                className="text-blue-600 hover:underline w-full h-full"
               >
                 Write Review
               </Link>
@@ -134,7 +131,7 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

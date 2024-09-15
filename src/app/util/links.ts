@@ -14,11 +14,11 @@ export const sideLinks = [
   //   link: "/category",
   //   icon: "category",
   // },
-  {
-    name: "Add Business",
-    link: "/submit",
-    icon: "add",
-  },
+  // {
+  //   name: "Add Business",
+  //   link: "/submit",
+  //   icon: "add",
+  // },
   {
     name: "My Activity",
     link: "/userprofile",
@@ -41,10 +41,10 @@ export const topLinks = [
   //   name: "Browse Categories",
   //   link: "/category",
   // },
-  {
-    name: "Add Business",
-    link: "/submit",
-  },
+  // {
+  //   name: "Add Business",
+  //   link: "/submit",
+  // },
   {
     name: "My Activity",
     link: "/userprofile",

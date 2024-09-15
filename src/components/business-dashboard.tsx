@@ -9,6 +9,7 @@ import { getUser } from "@/app/util/serverFunctions"
 import LoadingSpinner from "@/app/components/LoadingSpinner"
 import { iUser } from "@/app/util/Interfaces"
 import Link from "next/link"
+import { FaPlus } from 'react-icons/fa';
 
 export function BusinessDashboardComponent() {
   const auth = useAuth();
@@ -28,24 +29,28 @@ export function BusinessDashboardComponent() {
   if (!user.businessOwner) {
     return (
       <div className="container mx-auto p-6 bg-gray-100 min-h-screen flex items-center justify-center">
-        <Card className="w-full max-w-2xl">
+        <Card className="w-full max-w-2xl ">
           <CardHeader>
             <CardTitle className="text-3xl font-bold text-center">Grow With Review It</CardTitle>
           </CardHeader>
-          <CardContent className="text-center">
+          <CardContent className="text-start">
             <RocketIcon className="w-24 h-24 mx-auto text-blue-500 mb-6" />
             <p className="text-xl mb-4">
               Ready to take your business to the next level? Now is the perfect time to start or expand your small business journey!
             </p>
-            <p className="text-xl mb-4">
-              Ready to take your business to the next level? Now is the perfect time to start or expand your small business journey!
-            </p>
+            <ul className="text-xl text-start mb-4 list-disc pl-6 space-y-2">
+              <li>Boost your online credibility with verified customer reviews</li>
+              <li>Gain valuable insights to improve your products and services</li>
+              <li>Increase visibility and attract new customers</li>
+              <li>Build trust with potential clients through transparent feedback</li>
+              <li>Leverage positive reviews for marketing and brand growth</li>
+            </ul>
             <Link href="/submit" className="bg-blue-600 text-white hover:bg-blue-700 py-3 px-6 rounded-full text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl">
               Add Your Business
             </Link>
           </CardContent>
           <CardFooter className="text-center text-gray-600">
-            Start your success story today and watch your business thrive!
+            Join us today and unlock the full potential of your business with our innovative solutions!
           </CardFooter>
         </Card>
       </div>
@@ -54,7 +59,16 @@ export function BusinessDashboardComponent() {
 
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-center">Your Business Dashboard</h1>
+      <h1 className=" text-3xl font-bold mb-6 text-center">Your Business Dashboard</h1>
+
+      {/* Add Business Button */}
+      <div className="flex justify-center mb-6">
+        <button className="flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors">
+          <FaPlus className="w-4 h-4 mr-2" />
+          Add New Business
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => (
           <Card key={product.id} className="flex flex-col">
@@ -86,7 +100,7 @@ export function BusinessDashboardComponent() {
               <p className="text-gray-600 text-sm">{product.description}</p>
             </CardContent>
             <CardFooter>
-              <button className="w-full bg-gray-900 text-gray-50 hover:bg-gray-900/90 py-2 rounded-md transition-colors dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90">
+              <button className="w-full bg-gray-900 text-gray-50 hover:bg-gray-900/90 py-2 rounded-md transition-colors ">
                 View Details
               </button>
             </CardFooter>
