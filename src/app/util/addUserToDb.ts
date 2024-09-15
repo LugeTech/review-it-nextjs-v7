@@ -31,6 +31,7 @@ export const addUserToDb = async (clerkUserData: UserDATA) => {
       where: { email: clerkUserData.email },
       update: {},
       create: {
+        id: clerkUserData.userId,
         userName: clerkUserData.userName,
         avatar: clerkUserData.avatar,
         email: clerkUserData.email,

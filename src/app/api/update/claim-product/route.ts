@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     }
     const newBusinessOwner = await prisma.business.create({
       data: {
-        ownerId: userIdFromClerk as string,
+        ownerId: clerkClaimsData.userId,
         subscriptionStatus: "FREE",
         subscriptionExpiry: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // Set expiry to 30 days from now
         products: { connect: [{ id: product.id }] },

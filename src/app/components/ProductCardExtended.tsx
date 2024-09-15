@@ -10,6 +10,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import VerticalLinks from "./VerticalLinks";
 import { useRouter } from "next/navigation";
 import ClaimProductComponent from "./ClaimProductComponent";
+import { MdEmail, MdPhone, MdLanguage, MdAccessTime, MdLocationOn, MdCalendarToday, MdEdit, MdReport } from 'react-icons/md';
 
 interface ProductCardProps {
   reviews?: iReview[] | null;
@@ -59,7 +60,7 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
 
   let { roundedRating, roundedRatingOneDecimalPlace, numberOfReviews } =
     calculateAverageReviewRating(allReviews) as unknown as iCalculatedRating;
-  console.log(currentProduct);
+
   return (
     <div className="flex justify-center w-full">
       <div className="w-full max-w-4xl border border-gray-200 bg-white p-3 rounded-md shadow-sm hover:shadow-md transition-shadow duration-200">
@@ -82,9 +83,26 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
             <h2 className="text-base sm:text-lg font-semibold text-gray-900 break-words">
               {currentProduct?.name}
             </h2>
-            <p className="text-xs sm:text-sm text-gray-600 break-words">
-              {currentProduct?.address}
+            <p className="text-xs sm:text-sm text-gray-600 break-words flex items-center">
+              <MdLocationOn className="mr-1" /> {currentProduct?.address}
             </p>
+            {currentProduct?.openingHrs && currentProduct?.closingHrs && (
+              <p className="text-xs sm:text-sm text-gray-600 mt-1 flex items-center">
+                <MdAccessTime className="mr-1" /> Hours: {currentProduct.openingHrs} - {currentProduct.closingHrs}
+              </p>
+            )}
+            <div className="mt-1 text-xs sm:text-sm text-gray-600">
+              {currentProduct?.telephone && (
+                <p className="flex items-center">
+                  <MdPhone className="mr-1" /> {currentProduct.telephone}
+                </p>
+              )}
+              {currentProduct?.email && (
+                <p className="flex items-center">
+                  <MdEmail className="mr-1" /> {currentProduct.email}
+                </p>
+              )}
+            </div>
             <p className="text-xs text-gray-500 mt-1 line-clamp-10 break-words">
               {currentProduct?.description}
             </p>
@@ -110,6 +128,19 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
                 <span className="text-xs text-gray-500">No Reviews Yet</span>
               )}
             </div>
+            {currentProduct?.website && currentProduct.website.length > 0 && (
+              <a
+                href={currentProduct.website[0]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline text-xs mt-2 flex items-center"
+              >
+                <MdLanguage className="mr-1" /> Visit Website
+              </a>
+            )}
+            <p className="text-xs text-gray-500 mt-1 flex items-center">
+              <MdCalendarToday className="mr-1" /> Added on: {currentProduct?.createdDate ? new Date(currentProduct.createdDate).toLocaleDateString() : 'N/A'}
+            </p>
           </div>
         </Link>
         <div className="mt-3 flex flex-wrap items-center justify-between text-xs gap-2">
@@ -119,19 +150,19 @@ const ProductCardExtended: React.FC<ProductCardProps> = ({
             {options.showWriteReview ? (
               <Link
                 href={`/cr/?id=${currentProduct?.id}&rating=3`}
-                className="text-blue-600 hover:underline w-full h-full"
+                className="text-blue-600 hover:underline w-full h-full flex items-center"
               >
-                Write Review
+                <MdEdit className="mr-1" /> Write Review
               </Link>
             ) : (
-              <button className="text-red-600 hover:underline">
-                Report Product
+              <button className="text-red-600 hover:underline flex items-center">
+                <MdReport className="mr-1" /> Report Product
               </button>
             )}
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

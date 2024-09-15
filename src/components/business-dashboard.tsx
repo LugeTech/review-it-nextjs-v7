@@ -41,10 +41,10 @@ export function BusinessDashboardComponent() {
           </CardHeader>
           <CardContent className="text-start">
             <RocketIcon className="w-24 h-24 mx-auto text-blue-500 mb-6" />
-            <p className="text-xl mb-4">
+            <p className="text-base md:text-xl mb-4">
               Help local businesses thrive by adding them to our platform. Anyone can contribute!
             </p>
-            <ul className="text-xl text-start mb-4 list-disc pl-6 space-y-2">
+            <ul className="text-base md:text-xl text-start mb-4 list-disc pl-6 space-y-2">
               <li>Support small businesses in your community</li>
               <li>Help customers discover great local services</li>
               <li>Contribute to a transparent review ecosystem</li>

@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { iReview } from "../util/Interfaces";
-import RatingModule from "./RatingModule";
 import dayjs from "dayjs";
 import DOMPurify from "dompurify";
 import { useAtom } from "jotai";
@@ -16,6 +15,7 @@ import { toast } from "sonner";
 import ImageGallery from "./ImageGallery";
 import VideoEmbed from "./VideoEmbed";
 import ReviewStats from "./ReviewStats";
+import RatingModuleReadOnly from "./RatingModuleReadOnly";
 
 interface ReviewCardProps {
   review: iReview;
@@ -83,10 +83,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
             <div className="ml-3 sm:ml-4">
               <p className="font-semibold text-base">@{user?.userName}</p>
               <div className="flex items-center">
-                <RatingModule
+                <RatingModuleReadOnly
                   name={review.id!}
                   rating={rating}
-                  ratingChanged={() => { }}
                   size="rating-sm"
                 />
               </div>
@@ -101,7 +100,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         </div>
 
         <Link
-          href={`/fr/${review.id}`}
+          href={`/fr/?id=${review.id}&productid=${review.productId}`}
           onClick={() => setReview(review)}
           className="block mb-3 hover:underline"
         >

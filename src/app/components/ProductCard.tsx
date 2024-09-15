@@ -21,7 +21,7 @@
  * that navigates to a review creation page with a pre-set rating of 3 stars.
  */
 "use client";
-import { iProduct, iReview, iCalculatedRating } from "@/app/util/Interfaces";
+import { iProduct, iReview, iCalculatedRating, iUser } from "@/app/util/Interfaces";
 import Image from "next/legacy/image";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
 import Link from "next/link";
@@ -29,6 +29,9 @@ import { calculateAverageReviewRating } from "../util/calculateAverageReviewRati
 import VerticalLinks from "./VerticalLinks";
 import { useRouter } from "next/navigation";
 import ClaimProductComponent from "./ClaimProductComponent";
+import { MdEmail, MdPhone, MdLanguage, MdAccessTime, MdLocationOn, MdCalendarToday } from 'react-icons/md';
+import AccordianComponent from "./AccordianComponent";
+import { useAuth } from "@clerk/nextjs";
 
 interface ProductCardProps {
   reviews?: iReview[] | null;
@@ -39,12 +42,15 @@ interface ProductCardProps {
     showClaimThisProduct: boolean;
   };
   product?: iProduct | null;
+  currentUserId: string | null
+
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   reviews,
   options,
   product,
+  currentUserId
 }) => {
   const router = useRouter();
   if (!product) return <div>No product or reviews found</div>;
@@ -53,6 +59,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const allReviews = product.reviews || reviews as iReview[]
   const ratingResult = calculateAverageReviewRating(allReviews);
+
+  if (!currentUserId) {
+    const { isSignedIn, userId } = useAuth();
+    if (isSignedIn) {
+      currentUserId = userId;
+    }
+  }
+
+  const amITheOwner = product.business?.ownerId === currentUserId;
+  console.log("prod owner", product.business?.ownerId)
+  console.log("curr user", currentUserId)
+  console.log("am i the ownner?", amITheOwner)
 
   // Type guard function
   function isCalculatedRating(result: any): result is iCalculatedRating {
@@ -108,14 +126,27 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <h2 className="text-base sm:text-lg font-semibold text-gray-900 break-words">
               {currentProduct?.name}
             </h2>
-            <p className="text-xs sm:text-sm text-gray-600 break-words">
-              {currentProduct?.address}
+            <p className="text-xs sm:text-sm text-gray-600 break-words flex items-center">
+              <MdLocationOn className="mr-1" /> {currentProduct?.address}
             </p>
             {currentProduct?.openingHrs && currentProduct?.closingHrs && (
-              <p className="text-xs sm:text-sm text-gray-600 mt-1">
-                Hours: {currentProduct.openingHrs} - {currentProduct.closingHrs}
+              <p className="text-xs sm:text-sm text-gray-600 mt-1 flex items-center">
+                <MdAccessTime className="mr-1" /> Hours: {currentProduct.openingHrs} - {currentProduct.closingHrs}
               </p>
             )}
+            <div className="mt-2 text-xs sm:text-sm text-gray-600">
+              {currentProduct?.telephone && (
+                <p className="flex items-center">
+                  <MdPhone className="mr-1" /> {currentProduct.telephone}
+                </p>
+              )}
+              {currentProduct?.email && (
+                <p className="flex items-center">
+                  <MdEmail className="mr-1" /> {currentProduct.email}
+                </p>
+              )}
+            </div>
+
             <p className="text-sm text-gray-500 mt-1 line-clamp-10 break-words">
               {currentProduct?.description}
             </p>
@@ -141,14 +172,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <span className="text-xs text-gray-500">No Reviews Yet</span>
               )}
             </div>
-            <div className="mt-2 text-xs sm:text-sm text-gray-600">
-              {currentProduct?.telephone && (
-                <p>Tel: {currentProduct.telephone}</p>
-              )}
-              {currentProduct?.email && (
-                <p>Email: {currentProduct.email}</p>
-              )}
-            </div>
             {currentProduct?.tags && currentProduct.tags.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-1">
                 {currentProduct.tags.map((tag, index) => (
@@ -163,13 +186,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 href={currentProduct.website[0]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline text-xs mt-2 block"
+                className="text-blue-600 hover:underline text-xs mt-2 block flex items-center"
               >
-                Visit Website
+                <MdLanguage className="mr-1" /> Visit Website
               </a>
             )}
-            <p className="text-xs text-gray-500 mt-1">
-              Added on: {currentProduct?.createdDate ? new Date(currentProduct.createdDate).toLocaleDateString() : 'N/A'}
+            <p className="text-xs text-gray-500 mt-1 flex items-center">
+              <MdCalendarToday className="mr-1" /> Added on: {currentProduct?.createdDate ? new Date(currentProduct.createdDate).toLocaleDateString() : 'N/A'}
             </p>
             {currentProduct?.hasOwner && (
               <p className="text-xs text-gray-600 mt-1">
@@ -179,9 +202,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </Link>
         {options.showLatestReview && allReviews && allReviews.length > 0 && (
-          <div className="mt-2 text-sm text-gray-700">
+          <div className="mt-2 text-sm text-gray-700 bg-gray-100 p-4 rounded-md">
             <p className="font-semibold">Latest Review:</p>
-            <p className="italic line-clamp-2">{allReviews[0].title}</p>
+            {/* <p className="italic line-clamp-2">{allReviews[0].title}</p> */}
+            <AccordianComponent review={allReviews[0]} />
           </div>
         )}
         <div className="mt-3 flex items-center justify-between text-xs">

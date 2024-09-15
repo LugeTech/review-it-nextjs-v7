@@ -11,8 +11,11 @@ import Link from "next/link";
 import WriteAReview from "./WriteAReview";
 import ReviewsSummary from "@/components/reviews-summary";
 import { CompanyActivityCard } from "@/components/company-activity-card";
+import { useAtom } from "jotai";
+import { currentReviewAtom, currentUserAtom } from "../store/store";
 
 const Reviews = ({ productId }: { productId: string }) => {
+  const [currentUser] = useAtom(currentUserAtom);
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["reviews", productId],
     queryFn: () => getReviews(productId),
@@ -57,6 +60,7 @@ const Reviews = ({ productId }: { productId: string }) => {
           reviews={reviews}
           options={productCardOptions}
           product={product}
+          currentUserId={currentUser?.id}
         />
       </div>
       <div className="flex flex-col md:flex-row w-full md:max-w-4xl mx-auto ">

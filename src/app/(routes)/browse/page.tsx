@@ -10,6 +10,7 @@ import ProductCard from "@/app/components/ProductCard";
 import { allProductsAtom } from "@/app/store/store";
 import { iCalculatedRating } from "@/app/util/Interfaces";
 import { calculateAverageReviewRating } from "@/app/util/calculateAverageReviewRating";
+import { useAuth } from "@clerk/nextjs";
 
 const Page = () => {
   const { data, isLoading, isError, error } = useQuery({
@@ -22,6 +23,7 @@ const Page = () => {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
+  const { userId } = useAuth();
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -57,7 +59,7 @@ const Page = () => {
 
   const productCardOptions = {
     showLatestReview: true,
-    size: "rating-sm",
+    size: "rating-lg",
     showWriteReview: true,
     showClaimThisProduct: true,
   };
@@ -93,6 +95,7 @@ const Page = () => {
                 reviews={null}
                 product={product}
                 key={product.id}
+                currentUserId={userId ? userId : null}
               />
             ))
           ) : (
