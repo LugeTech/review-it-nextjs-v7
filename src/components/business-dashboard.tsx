@@ -24,6 +24,7 @@ export function BusinessDashboardComponent() {
   const user: iUser | undefined = data?.data as iUser;
 
   const products = user.businesses?.flatMap(business => business.products) || [];
+  console.log(user);
 
   // This might come in handy later, this keeps tha business umbrella
   //   const businessProducts = user.businesses?.map(business => ({
@@ -101,6 +102,7 @@ export function BusinessDashboardComponent() {
               <p className="text-sm text-gray-700 mb-2" />
               <p className="text-sm text-gray-700 mb-2">
                 <span className="font-semibold">Latest review:</span> &quot;{product.reviews?.[0]?.title || "No reviews yet"}&quot;
+                <span className="text-gray-600 text-sm ml-2">({product.reviews?.[0]?.createdDate ? new Date(product.reviews?.[0]?.createdDate).toLocaleDateString() : null})</span>
               </p>
               <p className="text-gray-600 text-sm">{product.description}</p>
             </CardContent>

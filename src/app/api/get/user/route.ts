@@ -70,7 +70,11 @@ export async function GET(request: NextRequest) {
           likedReviews: true,
           businesses: {
             include: {
-              products: true,
+              products: {
+                include: {
+                  reviews: true,
+                },
+              },
             }
           },
         },
