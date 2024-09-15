@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { iProduct } from "../util/Interfaces";
 import { resizeImage } from "../util/clientFunctions";
 import { uploadImageToCloudinary } from "../util/uploadImageToCloudinary";
@@ -8,19 +8,17 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Upload, X } from "lucide-react";
+import { Upload, X, Trash2, Plus } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
 
-const NewProductForm = (): JSX.Element => {
+export default function ProductForm() {
   const initialProduct: iProduct = {
     address: "",
     createdDate: new Date(),
     description: "",
-    display_image:
-      "https://res.cloudinary.com/dhglzlaqf/image/upload/v1688140420/myassets/placeholder_jpxutd.png",
+    display_image: "https://res.cloudinary.com/dhglzlaqf/image/upload/v1688140420/myassets/placeholder_jpxutd.png",
     images: [],
     videos: [],
     links: [],
@@ -37,10 +35,11 @@ const NewProductForm = (): JSX.Element => {
     isDeleted: false,
   };
 
-  const [product, setProduct] = useState(initialProduct);
+  const [product, setProduct] = useState<iProduct>(initialProduct);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isImageUploading, setIsImageUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
 
@@ -48,13 +47,21 @@ const NewProductForm = (): JSX.Element => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
+    setProduct({ ...product, [name]: value });
+  };
 
-    if (name === "tags") {
-      const tagsArray = value.split(",").map(tag => tag.trim());
-      setProduct({ ...product, [name]: tagsArray });
-    } else {
-      setProduct({ ...product, [name]: value });
-    }
+  const handleArrayInput = (field: keyof iProduct, value: string) => {
+    setProduct(prev => ({
+      ...prev,
+      [field]: [...(prev[field] as string[]), value]
+    }));
+  };
+
+  const handleRemoveArrayItem = (field: keyof iProduct, index: number) => {
+    setProduct(prev => ({
+      ...prev,
+      [field]: (prev[field] as string[]).filter((_, i) => i !== index)
+    }));
   };
 
   const mutations = useMutation({
@@ -67,32 +74,34 @@ const NewProductForm = (): JSX.Element => {
       return response.json();
     },
     onSuccess: (data) => {
-      // Encode the product data
       const encodedProduct = encodeURIComponent(JSON.stringify(data));
       router.push(`/mybusinesses/productsuccess?product=${encodedProduct}`);
     },
     onError: (error: Error) => console.error(error),
   });
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => setImagePreview(reader.result as string);
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string);
+      };
       reader.readAsDataURL(file);
     }
   };
 
   const triggerUploadImage = async (smallFile: string) => {
+    setIsImageUploading(true);
     setIsLoading(true);
     try {
       let res = await uploadImageToCloudinary(smallFile);
-      setImageUrl(res.secure_url);
       setProduct({ ...product, display_image: res.secure_url });
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
       setIsLoading(false);
+      setIsImageUploading(false);
     }
   };
 
@@ -100,123 +109,203 @@ const NewProductForm = (): JSX.Element => {
     if (imagePreview) {
       resizeImage(imagePreview).then(() => triggerUploadImage(imagePreview));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imagePreview]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isImageUploading) {
+      alert("Please wait for the image to finish uploading before submitting.");
+      return;
+    }
     mutations.mutate();
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-white  shadow-lg">
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">Create New Product</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="image-upload">Upload Image</Label>
-            <div className="relative border-2 border-dashed border-gray-300  rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors">
-              <input
-                id="image-upload"
-                type="file"
-                onChange={handleImageChange}
-                accept="image/*"
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              />
-              <div className="flex flex-col items-center justify-center">
-                <Upload className="w-10 h-10 text-gray-400" />
-                <p className="mt-2 text-sm text-gray-500 ">
-                  {imagePreview ? "Change Image" : "Click to upload or drag and drop"}
-                </p>
-              </div>
+    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <h1 className="text-2xl font-bold mb-6">Create New Product</h1>
+
+      <div className="space-y-6">
+        <div>
+          <Label htmlFor="name">Name</Label>
+          <Input id="name" name="name" value={product.name} onChange={handleChange} required />
+        </div>
+
+        <div>
+          <Label htmlFor="description">Description</Label>
+          <Textarea id="description" name="description" value={product.description} onChange={handleChange} required />
+        </div>
+
+        <div>
+          <Label htmlFor="display_image">Display Image</Label>
+          <div className="mt-2 flex items-center space-x-4">
+            <div
+              className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer relative"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {imagePreview ? (
+                <>
+                  <img
+                    src={imagePreview}
+                    alt="Display"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                  {isImageUploading && (
+                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
+                      <span className="text-white">Uploading...</span>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Upload className="w-8 h-8 text-gray-400" />
+              )}
             </div>
-            {imagePreview && (
-              <div className="mt-4 relative">
-                <Image src={imagePreview} alt="Preview" width={320} height={144} className="max-w-xs max-h-36 mx-auto rounded-lg " />
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="hidden"
+              accept="image/*"
+              onChange={handleImageUpload}
+            />
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isImageUploading}
+            >
+              {isImageUploading ? "Uploading..." : "Upload Image"}
+            </Button>
+          </div>
+        </div>
+
+        <div>
+          <Label>Images</Label>
+          <div className="flex items-center space-x-2">
+            <Input
+              placeholder="Image URL"
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleArrayInput('images', e.currentTarget.value);
+                  e.currentTarget.value = "";
+                }
+              }}
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={() => handleArrayInput('images', "")}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="mt-2 space-y-2">
+            {product.images.map((image, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <Input value={image} readOnly />
                 <Button
                   type="button"
-                  variant="destructive"
+                  variant="outline"
                   size="icon"
-                  className="absolute top-0 right-0 -mt-2 -mr-2"
-                  onClick={() => setImagePreview(null)}
+                  onClick={() => handleRemoveArrayItem('images', index)}
                 >
-                  <X className="h-4 w-4" />
+                  <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
-            )}
+            ))}
           </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="name">Product | Business Name</Label>
-            <Input
-              id="name"
-              name="name"
-              value={product.name}
-              onChange={handleChange}
-              placeholder="Enter product name"
-              required
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="address">Address</Label>
-            <Input
-              id="address"
-              name="address"
-              value={product.address as string}
-              onChange={handleChange}
-              placeholder="Enter address"
-              required
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="tags">Tags | Categories</Label>
-            <Input
-              id="tags"
-              name="tags"
-              value={product.tags.join(', ')}
-              onChange={handleChange}
-              placeholder="Separate with commas"
-              required
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
-              name="description"
-              value={product.description}
-              onChange={handleChange}
-              placeholder="Enter product description"
-              rows={4}
-            />
-          </div>
-
-          <div className="pt-4">
-            {imageUrl ? (
+          <div>
+            <Label>Tags</Label>
+            <div className="flex items-center space-x-2">
+              <Input
+                placeholder="Enter a tag"
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    const value = e.currentTarget.value.trim();
+                    if (value) {
+                      handleArrayInput('tags', value);
+                      e.currentTarget.value = "";
+                    }
+                  }
+                }}
+              />
               <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  const input = document.querySelector('input[placeholder="Enter a tag"]') as HTMLInputElement;
+                  const value = input.value.trim();
+                  if (value) {
+                    handleArrayInput('tags', value);
+                    input.value = "";
+                  }
+                }}
               >
-                {isLoading ? "Processing..." : "Create Product"}
+                <Plus className="h-4 w-4" />
               </Button>
-            ) : (
-              <Alert>
-                <AlertDescription>
-                  Add an image to get started...
-                </AlertDescription>
-              </Alert>
-            )}
+            </div>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {product.tags.map((tag, index) => (
+                <div key={index} className="flex items-center bg-gray-100 rounded-full px-3 py-1">
+                  <span>{tag}</span>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="h-4 w-4 ml-2"
+                    onClick={() => handleRemoveArrayItem('tags', index)}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
           </div>
-        </form>
-      </CardContent>
-    </Card>
-  );
-};
 
-export default NewProductForm;
+        </div>
+
+        {/* Repeat similar sections for videos, links, tags, websites */}
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Label htmlFor="openingHrs">Opening Hours</Label>
+            <Input id="openingHrs" name="openingHrs" type="time" value={product.openingHrs || ''} onChange={handleChange} />
+          </div>
+          <div>
+            <Label htmlFor="closingHrs">Closing Hours</Label>
+            <Input id="closingHrs" name="closingHrs" type="time" value={product.closingHrs || ''} onChange={handleChange} />
+          </div>
+        </div>
+
+        <div>
+          <Label htmlFor="telephone">Telephone</Label>
+          <Input id="telephone" name="telephone" type="tel" value={product.telephone || ''} onChange={handleChange} />
+        </div>
+
+        <div>
+          <Label htmlFor="address">Address</Label>
+          <Textarea id="address" name="address" value={product.address || ''} onChange={handleChange} />
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <Switch
+            disabled
+            id="hasOwner"
+            checked={product.hasOwner || false}
+            onCheckedChange={(checked) => setProduct({ ...product, hasOwner: checked })}
+          />
+          <Label htmlFor="hasOwner">I am the Owner</Label>
+        </div>
+        <Button
+          type="submit"
+          className="w-full bg-myTheme-primary"
+          disabled={isLoading || isImageUploading}
+        >
+          {isImageUploading ? "Uploading Image..." : isLoading ? "Processing..." : "Create Product"}
+        </Button>
+      </div>
+    </form>
+  );
+}

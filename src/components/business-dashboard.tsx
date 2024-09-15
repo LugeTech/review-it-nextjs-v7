@@ -22,35 +22,40 @@ export function BusinessDashboardComponent() {
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const user: iUser | undefined = data?.data as iUser;
-  console.log(user)
 
-  const products = user.business?.products || []
+  const products = user.businesses?.flatMap(business => business.products) || [];
 
-  if (!user.business) {
+  // This might come in handy later, this keeps tha business umbrella
+  //   const businessProducts = user.businesses?.map(business => ({
+  //   businessId: business.id,
+  //   products: business.products
+  // })) || [];
+
+  if (user.businesses?.length < 1) {
     return (
       <div className="container mx-auto p-6 bg-gray-100 min-h-screen flex items-center justify-center">
         <Card className="w-full max-w-2xl ">
           <CardHeader>
-            <CardTitle className="text-3xl font-bold text-center">Grow With Review It</CardTitle>
+            <CardTitle className="text-3xl font-bold text-center">Contribute to Review It</CardTitle>
           </CardHeader>
           <CardContent className="text-start">
             <RocketIcon className="w-24 h-24 mx-auto text-blue-500 mb-6" />
             <p className="text-xl mb-4">
-              Ready to take your business to the next level? Now is the perfect time to start or expand your small business journey!
+              Help local businesses thrive by adding them to our platform. Anyone can contribute!
             </p>
             <ul className="text-xl text-start mb-4 list-disc pl-6 space-y-2">
-              <li>Boost your online credibility with verified customer reviews</li>
-              <li>Gain valuable insights to improve your products and services</li>
-              <li>Increase visibility and attract new customers</li>
-              <li>Build trust with potential clients through transparent feedback</li>
-              <li>Leverage positive reviews for marketing and brand growth</li>
+              <li>Support small businesses in your community</li>
+              <li>Help customers discover great local services</li>
+              <li>Contribute to a transparent review ecosystem</li>
+              <li>Empower businesses with valuable customer feedback</li>
+              <li>Foster local economic growth through increased visibility</li>
             </ul>
             <Link href="/submit" className="bg-blue-600 text-white hover:bg-blue-700 py-3 px-6 rounded-full text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl">
-              Add Your Business
+              Add a Business
             </Link>
           </CardContent>
           <CardFooter className="text-center text-gray-600">
-            Join us today and unlock the full potential of your business with our innovative solutions!
+            Join our community effort to boost local businesses and help them reach their full potential!
           </CardFooter>
         </Card>
       </div>

@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
             },
           },
           likedReviews: true,
-          business: {
+          businesses: {
             include: {
               products: true,
             }

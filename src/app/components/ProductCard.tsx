@@ -111,6 +111,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <p className="text-xs sm:text-sm text-gray-600 break-words">
               {currentProduct?.address}
             </p>
+            {currentProduct?.openingHrs && currentProduct?.closingHrs && (
+              <p className="text-xs sm:text-sm text-gray-600 mt-1">
+                Hours: {currentProduct.openingHrs} - {currentProduct.closingHrs}
+              </p>
+            )}
             <p className="text-sm text-gray-500 mt-1 line-clamp-10 break-words">
               {currentProduct?.description}
             </p>
@@ -136,8 +141,49 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <span className="text-xs text-gray-500">No Reviews Yet</span>
               )}
             </div>
+            <div className="mt-2 text-xs sm:text-sm text-gray-600">
+              {currentProduct?.telephone && (
+                <p>Tel: {currentProduct.telephone}</p>
+              )}
+              {currentProduct?.email && (
+                <p>Email: {currentProduct.email}</p>
+              )}
+            </div>
+            {currentProduct?.tags && currentProduct.tags.length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-1">
+                {currentProduct.tags.map((tag, index) => (
+                  <span key={index} className="px-2 py-1 bg-gray-200 text-xs rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+            {currentProduct?.website && currentProduct.website.length > 0 && (
+              <a
+                href={currentProduct.website[0]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline text-xs mt-2 block"
+              >
+                Visit Website
+              </a>
+            )}
+            <p className="text-xs text-gray-500 mt-1">
+              Added on: {currentProduct?.createdDate ? new Date(currentProduct.createdDate).toLocaleDateString() : 'N/A'}
+            </p>
+            {currentProduct?.hasOwner && (
+              <p className="text-xs text-gray-600 mt-1">
+                Claimed Business
+              </p>
+            )}
           </div>
         </Link>
+        {options.showLatestReview && allReviews && allReviews.length > 0 && (
+          <div className="mt-2 text-sm text-gray-700">
+            <p className="font-semibold">Latest Review:</p>
+            <p className="italic line-clamp-2">{allReviews[0].title}</p>
+          </div>
+        )}
         <div className="mt-3 flex items-center justify-between text-xs">
           <VerticalLinks />
           {options.showClaimThisProduct && (currentProduct?.business === null) && <ClaimProductComponent product={product} />}

@@ -109,12 +109,13 @@ export interface iUser {
   isDeleted: boolean | null;
   comments: iComment[];
   likedReviews: iReview[];
-  business: iBusiness | null;
+  businesses: iBusiness[]; // Changed from business: iBusiness | null
 }
+
 export interface iBusiness {
   id: string;
-  user: iUser;
-  userId: string;
+  owner: iUser; // Changed from user: iUser
+  ownerId: string; // Changed from userId: string
   businessDescription: string | null;
   subscriptionStatus: string;
   subscriptionExpiry: Date | null;

@@ -77,16 +77,17 @@ export default function UserInfo({ user }: UserInfoProps) {
 
           <TabsContent value="reviews">
             <ScrollArea className="h-[300px] w-full rounded-md border p-4">
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 text-sm sm:text-base">
                 {filteredReviews.map((review) => (
                   <Link key={review.id} href={`/fr?id=${review.id}&productid=${review.productId}`} className="block">
                     <Card>
                       <CardContent className="p-4">
                         <Image src={review.product?.display_image || ""} alt={review.title} width={40} height={40} />
                         <p className="font-medium">{review.title}</p>
-                        <div className="flex justify-between">
+                        <div className="flex flex-col">
+                          <p className="text-sm text-muted-foreground mt-1">{review.rating}/5 stars</p>
+                          <p className="text-sm text-muted-foreground mt-1">{review.comments?.length || "No"} Comments</p>
                           <p className="text-sm text-muted-foreground mt-1">{dayjs(review.createdDate).fromNow()}</p>
-                          <p className="text-sm text-muted-foreground mt-1">{review.comments?.length} Comments</p>
                         </div>
                       </CardContent>
                     </Card>
