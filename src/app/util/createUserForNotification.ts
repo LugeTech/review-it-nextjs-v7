@@ -66,30 +66,30 @@ export function createBusinessForNotification(business: any, ownerName: string) 
 }
 
 // Function to create a notification for a successful review
-export function createReviewNotification(review: iReview) {
-  const notificationUrl = 'https://reviewit-notifications.lugetech.com/notifications';
-  fetch(notificationUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      id: generateUniqueId(), // You need to implement this function
-      owner_id: review.businessOwnerId,
-      business_id: review.businessId,
-      review_title: review.title,
-      from_name: review.authorName,
-      from_id: review.authorId,
-      read: false
-    })
-  }).then(response => {
-    if (!response.ok) {
-      console.error('Failed to create review notification:', response.status, response.statusText);
-    } else {
-      console.log('Review notification created successfully');
-    }
-  }).catch(error => {
-    console.error('Error creating review notification:', error);
-  });
-}
+// export function createReviewNotification(review: iReview) {
+//   const notificationUrl = 'https://reviewit-notifications.lugetech.com/notifications';
+//   fetch(notificationUrl, {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({
+//       id: generateUniqueId(), // You need to implement this function
+//       owner_id: review.businessOwnerId,
+//       business_id: review.businessId,
+//       review_title: review.title,
+//       from_name: review.authorName,
+//       from_id: review.authorId,
+//       read: false
+//     })
+//   }).then(response => {
+//     if (!response.ok) {
+//       console.error('Failed to create review notification:', response.status, response.statusText);
+//     } else {
+//       console.log('Review notification created successfully');
+//     }
+//   }).catch(error => {
+//     console.error('Error creating review notification:', error);
+//   });
+// }
 
 // Helper function to generate a unique ID (you may want to use a more robust method)
 function generateUniqueId() {
