@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { WebhookEvent, clerkClient } from "@clerk/nextjs/server";
 import { prisma } from "@/app/util/prismaClient";
 import { UserCreatedEvent } from "@/app/util/Interfaces";
+import { createUserForNotification } from "@/app/util/createUserForNotification";
 export async function POST(req: Request) {
   console.log("Adding new user to cockroach");
 
@@ -71,7 +72,8 @@ export async function POST(req: Request) {
     },
   });
 
-  // Update the user metadata in the Clerk user object
+  createUserForNotification(user);
+  // FIXME: lets remove all this metadata crap some time
   await clerkClient.users.updateUser(payload.data.id, {
     publicMetadata: { userInDb: true, id: user.id },
   });
