@@ -5,6 +5,7 @@ import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
 import { iReview } from "@/app/util/Interfaces";
+import { createReviewNotification } from "@/app/util/NotificationFunctions";
 
 interface UserDATA {
   avatar?: string;
@@ -78,6 +79,8 @@ export async function POST(request: NextRequest) {
           },
         },
       });
+
+      createReviewNotification(reviewData);
 
       await prisma.user.update({
         where: {

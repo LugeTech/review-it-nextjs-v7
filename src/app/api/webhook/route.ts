@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { WebhookEvent, clerkClient } from "@clerk/nextjs/server";
 import { prisma } from "@/app/util/prismaClient";
 import { iUser, UserCreatedEvent } from "@/app/util/Interfaces";
-import { createUserForNotification } from "@/app/util/createUserForNotification";
+import { createUserForNotification } from "@/app/util/NotificationFunctions";
 export async function POST(req: Request) {
   console.log("Adding new user to cockroach");
 

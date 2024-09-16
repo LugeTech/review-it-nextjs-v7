@@ -1,4 +1,4 @@
-import { iBusiness, iReview, iUser } from "./Interfaces";
+import { iReview, iUser, UserDATA } from "./Interfaces";
 
 export function createUserForNotification(user: iUser) {
   console.log("creating user for notification", user);
@@ -23,14 +23,14 @@ export function createUserForNotification(user: iUser) {
 }
 
 // Function to create an owner in the notification service
-export function createOwnerForNotification(owner: any) {
+export function createOwnerForNotification(owner: UserDATA) {
   const notificationUrl = 'https://reviewit-notifications.lugetech.com/owners';
   fetch(notificationUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      id: owner.id,
-      name: `${owner.firstName} ${owner.lastName}`.trim()
+      id: owner.userId,
+      name: owner.fullName
     })
   }).then(response => {
     if (!response.ok) {
@@ -44,7 +44,7 @@ export function createOwnerForNotification(owner: any) {
 }
 
 // Function to create a business in the notification service
-export function createBusinessForNotification(business: iBusiness, ownerName: string) {
+export function createBusinessForNotification(business: any, ownerName: string) {
   const notificationUrl = 'https://reviewit-notifications.lugetech.com/businesses';
   fetch(notificationUrl, {
     method: 'POST',
@@ -71,8 +71,8 @@ export function createReviewNotification(review: iReview) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      id: generateUniqueId(), // You need to implement this function
-      owner_id: review.product?.ownerId,
+      id: review.product?.business?.id,
+      owner_id: review.product?.business?.ownerId,
       business_id: review.product?.businessId,
       review_title: review.title,
       from_name: review.createdBy,
