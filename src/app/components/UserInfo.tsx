@@ -78,7 +78,7 @@ export default function UserInfo({ user }: UserInfoProps) {
           <TabsContent value="reviews">
             <ScrollArea className="h-[300px] w-full rounded-md border p-4">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 text-sm sm:text-base">
-                {filteredReviews.map((review) => (
+                {filteredReviews?.map((review) => (
                   <Link key={review.id} href={`/fr?id=${review.id}&productid=${review.productId}`} className="block">
                     <Card>
                       <CardContent className="p-4">
@@ -99,7 +99,7 @@ export default function UserInfo({ user }: UserInfoProps) {
           <TabsContent value="comments">
             <ScrollArea className="h-[300px] w-full rounded-md border p-4">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {filteredComments.map((comment) => (
+                {filteredComments?.map((comment) => (
                   <Link key={comment.id} href={`/fr?id=${comment.review.id}&productid=${comment.review.productId}`} className="block">
                     <Card>
                       <CardContent className="p-4">
@@ -118,7 +118,7 @@ export default function UserInfo({ user }: UserInfoProps) {
           <TabsContent value="likes">
             <ScrollArea className="h-[300px] w-full rounded-md border p-4">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {filteredLikes.map((liked) => (
+                {filteredLikes?.map((liked) => (
                   <Link key={liked.id} href={`/fr?id=${liked.id}&productid=${liked.productId}`} className="block">
                     <Card>
                       <CardContent className="p-4">

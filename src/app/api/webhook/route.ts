@@ -2,7 +2,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent, clerkClient } from "@clerk/nextjs/server";
 import { prisma } from "@/app/util/prismaClient";
-import { UserCreatedEvent } from "@/app/util/Interfaces";
+import { iUser, UserCreatedEvent } from "@/app/util/Interfaces";
 import { createUserForNotification } from "@/app/util/createUserForNotification";
 export async function POST(req: Request) {
   console.log("Adding new user to cockroach");
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
   // const eventType = evt.type;
 
   // console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
-  const user = await prisma.user.upsert({
+  const user: iUser = await prisma.user.upsert({
     where: { email: payload.data.email_addresses[0].email_address },
     update: {},
     create: {

@@ -103,13 +103,13 @@ export interface iUser {
   email: string;
   firstName: string;
   lastName: string;
-  reviews: iReview[];
+  reviews?: iReview[];
   clerkUserId: string;
-  product: iProduct[];
+  product?: iProduct[];
   isDeleted: boolean | null;
-  comments: iComment[];
-  likedReviews: iReview[];
-  businesses: iBusiness[]; // Changed from business: iBusiness | null
+  comments?: iComment[];
+  likedReviews?: iReview[];
+  businesses?: iBusiness[]; // Changed from business: iBusiness | null
 }
 
 export interface iBusiness {

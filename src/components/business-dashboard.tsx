@@ -32,7 +32,7 @@ export function BusinessDashboardComponent() {
   //   products: business.products
   // })) || [];
 
-  if (user.businesses?.length < 1) {
+  if ((user.businesses?.length || 0) < 1) {
     return (
       <div className="container mx-auto p-6 bg-gray-100 min-h-screen flex items-center justify-center">
         <Card className="w-full max-w-2xl ">
