@@ -33,6 +33,7 @@ export default function ProductForm() {
     ownerId: null,
     createdById: "",
     isDeleted: false,
+    email: null,
   };
 
   const [product, setProduct] = useState<iProduct>(initialProduct);
@@ -166,14 +167,6 @@ export default function ProductForm() {
               accept="image/*"
               onChange={handleImageUpload}
             />
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isImageUploading}
-            >
-              {isImageUploading ? "Uploading..." : "Upload Image"}
-            </Button>
           </div>
         </div>
 
@@ -214,59 +207,174 @@ export default function ProductForm() {
               </div>
             ))}
           </div>
-          <div>
-            <Label>Tags</Label>
-            <div className="flex items-center space-x-2">
-              <Input
-                placeholder="Enter a tag"
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    const value = e.currentTarget.value.trim();
-                    if (value) {
-                      handleArrayInput('tags', value);
-                      e.currentTarget.value = "";
-                    }
-                  }
-                }}
-              />
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                onClick={() => {
-                  const input = document.querySelector('input[placeholder="Enter a tag"]') as HTMLInputElement;
-                  const value = input.value.trim();
-                  if (value) {
-                    handleArrayInput('tags', value);
-                    input.value = "";
-                  }
-                }}
-              >
-                <Plus className="h-4 w-4" />
-              </Button>
-            </div>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {product.tags.map((tag, index) => (
-                <div key={index} className="flex items-center bg-gray-100 rounded-full px-3 py-1">
-                  <span>{tag}</span>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="h-4 w-4 ml-2"
-                    onClick={() => handleRemoveArrayItem('tags', index)}
-                  >
-                    <X className="h-3 w-3" />
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </div>
-
         </div>
 
-        {/* Repeat similar sections for videos, links, tags, websites */}
+        <div>
+          <Label>Video Links</Label>
+          <div className="flex items-center space-x-2">
+            <Input
+              placeholder="Video URL"
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleArrayInput('videos', e.currentTarget.value);
+                  e.currentTarget.value = "";
+                }
+              }}
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={() => handleArrayInput('videos', "")}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="mt-2 space-y-2">
+            {product.videos.map((video, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <Input value={video} readOnly />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleRemoveArrayItem('videos', index)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <Label>Links</Label>
+          <div className="flex items-center space-x-2">
+            <Input
+              placeholder="Link URL"
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleArrayInput('links', e.currentTarget.value);
+                  e.currentTarget.value = "";
+                }
+              }}
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={() => handleArrayInput('links', "")}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="mt-2 space-y-2">
+            {product.links.map((link, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <Input value={link} readOnly />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleRemoveArrayItem('links', index)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <Label>Websites</Label>
+          <div className="flex items-center space-x-2">
+            <Input
+              placeholder="Website URL"
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleArrayInput('website', e.currentTarget.value);
+                  e.currentTarget.value = "";
+                }
+              }}
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={() => handleArrayInput('website', "")}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="mt-2 space-y-2">
+            {product.website.map((site, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <Input value={site} readOnly />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleRemoveArrayItem('website', index)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <Label>Tags</Label>
+          <div className="flex items-center space-x-2">
+            <Input
+              placeholder="Enter a tag"
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  const value = e.currentTarget.value.trim();
+                  if (value) {
+                    handleArrayInput('tags', value);
+                    e.currentTarget.value = "";
+                  }
+                }
+              }}
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={() => {
+                const input = document.querySelector('input[placeholder="Enter a tag"]') as HTMLInputElement;
+                const value = input.value.trim();
+                if (value) {
+                  handleArrayInput('tags', value);
+                  input.value = "";
+                }
+              }}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {product.tags.map((tag, index) => (
+              <div key={index} className="flex items-center bg-gray-100 rounded-full px-3 py-1">
+                <span>{tag}</span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="h-4 w-4 ml-2"
+                  onClick={() => handleRemoveArrayItem('tags', index)}
+                >
+                  <X className="h-3 w-3" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
@@ -285,6 +393,17 @@ export default function ProductForm() {
         </div>
 
         <div>
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            value={product.email || ''}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
           <Label htmlFor="address">Address</Label>
           <Textarea id="address" name="address" value={product.address || ''} onChange={handleChange} />
         </div>
@@ -298,6 +417,7 @@ export default function ProductForm() {
           />
           <Label htmlFor="hasOwner">I am the Owner</Label>
         </div>
+
         <Button
           type="submit"
           className="w-full bg-myTheme-primary"
