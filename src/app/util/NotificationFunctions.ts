@@ -1,6 +1,6 @@
 import { iReview, iUser, UserDATA } from "./Interfaces";
 
-export function createUserForNotification(user: iUser) {
+export async function createUserForNotification(user: iUser) {
   console.log("creating user for notification", user);
   const notificationUrl = "https://reviewit-notifications.lugetech.com/users";
   fetch(notificationUrl, {
@@ -29,7 +29,7 @@ export function createUserForNotification(user: iUser) {
 }
 
 // Function to create a business in the notification service
-export function createBusinessForNotification(product: any) {
+export async function createBusinessForNotification(product: any) {
   const notificationUrl =
     "https://reviewit-notifications.lugetech.com/businesses";
   fetch(notificationUrl, {
@@ -57,7 +57,7 @@ export function createBusinessForNotification(product: any) {
     });
 }
 
-export function createReviewNotification(review: any) {
+export async function createReviewNotification(review: any) {
   console.log("this is the bag", review);
   const notificationUrl =
     "https://reviewit-notifications.lugetech.com/notifications";

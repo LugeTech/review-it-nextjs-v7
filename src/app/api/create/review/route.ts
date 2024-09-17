@@ -79,7 +79,8 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      createReviewNotification(review);
+      const res = await createReviewNotification(review);
+      console.log("create review in noti", res)
 
       await prisma.user.update({
         where: {
