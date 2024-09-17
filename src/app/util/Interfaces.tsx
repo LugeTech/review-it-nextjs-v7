@@ -16,6 +16,8 @@ export interface iNotification {
   from_name: string;
   from_id: string;
   read: boolean;
+  product_name: string;
+  product_id: string;
 }
 export interface ReviewLike {
   reviewId: string;

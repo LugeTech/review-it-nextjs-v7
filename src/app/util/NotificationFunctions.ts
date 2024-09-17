@@ -59,13 +59,15 @@ export function createBusinessForNotification(product: any) {
 export function createReviewNotification(review: any) {
   const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/notifications";
   const payload = {
-    id: review.product.id,
+    id: generateUniqueId(),
     user_id: review.product?.ownerId || review.product?.business?.ownerId,
     business_id: review.product?.businessId,
     review_title: review.title,
     from_name: review.createdBy,
     from_id: review.userId,
     read: false,
+    product_id: review.product.id,
+    product_name: review.product.name,
   }
   console.log("this is the payload", payload)
   fetch(notificationUrl, {
