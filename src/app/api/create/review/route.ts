@@ -76,11 +76,13 @@ export async function POST(request: NextRequest) {
               id: reviewData.userId,
             },
           },
+
+        },
+        include: {
+          product: true, // Include the related product information
         },
       });
 
-      const res = await createReviewNotification(review);
-      console.log("create review in noti", res)
 
       await prisma.user.update({
         where: {
@@ -99,6 +101,7 @@ export async function POST(request: NextRequest) {
       return newReview;
     });
 
+    createReviewNotification(review);
     return NextResponse.json({
       success: true,
       status: 200,

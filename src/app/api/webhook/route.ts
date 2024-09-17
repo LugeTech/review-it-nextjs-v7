@@ -72,8 +72,7 @@ export async function POST(req: Request) {
     },
   });
 
-  const res = await createUserForNotification(user);
-  console.log("create user in noti", res)
+  createUserForNotification(user);
   // FIXME: lets remove all this metadata crap some time
   await clerkClient.users.updateUser(payload.data.id, {
     publicMetadata: { userInDb: true, id: user.id },

@@ -58,8 +58,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const res = await createBusinessForNotification(newBusinessOwner);
-    console.log("create business in noti", res)
+    createBusinessForNotification(newBusinessOwner);
 
     return NextResponse.json({
       success: true,
