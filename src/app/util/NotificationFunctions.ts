@@ -57,6 +57,7 @@ export function createBusinessForNotification(product: any) {
 }
 
 export function createReviewNotification(review: any) {
+  console.log("*****", review)
   const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/notifications";
   const payload = {
     id: generateUniqueId(),
