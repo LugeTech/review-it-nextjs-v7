@@ -57,7 +57,8 @@ export function createBusinessForNotification(product: any) {
     });
 }
 
-export function createReviewNotification(review: iReview) {
+export function createReviewNotification(review: any) {
+  console.log("this is the bag", review);
   const notificationUrl =
     "https://reviewit-notifications.lugetech.com/notifications";
   fetch(notificationUrl, {
