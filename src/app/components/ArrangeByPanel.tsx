@@ -25,14 +25,14 @@ const ArrangeByPanel = ({
   const handleTagClick = (tag: string) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter((t) => t !== tag));
-      console.log("number of results with selected tags", selectedTags.length);
     } else {
       setSelectedTags([...selectedTags, tag]);
+      console.log(selectedTags.length);
     }
   };
 
   const allUnfilteredTags = products.map((item) => item.tags);
-  console.log(allUnfilteredTags);
+  // console.log(allUnfilteredTags);
 
   const handleClearAll = () => {
     setSelectedTags([]);
