@@ -2,7 +2,7 @@ import { iUser } from "./Interfaces";
 
 export function createUserForNotification(user: iUser) {
   console.log("creating user for notification", user);
-  const notificationUrl = process.env.NOTIFICATION_SERVER + "/users";
+  const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/users";
   fetch(notificationUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -30,7 +30,7 @@ export function createUserForNotification(user: iUser) {
 
 // Function to create a business in the notification service
 export function createBusinessForNotification(product: any) {
-  const notificationUrl = process.env.NOTIFICATION_SERVER + "/businesses";
+  const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/businesses";
   fetch(notificationUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -58,7 +58,7 @@ export function createBusinessForNotification(product: any) {
 
 export function createReviewNotification(review: any) {
   console.log("running setup for create notifications", review);
-  const notificationUrl = process.env.NOTIFICATION_SERVER + "/notifications";
+  const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/notifications";
   console.log("this is the url", notificationUrl)
   const payload = {
     id: generateUniqueId(),

@@ -5,26 +5,33 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge"
 import { useQuery } from "@tanstack/react-query"
 import { useAuth } from "@clerk/nextjs"
-import { getUser } from "@/app/util/serverFunctions"
+import { getUser, getNotifications } from "@/app/util/serverFunctions"
 import LoadingSpinner from "@/app/components/LoadingSpinner"
-import { iUser } from "@/app/util/Interfaces"
+import { iUser, iNotification } from "@/app/util/Interfaces"
 import Link from "next/link"
 import { FaPlus } from 'react-icons/fa';
 
 export function BusinessDashboardComponent() {
   const auth = useAuth();
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["user", auth.userId],
     queryFn: async () => await getUser(),
     refetchOnWindowFocus: false,
   }) as any;
 
+  const { data: notificationsData, isLoading: isLoadingNotifications, isError: isErrorNotifications, error: errorNotifications } = useQuery({
+    queryKey: ["notifications", auth.userId],
+    queryFn: async () => await getNotifications(auth.userId || ""),
+    refetchOnWindowFocus: true,
+  }) as any;
+  console.log("here", notificationsData)
+
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const user: iUser | undefined = data?.data as iUser;
 
   const products = user.businesses?.flatMap(business => business.products) || [];
-  console.log(user);
 
   // This might come in handy later, this keeps tha business umbrella
   //   const businessProducts = user.businesses?.map(business => ({

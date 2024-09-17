@@ -10,10 +10,16 @@ export async function fetchBadWords(): Promise<string[]> {
 }
 
 export async function createFilter(): Promise<Filter> {
-  const badWords = await fetchBadWords();
-  const filter = new Filter();
-  if (badWords.length > 0) {
-    filter.addWords(...badWords.map(word => word.toLowerCase()));
+  let filter = new Filter()
+  try {
+    const badwords = await fetchBadWords();
+    if (badwords.length > 0) {
+      filter.addWords(...badwords.map(word => word.toLowerCase()))
+    }
+    return filter;
+
+  } catch {
+    console.log("bad words server not running")
   }
   return filter;
 }
