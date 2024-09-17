@@ -1,9 +1,22 @@
 import { iComment, iProduct, iReview } from "@/app/util/Interfaces";
-
 interface helpfulData {
   reviewId: string;
   userInDbId: string;
 }
+
+export const getNotifications = async (user_id: string) => {
+  const notificationsUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER
+  console.log(notificationsUrl)
+  const response = await fetch(`${notificationsUrl}/notifications/latest?user_id=${user_id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+}
+
+
 export const updateHelpfulVote = async (data: helpfulData) => {
   const body = {
     reviewId: data.reviewId,
