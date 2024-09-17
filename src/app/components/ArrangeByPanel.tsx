@@ -1,7 +1,7 @@
 import { iProduct } from "../util/Interfaces";
 import TagView from "@/app/components/TagView";
 import SearchBox from "@/app/components/SearchBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ArrangeByPanel = ({
   products,
@@ -20,6 +20,7 @@ const ArrangeByPanel = ({
   const uniqueTagsSet = new Set(allTags);
   const uniqueTags = [...uniqueTagsSet];
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filterUniqueTags, setFilterUniqueTags] = useState<string[]>([]);
 
   const handleTagClick = (tag: string) => {
     if (selectedTags.includes(tag)) {
@@ -34,6 +35,16 @@ const ArrangeByPanel = ({
     setSelectedRating(null);
     setSearchTerm("");
   };
+
+  useEffect(() => {
+    if (searchTerm.length > 0) {
+      setFilterUniqueTags(
+        uniqueTags.filter((tag) => tag.includes(searchTerm.toLowerCase())),
+      );
+    } else {
+      setFilterUniqueTags(uniqueTags);
+    }
+  }, [searchTerm]);
 
   return (
     <div className="flex flex-1 flex-col p-2 w-full bg-myTheme-lightbg ">
@@ -72,17 +83,17 @@ const ArrangeByPanel = ({
       {(searchTerm.length > 0 ||
         selectedRating !== null ||
         selectedTags.length > 0) && (
-          <div className="flex w-full">
-            <button
-              className="btn btn-outline btn-primary"
-              onClick={handleClearAll}
-            >
-              Clear
-            </button>
-          </div>
-        )}
+        <div className="flex w-full">
+          <button
+            className="btn btn-outline btn-primary"
+            onClick={handleClearAll}
+          >
+            Clear
+          </button>
+        </div>
+      )}
       <div className="flex flex-col w-full">
-        {uniqueTags.map((tag) => (
+        {filterUniqueTags.map((tag) => (
           <TagView
             tag={tag}
             key={tag}
