@@ -1,5 +1,4 @@
 
-// Importing necessary modules and packages
 import { prisma } from "@/app/util/prismaClient";
 import { NextResponse, NextRequest } from "next/server";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
@@ -85,6 +84,7 @@ export async function POST(request: NextRequest) {
           createdById: clerkUserData?.username ? clerkUserId : "",
         },
       });
+
       return NextResponse.json({
         success: true,
         status: 200,

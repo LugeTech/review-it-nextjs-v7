@@ -7,7 +7,7 @@ import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
 import { iBusiness, iProduct, UserDATA } from "@/app/util/Interfaces";
-import { createBusinessForNotification, createOwnerForNotification } from "@/app/util/NotificationFunctions";
+import { createBusinessForNotification } from "@/app/util/NotificationFunctions";
 
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
@@ -46,8 +46,8 @@ export async function POST(request: NextRequest) {
         ownerName: clerkClaimsData.fullName
       }
     });
-    createOwnerForNotification(clerkClaimsData);
-    createBusinessForNotification(newBusinessOwner, clerkClaimsData.fullName);
+
+    createBusinessForNotification(newBusinessOwner);
 
     if (product && product.id) {
       await prisma.product.update({

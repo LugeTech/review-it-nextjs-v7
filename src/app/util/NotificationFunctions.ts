@@ -22,37 +22,17 @@ export function createUserForNotification(user: iUser) {
   });
 }
 
-// Function to create an owner in the notification service
-export function createOwnerForNotification(owner: UserDATA) {
-  const notificationUrl = 'https://reviewit-notifications.lugetech.com/owners';
-  fetch(notificationUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      id: owner.userId,
-      name: owner.fullName
-    })
-  }).then(response => {
-    if (!response.ok) {
-      console.error('Failed to create owner notification:', response.status, response.statusText);
-    } else {
-      console.log('Owner notification created successfully');
-    }
-  }).catch(error => {
-    console.error('Error creating owner notification:', error);
-  });
-}
 
 // Function to create a business in the notification service
-export function createBusinessForNotification(business: any, ownerName: string) {
+export function createBusinessForNotification(product: any) {
   const notificationUrl = 'https://reviewit-notifications.lugetech.com/businesses';
   fetch(notificationUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      id: business.id,
-      owner_id: business.ownerId,
-      owner_name: ownerName
+      id: product.id,
+      owner_id: product.ownerId || product.business?.ownerId,
+      business_name: product.name
     })
   }).then(response => {
     if (!response.ok) {
@@ -71,9 +51,9 @@ export function createReviewNotification(review: iReview) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      id: review.product?.business?.id,
-      owner_id: review.product?.business?.ownerId,
-      business_id: review.product?.businessId,
+      id: generateUniqueId(),
+      user_id: review.product?.ownerId || review.product?.business?.ownerId,
+      business_id: review.product?.id,
       review_title: review.title,
       from_name: review.createdBy,
       from_id: review.userId,

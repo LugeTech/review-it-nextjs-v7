@@ -2,6 +2,7 @@
 import { PrismaClient } from "@prisma/client";
 import { clerkClient } from "@clerk/nextjs/server";
 import { prisma } from "./prismaClient";
+import { createUserForNotification } from "./NotificationFunctions";
 
 // Initializing Prisma client
 // const prisma = new PrismaClient(); //toDO: import this from the prisma wrapper // did it
@@ -42,6 +43,7 @@ export const addUserToDb = async (clerkUserData: UserDATA) => {
       },
     });
 
+    createUserForNotification(user);
     // Update the user metadata in the Clerk user object
     const clerkUser = await clerkClient.users.updateUser(clerkUserData.userId, {
       publicMetadata: { userInDb: true, id: user.id }, // this is mongodb id
