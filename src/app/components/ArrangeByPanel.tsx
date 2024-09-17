@@ -25,10 +25,14 @@ const ArrangeByPanel = ({
   const handleTagClick = (tag: string) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter((t) => t !== tag));
+      console.log("number of results with selected tags", selectedTags.length);
     } else {
       setSelectedTags([...selectedTags, tag]);
     }
   };
+
+  const allUnfilteredTags = products.map((item) => item.tags);
+  console.log(allUnfilteredTags);
 
   const handleClearAll = () => {
     setSelectedTags([]);
@@ -38,9 +42,7 @@ const ArrangeByPanel = ({
 
   useEffect(() => {
     if (searchTerm.length > 0) {
-      setFilterUniqueTags(
-        uniqueTags.filter((tag) => tag.includes(searchTerm.toLowerCase())),
-      );
+      setFilterUniqueTags(uniqueTags.filter((tag) => tag.includes(searchTerm)));
     } else {
       setFilterUniqueTags(uniqueTags);
     }
@@ -78,7 +80,10 @@ const ArrangeByPanel = ({
         </button>
       </div>
       <div className="w-full">
-        <SearchBox searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <SearchBox
+          searchTerm={searchTerm.toLowerCase()}
+          setSearchTerm={setSearchTerm}
+        />
       </div>
       {(searchTerm.length > 0 ||
         selectedRating !== null ||
