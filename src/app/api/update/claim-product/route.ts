@@ -47,14 +47,18 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    createBusinessForNotification(newBusinessOwner);
-
-    if (product && product.id) {
+    if (product && product.id && newBusinessOwner.id) {
       await prisma.product.update({
         where: { id: product.id },
-        data: { businessId: userIdFromClerk as string }
+        data: {
+          businessId: newBusinessOwner.id,
+          ownerId: newBusinessOwner.ownerId,
+          hasOwner: true,
+        }
       });
     }
+
+    createBusinessForNotification(newBusinessOwner);
 
     return NextResponse.json({
       success: true,
