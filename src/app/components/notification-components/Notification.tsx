@@ -1,19 +1,29 @@
-import Link from 'next/link'
-import { BellIcon } from 'lucide-react'
-import { iNotification } from '@/app/util/Interfaces'
-
-import { useAtom } from "jotai";
-import { notificationsAtom } from "@/app/store/store";
+import Link from 'next/link';
+import { BellIcon } from 'lucide-react';
+import { iNotification } from '@/app/util/Interfaces';
+import { useAtom } from 'jotai';
+import { notificationsAtom } from '@/app/store/store';
 
 interface NotificationsPageProps {
-  notifications: iNotification[]
+  notifications: iNotification[];
 }
 
 export default function NotificationBell({ notifications }: NotificationsPageProps) {
+  const [notiAtoms, setNotiAtoms] = useAtom(notificationsAtom);
 
-  const count = notifications?.length
+  const count = notifications?.length || 0;
+
+  const handleClick = () => {
+    // Set the notifications atom when the bell is clicked
+    setNotiAtoms(notifications);
+  };
+
   return (
-    <Link href={{ pathname: '/notifications', query: { notifications: JSON.stringify(notifications) } }} className="flex items-center p-2 rounded-full hover:bg-gray-100 transition-colors">
+    <Link
+      href={{ pathname: '/notifications' }}
+      className="flex items-center p-2 rounded-full hover:bg-gray-100 transition-colors"
+      onClick={handleClick} // Update the atom on click
+    >
       <div className="relative">
         <BellIcon className="w-6 h-6 text-gray-600" />
         {count > 0 && (
@@ -24,5 +34,5 @@ export default function NotificationBell({ notifications }: NotificationsPagePro
       </div>
       <span className="ml-2 text-sm text-gray-600">new notifications</span>
     </Link>
-  )
+  );
 }

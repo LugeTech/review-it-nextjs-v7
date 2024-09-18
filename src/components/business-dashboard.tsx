@@ -33,7 +33,6 @@ export function BusinessDashboardComponent() {
 
   useEffect(() => {
     setNotificationsAtom(notificationsData);
-    console.log("here", notificationsData);
   }, [notificationsData]);
   // console.log("here", notificationsData)
 
