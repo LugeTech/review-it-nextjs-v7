@@ -27,7 +27,6 @@ const ArrangeByPanel = ({
       setSelectedTags(selectedTags.filter((t) => t !== tag));
     } else {
       setSelectedTags([...selectedTags, tag]);
-      console.log(selectedTags.length);
     }
   };
 
@@ -105,7 +104,7 @@ const ArrangeByPanel = ({
             key={tag}
             onClick={() => handleTagClick(tag)}
             isSelected={selectedTags.includes(tag)}
-            count={getTagCount(tag)} // Pass the count to TagView
+            count={getTagCount(tag)}
           />
         ))}
       </div>

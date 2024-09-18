@@ -21,7 +21,7 @@ const TagView = ({ tag, isSelected, count, onClick }: iTagViewProps) => {
         readOnly
       />
       <span className="text-xs sm:text-base break-all overflow-hidden">
-        {tag} {count > 0 ? `(${count})` : ""}
+        {tag} {isSelected && count > 0 ? `(${count})` : ""}
       </span>
     </div>
   );
