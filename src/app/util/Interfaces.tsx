@@ -11,8 +11,8 @@ export interface iNotification {
   id: string;
   user_id: string;
   business_id: string;
-  review_tite: string;
-  created_at: Date;
+  review_title: string;
+  created_at?: Date;
   from_name: string;
   from_id: string;
   read: boolean;

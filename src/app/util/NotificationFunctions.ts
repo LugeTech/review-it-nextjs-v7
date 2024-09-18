@@ -1,4 +1,4 @@
-import { iUser } from "./Interfaces";
+import { iNotification, iUser } from "./Interfaces";
 
 export function createUserForNotification(user: iUser) {
   console.log("creating user for notification", user);
@@ -57,9 +57,8 @@ export function createBusinessForNotification(product: any) {
 }
 
 export function createReviewNotification(review: any) {
-  console.log("*****", review)
   const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/notifications";
-  const payload = {
+  const payload: iNotification = {
     id: generateUniqueId(),
     user_id: review.product?.ownerId || review.product?.business?.ownerId,
     business_id: review.product?.businessId,
