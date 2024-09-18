@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useAuth } from "@clerk/nextjs"
 import { getUser, getNotifications } from "@/app/util/serverFunctions"
 import LoadingSpinner from "@/app/components/LoadingSpinner"
-import { iUser } from "@/app/util/Interfaces"
+import { iNotification, iUser } from "@/app/util/Interfaces"
 import Link from "next/link"
 import { FaPlus } from 'react-icons/fa';
 import NotificationBell from "@/app/components/notification-components/Notification"
@@ -43,6 +43,7 @@ export function BusinessDashboardComponent() {
 
   // get all a users products from all their businesses
   const products = user.businesses?.flatMap(business => business.products) || [];
+
 
   // This might come in handy later, this keeps tha business umbrella
   //   const businessProducts = user.businesses?.map(business => ({
@@ -114,7 +115,7 @@ export function BusinessDashboardComponent() {
                 )}
               </div>
               <div className="flex items-center mb-2 text-sm text-gray-600">
-                <NotificationBell notifications={notificationsData} />
+                <NotificationBell notifications={notificationsData.filter((notification: iNotification) => notification.product_id === product.id)} />
               </div>
               <p className="text-sm text-gray-700 mb-2" />
               <p className="text-sm text-gray-700 mb-2">
