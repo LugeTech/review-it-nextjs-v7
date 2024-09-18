@@ -115,8 +115,6 @@ export function BusinessDashboardComponent() {
               </div>
               <div className="flex items-center mb-2 text-sm text-gray-600">
                 <NotificationBell notifications={notificationsData} />
-                {/* <BellIcon className="w-4 h-4 mr-1" /> */}
-                {/* <span>{0} new notifications</span> */}
               </div>
               <p className="text-sm text-gray-700 mb-2" />
               <p className="text-sm text-gray-700 mb-2">
