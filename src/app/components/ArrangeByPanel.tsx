@@ -31,9 +31,6 @@ const ArrangeByPanel = ({
     }
   };
 
-  const allUnfilteredTags = products.map((item) => item.tags);
-  // console.log(allUnfilteredTags);
-
   const handleClearAll = () => {
     setSelectedTags([]);
     setSelectedRating(null);
@@ -47,6 +44,10 @@ const ArrangeByPanel = ({
       setFilterUniqueTags(uniqueTags);
     }
   }, [searchTerm]);
+
+  const getTagCount = (tag: string) => {
+    return products.filter((product) => product.tags.includes(tag)).length;
+  };
 
   return (
     <div className="flex flex-1 flex-col p-2 w-full bg-myTheme-lightbg ">
@@ -104,6 +105,7 @@ const ArrangeByPanel = ({
             key={tag}
             onClick={() => handleTagClick(tag)}
             isSelected={selectedTags.includes(tag)}
+            count={getTagCount(tag)} // Pass the count to TagView
           />
         ))}
       </div>
