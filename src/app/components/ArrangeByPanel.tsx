@@ -9,12 +9,14 @@ const ArrangeByPanel = ({
   setSelectedRating,
   selectedTags,
   setSelectedTags,
+  filteredProductsLength,
 }: {
   products: iProduct[];
   setSelectedRating: (rating: number | null) => void;
   selectedTags: string[];
   selectedRating: number | null;
   setSelectedTags: (tags: string[]) => void;
+  filteredProductsLength: number;
 }) => {
   const allTags = products.flatMap((item) => item.tags);
   const uniqueTagsSet = new Set(allTags);
@@ -43,10 +45,6 @@ const ArrangeByPanel = ({
       setFilterUniqueTags(uniqueTags);
     }
   }, [searchTerm]);
-
-  const getTagCount = (tag: string) => {
-    return products.filter((product) => product.tags.includes(tag)).length;
-  };
 
   return (
     <div className="flex flex-1 flex-col p-2 w-full bg-myTheme-lightbg ">
@@ -104,7 +102,7 @@ const ArrangeByPanel = ({
             key={tag}
             onClick={() => handleTagClick(tag)}
             isSelected={selectedTags.includes(tag)}
-            count={getTagCount(tag)}
+            count={filteredProductsLength}
           />
         ))}
       </div>

@@ -45,16 +45,21 @@ const Page = () => {
 
   const filteredProducts = products.filter((product) => {
     if (product.reviews !== undefined) {
-      const rating = calculateAverageReviewRating(product.reviews) as unknown as iCalculatedRating;
+      const rating = calculateAverageReviewRating(
+        product.reviews,
+      ) as unknown as iCalculatedRating;
       if (selectedRating && rating.roundedRating !== selectedRating) {
         return false;
       }
-      if (selectedTags.length > 0 && !selectedTags.some((tag) => product.tags.includes(tag))) {
+      if (
+        selectedTags.length > 0 &&
+        !selectedTags.every((tag) => product.tags.includes(tag))
+      ) {
         return false;
       }
       return true;
     }
-    return false; // Ensure we return false if reviews are undefined
+    return false;
   });
 
   const productCardOptions = {
@@ -67,7 +72,10 @@ const Page = () => {
   // Calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredProducts.slice(
+    indexOfFirstItem,
+    indexOfLastItem,
+  );
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
@@ -85,6 +93,7 @@ const Page = () => {
             selectedRating={selectedRating}
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
+            filteredProductsLength={filteredProducts.length}
           />
         </div>
         <div className="flex flex-col w-full lg:w-1/2 items-center gap-2 rounded-lg sm:px-10">
@@ -107,8 +116,11 @@ const Page = () => {
               <button
                 key={index}
                 onClick={() => handlePageChange(index + 1)}
-                className={`m-1 px-3 py-1 rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-100'
-                  }`}
+                className={`m-1 px-3 py-1 rounded ${
+                  currentPage === index + 1
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-100"
+                }`}
               >
                 {index + 1}
               </button>
