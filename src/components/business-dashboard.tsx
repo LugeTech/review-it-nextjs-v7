@@ -1,5 +1,4 @@
 "use client"
-
 import { StarIcon, TrendingUpIcon, TrendingDownIcon, BellIcon, RocketIcon } from "lucide-react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -7,11 +6,17 @@ import { useQuery } from "@tanstack/react-query"
 import { useAuth } from "@clerk/nextjs"
 import { getUser, getNotifications } from "@/app/util/serverFunctions"
 import LoadingSpinner from "@/app/components/LoadingSpinner"
-import { iUser, iNotification } from "@/app/util/Interfaces"
+import { iUser } from "@/app/util/Interfaces"
 import Link from "next/link"
 import { FaPlus } from 'react-icons/fa';
+import NotificationBell from "@/app/components/notification-components/Notification"
+import { notificationsAtom } from "@/app/store/store"
+import { useAtom } from "jotai"
+import { useEffect } from "react"
+
 
 export function BusinessDashboardComponent() {
+  const [_, setNotificationsAtom] = useAtom(notificationsAtom)
   const auth = useAuth();
 
   const { data, isLoading, isError, error } = useQuery({
@@ -25,12 +30,18 @@ export function BusinessDashboardComponent() {
     queryFn: async () => await getNotifications(auth.userId || ""),
     refetchOnWindowFocus: true,
   }) as any;
-  console.log("here", notificationsData)
+
+  useEffect(() => {
+    setNotificationsAtom(notificationsData);
+    console.log("here", notificationsData);
+  }, [notificationsData]);
+  // console.log("here", notificationsData)
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const user: iUser | undefined = data?.data as iUser;
 
+  // get all a users products from all their businesses
   const products = user.businesses?.flatMap(business => business.products) || [];
 
   // This might come in handy later, this keeps tha business umbrella
@@ -103,8 +114,9 @@ export function BusinessDashboardComponent() {
                 )}
               </div>
               <div className="flex items-center mb-2 text-sm text-gray-600">
-                <BellIcon className="w-4 h-4 mr-1" />
-                <span>{0} new notifications</span>
+                <NotificationBell notifications={notificationsData} />
+                {/* <BellIcon className="w-4 h-4 mr-1" /> */}
+                {/* <span>{0} new notifications</span> */}
               </div>
               <p className="text-sm text-gray-700 mb-2" />
               <p className="text-sm text-gray-700 mb-2">
