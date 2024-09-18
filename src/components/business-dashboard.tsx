@@ -114,7 +114,7 @@ export function BusinessDashboardComponent() {
                 )}
               </div>
               <div className="flex items-center mb-2 text-sm text-gray-600">
-                <NotificationBell notifications={notificationsData.filter((notification: iNotification) => notification.product_id === product.id)} />
+                <NotificationBell notifications={notificationsData?.filter((notification: iNotification) => notification.product_id === product.id) || []} />
               </div>
               <p className="text-sm text-gray-700 mb-2" />
               <p className="text-sm text-gray-700 mb-2">
