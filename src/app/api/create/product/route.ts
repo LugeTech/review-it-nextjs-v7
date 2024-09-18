@@ -1,4 +1,3 @@
-
 import { prisma } from "@/app/util/prismaClient";
 import { NextResponse, NextRequest } from "next/server";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
@@ -32,8 +31,7 @@ interface UserDATA {
 export async function POST(request: NextRequest) {
   // Get the review data from the request body
   const product: iProduct = await request.json();
-  product.tags = product.tags.map(tag => tag.trim());
-
+  product.tags = product.tags.map((tag) => tag.trim().toLowerCase());
 
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
@@ -53,8 +51,7 @@ export async function POST(request: NextRequest) {
       clerkUserData = await clerkClient.users.getUser(clerkClaimsData.userId);
       // then add publicMetaData.id to the object
       if (clerkUserData.publicMetadata.id !== undefined) {
-        userIdFromClerk = clerkUserData.publicMetadata
-          .id as string;
+        userIdFromClerk = clerkUserData.publicMetadata.id as string;
       } else {
         return NextResponse.json({
           success: false,
@@ -97,7 +94,6 @@ export async function POST(request: NextRequest) {
         data: error,
       });
     }
-
   } catch (error) {
     let e = error as Error;
     // Return an error response
@@ -112,5 +108,4 @@ export async function POST(request: NextRequest) {
   //   status: 500,
   //   data: { "error": "something failed" },
   // });
-
 }
