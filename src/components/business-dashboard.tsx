@@ -34,7 +34,6 @@ export function BusinessDashboardComponent() {
   useEffect(() => {
     setNotificationsAtom(notificationsData);
   }, [notificationsData]);
-  // console.log("here", notificationsData)
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
@@ -99,7 +98,7 @@ export function BusinessDashboardComponent() {
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
                 <span className="text-xl font-bold truncate">{product.name}</span>
-                <Badge className="text-white bg-black" variant="secondary">{product.tags[0] || "No Category"}</Badge>
+                <Badge className="text-white bg-black" variant="secondary">{product.tags.slice(0, 3).join(", ") || "No Category"}</Badge>
               </CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
@@ -121,7 +120,7 @@ export function BusinessDashboardComponent() {
                 <span className="font-semibold">Latest review:</span> &quot;{product.reviews?.[0]?.title || "No reviews yet"}&quot;
                 <span className="text-gray-600 text-sm ml-2">({product.reviews?.[0]?.createdDate ? new Date(product.reviews?.[0]?.createdDate).toLocaleDateString() : null})</span>
               </p>
-              <p className="text-gray-600 text-sm">{product.description}</p>
+              <p className="text-gray-600 text-sm">{product.description.length > 100 ? `${product.description.substring(0, 100)}...` : product.description}</p>
             </CardContent>
             <CardFooter>
               <button className="w-full bg-gray-900 text-gray-50 hover:bg-gray-900/90 py-2 rounded-md transition-colors ">

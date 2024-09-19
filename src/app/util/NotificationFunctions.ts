@@ -60,7 +60,7 @@ export function createReviewNotification(review: any) {
   const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/notifications";
   const payload: iNotification = {
     id: generateUniqueId(),
-    user_id: review.product?.ownerId || review.product?.business?.ownerId,
+    receiver_id: review.product?.ownerId || review.product?.business?.ownerId,
     business_id: review.product?.businessId,
     review_title: review.title,
     from_name: review.createdBy,
@@ -68,6 +68,8 @@ export function createReviewNotification(review: any) {
     read: false,
     product_id: review.product.id,
     product_name: review.product.name,
+    review_id: "",
+    comment_id: "",
   }
   console.log("this is the payload", payload)
   fetch(notificationUrl, {
