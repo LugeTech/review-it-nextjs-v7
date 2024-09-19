@@ -10,7 +10,7 @@ import { Bell, Eye, MessageSquare, Star, Trash2 } from 'lucide-react'
 import { useRouter } from "next/navigation"
 interface iNotification {
   id: string;
-  user_id: string;
+  receiver_id: string;
   business_id: string;
   review_title: string;
   created_at?: Date;
@@ -19,6 +19,8 @@ interface iNotification {
   read: boolean;
   product_name: string;
   product_id: string;
+  comment_id: string;
+  review_id: string;
 }
 
 interface NotificationsPageProps {
