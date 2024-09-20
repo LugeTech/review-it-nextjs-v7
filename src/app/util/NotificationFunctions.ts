@@ -31,14 +31,16 @@ export function createUserForNotification(user: iUser) {
 // Function to create a business in the notification service
 export function createBusinessForNotification(product: any) {
   const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/businesses";
+  const newProductClaim = {
+    id: product.id,
+    user_id: product.ownerId || product.business?.ownerId,
+    business_name: product.name,
+  }
+  console.log("newProduct claim", newProductClaim)
   fetch(notificationUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id: product.id,
-      user_id: product.ownerId || product.business?.ownerId,
-      business_name: product.name,
-    }),
+    body: JSON.stringify(newProductClaim),
   })
     .then((response) => {
       if (!response.ok) {

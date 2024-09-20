@@ -6,8 +6,8 @@ interface helpfulData {
 
 export const getNotifications = async (user_id: string) => {
   const notificationsUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER
-  console.log(`${notificationsUrl}/notifications?user_id=${user_id}`)
-  const response = await fetch(`${notificationsUrl}/notifications?user_id=${user_id}`, {
+  console.log(`${notificationsUrl}/notifications?receiver_id=${user_id}`)
+  const response = await fetch(`${notificationsUrl}/notifications?receiver_id=${user_id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
