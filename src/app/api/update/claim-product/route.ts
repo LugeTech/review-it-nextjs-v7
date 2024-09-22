@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    createBusinessForNotification(newBusinessOwner);
+    createBusinessForNotification(newBusinessOwner, product.name);
 
     return NextResponse.json({
       success: true,

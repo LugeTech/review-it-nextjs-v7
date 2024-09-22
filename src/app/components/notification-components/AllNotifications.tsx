@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Bell, Eye, MessageSquare, Star, Trash2 } from 'lucide-react'
+import { Bell, Eye, MessageSquare, Trash2 } from 'lucide-react'
 import { useRouter } from "next/navigation"
 interface iNotification {
   id: string;
@@ -137,7 +137,7 @@ function NotificationCard({ notification }: { notification: iNotification }) {
                 : 'Date unknown'}
             </p>
           </div>
-          <Badge variant={notification.read ? "secondary" : "default"}>
+          <Badge className="bg-black text-white" variant={notification.read ? "secondary" : "default"}>
             {notification.read ? "Read" : "Unread"}
           </Badge>
         </div>
@@ -145,10 +145,6 @@ function NotificationCard({ notification }: { notification: iNotification }) {
           <Button size="sm" variant="outline">
             <Eye className="mr-2 h-4 w-4" />
             View
-          </Button>
-          <Button size="sm" variant="outline">
-            <Star className="mr-2 h-4 w-4" />
-            Mark as Important
           </Button>
           <Button size="sm" variant="outline" className="text-destructive">
             <Trash2 className="mr-2 h-4 w-4" />

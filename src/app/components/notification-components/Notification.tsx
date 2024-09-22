@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import { BellIcon } from 'lucide-react';
-import { iNotification } from '@/app/util/Interfaces';
+import { iNotification, iProductOwnerNotification } from '@/app/util/Interfaces';
 import { useAtom } from 'jotai';
-import { notificationsAtom } from '@/app/store/store';
+import { ownerNotificationsAtom } from '@/app/store/store';
 
 interface NotificationsPageProps {
-  notifications: iNotification[];
+  notifications: iProductOwnerNotification[];
 }
 
 export default function NotificationBell({ notifications }: NotificationsPageProps) {
-  const [notiAtoms, setNotiAtoms] = useAtom(notificationsAtom);
+  const [notiAtoms, setNotiAtoms] = useAtom(ownerNotificationsAtom);
 
   const count = notifications?.length || 0;
 

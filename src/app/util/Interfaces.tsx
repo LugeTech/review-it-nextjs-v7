@@ -21,6 +21,30 @@ export interface iNotification {
   comment_id: string;
   review_id: string;
 }
+
+export interface iProductOwnerNotification {
+  id: string;
+  owner_id: string;
+  business_id: string;
+  review_title: string;
+  from_name: string;
+  from_id: string;
+  read: boolean;
+  product_id: string;
+  product_name: string;
+  review_id: string;
+  comment_id: string | null;
+  notification_type: string;
+}
+
+export interface iUserNotification {
+  id: string;
+  user_id: string;
+  content: string;
+  read: boolean;
+  notification_type: string;
+}
+
 export interface ReviewLike {
   reviewId: string;
   userId: string;

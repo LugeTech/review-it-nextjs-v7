@@ -6,34 +6,42 @@ import { useQuery } from "@tanstack/react-query"
 import { useAuth } from "@clerk/nextjs"
 import { getUser, getNotifications } from "@/app/util/serverFunctions"
 import LoadingSpinner from "@/app/components/LoadingSpinner"
-import { iNotification, iUser } from "@/app/util/Interfaces"
+import { iNotification, iProductOwnerNotification, iUser, iUserNotification } from "@/app/util/Interfaces"
 import Link from "next/link"
 import { FaPlus } from 'react-icons/fa';
 import NotificationBell from "@/app/components/notification-components/Notification"
-import { notificationsAtom } from "@/app/store/store"
-import { useAtom } from "jotai"
+import { notificationsAtom, ownerNotificationsAtom, userNotificationsAtom } from "@/app/store/store"
+import { useAtom, useSetAtom } from "jotai"
 import { useEffect } from "react"
 
+interface NotificationsData {
+  userNotifications: iUserNotification[];
+  ownerNotifications: iProductOwnerNotification[];
+};
 
 export function BusinessDashboardComponent() {
   const [_, setNotificationsAtom] = useAtom(notificationsAtom)
   const auth = useAuth();
-
+  const setUserNotificationsAtom = useSetAtom(userNotificationsAtom);
+  const setOwnerNotificationsAtom = useSetAtom(ownerNotificationsAtom);
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["user", auth.userId],
     queryFn: async () => await getUser(),
     refetchOnWindowFocus: false,
   }) as any;
 
-  const { data: notificationsData, isLoading: isLoadingNotifications, isError: isErrorNotifications, error: errorNotifications } = useQuery({
+  const { data: notificationsData, isLoading: isLoadingNotifications, isError: isErrorNotifications, error: errorNotifications } = useQuery<NotificationsData, Error>({
     queryKey: ["notifications", auth.userId],
     queryFn: async () => await getNotifications(auth.userId || ""),
     refetchOnWindowFocus: true,
-  }) as any;
+  });
 
   useEffect(() => {
-    setNotificationsAtom(notificationsData);
-  }, [notificationsData]);
+    if (notificationsData) {
+      setUserNotificationsAtom(notificationsData.userNotifications);
+      setOwnerNotificationsAtom(notificationsData.ownerNotifications);
+    }
+  }, [notificationsData, setUserNotificationsAtom, setOwnerNotificationsAtom]);
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
@@ -98,7 +106,7 @@ export function BusinessDashboardComponent() {
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
                 <span className="text-xl font-bold truncate">{product.name}</span>
-                <Badge className="text-white bg-black" variant="secondary">{product.tags.slice(0, 3).join(", ") || "No Category"}</Badge>
+                <Badge className="text-white bg-black" variant="secondary">{product.tags.slice(0, 1).join(", ") || "No Category"}</Badge>
               </CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
@@ -113,7 +121,7 @@ export function BusinessDashboardComponent() {
                 )}
               </div>
               <div className="flex items-center mb-2 text-sm text-gray-600">
-                <NotificationBell notifications={notificationsData?.filter((notification: iNotification) => notification.product_id === product.id) || []} />
+                <NotificationBell notifications={notificationsData?.ownerNotifications.filter((notification: iProductOwnerNotification) => notification.product_id === product.id) || []} />
               </div>
               <p className="text-sm text-gray-700 mb-2" />
               <p className="text-sm text-gray-700 mb-2">

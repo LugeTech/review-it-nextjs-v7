@@ -1,4 +1,67 @@
-import { iNotification, iUser } from "./Interfaces";
+import { iNotification, iUser, iProductOwnerNotification, iUserNotification } from "./Interfaces";
+
+export function createProductOwnerNotification(review: any) {
+  const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/notifications/product-owner";
+  const payload: iProductOwnerNotification = {
+    id: generateUniqueId(),
+    owner_id: review.product?.ownerId || review.product?.business?.ownerId,
+    business_id: review.product?.businessId,
+    review_title: review.title,
+    from_name: review.createdBy,
+    from_id: review.userId,
+    read: false,
+    product_id: review.product.id,
+    product_name: review.product.name,
+    review_id: review.id,
+    comment_id: null,
+    notification_type: "review"
+  }
+  console.log("Product Owner Notification payload:", payload);
+  fetch(notificationUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.error(
+          "Failed to create product owner notification:",
+          response.status,
+          response.statusText,
+        );
+      } else {
+        console.log("Product owner notification created successfully");
+      }
+    })
+    .catch((error) => {
+      console.error("Error creating product owner notification:", error);
+    });
+}
+
+export function createUserNotification(notification: iUserNotification) {
+  const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/notifications/reply";
+
+  console.log("User Notification payload:", notification);
+  fetch(notificationUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(notification),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.error(
+          "Failed to create user notification:",
+          response.status,
+          response.statusText,
+        );
+      } else {
+        console.log("User notification created successfully");
+      }
+    })
+    .catch((error) => {
+      console.error("Error creating user notification:", error);
+    });
+}
 
 export function createUserForNotification(user: iUser) {
   console.log("creating user for notification", user);
@@ -29,12 +92,12 @@ export function createUserForNotification(user: iUser) {
 }
 
 // Function to create a business in the notification service
-export function createBusinessForNotification(product: any) {
+export function createBusinessForNotification(newBusinessClaimData: any, productName: string) {
   const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/businesses";
   const newProductClaim = {
-    id: product.id,
-    user_id: product.ownerId || product.business?.ownerId,
-    business_name: product.name,
+    id: newBusinessClaimData.id,
+    user_id: newBusinessClaimData.ownerId || newBusinessClaimData.business?.ownerId,
+    business_name: productName,
   }
   console.log("newProduct claim", newProductClaim)
   fetch(notificationUrl, {

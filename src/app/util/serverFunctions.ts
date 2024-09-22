@@ -4,18 +4,33 @@ interface helpfulData {
   userInDbId: string;
 }
 
-export const getNotifications = async (user_id: string) => {
-  const notificationsUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER
-  console.log(`${notificationsUrl}/notifications?receiver_id=${user_id}`)
-  const response = await fetch(`${notificationsUrl}/notifications?receiver_id=${user_id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  return await response.json();
-}
 
+export const getNotifications = async (userId: string) => {
+  const notificationsUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER;
+  console.log(`${notificationsUrl}/notifications?user_id=${userId}`);
+
+  try {
+    const response = await fetch(`${notificationsUrl}/notifications?user_id=${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return {
+      userNotifications: data.user_notifications || [],
+      ownerNotifications: data.owner_notifications || [],
+    };
+  } catch (error) {
+    console.error("Error fetching notifications:", error);
+    throw error;
+  }
+}
 
 export const updateHelpfulVote = async (data: helpfulData) => {
   const body = {

@@ -20,7 +20,7 @@ export default function UserInfo({ user }: UserInfoProps) {
   const [searchTerm, setSearchTerm] = useState("")
   dayjs.extend(relativeTime)
   const filteredReviews = reviews?.filter((review) =>
-    review.title.toLowerCase().includes(searchTerm.toLowerCase())
+    review.title.toLowerCase().includes(searchTerm.toLowerCase()) || []
   )
 
   const filteredComments = comments?.filter((comment) =>

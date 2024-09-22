@@ -1,9 +1,11 @@
 import { atom } from "jotai";
-import { iProduct, iReview, iUser } from "../util/Interfaces";
+import { iProduct, iProductOwnerNotification, iReview, iUser, iUserNotification } from "../util/Interfaces";
 import { getUser } from "../util/serverFunctions";
 import { iNotification } from "../util/Interfaces";
 
 export const notificationsAtom = atom<iNotification[]>([]);
+export const userNotificationsAtom = atom<iUserNotification[]>([]);
+export const ownerNotificationsAtom = atom<iProductOwnerNotification[]>([]);
 export const allProductsStore = atom<iProduct[]>([]);
 
 export const allProductsAtom = atom<iProduct[] | null>(null);

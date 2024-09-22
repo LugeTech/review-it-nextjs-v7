@@ -5,7 +5,7 @@ import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
 import { iReview } from "@/app/util/Interfaces";
-import { createReviewNotification } from "@/app/util/NotificationFunctions";
+import { createProductOwnerNotification } from "@/app/util/NotificationFunctions";
 
 interface UserDATA {
   avatar?: string;
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
       return newReview;
     });
 
-    createReviewNotification(review);
+    createProductOwnerNotification(review);
     return NextResponse.json({
       success: true,
       status: 200,
