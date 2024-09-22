@@ -92,34 +92,6 @@ export function createUserForNotification(user: iUser) {
 }
 
 // Function to create a business in the notification service
-export function createBusinessForNotification(newBusinessClaimData: any, productName: string) {
-  const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/businesses";
-  const newProductClaim = {
-    id: newBusinessClaimData.id,
-    user_id: newBusinessClaimData.ownerId || newBusinessClaimData.business?.ownerId,
-    business_name: productName,
-  }
-  console.log("newProduct claim", newProductClaim)
-  fetch(notificationUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newProductClaim),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        console.error(
-          "Failed to create business notification:",
-          response.status,
-          response.statusText,
-        );
-      } else {
-        console.log("Business notification created successfully");
-      }
-    })
-    .catch((error) => {
-      console.error("Error creating business notification:", error);
-    });
-}
 
 export function createReviewNotification(review: any) {
   const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/notifications";
@@ -160,5 +132,5 @@ export function createReviewNotification(review: any) {
 
 // Helper function to generate a unique ID (you may want to use a more robust method)
 function generateUniqueId() {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  return Date.now().toString(36) + Math.random().toString(36).substring(2);
 }

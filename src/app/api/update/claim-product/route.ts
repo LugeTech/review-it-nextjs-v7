@@ -6,8 +6,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
-import { iBusiness, iProduct, UserDATA } from "@/app/util/Interfaces";
-import { createBusinessForNotification } from "@/app/util/NotificationFunctions";
+import { iProduct, UserDATA } from "@/app/util/Interfaces";
 
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
@@ -57,8 +56,6 @@ export async function POST(request: NextRequest) {
         }
       });
     }
-
-    createBusinessForNotification(newBusinessOwner, product.name);
 
     return NextResponse.json({
       success: true,
