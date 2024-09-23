@@ -7,7 +7,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useUser } from "@clerk/nextjs";
 import Editor from "./Editor";
 import EditorPreview from "./EditorPreview";
-import { apiUrl } from "../util/apiUrl";
 import DisplayError from "@/app/components/DisplayError";
 import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
@@ -91,7 +90,7 @@ const ReviewForm = () => {
   const sendToServer = async () => {
     try {
       console.log("here is reviewData", reviewData);
-      const response = await fetch(`${apiUrl}/create/review`, {
+      const response = await fetch(`/create/review`, {
         method: "POST",
         body: JSON.stringify(reviewData),
         headers: {
