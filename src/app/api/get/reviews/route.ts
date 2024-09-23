@@ -31,10 +31,11 @@ export async function POST(request: NextRequest) {
         product: body.product,
         comments: body.comments
           ? {
-              include: {
-                user: true,
-              },
-            }
+            include: {
+              user: true,
+              parent: true,
+            },
+          }
           : false,
         voteCount: true,
         likedBy: true,
