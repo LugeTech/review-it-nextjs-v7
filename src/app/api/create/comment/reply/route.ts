@@ -9,8 +9,10 @@ import { createUserNotification } from "@/app/util/NotificationFunctions";
 
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
+  console.log("range")
   // Get the reply data from the request body
   const reply: iComment = await request.json();
+  console.log("*****", reply)
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
   let userIdFromClerk = null;
@@ -54,7 +56,7 @@ export async function POST(request: NextRequest) {
     if (createdReply.parentId !== "") {
       const userNotification: iUserNotification = {
         id: createdReply.id,
-        user_id: reply.parent?.user.id as string,
+        user_id: reply.userId,
         content: createdReply.body,
         read: false,
         notification_type: "comment_reply",
@@ -75,6 +77,7 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     let e = error as Error;
+    console.log("oooooo", error)
     // Return an error response
     return NextResponse.json({
       success: false,

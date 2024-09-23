@@ -140,8 +140,10 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
     showClaimThisProduct: true,
   };
 
-  const handleReply = useCallback(async (parentId: string, body: string) => {
-    replyMutation.mutate({ ...comment, body, parentId });
+  //NOTE: reply asigned here 1&2is
+  const handleReply = useCallback(async (parentId: string, userId: string, body: string) => {
+    console.log(parentId, userId, body)
+    replyMutation.mutate({ ...comment, body, parentId, userId });
     console.log("Reply mutation called");
   }, [replyMutation, comment]);
 

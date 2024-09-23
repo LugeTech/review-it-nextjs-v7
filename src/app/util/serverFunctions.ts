@@ -188,6 +188,7 @@ export const createReplyOnComment = async (reply: iComment): Promise<iComment> =
   if (reply.body === "") {
     throw new Error("Reply body cannot be empty");
   }
+  console.log("reply to create noti", reply)
 
   const response = await fetch(`/api/create/comment/reply`, {
     method: "POST",
