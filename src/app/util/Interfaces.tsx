@@ -43,6 +43,10 @@ export interface iUserNotification {
   content: string;
   read: boolean;
   notification_type: string;
+  comment_id: string
+  review_id: string
+  from_name: string
+  from_id: string
 }
 
 export interface ReviewLike {
@@ -131,6 +135,7 @@ export interface iComment {
   parentId?: string | null;
   replies?: iComment[];
   parent?: iComment;
+  parentUserId?: string
 }
 
 export interface iUser {

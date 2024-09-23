@@ -63,6 +63,30 @@ export const deleteComment = async (id: string) => {
   return await response.json();
 };
 
+// this is the user api yrl error
+export const getUser = async () => {
+  if (typeof window === 'undefined') {
+    return { data: null }; // or some default value
+  }
+
+  console.log("get user running")
+  try {
+    const response = await fetch("/api/get/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw error;
+  }
+};
+
 export const getUserWithId = async (userId: string) => {
   const user = await fetch(`/api/get/userwithid`, {
     method: "POST",
@@ -74,17 +98,6 @@ export const getUserWithId = async (userId: string) => {
   return user;
 };
 
-// this is the user api yrl error
-export const getUser = async () => {
-  console.log("get user running")
-  const user = await fetch("api/get/user", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((res) => res.json());
-  return user;
-};
 
 export const getReview = async (id: string) => {
   console.log("get one review")

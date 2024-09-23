@@ -4,7 +4,8 @@ import { NextResponse, NextRequest } from "next/server";
 import { clerkClient, getAuth } from "@clerk/nextjs/server";
 import { userInDb } from "@/app/util/userInDb";
 import { addUserToDb } from "@/app/util/addUserToDb";
-import { iComment, UserDATA } from "@/app/util/Interfaces";
+import { iComment, iUserNotification, UserDATA } from "@/app/util/Interfaces";
+import { createUserNotification } from "@/app/util/NotificationFunctions";
 
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
@@ -45,9 +46,26 @@ export async function POST(request: NextRequest) {
         createdDate: new Date(),
         reviewId: reply.reviewId,
         userId: userIdFromClerk as string,
-        parentId: reply.parentId, // Add this line to link the reply to its parent comment
+        parentId: reply.parentId,
       },
     });
+    console.log("this is the reply package", reply)
+
+    if (createdReply.parentId !== "") {
+      const userNotification: iUserNotification = {
+        id: createdReply.id,
+        user_id: reply.parent?.user.id as string,
+        content: createdReply.body,
+        read: false,
+        notification_type: "comment_reply",
+        comment_id: createdReply.id,
+        review_id: createdReply.reviewId,
+        from_id: reply.user.id,
+        from_name: reply.user.userName
+      }
+      console.log("about to send this usernotification package", userNotification)
+      createUserNotification(userNotification)
+    }
 
     return NextResponse.json({
       success: true,

@@ -3,8 +3,6 @@ import HomeLink from "./HomeLink";
 import TopLinks from "./TopLinks";
 import SideLinks from "./SideLinks";
 import NavbarAuth from "./NavbarAuth";
-import { Suspense } from "react";
-import Image from "next/legacy/image";
 import { useState } from "react";
 import { Toaster } from "sonner";
 import Footer from "./Footer";
@@ -13,7 +11,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleSideLinkClick = () => {
-    setIsDrawerOpen(false); // Close the drawer when a sidelink is clicked
+    setIsDrawerOpen(false);
   };
 
   return (
@@ -26,7 +24,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         onChange={() => setIsDrawerOpen(!isDrawerOpen)}
       />
       <div className="drawer-content flex flex-col">
-        <div className="w-full navbar bg-white z-10 sticky top-0"> {/* Ensuring this div sticks to the top */}
+        <div className="w-full navbar bg-white z-10 sticky top-0">
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
@@ -55,13 +53,13 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
           <div className="mx-4">
-            <Suspense
-              fallback={
-                <Image src="/logo.png" alt="loading" width={50} height={50} />
-              }
-            >
-              <NavbarAuth />
-            </Suspense>
+            {/* <Suspense */}
+            {/*   fallback={ */}
+            {/*     <Image src="/logo.png" alt="loading" width={50} height={50} /> */}
+            {/*   } */}
+            {/* > */}
+            <NavbarAuth />
+            {/* </Suspense> */}
           </div>
         </div>
         <div className="flex flex-col w-full h-full overflow-y-auto ">
