@@ -81,6 +81,7 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
 
   const replyMutation = useMutation({
     mutationFn: async (reply: iComment) => {
+      console.log("reply mutation called", reply)
       const data = createReplyOnComment(reply);
       toast.promise(data, {
         loading: "Saving reply...",
@@ -140,8 +141,8 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
     showClaimThisProduct: true,
   };
 
-  const handleReply = useCallback(async (parentId: string, body: string) => {
-    replyMutation.mutate({ ...comment, body, parentId });
+  const handleReply = useCallback(async (parentId: string, body: string, parentUserId: string) => {
+    replyMutation.mutate({ ...comment, body, parentId, parentUserId });
     console.log("Reply mutation called");
   }, [replyMutation, comment]);
 

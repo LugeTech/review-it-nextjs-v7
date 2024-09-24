@@ -11,6 +11,7 @@ import { createUserNotification } from "@/app/util/NotificationFunctions";
 export async function POST(request: NextRequest) {
   // Get the reply data from the request body
   const reply: iComment = await request.json();
+  console.log("this is the reply package", reply)
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
   let userIdFromClerk = null;
@@ -49,12 +50,11 @@ export async function POST(request: NextRequest) {
         parentId: reply.parentId,
       },
     });
-    console.log("this is the reply package", reply)
 
     if (createdReply.parentId !== "") {
       const userNotification: iUserNotification = {
         id: createdReply.id,
-        user_id: reply.parent?.user.id as string,
+        user_id: reply.parentUserId as string,
         content: createdReply.body,
         read: false,
         notification_type: "comment_reply",

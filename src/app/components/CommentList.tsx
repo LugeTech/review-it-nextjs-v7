@@ -4,7 +4,7 @@ import Comment from './Comment';
 
 interface CommentListProps {
   comments: iComment[];
-  onReply: (parentId: string, body: string) => Promise<void>;
+  onReply: (parentId: string, body: string, parentUserId: string) => Promise<void>;
   onEdit: (commentId: string, body: string) => Promise<void>;
   onDelete: (commentId: string) => Promise<void>;
   clerkUserId: string;

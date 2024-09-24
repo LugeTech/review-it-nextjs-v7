@@ -29,13 +29,12 @@ export async function POST(request: NextRequest) {
       include: {
         user: body.user,
         product: body.product,
-        comments: body.comments
-          ? {
-              include: {
-                user: true,
-              },
-            }
-          : false,
+        comments: {
+          include: {
+            user: true,
+            parent: true,
+          },
+        },
         voteCount: true,
         likedBy: true,
       },

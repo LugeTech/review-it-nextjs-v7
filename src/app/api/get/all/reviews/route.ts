@@ -28,7 +28,11 @@ export async function POST(request: NextRequest) {
       include: {
         user: body.user,
         product: body.product,
-        comments: true,
+        comments: {
+          include: {
+            parent: true,
+          },
+        },
       },
     });
 
