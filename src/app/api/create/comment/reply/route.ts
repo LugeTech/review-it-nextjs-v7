@@ -11,7 +11,6 @@ import { createUserNotification } from "@/app/util/NotificationFunctions";
 export async function POST(request: NextRequest) {
   // Get the reply data from the request body
   const reply: iComment = await request.json();
-  console.log("this is the reply package", reply)
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
   let userIdFromClerk = null;
