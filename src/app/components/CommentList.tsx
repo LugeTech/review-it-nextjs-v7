@@ -48,7 +48,7 @@ const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, on
       clerkUserId={clerkUserId}
       key={comment.id || "no key"}
       comment={comment}
-      onReply={(parentId, body) => onReply(parentId, comment.user.id, body)}
+      onReply={(parentId, body) => onReply(parentId, body, comment.user.id)}
       onEdit={onEdit}
       onDelete={onDelete}
       depth={depth}
