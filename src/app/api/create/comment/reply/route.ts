@@ -51,12 +51,11 @@ export async function POST(request: NextRequest) {
         parentId: reply.parentId,
       },
     });
-    console.log("this is the reply package", reply)
 
     if (createdReply.parentId !== "") {
       const userNotification: iUserNotification = {
         id: createdReply.id,
-        user_id: reply.userId,
+        user_id: reply.parentUserId as string,
         content: createdReply.body,
         read: false,
         notification_type: "comment_reply",
