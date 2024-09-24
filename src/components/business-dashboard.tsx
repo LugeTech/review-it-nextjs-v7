@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useAuth } from "@clerk/nextjs"
 import { getUser, getNotifications } from "@/app/util/serverFunctions"
 import LoadingSpinner from "@/app/components/LoadingSpinner"
-import { iNotification, iProductOwnerNotification, iUser, iUserNotification } from "@/app/util/Interfaces"
+import { iProductOwnerNotification, iUser, iUserNotification } from "@/app/util/Interfaces"
 import Link from "next/link"
 import { FaPlus } from 'react-icons/fa';
 import NotificationBell from "@/app/components/notification-components/Notification"
@@ -20,7 +20,7 @@ interface NotificationsData {
 };
 
 export function BusinessDashboardComponent() {
-  const [_, setNotificationsAtom] = useAtom(notificationsAtom)
+  // const [_, setNotificationsAtom] = useAtom(notificationsAtom)
   const auth = useAuth();
   const setUserNotificationsAtom = useSetAtom(userNotificationsAtom);
   const setOwnerNotificationsAtom = useSetAtom(ownerNotificationsAtom);

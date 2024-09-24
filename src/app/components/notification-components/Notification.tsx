@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { BellIcon } from 'lucide-react';
-import { iNotification, iProductOwnerNotification } from '@/app/util/Interfaces';
+import { iProductOwnerNotification } from '@/app/util/Interfaces';
 import { useAtom } from 'jotai';
 import { ownerNotificationsAtom } from '@/app/store/store';
 
@@ -12,9 +12,10 @@ export default function NotificationBell({ notifications }: NotificationsPagePro
   const [notiAtoms, setNotiAtoms] = useAtom(ownerNotificationsAtom);
 
   const count = notifications?.length || 0;
+  console.log(notiAtoms)
 
   const handleClick = () => {
-    // Set the notifications atom when the bell is clicked
+    console.log("running set atoms")
     setNotiAtoms(notifications);
   };
 

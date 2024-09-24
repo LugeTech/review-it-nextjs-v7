@@ -27,6 +27,7 @@ export interface iProductOwnerNotification {
   owner_id: string;
   business_id: string;
   review_title: string;
+  created_at?: Date;
   from_name: string;
   from_id: string;
   read: boolean;
@@ -47,6 +48,7 @@ export interface iUserNotification {
   review_id: string
   from_name: string
   from_id: string
+  created_at?: Date;
 }
 
 export interface ReviewLike {

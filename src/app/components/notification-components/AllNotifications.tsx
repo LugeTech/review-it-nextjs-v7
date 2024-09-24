@@ -8,23 +8,24 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Bell, Eye, MessageSquare, Trash2 } from 'lucide-react'
 import { useRouter } from "next/navigation"
-interface iNotification {
-  id: string;
-  receiver_id: string;
-  business_id: string;
-  review_title: string;
-  created_at?: Date;
-  from_name: string;
-  from_id: string;
-  read: boolean;
-  product_name: string;
-  product_id: string;
-  comment_id: string;
-  review_id: string;
-}
+import { iProductOwnerNotification } from '@/app/util/Interfaces';
+// interface iNotification {
+//   id: string;
+//   receiver_id: string;
+//   business_id: string;
+//   review_title: string;
+//   created_at?: Date;
+//   from_name: string;
+//   from_id: string;
+//   read: boolean;
+//   product_name: string;
+//   product_id: string;
+//   comment_id: string;
+//   review_id: string;
+// }
 
 interface NotificationsPageProps {
-  notifications: iNotification[]
+  notifications: iProductOwnerNotification[]
 }
 
 export default function NotificationsPage({ notifications }: NotificationsPageProps) {
@@ -121,7 +122,7 @@ export default function NotificationsPage({ notifications }: NotificationsPagePr
   )
 }
 
-function NotificationCard({ notification }: { notification: iNotification }) {
+function NotificationCard({ notification }: { notification: iProductOwnerNotification }) {
   return (
     <Card className="mb-4">
       <CardContent className="p-4">
