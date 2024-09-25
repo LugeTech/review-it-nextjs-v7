@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 
-// Declare BeforeInstallPromptEvent if it's not recognized by TypeScript
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
@@ -10,36 +9,57 @@ interface BeforeInstallPromptEvent extends Event {
 
 const InstallPWA: React.FC = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isInstallable, setIsInstallable] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
+    const checkInstallState = () => {
+      setIsStandalone(window.matchMedia('(display-mode: standalone)').matches);
+    };
+
     const handler = (e: BeforeInstallPromptEvent) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      setIsVisible(true);
+      setIsInstallable(true);
     };
 
     window.addEventListener("beforeinstallprompt", handler as EventListener);
+    window.addEventListener('appinstalled', () => {
+      setIsInstallable(false);
+      setIsStandalone(true);
+    });
+
+    // Check initial state
+    checkInstallState();
+
+    // Set up a listener for changes in display mode
+    const mediaQuery = window.matchMedia('(display-mode: standalone)');
+    mediaQuery.addEventListener('change', checkInstallState);
+
     return () => {
       window.removeEventListener("beforeinstallprompt", handler as EventListener);
+      mediaQuery.removeEventListener('change', checkInstallState);
     };
   }, []);
 
   const handleInstallClick = useCallback(async () => {
     if (!deferredPrompt) return;
 
-    setIsVisible(false);
+    setIsInstallable(false);
     deferredPrompt.prompt();
 
     try {
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === "accepted") {
         console.log("User accepted the install prompt");
+        setIsStandalone(true);
       } else {
         console.log("User dismissed the install prompt");
+        setIsInstallable(true);
       }
     } catch (error) {
       console.error("Failed to show prompt:", error);
+      setIsInstallable(true);
     } finally {
       setDeferredPrompt(null);
     }
@@ -48,7 +68,7 @@ const InstallPWA: React.FC = () => {
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
       <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
-        {isVisible ? (
+        {isInstallable && !isStandalone ? (
           <>
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -66,7 +86,7 @@ const InstallPWA: React.FC = () => {
               Install Now
             </Button>
           </>
-        ) : (
+        ) : isStandalone ? (
           <>
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -75,6 +95,17 @@ const InstallPWA: React.FC = () => {
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Thank you for installing our Progressive Web App!<br />
                 Go Review something.
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="space-y-3">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                Welcome to Our Web App
+              </h2>
+              <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                Enjoy our app! Installation option may appear soon if your browser supports it.
               </p>
             </div>
           </>

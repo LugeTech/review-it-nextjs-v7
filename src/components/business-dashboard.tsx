@@ -10,8 +10,8 @@ import { iProductOwnerNotification, iUser, iUserNotification } from "@/app/util/
 import Link from "next/link"
 import { FaPlus } from 'react-icons/fa';
 import NotificationBell from "@/app/components/notification-components/Notification"
-import { notificationsAtom, ownerNotificationsAtom, userNotificationsAtom } from "@/app/store/store"
-import { useAtom, useSetAtom } from "jotai"
+import { ownerNotificationsAtom, userNotificationsAtom } from "@/app/store/store"
+import { useSetAtom } from "jotai"
 import { useEffect } from "react"
 
 interface NotificationsData {
