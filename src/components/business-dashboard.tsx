@@ -9,7 +9,7 @@ import LoadingSpinner from "@/app/components/LoadingSpinner"
 import { iProductOwnerNotification, iUser, iUserNotification } from "@/app/util/Interfaces"
 import Link from "next/link"
 import { FaPlus } from 'react-icons/fa';
-import NotificationBell from "@/app/components/notification-components/Notification"
+import NotificationBell from "@/app/components/notification-components/OwnerNotification"
 import { ownerNotificationsAtom, userNotificationsAtom } from "@/app/store/store"
 import { useSetAtom } from "jotai"
 import { useEffect } from "react"
@@ -38,6 +38,7 @@ export function BusinessDashboardComponent() {
 
   useEffect(() => {
     if (notificationsData) {
+      console.log("787787", notificationsData)
       setUserNotificationsAtom(notificationsData.userNotifications);
       setOwnerNotificationsAtom(notificationsData.ownerNotifications);
     }
@@ -122,19 +123,20 @@ export function BusinessDashboardComponent() {
               </div>
               <div className="flex items-center mb-2 text-sm text-gray-600">
                 <NotificationBell notifications={notificationsData?.ownerNotifications.filter((notification: iProductOwnerNotification) => notification.product_id === product.id) || []} />
+                <span className="ml-2 text-sm text-gray-600">new notifications</span>
               </div>
               <p className="text-sm text-gray-700 mb-2" />
               <p className="text-sm text-gray-700 mb-2">
                 <span className="font-semibold">Latest review:</span> &quot;{product.reviews?.[0]?.title || "No reviews yet"}&quot;
                 <span className="text-gray-600 text-sm ml-2">({product.reviews?.[0]?.createdDate ? new Date(product.reviews?.[0]?.createdDate).toLocaleDateString() : null})</span>
               </p>
-              <p className="text-gray-600 text-sm">{product.description.length > 100 ? `${product.description.substring(0, 100)}...` : product.description}</p>
+              {/* <p className="text-gray-600 text-sm">{product.description.length > 100 ? `${product.description.substring(0, 100)}...` : product.description}</p> */}
             </CardContent>
-            <CardFooter>
-              <button className="w-full bg-gray-900 text-gray-50 hover:bg-gray-900/90 py-2 rounded-md transition-colors ">
-                View Details
-              </button>
-            </CardFooter>
+            {/* <CardFooter> */}
+            {/* <button className="w-full bg-gray-900 text-gray-50 hover:bg-gray-900/90 py-2 rounded-md transition-colors "> */}
+            {/*   View Details */}
+            {/* </button> */}
+            {/* </CardFooter> */}
           </Card>
         ))}
       </div>

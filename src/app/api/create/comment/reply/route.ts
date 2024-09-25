@@ -9,10 +9,8 @@ import { createUserNotification } from "@/app/util/NotificationFunctions";
 
 // Exporting the POST function that handles the API request
 export async function POST(request: NextRequest) {
-  console.log("range")
   // Get the reply data from the request body
   const reply: iComment = await request.json();
-  console.log("*****", reply)
   // Initialize a variable to store the Clerk user data
   let clerkUserData = null;
   let userIdFromClerk = null;

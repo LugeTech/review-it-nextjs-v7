@@ -5,7 +5,7 @@ import { useAtom } from 'jotai';
 import { ownerNotificationsAtom } from '@/app/store/store';
 
 interface NotificationsPageProps {
-  notifications: iProductOwnerNotification[];
+  notifications: iProductOwnerNotification[] | [];
 }
 
 export default function NotificationBell({ notifications }: NotificationsPageProps) {
@@ -23,7 +23,7 @@ export default function NotificationBell({ notifications }: NotificationsPagePro
     <Link
       href={{ pathname: '/notifications' }}
       className="flex items-center p-2 rounded-full hover:bg-gray-100 transition-colors"
-      onClick={handleClick} // Update the atom on click
+      onClick={handleClick}
     >
       <div className="relative">
         <BellIcon className="w-6 h-6 text-gray-600" />
@@ -33,7 +33,6 @@ export default function NotificationBell({ notifications }: NotificationsPagePro
           </span>
         )}
       </div>
-      <span className="ml-2 text-sm text-gray-600">new notifications</span>
     </Link>
   );
 }

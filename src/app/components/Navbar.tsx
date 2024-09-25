@@ -6,9 +6,15 @@ import NavbarAuth from "./NavbarAuth";
 import { useState } from "react";
 import { Toaster } from "sonner";
 import Footer from "./Footer";
+import NotificationBell from "./notification-components/OwnerNotification";
+import { useAuth } from "@clerk/nextjs";
+import NotificationDropdown from "./notification-components/NavNotification";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const auth = useAuth();
+  const { userId } = auth;
+
 
   const handleSideLinkClick = () => {
     setIsDrawerOpen(false);
@@ -53,13 +59,8 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
             </div>
           </div>
           <div className="mx-4">
-            {/* <Suspense */}
-            {/*   fallback={ */}
-            {/*     <Image src="/logo.png" alt="loading" width={50} height={50} /> */}
-            {/*   } */}
-            {/* > */}
+            {userId && <NotificationDropdown />}
             <NavbarAuth />
-            {/* </Suspense> */}
           </div>
         </div>
         <div className="flex flex-col w-full h-full overflow-y-auto ">

@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
+import { useAtom } from "jotai";
+import { currentUserAtom } from "@/app/store/store";
+
 interface Props {
   isOpen: boolean;
   onClose: (isOpen: any) => void;
   onSubmit: (textAreaValue: string) => void;
 }
-import { useAtom } from "jotai";
-import { currentUserAtom } from "@/app/store/store";
 
 const CommentForm = ({ isOpen, onSubmit }: Props) => {
   const [textAreaValue, setTextAreaValue] = useState("");
