@@ -44,10 +44,10 @@ export interface iUserNotification {
   content: string;
   read: boolean;
   notification_type: string;
-  comment_id: string
-  review_id: string
-  from_name: string
-  from_id: string
+  comment_id: string;
+  review_id: string;
+  from_name: string;
+  from_id: string;
   created_at?: Date;
 }
 
@@ -137,7 +137,7 @@ export interface iComment {
   parentId?: string | null;
   replies?: iComment[];
   parent?: iComment;
-  parentUserId?: string
+  parentUserId?: string;
 }
 
 export interface iUser {
@@ -202,9 +202,9 @@ export interface SentDataReviewAndProduct {
   productId?: string;
   links?: string[];
   videos?: string[];
-  publicMetadata?: { userInDb: boolean, id: string }
+  publicMetadata?: { userInDb: boolean; id: string };
   product: {
-    display_image: string
+    display_image: string;
     productSelected: boolean;
     productId?: string;
     name: string;
@@ -224,8 +224,7 @@ export interface SentDataReviewAndProduct {
     isProduct?: boolean;
     videos?: string[];
     links?: string[];
-  }
-
+  };
 }
 
 export interface ReviewUserAndproduct {
@@ -302,7 +301,6 @@ export interface UserDATA {
   };
 }
 
-
 export interface iCalculatedRating {
   roundedRating: number;
   roundedRatingOneDecimalPlace: number;
@@ -351,3 +349,6 @@ export interface UserCreatedEvent {
   };
 }
 
+export interface iTag {
+  tags: string[];
+}

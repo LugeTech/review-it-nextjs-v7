@@ -1,21 +1,23 @@
-import { iComment, iProduct, iReview } from "@/app/util/Interfaces";
+import { iComment, iProduct, iReview, iTag } from "@/app/util/Interfaces";
 interface helpfulData {
   reviewId: string;
   userInDbId: string;
 }
-
 
 export const getNotifications = async (userId: string) => {
   const notificationsUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER;
   console.log(`${notificationsUrl}/notifications?user_id=${userId}`);
 
   try {
-    const response = await fetch(`${notificationsUrl}/notifications?user_id=${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${notificationsUrl}/notifications?user_id=${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -30,7 +32,7 @@ export const getNotifications = async (userId: string) => {
     console.error("Error fetching notifications:", error);
     throw error;
   }
-}
+};
 
 export const updateHelpfulVote = async (data: helpfulData) => {
   const body = {
@@ -50,7 +52,7 @@ export const updateHelpfulVote = async (data: helpfulData) => {
 
 export const deleteComment = async (id: string) => {
   const body = {
-    id: id
+    id: id,
   };
   const response = await fetch(`/api/delete/comment`, {
     method: "POST",
@@ -65,11 +67,11 @@ export const deleteComment = async (id: string) => {
 
 // this is the user api yrl error
 export const getUser = async () => {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return { data: null }; // or some default value
   }
 
-  console.log("get user running")
+  console.log("get user running");
   try {
     const response = await fetch("/api/get/user", {
       method: "GET",
@@ -98,9 +100,8 @@ export const getUserWithId = async (userId: string) => {
   return user;
 };
 
-
 export const getReview = async (id: string) => {
-  console.log("get one review")
+  console.log("get one review");
   const body = {
     id,
   };
@@ -118,7 +119,7 @@ export const getReview = async (id: string) => {
 };
 
 export const getReviews = async (id: string) => {
-  console.log("get reviews running")
+  console.log("get reviews running");
   const body = {
     id,
     isPublic: true,
@@ -146,7 +147,7 @@ export const getLatestReviews = async () => {
       "Content-Type": "application/json",
     },
   }).then((res) => res.json());
-  const reviews = data.data as iReview[]
+  const reviews = data.data as iReview[];
   return { ...data, reviews };
 };
 
@@ -184,11 +185,13 @@ export const createCommentOnReview = async (comment: iComment) => {
   return data;
 };
 
-export const createReplyOnComment = async (reply: iComment): Promise<iComment> => {
+export const createReplyOnComment = async (
+  reply: iComment,
+): Promise<iComment> => {
   if (reply.body === "") {
     throw new Error("Reply body cannot be empty");
   }
-  console.log("reply to create noti", reply)
+  console.log("reply to create noti", reply);
 
   const response = await fetch(`/api/create/comment/reply`, {
     method: "POST",
@@ -202,7 +205,7 @@ export const createReplyOnComment = async (reply: iComment): Promise<iComment> =
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  const data = await response.json() as iComment;
+  const data = (await response.json()) as iComment;
   return data;
 };
 
@@ -221,6 +224,22 @@ export const editComment = async (id: string, commentBody: string) => {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
-  const data = await response.json() as iComment;
+  const data = (await response.json()) as iComment;
   return data;
+};
+
+export const genTags = async (description: string) => {
+  const response = await fetch("http://127.0.0.1:3003/gen", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ description }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  const data = await response.json();
+  return data.tags;
 };

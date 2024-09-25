@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useRef, useEffect } from "react";
 import { iProduct } from "../util/Interfaces";
 import { resizeImage } from "../util/clientFunctions";
@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload, X, Trash2, Plus } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import SmartTags from "@/app/components/SmartTags";
 import Image from "next/image";
 
 export default function ProductForm() {
@@ -18,7 +19,8 @@ export default function ProductForm() {
     address: "",
     createdDate: new Date(),
     description: "",
-    display_image: "https://res.cloudinary.com/dhglzlaqf/image/upload/v1688140420/myassets/placeholder_jpxutd.png",
+    display_image:
+      "https://res.cloudinary.com/dhglzlaqf/image/upload/v1688140420/myassets/placeholder_jpxutd.png",
     images: [],
     videos: [],
     links: [],
@@ -52,16 +54,16 @@ export default function ProductForm() {
   };
 
   const handleArrayInput = (field: keyof iProduct, value: string) => {
-    setProduct(prev => ({
+    setProduct((prev) => ({
       ...prev,
-      [field]: [...(prev[field] as string[]), value]
+      [field]: [...(prev[field] as string[]), value],
     }));
   };
 
   const handleRemoveArrayItem = (field: keyof iProduct, index: number) => {
-    setProduct(prev => ({
+    setProduct((prev) => ({
       ...prev,
-      [field]: (prev[field] as string[]).filter((_, i) => i !== index)
+      [field]: (prev[field] as string[]).filter((_, i) => i !== index),
     }));
   };
 
@@ -122,18 +124,33 @@ export default function ProductForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xl w-full mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-xl w-full mx-auto p-6 bg-white rounded-lg shadow-lg"
+    >
       <h1 className="text-2xl font-bold mb-6">Create New Product</h1>
 
       <div className="space-y-6">
         <div>
           <Label htmlFor="name">Name</Label>
-          <Input id="name" name="name" value={product.name} onChange={handleChange} required />
+          <Input
+            id="name"
+            name="name"
+            value={product.name}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div>
           <Label htmlFor="description">Description</Label>
-          <Textarea id="description" name="description" value={product.description} onChange={handleChange} required />
+          <Textarea
+            id="description"
+            name="description"
+            value={product.description}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div>
@@ -178,7 +195,7 @@ export default function ProductForm() {
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
-                  handleArrayInput('images', e.currentTarget.value);
+                  handleArrayInput("images", e.currentTarget.value);
                   e.currentTarget.value = "";
                 }
               }}
@@ -187,7 +204,7 @@ export default function ProductForm() {
               type="button"
               variant="outline"
               size="icon"
-              onClick={() => handleArrayInput('images', "")}
+              onClick={() => handleArrayInput("images", "")}
             >
               <Plus className="h-4 w-4" />
             </Button>
@@ -200,7 +217,7 @@ export default function ProductForm() {
                   type="button"
                   variant="outline"
                   size="icon"
-                  onClick={() => handleRemoveArrayItem('images', index)}
+                  onClick={() => handleRemoveArrayItem("images", index)}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -217,7 +234,7 @@ export default function ProductForm() {
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
-                  handleArrayInput('videos', e.currentTarget.value);
+                  handleArrayInput("videos", e.currentTarget.value);
                   e.currentTarget.value = "";
                 }
               }}
@@ -226,7 +243,7 @@ export default function ProductForm() {
               type="button"
               variant="outline"
               size="icon"
-              onClick={() => handleArrayInput('videos', "")}
+              onClick={() => handleArrayInput("videos", "")}
             >
               <Plus className="h-4 w-4" />
             </Button>
@@ -239,7 +256,7 @@ export default function ProductForm() {
                   type="button"
                   variant="outline"
                   size="icon"
-                  onClick={() => handleRemoveArrayItem('videos', index)}
+                  onClick={() => handleRemoveArrayItem("videos", index)}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -256,7 +273,7 @@ export default function ProductForm() {
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
-                  handleArrayInput('links', e.currentTarget.value);
+                  handleArrayInput("links", e.currentTarget.value);
                   e.currentTarget.value = "";
                 }
               }}
@@ -265,7 +282,7 @@ export default function ProductForm() {
               type="button"
               variant="outline"
               size="icon"
-              onClick={() => handleArrayInput('links', "")}
+              onClick={() => handleArrayInput("links", "")}
             >
               <Plus className="h-4 w-4" />
             </Button>
@@ -278,7 +295,7 @@ export default function ProductForm() {
                   type="button"
                   variant="outline"
                   size="icon"
-                  onClick={() => handleRemoveArrayItem('links', index)}
+                  onClick={() => handleRemoveArrayItem("links", index)}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -295,7 +312,7 @@ export default function ProductForm() {
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
-                  handleArrayInput('website', e.currentTarget.value);
+                  handleArrayInput("website", e.currentTarget.value);
                   e.currentTarget.value = "";
                 }
               }}
@@ -304,7 +321,7 @@ export default function ProductForm() {
               type="button"
               variant="outline"
               size="icon"
-              onClick={() => handleArrayInput('website', "")}
+              onClick={() => handleArrayInput("website", "")}
             >
               <Plus className="h-4 w-4" />
             </Button>
@@ -317,7 +334,7 @@ export default function ProductForm() {
                   type="button"
                   variant="outline"
                   size="icon"
-                  onClick={() => handleRemoveArrayItem('website', index)}
+                  onClick={() => handleRemoveArrayItem("website", index)}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -336,7 +353,7 @@ export default function ProductForm() {
                   e.preventDefault();
                   const value = e.currentTarget.value.trim();
                   if (value) {
-                    handleArrayInput('tags', value);
+                    handleArrayInput("tags", value);
                     e.currentTarget.value = "";
                   }
                 }
@@ -347,10 +364,12 @@ export default function ProductForm() {
               variant="outline"
               size="icon"
               onClick={() => {
-                const input = document.querySelector('input[placeholder="Enter a tag"]') as HTMLInputElement;
+                const input = document.querySelector(
+                  'input[placeholder="Enter a tag"]',
+                ) as HTMLInputElement;
                 const value = input.value.trim();
                 if (value) {
-                  handleArrayInput('tags', value);
+                  handleArrayInput("tags", value);
                   input.value = "";
                 }
               }}
@@ -358,16 +377,27 @@ export default function ProductForm() {
               <Plus className="h-4 w-4" />
             </Button>
           </div>
+          <div className="flex flex-wrap gap-2">
+            <SmartTags
+              description={product.description}
+              handleArrayInput={handleArrayInput}
+              handleRemoveArrayItem={handleRemoveArrayItem}
+              field="tags"
+            />
+          </div>
           <div className="mt-2 flex flex-wrap gap-2">
             {product.tags.map((tag, index) => (
-              <div key={index} className="flex items-center bg-gray-100 rounded-full px-3 py-1">
+              <div
+                key={index}
+                className="flex items-center bg-gray-100 rounded-full px-3 py-1"
+              >
                 <span>{tag}</span>
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon"
                   className="h-4 w-4 ml-2"
-                  onClick={() => handleRemoveArrayItem('tags', index)}
+                  onClick={() => handleRemoveArrayItem("tags", index)}
                 >
                   <X className="h-3 w-3" />
                 </Button>
@@ -379,17 +409,35 @@ export default function ProductForm() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Label htmlFor="openingHrs">Opening Hours</Label>
-            <Input id="openingHrs" name="openingHrs" type="time" value={product.openingHrs || ''} onChange={handleChange} />
+            <Input
+              id="openingHrs"
+              name="openingHrs"
+              type="time"
+              value={product.openingHrs || ""}
+              onChange={handleChange}
+            />
           </div>
           <div>
             <Label htmlFor="closingHrs">Closing Hours</Label>
-            <Input id="closingHrs" name="closingHrs" type="time" value={product.closingHrs || ''} onChange={handleChange} />
+            <Input
+              id="closingHrs"
+              name="closingHrs"
+              type="time"
+              value={product.closingHrs || ""}
+              onChange={handleChange}
+            />
           </div>
         </div>
 
         <div>
           <Label htmlFor="telephone">Telephone</Label>
-          <Input id="telephone" name="telephone" type="tel" value={product.telephone || ''} onChange={handleChange} />
+          <Input
+            id="telephone"
+            name="telephone"
+            type="tel"
+            value={product.telephone || ""}
+            onChange={handleChange}
+          />
         </div>
 
         <div>
@@ -398,14 +446,19 @@ export default function ProductForm() {
             id="email"
             name="email"
             type="email"
-            value={product.email || ''}
+            value={product.email || ""}
             onChange={handleChange}
           />
         </div>
 
         <div>
           <Label htmlFor="address">Address</Label>
-          <Textarea id="address" name="address" value={product.address || ''} onChange={handleChange} />
+          <Textarea
+            id="address"
+            name="address"
+            value={product.address || ""}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="flex items-center space-x-2">
@@ -413,7 +466,9 @@ export default function ProductForm() {
             disabled
             id="hasOwner"
             checked={product.hasOwner || false}
-            onCheckedChange={(checked) => setProduct({ ...product, hasOwner: checked })}
+            onCheckedChange={(checked) =>
+              setProduct({ ...product, hasOwner: checked })
+            }
           />
           <Label htmlFor="hasOwner">I am the Owner</Label>
         </div>
@@ -423,7 +478,11 @@ export default function ProductForm() {
           className="w-full bg-myTheme-primary"
           disabled={isLoading || isImageUploading}
         >
-          {isImageUploading ? "Uploading Image..." : isLoading ? "Processing..." : "Create Product"}
+          {isImageUploading
+            ? "Uploading Image..."
+            : isLoading
+              ? "Processing..."
+              : "Create Product"}
         </Button>
       </div>
     </form>

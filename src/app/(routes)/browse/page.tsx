@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
+import { useSearchParams } from "next/navigation";
 import { iProduct } from "@/app/util/Interfaces";
 import { getProducts } from "@/app/util/serverFunctions";
 import ArrangeByPanel from "@/app/components/ArrangeByPanel";
@@ -13,6 +14,7 @@ import { calculateAverageReviewRating } from "@/app/util/calculateAverageReviewR
 import { useAuth } from "@clerk/nextjs";
 
 const Page = () => {
+  const searchParams = useSearchParams();
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
@@ -22,15 +24,29 @@ const Page = () => {
   const [_, setCurrentProduct] = useAtom(allProductsAtom);
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const { userId } = useAuth();
-  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   useEffect(() => {
     if (data?.data) setCurrentProduct(data.data);
-  }, [data?.data, setCurrentProduct]);
+
+    const ratingParam = searchParams.get("rating");
+    const tagsParam = searchParams.get("tags");
+    const searchParam = searchParams.get("search");
+
+    if (ratingParam) {
+      setSelectedRating(Number(ratingParam));
+    }
+    if (tagsParam) {
+      setSelectedTags(tagsParam.split(","));
+    }
+    if (searchParam) {
+      setSearchTerm(searchParam);
+    }
+  }, [data?.data, setCurrentProduct, searchParams]);
 
   if (isLoading) {
     return (
@@ -48,16 +64,17 @@ const Page = () => {
       const rating = calculateAverageReviewRating(
         product.reviews,
       ) as unknown as iCalculatedRating;
-      if (selectedRating && rating.roundedRating !== selectedRating) {
-        return false;
-      }
-      if (
-        selectedTags.length > 0 &&
-        !selectedTags.every((tag) => product.tags.includes(tag))
-      ) {
-        return false;
-      }
-      return true;
+
+      const matchesRating =
+        !selectedRating || rating.roundedRating === selectedRating;
+      const matchesTags =
+        selectedTags.length === 0 ||
+        selectedTags.every((tag) => product.tags.includes(tag));
+      const matchesSearch =
+        !searchTerm ||
+        product.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+      return matchesRating && matchesTags && matchesSearch;
     }
     return false;
   });
@@ -69,7 +86,6 @@ const Page = () => {
     showClaimThisProduct: true,
   };
 
-  // Calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredProducts.slice(
@@ -95,6 +111,13 @@ const Page = () => {
             setSelectedTags={setSelectedTags}
             filteredProductsLength={filteredProducts.length}
           />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search products..."
+            className="w-full p-2 border rounded"
+          />
         </div>
         <div className="flex flex-col w-full lg:w-1/2 items-center gap-2 rounded-lg sm:px-10">
           {currentItems.length > 0 ? (
@@ -110,7 +133,6 @@ const Page = () => {
           ) : (
             <p>No products match the selected filters.</p>
           )}
-          {/* Pagination Controls */}
           <div className="flex flex-wrap justify-center mt-4">
             {Array.from({ length: totalPages }, (_, index) => (
               <button
