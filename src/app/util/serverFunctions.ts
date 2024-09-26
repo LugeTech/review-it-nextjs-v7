@@ -230,17 +230,18 @@ export const editComment = async (id: string, commentBody: string) => {
 };
 
 export const genTags = async (description: string) => {
-  const response = await fetch("http://127.0.0.1:3003/gen", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ description }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  console.log("genTags rinning now")
+  try {
+    const response = await fetch("http://localhost:3003/gen", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ description }),
+    });
+    const data = await response.json();
+    return data.tags;
+  } catch (error) {
+    console.log(error)
   }
-  const data = await response.json();
-  return data.tags;
 };
