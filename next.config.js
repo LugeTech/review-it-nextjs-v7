@@ -35,15 +35,15 @@ module.exports = withPWA({
       { hostname: "images.clerk.dev", protocol: "https" },
     ],
   },
-  headers: [
-    {
-      source: '/fr',
-      headers: [
-        {
-          key: 'Cache-Control',
-          value: 'no-cache',
-        },
-      ],
-    },
-  ],
+  // headers: [
+  //   {
+  //     source: '/fr',
+  //     headers: [
+  //       {
+  //         key: 'Cache-Control',
+  //         value: 'no-cache',
+  //       },
+  //     ],
+  //   },
+  // ],
 });

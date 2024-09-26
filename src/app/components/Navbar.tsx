@@ -58,7 +58,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
               </div>
             </div>
           </div>
-          <div className="mx-4">
+          <div className="mx-4 flex gap-4">
             {userId && <NotificationDropdown />}
             <NavbarAuth />
           </div>

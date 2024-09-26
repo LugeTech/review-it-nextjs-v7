@@ -1,30 +1,65 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { BellIcon } from 'lucide-react'
-import { iUserNotification } from '@/app/util/Interfaces'
-import { useAtom } from 'jotai'
-import { AllNotificationsAtom, userNotificationsAtom } from '@/app/store/store'
+import { iProductOwnerNotification, iUserNotification } from '@/app/util/Interfaces'
+import { useAtom, useSetAtom } from 'jotai'
+import { ownerNotificationsAtom, userNotificationsAtom } from '@/app/store/store'
+import { Button } from "@/components/ui/button"
+import { useAuth } from '@clerk/nextjs'
+import { useQuery } from '@tanstack/react-query'
+import { getNotifications, getUser } from '@/app/util/serverFunctions'
+import LoadingSpinner from '../LoadingSpinner'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
 
+interface NotificationsData {
+  userNotifications: iUserNotification[];
+  ownerNotifications: iProductOwnerNotification[];
+};
 
 export default function NotificationDropdown() {
-  const [notifications] = useAtom(AllNotificationsAtom);
-  // const [notiAtoms, setNotiAtoms] = useAtom(userNotificationsAtom)
+  const auth = useAuth();
   const [isOpen, setIsOpen] = useState(false)
+  const setUserNotificationsAtom = useSetAtom(userNotificationsAtom);
+  const setOwnerNotificationsAtom = useSetAtom(ownerNotificationsAtom);
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["user", auth.userId],
+    queryFn: async () => await getUser(),
+    refetchOnWindowFocus: false,
+  }) as any;
 
-  const count = notifications.userNotifications?.length || 0
-  const latestNotifications: iUserNotification[] = notifications.userNotifications.slice(0, 3)
+  const {
+    data: notificationsData,
+    // isLoading: isLoadingNotifications, 
+    // isError: isErrorNotifications, 
+    // error: errorNotifications 
+  } = useQuery<NotificationsData, Error>({
+    queryKey: ["notifications", auth.userId],
+    queryFn: async () => await getNotifications(auth.userId || ""),
+    refetchOnWindowFocus: true,
+    refetchInterval: 3000, // 30 seconds in milliseconds
+  });
 
-  // const handleClick = () => {
-  //   console.log("running set atoms")
-  //   setNotiAtoms(notiAtoms)
-  // }
+  useEffect(() => {
+    if (notificationsData) {
+      console.log("nav 787787", notificationsData)
+      setUserNotificationsAtom(notificationsData.userNotifications);
+      setOwnerNotificationsAtom(notificationsData.ownerNotifications);
+    }
+  }, [notificationsData, setUserNotificationsAtom, setOwnerNotificationsAtom]);
+
+  if (isLoading) return <LoadingSpinner />;
+  if (isError) return <p>{error?.toString()}</p>;
+  const count = notificationsData?.userNotifications.length || 0
+  const latestNotifications = notificationsData?.userNotifications.slice(0, 3) || []
+
+  const handleClick = () => {
+    setIsOpen(false)
+  }
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
@@ -50,7 +85,7 @@ export default function NotificationDropdown() {
             href="/notifications"
             className="w-full text-blue-600 hover:text-blue-800"
             onClick={() => {
-              // handleClick()
+              handleClick()
               setIsOpen(false)
             }}
           >
