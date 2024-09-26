@@ -1,8 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { iProduct } from "@/app/util/Interfaces";
 import { getProducts } from "@/app/util/serverFunctions";
 import ArrangeByPanel from "@/app/components/ArrangeByPanel";
@@ -15,6 +15,7 @@ import { useAuth } from "@clerk/nextjs";
 
 const Page = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
@@ -30,24 +31,57 @@ const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  useEffect(() => {
-    if (data?.data) setCurrentProduct(data.data);
+  const updateQueryParams = useCallback(() => {
+    const params = new URLSearchParams();
+    if (selectedRating) params.set("rating", selectedRating.toString());
+    if (selectedTags.length > 0) params.set("tags", selectedTags.join(","));
+    if (searchTerm) params.set("search", searchTerm);
 
-    // Handle query params
+    router.push(`${window.location.pathname}?${params.toString()}`, {
+      scroll: false,
+    });
+  }, [selectedRating, selectedTags, searchTerm, router]);
+
+  useEffect(() => {
     const ratingParam = searchParams.get("rating");
     const tagsParam = searchParams.get("tags");
     const searchParam = searchParams.get("search");
 
-    if (ratingParam) {
-      setSelectedRating(Number(ratingParam));
-    }
-    if (tagsParam) {
-      setSelectedTags(tagsParam.split(","));
-    }
-    if (searchParam) {
-      setSearchTerm(searchParam);
-    }
-  }, [data?.data, setCurrentProduct, searchParams]);
+    setSelectedRating(ratingParam ? Number(ratingParam) : null);
+    setSelectedTags(tagsParam ? tagsParam.split(",") : []);
+    setSearchTerm(searchParam || "");
+  }, []);
+
+  useEffect(() => {
+    updateQueryParams();
+  }, [selectedRating, selectedTags, searchTerm, updateQueryParams]);
+
+  useEffect(() => {
+    if (data?.data) setCurrentProduct(data.data);
+  }, [data?.data, setCurrentProduct]);
+
+  const handleRatingChange = (rating: number | null) => {
+    setSelectedRating(rating);
+    setCurrentPage(1);
+  };
+
+  const handleTagChange = (tags: string[]) => {
+    setSelectedTags(tags);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (search: string) => {
+    setSearchTerm(search);
+    setCurrentPage(1);
+  };
+
+  // const clearFilters = () => {
+  //   setSelectedRating(null);
+  //   setSelectedTags([]);
+  //   setSearchTerm("");
+  //   setCurrentPage(1);
+  //   router.push(window.location.pathname, { scroll: false });
+  // };
 
   if (isLoading) {
     return (
@@ -80,13 +114,7 @@ const Page = () => {
     return false;
   });
 
-  const productCardOptions = {
-    showLatestReview: true,
-    size: "rating-lg",
-    showWriteReview: true,
-    showClaimThisProduct: true,
-  };
-
+  // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredProducts.slice(
@@ -106,10 +134,10 @@ const Page = () => {
         <div className="flex break-words flex-col h-full w-full lg:w-1/4 justify-start items-center gap-2">
           <ArrangeByPanel
             products={products}
-            setSelectedRating={setSelectedRating}
+            setSelectedRating={handleRatingChange}
             selectedRating={selectedRating}
             selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
+            setSelectedTags={handleTagChange}
             filteredProductsLength={filteredProducts.length}
           />
         </div>
@@ -117,14 +145,19 @@ const Page = () => {
           <input
             type="text"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Search products..."
             className="w-full p-2 border rounded"
           />
           {currentItems.length > 0 ? (
             currentItems.map((product: iProduct) => (
               <ProductCard
-                options={productCardOptions}
+                options={{
+                  showLatestReview: true,
+                  size: "rating-lg",
+                  showWriteReview: true,
+                  showClaimThisProduct: true,
+                }}
                 reviews={null}
                 product={product}
                 key={product.id}
