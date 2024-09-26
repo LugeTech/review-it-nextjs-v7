@@ -41,7 +41,7 @@ export default function NotificationDropdown() {
     queryKey: ["notifications", auth.userId],
     queryFn: async () => await getNotifications(auth.userId || ""),
     refetchOnWindowFocus: true,
-    refetchInterval: 3000, // 30 seconds in milliseconds
+    refetchInterval: 300000, // 30 seconds in milliseconds
   });
 
   useEffect(() => {
