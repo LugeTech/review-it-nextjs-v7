@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { iProduct, iProductOwnerNotification, iReview, iUser, iUserNotification } from "../util/Interfaces";
-import { getUser } from "../util/serverFunctions";
+import { getNotifications, getUser } from "../util/serverFunctions";
 import { iNotification } from "../util/Interfaces";
 
 export const notificationsAtom = atom<iNotification[]>([]);
@@ -17,5 +17,10 @@ export const currentUserAtom = atom(async () => {
   return user;
 });
 
+export const AllNotificationsAtom = atom(async (get) => {
+  const user = await get(currentUserAtom);
+  const { userNotifications, ownerNotifications } = await getNotifications(user.id);
+  return { userNotifications, ownerNotifications };
+})
 export const badWordsAtom = atom<string[]>([]);
 

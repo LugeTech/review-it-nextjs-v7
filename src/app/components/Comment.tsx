@@ -10,7 +10,7 @@ import OptionsMenu from "./CommentOptionsMenu";
 import { useAuth } from "@clerk/nextjs";
 interface CommentProps {
   comment: iComment;
-  onReply: (parentId: string, body: string, parentUserId: string) => Promise<void>;
+  onReply: (parentId: string, body: string) => Promise<void>;
   onEdit: (commentId: string, body: string) => Promise<void>;
   onDelete: (commentId: string) => Promise<void>;
   depth: number;
@@ -43,8 +43,7 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
 
   const handleReply = async () => {
     if (comment.id && canReply) {
-      const parentUserId = comment?.replies?.[0]?.parent?.userId as string
-      await onReply(comment.id, replyBody, parentUserId);
+      await onReply(comment.id, replyBody);
       const newReply: iComment = {
         id: Date.now().toString(),
         body: replyBody,
@@ -55,7 +54,6 @@ const Comment: React.FC<CommentProps> = ({ comment: initialComment, onReply, onE
         userId: userId as string,
         isDeleted: false,
         reviewId: comment.reviewId,
-        parentUserId: comment?.replies?.[0]?.parent?.userId,
       };
       setReplies([newReply, ...replies]);
       setIsReplying(false);

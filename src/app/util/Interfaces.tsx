@@ -40,7 +40,7 @@ export interface iProductOwnerNotification {
 
 export interface iUserNotification {
   id: string;
-  user_id: string;
+  user_id?: string;
   content: string;
   read: boolean;
   notification_type: string;
@@ -49,6 +49,7 @@ export interface iUserNotification {
   from_name: string;
   from_id: string;
   created_at?: Date;
+  parent_id: string;
 }
 
 export interface ReviewLike {

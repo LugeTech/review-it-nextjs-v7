@@ -41,7 +41,7 @@ export function createProductOwnerNotification(review: any) {
 export function createUserNotification(notification: iUserNotification) {
   const notificationUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER + "/notifications/reply";
 
-  console.log("User Notification payload:", notification);
+  // console.log("User Notification payload:", notification);
   fetch(notificationUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

@@ -10,8 +10,8 @@ import { iProductOwnerNotification, iUser, iUserNotification } from "@/app/util/
 import Link from "next/link"
 import { FaPlus } from 'react-icons/fa';
 import NotificationBell from "@/app/components/notification-components/OwnerNotification"
-import { ownerNotificationsAtom, userNotificationsAtom } from "@/app/store/store"
-import { useSetAtom } from "jotai"
+import { AllNotificationsAtom, currentUserAtom } from "@/app/store/store"
+import { useAtomValue, useSetAtom } from "jotai"
 import { useEffect } from "react"
 
 interface NotificationsData {
@@ -22,28 +22,29 @@ interface NotificationsData {
 export function BusinessDashboardComponent() {
   // const [_, setNotificationsAtom] = useAtom(notificationsAtom)
   const auth = useAuth();
-  const setUserNotificationsAtom = useSetAtom(userNotificationsAtom);
-  const setOwnerNotificationsAtom = useSetAtom(ownerNotificationsAtom);
+  const allNotifications = useAtomValue(AllNotificationsAtom);
+  // const setUserNotificationsAtom = useSetAtom(userNotificationsAtom);
+  // const setOwnerNotificationsAtom = useSetAtom(ownerNotificationsAtom);
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["user", auth.userId],
     queryFn: async () => await getUser(),
     refetchOnWindowFocus: false,
   }) as any;
-
-  const { data: notificationsData, isLoading: isLoadingNotifications, isError: isErrorNotifications, error: errorNotifications } = useQuery<NotificationsData, Error>({
-    queryKey: ["notifications", auth.userId],
-    queryFn: async () => await getNotifications(auth.userId || ""),
-    refetchOnWindowFocus: true,
-  });
-
-  useEffect(() => {
-    if (notificationsData) {
-      console.log("787787", notificationsData)
-      setUserNotificationsAtom(notificationsData.userNotifications);
-      setOwnerNotificationsAtom(notificationsData.ownerNotifications);
-    }
-  }, [notificationsData, setUserNotificationsAtom, setOwnerNotificationsAtom]);
-
+  //
+  // const { data: notificationsData, isLoading: isLoadingNotifications, isError: isErrorNotifications, error: errorNotifications } = useQuery<NotificationsData, Error>({
+  //   queryKey: ["notifications", auth.userId],
+  //   queryFn: async () => await getNotifications(auth.userId || ""),
+  //   refetchOnWindowFocus: true,
+  // });
+  //
+  // useEffect(() => {
+  //   if (notificationsData) {
+  //     console.log("787787", notificationsData)
+  //     setUserNotificationsAtom(notificationsData.userNotifications);
+  //     setOwnerNotificationsAtom(notificationsData.ownerNotifications);
+  //   }
+  // }, [notificationsData, setUserNotificationsAtom, setOwnerNotificationsAtom]);
+  //
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const user: iUser | undefined = data?.data as iUser;
@@ -122,7 +123,7 @@ export function BusinessDashboardComponent() {
                 )}
               </div>
               <div className="flex items-center mb-2 text-sm text-gray-600">
-                <NotificationBell notifications={notificationsData?.ownerNotifications.filter((notification: iProductOwnerNotification) => notification.product_id === product.id) || []} />
+                <NotificationBell notifications={allNotifications?.ownerNotifications.filter((notification: iProductOwnerNotification) => notification.product_id === product.id) || []} />
                 <span className="ml-2 text-sm text-gray-600">new notifications</span>
               </div>
               <p className="text-sm text-gray-700 mb-2" />

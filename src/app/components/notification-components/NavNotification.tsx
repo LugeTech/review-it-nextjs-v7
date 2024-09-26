@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { BellIcon } from 'lucide-react'
 import { iUserNotification } from '@/app/util/Interfaces'
 import { useAtom } from 'jotai'
-import { userNotificationsAtom } from '@/app/store/store'
+import { AllNotificationsAtom, userNotificationsAtom } from '@/app/store/store'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,18 +14,18 @@ import { Button } from "@/components/ui/button"
 
 
 export default function NotificationDropdown() {
-  const [notiAtoms, setNotiAtoms] = useAtom(userNotificationsAtom)
+  const [notifications] = useAtom(AllNotificationsAtom);
+  // const [notiAtoms, setNotiAtoms] = useAtom(userNotificationsAtom)
   const [isOpen, setIsOpen] = useState(false)
 
-  const count = notiAtoms?.length || 0
-  const latestNotifications = notiAtoms.slice(0, 3)
+  const count = notifications.userNotifications?.length || 0
+  const latestNotifications: iUserNotification[] = notifications.userNotifications.slice(0, 3)
 
-  const handleClick = () => {
-    console.log("running set atoms")
-    setNotiAtoms(notiAtoms)
-  }
+  // const handleClick = () => {
+  //   console.log("running set atoms")
+  //   setNotiAtoms(notiAtoms)
+  // }
 
-  console.log("this is the usernoti", notiAtoms)
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
@@ -50,7 +50,7 @@ export default function NotificationDropdown() {
             href="/notifications"
             className="w-full text-blue-600 hover:text-blue-800"
             onClick={() => {
-              handleClick()
+              // handleClick()
               setIsOpen(false)
             }}
           >

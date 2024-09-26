@@ -34,6 +34,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    console.log("this is the parentID", reply)
     // Check if parentId exists
     if (!reply.parentId) {
       throw new Error("Parent comment ID is required for a reply");
@@ -53,16 +54,16 @@ export async function POST(request: NextRequest) {
     if (createdReply.parentId !== "") {
       const userNotification: iUserNotification = {
         id: createdReply.id,
-        user_id: reply.parentUserId as string,
         content: createdReply.body,
         read: false,
         notification_type: "comment_reply",
         comment_id: createdReply.id,
         review_id: createdReply.reviewId,
         from_id: reply.user.id,
-        from_name: reply.user.userName
+        from_name: reply.user.userName,
+        parent_id: reply.parentId
       }
-      console.log("about to send this usernotification package", userNotification)
+      // console.log("about to send this usernotification package", userNotification)
       createUserNotification(userNotification)
     }
 

@@ -4,7 +4,7 @@ import Comment from './Comment';
 
 interface CommentListProps {
   comments: iComment[];
-  onReply: (parentId: string, body: string, parentUserId: string) => Promise<void>;
+  onReply: (parentId: string, body: string) => Promise<void>;
   onEdit: (commentId: string, body: string) => Promise<void>;
   onDelete: (commentId: string) => Promise<void>;
   clerkUserId: string;
@@ -48,7 +48,7 @@ const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, on
       clerkUserId={clerkUserId}
       key={comment.id || "no key"}
       comment={comment}
-      onReply={(parentId, body) => onReply(parentId, body, comment.user.id)}
+      onReply={(parentId, body) => onReply(parentId, body)}
       onEdit={onEdit}
       onDelete={onDelete}
       depth={depth}

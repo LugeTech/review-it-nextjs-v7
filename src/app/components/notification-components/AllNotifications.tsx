@@ -9,20 +9,6 @@ import { Badge } from "@/components/ui/badge"
 import { Bell, Eye, MessageSquare, Trash2 } from 'lucide-react'
 import { useRouter } from "next/navigation"
 import { iProductOwnerNotification } from '@/app/util/Interfaces';
-// interface iNotification {
-//   id: string;
-//   receiver_id: string;
-//   business_id: string;
-//   review_title: string;
-//   created_at?: Date;
-//   from_name: string;
-//   from_id: string;
-//   read: boolean;
-//   product_name: string;
-//   product_id: string;
-//   comment_id: string;
-//   review_id: string;
-// }
 
 interface NotificationsPageProps {
   notifications: iProductOwnerNotification[]

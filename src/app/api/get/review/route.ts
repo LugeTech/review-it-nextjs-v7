@@ -19,11 +19,7 @@ export async function POST(request: NextRequest) {
       include: {
         user: true,
         product: true,
-        comments: {
-          include: {
-            user: true,
-          },
-        },
+        comments: true,
         voteCount: true,
         likedBy: true,
       }
