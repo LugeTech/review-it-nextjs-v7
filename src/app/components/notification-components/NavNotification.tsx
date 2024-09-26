@@ -52,7 +52,7 @@ export default function NotificationDropdown() {
     }
   }, [notificationsData, setUserNotificationsAtom, setOwnerNotificationsAtom]);
 
-  if (isLoading) return <LoadingSpinner />;
+  // if (isLoading) return <LoadingSpinner />;
   if (isError) return <p>{error?.toString()}</p>;
   const count = notificationsData?.userNotifications.length || 0
   const latestNotifications = notificationsData?.userNotifications.slice(0, 3) || []
