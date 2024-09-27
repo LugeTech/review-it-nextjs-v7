@@ -230,7 +230,7 @@ export const editComment = async (id: string, commentBody: string) => {
 export const genTags = async (description: string) => {
   console.log("genTags rinning now")
   try {
-    const response = await fetch("http://127.0.0.1:3003/gen", {
+    const response = await fetch(process.env.NEXT_PUBLIC_AI_SERVER + "/gen", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
