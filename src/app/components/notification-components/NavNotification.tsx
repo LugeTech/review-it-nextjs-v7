@@ -46,7 +46,7 @@ export default function NotificationDropdown() {
 
   useEffect(() => {
     if (notificationsData) {
-      console.log("nav 787787", notificationsData)
+      console.log("notifications", notificationsData)
       setUserNotificationsAtom(notificationsData.userNotifications);
       setOwnerNotificationsAtom(notificationsData.ownerNotifications);
     }

@@ -5,10 +5,8 @@ interface helpfulData {
 }
 
 export const getNotifications = async (userId: string) => {
-  console.log(88848484848)
   const notificationsUrl = process.env.NEXT_PUBLIC_NOTIFICATION_SERVER;
 
-  console.log("get noti got hit", notificationsUrl)
   try {
     const response = await fetch(
       `${notificationsUrl}/notifications?user_id=${userId}`,
