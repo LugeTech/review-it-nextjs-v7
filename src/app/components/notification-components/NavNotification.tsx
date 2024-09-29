@@ -85,8 +85,8 @@ export default function NotificationDropdown() {
             <DropdownMenuItem className="font-bold text-lg py-2">User Notifications</DropdownMenuItem>
             {latestUserNotifications.map((notification, index) => (
               <DropdownMenuItem key={`user-${index}`} className="flex flex-col items-start py-2">
-                <span className="font-medium">{notification.content}</span>
-                <span className="text-sm text-gray-500">{notification.from_name}</span>
+                <span className="font-medium pl-2">{notification.content}</span>
+                <span className="text-sm text-gray-500 pl-2">{notification.from_name}</span>
               </DropdownMenuItem>
             ))}
           </>
@@ -95,11 +95,11 @@ export default function NotificationDropdown() {
         {ownerCount > 0 && (
           <>
             {userCount > 0 && <DropdownMenuSeparator />}
-            <DropdownMenuItem className="font-bold text-lg py-2">New Reviews</DropdownMenuItem>
+            <DropdownMenuItem className="font-bold text-lg py-2 ">New Product Reviews</DropdownMenuItem>
             {latestOwnerNotifications.map((notification, index) => (
-              <DropdownMenuItem key={`owner-${index}`} className="flex flex-col items-start py-2">
-                <span className="font-medium">{notification.review_title}</span>
-                <span className="text-xs text-gray-400">{notification.from_name} reviewed {notification.product_name}</span>
+              <DropdownMenuItem key={`owner-${index}`} className="flex flex-col items-start py-2 ">
+                <span className="font-medium pl-2">{notification.review_title}</span>
+                <span className="text-xs text-gray-400 pl-2">{notification.from_name} reviewed {notification.product_name}</span>
               </DropdownMenuItem>
             ))}
           </>
