@@ -14,6 +14,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 
 interface NotificationsData {
@@ -34,14 +35,14 @@ export default function NotificationDropdown() {
 
   const {
     data: notificationsData,
-    // isLoading: isLoadingNotifications, 
-    // isError: isErrorNotifications, 
-    // error: errorNotifications 
+    isLoading: isLoadingNotifications,
+    isError: isErrorNotifications,
+    error: errorNotifications
   } = useQuery<NotificationsData, Error>({
     queryKey: ["notifications", auth.userId],
     queryFn: async () => await getNotifications(auth.userId || ""),
     refetchOnWindowFocus: true,
-    refetchInterval: 300000, // 30 seconds in milliseconds
+    refetchInterval: 300000, // 5 minutes in milliseconds
   });
 
   useEffect(() => {
@@ -52,10 +53,15 @@ export default function NotificationDropdown() {
     }
   }, [notificationsData, setUserNotificationsAtom, setOwnerNotificationsAtom]);
 
-  // if (isLoading) return <LoadingSpinner />;
-  if (isError) return <p>{error?.toString()}</p>;
-  const count = notificationsData?.userNotifications.length || 0
-  const latestNotifications = notificationsData?.userNotifications.slice(0, 3) || []
+  if (isLoadingNotifications) return <LoadingSpinner />;
+  if (isErrorNotifications) return <p>{errorNotifications?.toString()}</p>;
+
+  const userCount = notificationsData?.userNotifications.length || 0
+  const ownerCount = notificationsData?.ownerNotifications.length || 0
+  const totalCount = userCount + ownerCount
+
+  const latestUserNotifications = notificationsData?.userNotifications.slice(0, 3) || []
+  const latestOwnerNotifications = notificationsData?.ownerNotifications.slice(0, 3) || []
 
   const handleClick = () => {
     setIsOpen(false)
@@ -66,20 +72,40 @@ export default function NotificationDropdown() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative p-2 rounded-full hover:bg-gray-100 transition-colors">
           <BellIcon className="w-6 h-6 text-gray-600" />
-          {count > 0 && (
+          {totalCount > 0 && (
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
-              {count > 99 ? '99+' : count}
+              {totalCount > 99 ? '99+' : totalCount}
             </span>
           )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80">
-        {latestNotifications.map((notification, index) => (
-          <DropdownMenuItem key={index} className="flex flex-col items-start py-2">
-            <span className="font-medium">{notification.content}</span>
-            <span className="text-sm text-gray-500">{notification.from_name}</span>
-          </DropdownMenuItem>
-        ))}
+        {userCount > 0 && (
+          <>
+            <DropdownMenuItem className="font-bold text-lg py-2">User Notifications</DropdownMenuItem>
+            {latestUserNotifications.map((notification, index) => (
+              <DropdownMenuItem key={`user-${index}`} className="flex flex-col items-start py-2">
+                <span className="font-medium">{notification.content}</span>
+                <span className="text-sm text-gray-500">{notification.from_name}</span>
+              </DropdownMenuItem>
+            ))}
+          </>
+        )}
+
+        {ownerCount > 0 && (
+          <>
+            {userCount > 0 && <DropdownMenuSeparator />}
+            <DropdownMenuItem className="font-bold text-lg py-2">New Reviews</DropdownMenuItem>
+            {latestOwnerNotifications.map((notification, index) => (
+              <DropdownMenuItem key={`owner-${index}`} className="flex flex-col items-start py-2">
+                <span className="font-medium">{notification.review_title}</span>
+                <span className="text-xs text-gray-400">{notification.from_name} reviewed {notification.product_name}</span>
+              </DropdownMenuItem>
+            ))}
+          </>
+        )}
+
+        <DropdownMenuSeparator />
         <DropdownMenuItem className="text-center">
           <Link
             href="/notifications"
