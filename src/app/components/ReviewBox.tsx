@@ -86,7 +86,7 @@ const ReviewBox: React.FC<ReviewBoxProps> = ({ review: review }) => {
             </p>
             <Link
               href={`/fr?id=${review?.id}&productid=${review?.product?.id}`}
-              className="bg-blue-600 text-white hover:bg-blue-700 px-3 py-2 rounded transition-colors duration-200 w-full sm:w-auto text-center"
+              className="bg-blue-600 text-white text-base hover:bg-blue-700 px-3 py-2 rounded transition-colors duration-200 w-full sm:w-auto text-center"
             >
               View review
             </Link>

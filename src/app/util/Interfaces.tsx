@@ -50,6 +50,7 @@ export interface iUserNotification {
   from_id: string;
   created_at?: Date;
   parent_id: string;
+  product_id?: string
 }
 
 export interface ReviewLike {

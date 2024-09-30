@@ -3,11 +3,12 @@ import AllNotifications from '@/app/components/notification-components/AllNotifi
 import React from 'react'
 import { useAtom } from "jotai";
 import { ownerNotificationsAtom } from "@/app/store/store";
+import { userNotificationsAtom } from "@/app/store/store";
 const NotificationsPage = () => {
-  const [notifications] = useAtom(ownerNotificationsAtom);
-  console.log('notifications', notifications)
+  const [ONA] = useAtom(ownerNotificationsAtom);
+  const [UNA] = useAtom(userNotificationsAtom);
   return (
-    <AllNotifications notifications={notifications} />
+    <AllNotifications UNA={UNA} ONA={ONA} />
   )
 }
 export default NotificationsPage

@@ -61,7 +61,8 @@ export async function POST(request: NextRequest) {
         review_id: createdReply.reviewId,
         from_id: reply.user.id,
         from_name: reply.user.userName,
-        parent_id: reply.parentId
+        parent_id: reply.parentId,
+        product_id: reply.review.productId
       }
       // console.log("about to send this usernotification package", userNotification)
       createUserNotification(userNotification)

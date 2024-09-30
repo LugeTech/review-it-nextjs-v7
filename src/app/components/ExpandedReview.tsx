@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 const CommentList = lazy(() => import('./CommentList'));
 
-const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: string }) => {
+const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, productId: string, cId: string }) => {
   const { userId, isLoaded, isSignedIn } = useAuth();
   const queryClient = useQueryClient();
   const [reviewAtom] = useAtom(currentReviewAtom);
@@ -28,6 +28,7 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
   const [allReviews, setAllReviews] = useState<iReview[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
+
 
   const mutations = useMutation({
     mutationFn: async (comment: iComment) => {
@@ -199,6 +200,18 @@ const ExpandedReview = ({ reviewId, productId }: { reviewId: string, productId: 
   const reviewData = useMemo(() => {
     return reviewAtom || data;
   }, [reviewAtom, data]);
+
+  useEffect(() => {
+    // FIXME: I want to scroll to the comment
+    console.log("scroll")
+    const commentElement = document.getElementById(cId);
+    if (commentElement) {
+      setTimeout(() => {
+        commentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100); // Small delay to ensure the comment is rendered
+    }
+  }, [cId]);
+
 
   if (isPending || isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
