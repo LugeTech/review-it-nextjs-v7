@@ -344,10 +344,10 @@ export default function ProductForm() {
         </div>
 
         <div>
-          <Label>Tags</Label>
+          <Label>Categories</Label>
           <div className="flex items-center space-x-2">
             <Input
-              placeholder="Enter a tag"
+              placeholder="Enter a category"
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
