@@ -10,7 +10,6 @@ import { useCallback, useEffect, useState } from "react"
 
 
 export default function ProductSuccess() {
-  // const product = fakeProduct;
   const searchParams = useSearchParams();
   const productParam = searchParams.get('product');
   const [product, setProduct] = useState<iProduct | null>(null);
@@ -55,11 +54,6 @@ export default function ProductSuccess() {
               <h2 className="text-2xl font-bold text-gray-800">{product.name}</h2>
               <img src={product.display_image} alt={product.name} className="w-24 h-24 object-cover rounded" />
             </div>
-            {/* <div className="flex items-center mb-4"> */}
-            {/*   <StarIcon className="w-5 h-5 text-yellow-400 mr-2" /> */}
-            {/*   <span className="font-bold text-lg">{product.rating}</span> */}
-            {/*   <span className="text-gray-600 text-sm ml-2">({product.reviews.length} reviews)</span> */}
-            {/* </div> */}
             <p className="text-gray-700 mb-4">{product.description}</p>
             <div className="flex flex-wrap gap-2 mb-4">
               {product.tags && product.tags?.map((tag: string, index: number) => (
@@ -78,11 +72,11 @@ export default function ProductSuccess() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-center space-x-4">
-          <Link href="/mybusinesses" className="bg-blue-600 text-white hover:bg-blue-700 py-2 px-4 rounded-md transition-colors duration-300">
+          <Link href={`/reviews?id=${product.id}`} className="bg-blue-600 text-white hover:bg-blue-700 py-2 px-4 rounded-md transition-colors duration-300">
             View Product
           </Link>
-          <Link href="/mybusinesses" className="bg-gray-200 text-gray-800 hover:bg-gray-300 py-2 px-4 rounded-md transition-colors duration-300">
-            Back to Dashboard
+          <Link href="#" className="bg-gray-200 text-gray-800 hover:bg-gray-300 py-2 px-4 rounded-md transition-colors duration-300">
+            Edit
           </Link>
         </CardFooter>
       </Card>

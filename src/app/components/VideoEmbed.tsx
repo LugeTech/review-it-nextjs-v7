@@ -36,8 +36,15 @@ const VideoEmbed: React.FC<VideoEmbedProps> = React.memo(({ url }) => {
   const getTikTokEmbedCode = useCallback(async (url: string): Promise<{ embedCode: string, thumbnailUrl: string }> => {
     try {
       if (url.includes('vm.tiktok.com')) {
-        setError('TikTok mobile link not supported please open this link in your browser and use the expanded link');
-        // throw new Error('TikTok mobile link not supported please open this link in your browser and use the expanded link');
+        setError(`Mobile TikTok links don't work here. Please follow these steps:
+
+        1. Copy this link.
+        2. Open your web browser (like Safari, Chrome, or Firefox).
+        3. Paste the link into your browser's address bar.
+        4. Press Enter or Go.
+        5. This will open the full TikTok page or video.
+
+        We're sorry for the inconvenience. This extra step is needed because of how TikTok links work on mobile devices.`);
         return { embedCode: '', thumbnailUrl: '' };
         // const response = await fetch(url, { method: 'HEAD', redirect: 'follow' });
         // url = response.url; // This will be the full URL after redirection
