@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from 'react';
 
 interface ScrollToCommentOptions {
@@ -7,14 +6,11 @@ interface ScrollToCommentOptions {
 }
 
 function useScrollToComment(cId: string, options: ScrollToCommentOptions = {}): boolean {
-  if (cId === "") {
-    return false
-  }
   const [isCommentLoaded, setIsCommentLoaded] = useState<boolean>(false);
   const { maxAttempts = 20, intervalDuration = 500 } = options;
 
   const scrollToComment = useCallback((): boolean => {
-    console.log("this is the cId", cId)
+    console.log("this is the cId", cId);
     const commentElement = document.getElementById(cId);
     if (commentElement) {
       commentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -25,6 +21,8 @@ function useScrollToComment(cId: string, options: ScrollToCommentOptions = {}): 
   }, [cId]);
 
   useEffect(() => {
+    if (cId === "") return;
+
     let attempts = 0;
     let intervalId: NodeJS.Timeout | undefined;
 
@@ -48,6 +46,9 @@ function useScrollToComment(cId: string, options: ScrollToCommentOptions = {}): 
       if (intervalId) clearInterval(intervalId);
     };
   }, [cId, scrollToComment, maxAttempts, intervalDuration]);
+
+  // Early return if cId is empty
+  if (cId === "") return false;
 
   return isCommentLoaded;
 }
