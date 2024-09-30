@@ -33,6 +33,12 @@ module.exports = withPWA({
       { hostname: "loremflickr.com", protocol: "https" },
       { hostname: "placehold.co", protocol: "https" },
       { hostname: "images.clerk.dev", protocol: "https" },
+      // TikTok CDN domains
+      { hostname: "p16-sign-va.tiktokcdn.com", protocol: "https" },
+      { hostname: "p16-sign-sg.tiktokcdn.com", protocol: "https" },
+      { hostname: "p77-sign-va.tiktokcdn.com", protocol: "https" },
+      { hostname: "p77-sign-sg.tiktokcdn.com", protocol: "https" },
+      { hostname: "p16-sign-useast2a.tiktokcdn.com", protocol: "https" },
     ],
   },
   // headers: [
