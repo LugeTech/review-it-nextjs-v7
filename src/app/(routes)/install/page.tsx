@@ -66,7 +66,7 @@ const InstallPWA: React.FC = () => {
   }, [deferredPrompt]);
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
+    <section className="flex justify-center w-full h-screen py-12 md:py-24 lg:py-32 bg-gray-100">
       <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
         {isInstallable && !isStandalone ? (
           <>

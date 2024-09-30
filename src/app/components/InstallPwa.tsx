@@ -1,7 +1,10 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Download, Star } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export default function InstallPwa() {
+  const router = useRouter()
   return (
     <section className="w-full py-6 md:py-12 lg:py-12 bg-gradient-to-r from-myTheme-reviewBlue to-myTheme-accent">
       <div className="w-full px-4 md:px-6">
@@ -15,13 +18,10 @@ export default function InstallPwa() {
             </p>
           </div>
           <div className="w-full max-w-sm space-y-2">
-            <Button className="w-full bg-white text-purple-600 hover:bg-gray-100" size="lg">
+            <Button onClick={() => { router.push("/install") }} className="w-full bg-white text-purple-600 hover:bg-gray-100" size="lg">
               <Download className="mr-2 h-4 w-4" />
               Install Now
             </Button>
-          </div>
-          <div className="flex items-center justify-center space-x-2 text-gray-200">
-            <span className="ml-2 text-sm">The easiest way to stay in touch with the conversation</span>
           </div>
         </div>
       </div>
