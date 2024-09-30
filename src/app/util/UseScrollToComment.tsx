@@ -7,10 +7,14 @@ interface ScrollToCommentOptions {
 }
 
 function useScrollToComment(cId: string, options: ScrollToCommentOptions = {}): boolean {
+  if (cId === "") {
+    return false
+  }
   const [isCommentLoaded, setIsCommentLoaded] = useState<boolean>(false);
   const { maxAttempts = 20, intervalDuration = 500 } = options;
 
   const scrollToComment = useCallback((): boolean => {
+    console.log("this is the cId", cId)
     const commentElement = document.getElementById(cId);
     if (commentElement) {
       commentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });

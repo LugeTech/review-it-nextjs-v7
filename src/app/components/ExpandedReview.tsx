@@ -17,7 +17,7 @@ import useScrollToComment from "../util/UseScrollToComment";
 const CommentList = lazy(() => import('./CommentList'));
 
 const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, productId: string, cId: string }) => {
-  const isCommentLoaded = useScrollToComment(cId, { maxAttempts: 30, intervalDuration: 400 });
+  const isCommentLoaded = useScrollToComment(cId, { maxAttempts: 10, intervalDuration: 500 });
   const { userId, isLoaded, isSignedIn } = useAuth();
   const queryClient = useQueryClient();
   const [reviewAtom] = useAtom(currentReviewAtom);
