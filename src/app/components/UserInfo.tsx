@@ -35,7 +35,7 @@ export default function UserInfo({ user }: UserInfoProps) {
   return (
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader className="relative h-48 sm:h-64 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-75" />
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-75" /> */}
         <div className="absolute inset-0 flex items-center justify-center">
           <Avatar className="h-32 w-32 sm:h-40 sm:w-40 border-4 border-background">
             <AvatarImage src={avatar || ""} alt={`${firstName} ${lastName}`} />
@@ -53,15 +53,15 @@ export default function UserInfo({ user }: UserInfoProps) {
           <TabsList className="grid w-full grid-cols-3 mb-4">
             <TabsTrigger value="reviews">
               <FileText className="h-4 w-4 mr-2" />
-              Reviews
+              Reviews <p className="text-gray-400 ml-4 hidden md:flex">{filteredReviews?.length}</p>
             </TabsTrigger>
             <TabsTrigger value="comments">
               <MessageCircle className="h-4 w-4 mr-2" />
-              Comments
+              Comments <p className="text-gray-400 ml-4 hidden md:flex">{filteredComments?.length}</p>
             </TabsTrigger>
             <TabsTrigger value="likes">
-              <ThumbsUp className="h-4 w-4 mr-2" />
-              Likes
+              <ThumbsUp className="h-4 w-4 mr-2 " />
+              Likes <p className="text-gray-400 ml-4 hidden md:flex">{filteredLikes?.length}</p>
             </TabsTrigger>
           </TabsList>
 
