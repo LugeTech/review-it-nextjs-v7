@@ -83,14 +83,13 @@ export default function NotificationsPage({ ONA, UNA }: NotificationsPageProps) 
           </CardContent>
         </Card>
       </div>
-
       <Card className="mb-6">
         <CardContent className="p-6">
-          <Tabs defaultValue="owner" className="space-y-4">
+          <Tabs defaultValue={ONA.length > 0 ? "owner" : "user"} className="space-y-4">
             <div className="flex justify-between items-center">
               <TabsList>
                 <TabsTrigger value="user" onClick={() => setActiveTab('user')}>User Notifications</TabsTrigger>
-                {ONA.length > 0 ? <TabsTrigger value="owner" onClick={() => setActiveTab('owner')}>Owner Notifications</TabsTrigger> : null}
+                {ONA.length > 0 && <TabsTrigger value="owner" onClick={() => setActiveTab('owner')}>Owner Notifications</TabsTrigger>}
               </TabsList>
               <div className="flex space-x-2">
                 <Button
@@ -116,13 +115,15 @@ export default function NotificationsPage({ ONA, UNA }: NotificationsPageProps) 
                 />
               </div>
             </div>
-            <TabsContent value="owner" className="space-y-4">
-              <ScrollArea className="h-[600px]">
-                {filteredOwnerNotifications.map((notification) => (
-                  <OwnerNotificationCard key={notification.id} notification={notification} />
-                ))}
-              </ScrollArea>
-            </TabsContent>
+            {ONA.length > 0 && (
+              <TabsContent value="owner" className="space-y-4">
+                <ScrollArea className="h-[600px]">
+                  {filteredOwnerNotifications.map((notification) => (
+                    <OwnerNotificationCard key={notification.id} notification={notification} />
+                  ))}
+                </ScrollArea>
+              </TabsContent>
+            )}
             <TabsContent value="user" className="space-y-4">
               <ScrollArea className="h-[600px]">
                 {filteredUserNotifications.map((notification) => (
