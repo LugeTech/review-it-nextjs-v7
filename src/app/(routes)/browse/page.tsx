@@ -75,14 +75,6 @@ const Page = () => {
     setCurrentPage(1);
   };
 
-  // const clearFilters = () => {
-  //   setSelectedRating(null);
-  //   setSelectedTags([]);
-  //   setSearchTerm("");
-  //   setCurrentPage(1);
-  //   router.push(window.location.pathname, { scroll: false });
-  // };
-
   if (isLoading) {
     return (
       <div className="flex h-full">
@@ -114,7 +106,6 @@ const Page = () => {
     return false;
   });
 
-  // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredProducts.slice(

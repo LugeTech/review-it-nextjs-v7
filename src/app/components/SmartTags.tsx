@@ -50,7 +50,7 @@ const SmartTags = ({ handleArrayInput, description, field }: Props) => {
         </div>
       ) : aiTags.length === 0 ? (
         <div className="flex items-center justify-center">
-          <p>Having trouble thinking of tags for your business?</p>
+          <p>Having trouble thinking of categories? Try using AI.</p>
           <Button type="button" variant="ghost" onClick={onClickHandle}>
             Use AI
           </Button>
