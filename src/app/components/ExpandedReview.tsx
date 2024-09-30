@@ -13,9 +13,11 @@ import ProductCard from "./ProductCard";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import useScrollToComment from "../util/UseScrollToComment";
 const CommentList = lazy(() => import('./CommentList'));
 
 const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, productId: string, cId: string }) => {
+  const isCommentLoaded = useScrollToComment(cId, { maxAttempts: 30, intervalDuration: 400 });
   const { userId, isLoaded, isSignedIn } = useAuth();
   const queryClient = useQueryClient();
   const [reviewAtom] = useAtom(currentReviewAtom);
@@ -26,6 +28,7 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
   const router = useRouter();
   const clerkUserId = userId as string;
   const [allReviews, setAllReviews] = useState<iReview[]>([]);
+
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -201,16 +204,11 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
     return reviewAtom || data;
   }, [reviewAtom, data]);
 
+  //NOTE: scroll to the comment in the notification click
   useEffect(() => {
-    // FIXME: I want to scroll to the comment
-    console.log("scroll")
-    const commentElement = document.getElementById(cId);
-    if (commentElement) {
-      setTimeout(() => {
-        commentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 100); // Small delay to ensure the comment is rendered
+    if (isCommentLoaded) {
     }
-  }, [cId]);
+  }, [isCommentLoaded]);
 
 
   if (isPending || isLoading) return <LoadingSpinner />;
