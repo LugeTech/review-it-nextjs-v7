@@ -17,9 +17,9 @@
     }
   }
 }
-/*.mantine-RichTextEditor-content {*/
-/*  @apply text-base dark:text-myTheme-light h-full dark:bg-myTheme-dark;*/
-/*}*/
+.mantine-RichTextEditor-toolbar {
+  @apply z-0;
+}
 /*.mantine-RichTextEditor-root {*/
 /*  @apply dark:bg-myTheme-dark;*/
 /*}*/

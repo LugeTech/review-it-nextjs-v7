@@ -257,7 +257,7 @@ const ReviewForm = () => {
               name="dateItHappened"
               selected={startDate}
               onChange={(date) => setStartDate(date!)}
-              className="w-full px-4 py-2 border border-gray-300  rounded-md bg-myTheme-white  focus:ring-2 focus:ring-myTheme-primary  focus:border-transparent"
+              className="z-50 w-full px-4 py-2 border border-gray-300  rounded-md bg-myTheme-white  focus:ring-2 focus:ring-myTheme-primary  focus:border-transparent"
             />
           </div>
           <div className="flex-1 space-y-2">
@@ -275,7 +275,7 @@ const ReviewForm = () => {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2 ">
           <label htmlFor="experience" className="block text-lg font-semibold text-myTheme-primary ">
             Tell us more about your experience
           </label>
