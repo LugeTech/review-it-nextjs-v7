@@ -1,5 +1,5 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
 interface Category {
@@ -35,10 +35,15 @@ const CompanyCategories: React.FC = () => {
                     className="flex items-center justify-between p-3 bg-white hover:bg-gray-50 transition-colors duration-200 rounded-lg shadow-sm group"
                   >
                     <div className="flex items-center">
-                      <span className="font-bold mr-2 text-blue-600">{category.count}</span>
+                      <span className="font-bold mr-2 text-blue-600">
+                        {category.count}
+                      </span>
                       <span className="text-gray-700">{category.name}</span>
                     </div>
-                    <FaArrowUpRightFromSquare className="text-gray-400 group-hover:text-blue-600 transition-colors duration-200" size={18} />
+                    <FaArrowUpRightFromSquare
+                      className="text-gray-400 group-hover:text-blue-600 transition-colors duration-200"
+                      size={18}
+                    />
                   </Link>
                 </div>
               ))}

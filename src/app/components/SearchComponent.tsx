@@ -8,6 +8,7 @@ import SearchResults from "./SearchResult";
 const SearchBox = () => {
   const [searchResults, setSearchResults] = useState<iProduct[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [tags, setTags] = useState<iProduct[]>([]);
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
     null,
   );
@@ -30,12 +31,36 @@ const SearchBox = () => {
     return filteredProducts;
   };
 
+  const filteredProductsByTags = (products: iProduct[], searchTerm: string) => {
+    const lowercaseSearchTerm = searchTerm.toLowerCase();
+
+    const filteredProducts = products.filter((product) =>
+      product.tags.some((tag) =>
+        tag.toLowerCase().includes(lowercaseSearchTerm.toLowerCase()),
+      ),
+    );
+
+    filteredProducts.sort((a, b) => {
+      const aTagIndex = a.tags.findIndex((tag) =>
+        tag.includes(lowercaseSearchTerm),
+      );
+      const bTagIndex = b.tags.findIndex((tag) =>
+        tag.includes(lowercaseSearchTerm),
+      );
+
+      return aTagIndex - bTagIndex;
+    });
+
+    return filteredProducts;
+  };
+
   useEffect(() => {
     if (typingTimeout) {
       clearTimeout(typingTimeout);
     }
     const timeout = setTimeout(() => {
       setSearchResults(filteredProducts(allProducts, searchTerm));
+      setTags(filteredProductsByTags(allProducts, searchTerm));
     }, 100);
 
     setTypingTimeout(timeout);
@@ -47,6 +72,8 @@ const SearchBox = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, allProducts]);
+
+  // console.log(tags);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 0) {
@@ -64,7 +91,7 @@ const SearchBox = () => {
         value={searchTerm}
         onChange={handleInputChange}
       />
-      {searchTerm && <SearchResults results={searchResults} />}
+      {searchTerm && <SearchResults results={searchResults} tags={tags} />}
     </div>
   );
 };
