@@ -13,22 +13,50 @@ import { LuExternalLink } from "react-icons/lu";
 
 const QuickTabs = () => {
   const categories = [
-    { name: "Fast Food", icon: <MdFastfood />, link: "/category" },
-    { name: "Car Rental", icon: <IoMdCar />, link: "/category" },
-    { name: "Delivery Service", icon: <MdDeliveryDining />, link: "/category" },
+    {
+      name: "Fast Food",
+      icon: <MdFastfood />,
+      link: `/browse?tags=${encodeURIComponent("Fast Food")}`,
+    },
+    {
+      name: "Car Rental",
+      icon: <IoMdCar />,
+      link: `/browse?tags=${encodeURIComponent("Car Rental")}`,
+    },
+    {
+      name: "Delivery Service",
+      icon: <MdDeliveryDining />,
+      link: `/browse?tags=${encodeURIComponent("Delivery Service")}`,
+    },
     {
       name: "Electronics",
       icon: <MdOutlineElectricalServices />,
-      link: "/category",
+      link: `browse?tags=${encodeURIComponent("Electronics")}`,
     },
-    { name: "Insurance Agency", icon: <MdBusinessCenter />, link: "/category" },
-    { name: "Real Estate", icon: <MdOtherHouses />, link: "/category" },
-    { name: "Clothing Store", icon: <GiClothes />, link: "/category" },
-    { name: "Taxi Service", icon: <MdOutlineLocalTaxi />, link: "/category" },
+    {
+      name: "Insurance Agency",
+      icon: <MdBusinessCenter />,
+      link: `browse?tags=${encodeURIComponent("Insurance Agency")}`,
+    },
+    {
+      name: "Real Estate",
+      icon: <MdOtherHouses />,
+      link: `browse?tags=${encodeURIComponent("Real Estate")}`,
+    },
+    {
+      name: "Clothing Store",
+      icon: <GiClothes />,
+      link: `browse?tags=${encodeURIComponent("Clothing Store")}`,
+    },
+    {
+      name: "Taxi Service",
+      icon: <MdOutlineLocalTaxi />,
+      link: `browse?tags=${encodeURIComponent("Taxi Service")}`,
+    },
     {
       name: "See All",
       icon: <LuExternalLink />,
-      link: "/category",
+      link: "/browse",
     },
   ];
 
@@ -43,7 +71,7 @@ const QuickTabs = () => {
           {categories.map((category, index) => (
             <div className="inline-block" key={index}>
               <Link
-                href={category.link || "#"}
+                href={category.link}
                 className=" text-2xl hover:bg-neutral-200  cursor-pointer  flex flex-col bg-transparent rounded justify-around items-center p-2 transition-all ease-in-out"
               >
                 {category.icon}
