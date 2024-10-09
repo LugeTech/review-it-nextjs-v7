@@ -85,7 +85,6 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
 
   const replyMutation = useMutation({
     mutationFn: async (reply: iComment) => {
-      console.log("reply mutation called", reply)
       const data = createReplyOnComment(reply);
       toast.promise(data, {
         loading: "Saving reply...",
@@ -97,6 +96,7 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
       // }
     },
     onMutate: (newReply: iComment) => {
+      console.log("This is new reply!!!!!!!!!!!!!!!!!!", newReply);
       queryClient.setQueryData(["review", reviewId], (oldData: any) => {
         let iReviewOldData: iReview = { ...oldData };
         const updatedComments = iReviewOldData.comments?.map(comment => {
@@ -147,7 +147,6 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
 
   const handleReply = useCallback(async (parentId: string, body: string) => {
     replyMutation.mutate({ ...comment, body, parentId });
-    console.log("Reply mutation called");
   }, [replyMutation, comment]);
 
   const handleEdit = async (commentId: string, body: string) => {
@@ -194,11 +193,19 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
     }
   }, [data, textAreaValue, currentUser, reviewAtom, reviewId]);
 
-  const sortedComments = useMemo(() => {
+  const sortedCommentsAny = () => {
     return data?.comments?.slice().sort((a: iComment, b: iComment) =>
       new Date(b.createdDate!).valueOf() - new Date(a.createdDate!).valueOf()
     ) || [];
-  }, [data?.comments]);
+  }
+  const sortedComments = sortedCommentsAny() as iComment[];
+
+  //
+  // const sortedComments = useMemo(() => {
+  //   return data?.comments?.slice().sort((a: iComment, b: iComment) =>
+  //     new Date(b.createdDate!).valueOf() - new Date(a.createdDate!).valueOf()
+  //   ) || [];
+  // }, [data?.comments]);
 
   const reviewData = useMemo(() => {
     return reviewAtom || data;

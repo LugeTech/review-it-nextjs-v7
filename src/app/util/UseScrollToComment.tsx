@@ -1,11 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
 interface ScrollToCommentOptions {
   maxAttempts?: number;
   intervalDuration?: number;
 }
 
-function useScrollToComment(cId: string, options: ScrollToCommentOptions = {}): boolean {
+function useScrollToComment(
+  cId: string,
+  options: ScrollToCommentOptions = {},
+): boolean {
   const [isCommentLoaded, setIsCommentLoaded] = useState<boolean>(false);
   const { maxAttempts = 20, intervalDuration = 500 } = options;
 
@@ -13,7 +16,7 @@ function useScrollToComment(cId: string, options: ScrollToCommentOptions = {}): 
     console.log("this is the cId", cId);
     const commentElement = document.getElementById(cId);
     if (commentElement) {
-      commentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      commentElement.scrollIntoView({ behavior: "smooth", block: "center" });
       console.log("Scrolled to comment successfully");
       return true;
     }
