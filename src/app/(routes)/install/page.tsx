@@ -101,7 +101,7 @@ const InstallPWA: React.FC = () => {
                 Welcome to Our PWA!
               </h2>
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                You're using the installed version of our app. Enjoy the
+                You are using the installed version of our app. Enjoy the
                 enhanced experience!
               </p>
             </div>
