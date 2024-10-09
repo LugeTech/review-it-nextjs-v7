@@ -461,18 +461,6 @@ export default function ProductForm() {
           />
         </div>
 
-        <div className="flex items-center space-x-2">
-          <Switch
-            disabled
-            id="hasOwner"
-            checked={product.hasOwner || false}
-            onCheckedChange={(checked) =>
-              setProduct({ ...product, hasOwner: checked })
-            }
-          />
-          <Label htmlFor="hasOwner">I am the Owner</Label>
-        </div>
-
         <Button
           type="submit"
           className="w-full bg-myTheme-primary"
