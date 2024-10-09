@@ -70,7 +70,6 @@ export const getUser = async () => {
     return { data: null }; // or some default value
   }
 
-  console.log("get user running");
   try {
     const response = await fetch("/api/get/user", {
       method: "GET",
@@ -228,7 +227,7 @@ export const editComment = async (id: string, commentBody: string) => {
 };
 
 export const genTags = async (description: string) => {
-  console.log("genTags rinning now")
+  console.log("genTags rinning now");
   try {
     const response = await fetch(process.env.NEXT_PUBLIC_AI_SERVER + "/gen", {
       method: "POST",
@@ -240,6 +239,6 @@ export const genTags = async (description: string) => {
     const data = await response.json();
     return data.tags;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };

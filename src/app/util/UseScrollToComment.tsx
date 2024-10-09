@@ -13,11 +13,9 @@ function useScrollToComment(
   const { maxAttempts = 20, intervalDuration = 500 } = options;
 
   const scrollToComment = useCallback((): boolean => {
-    console.log("this is the cId", cId);
     const commentElement = document.getElementById(cId);
     if (commentElement) {
       commentElement.scrollIntoView({ behavior: "smooth", block: "center" });
-      console.log("Scrolled to comment successfully");
       return true;
     }
     return false;
@@ -32,7 +30,6 @@ function useScrollToComment(
     const checkAndScroll = () => {
       console.log(`Attempt ${attempts + 1} to find and scroll to comment`);
       if (scrollToComment()) {
-        if (intervalId) clearInterval(intervalId);
         setIsCommentLoaded(true);
       } else if (attempts >= maxAttempts) {
         console.log("Max attempts reached, stopping scroll attempts");
