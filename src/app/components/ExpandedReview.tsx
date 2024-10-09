@@ -4,20 +4,45 @@ import { useAtom } from "jotai";
 import { currentReviewAtom, currentUserAtom } from "../store/store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { iReview, iComment } from "../util/Interfaces";
-import { createCommentOnReview, createReplyOnComment, deleteComment, editComment, getReview, getReviews } from "../util/serverFunctions";
+import {
+  createCommentOnReview,
+  createReplyOnComment,
+  deleteComment,
+  editComment,
+  getReview,
+  getReviews,
+} from "../util/serverFunctions";
 import LoadingSpinner from "./LoadingSpinner";
 import CommentForm from "./CommentForm";
-import { useEffect, useMemo, useState, useCallback, lazy, Suspense } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  lazy,
+  Suspense,
+} from "react";
 import DisplayError from "./DisplayError";
 import ProductCard from "./ProductCard";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import useScrollToComment from "../util/UseScrollToComment";
-const CommentList = lazy(() => import('./CommentList'));
+const CommentList = lazy(() => import("./CommentList"));
 
-const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, productId: string, cId: string }) => {
-  const isCommentLoaded = useScrollToComment(cId, { maxAttempts: 10, intervalDuration: 500 });
+const ExpandedReview = ({
+  reviewId,
+  productId,
+  cId,
+}: {
+  reviewId: string;
+  productId: string;
+  cId: string;
+}) => {
+  const isCommentLoaded = useScrollToComment(cId, {
+    maxAttempts: 10,
+    intervalDuration: 500,
+  });
   const { userId, isLoaded, isSignedIn } = useAuth();
   const queryClient = useQueryClient();
   const [reviewAtom] = useAtom(currentReviewAtom);
@@ -29,9 +54,7 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
   const clerkUserId = userId as string;
   const [allReviews, setAllReviews] = useState<iReview[]>([]);
 
-
   const [isLoading, setIsLoading] = useState(true);
-
 
   const mutations = useMutation({
     mutationFn: async (comment: iComment) => {
@@ -81,7 +104,7 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
       <DisplayError error={error.message} />;
       console.error(error);
     },
-  })
+  });
 
   const replyMutation = useMutation({
     mutationFn: async (reply: iComment) => {
@@ -99,7 +122,7 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
       console.log("This is new reply!!!!!!!!!!!!!!!!!!", newReply);
       queryClient.setQueryData(["review", reviewId], (oldData: any) => {
         let iReviewOldData: iReview = { ...oldData };
-        const updatedComments = iReviewOldData.comments?.map(comment => {
+        const updatedComments = iReviewOldData.comments?.map((comment) => {
           if (comment.id === newReply.parentId) {
             return {
               ...comment,
@@ -123,20 +146,23 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
     body: "",
     createdDate: new Date(),
     user: currentUser,
-    review: reviewAtom || {} as iReview,
+    review: reviewAtom || ({} as iReview),
     userId: currentUser?.id || "",
     isDeleted: false,
   });
 
-  const handleCommentSubmit = useCallback(async (newTextAreaValue: string) => {
-    if (isLoaded && !isSignedIn) {
-      router.push("/sign-in");
-      return;
-    }
-    setTextAreaValue(newTextAreaValue);
-    setIsOpen(!isOpen);
-    commentMutation.mutate({ ...comment, body: newTextAreaValue });
-  }, [isLoaded, isSignedIn, router, isOpen, commentMutation, comment]);
+  const handleCommentSubmit = useCallback(
+    async (newTextAreaValue: string) => {
+      if (isLoaded && !isSignedIn) {
+        router.push("/sign-in");
+        return;
+      }
+      setTextAreaValue(newTextAreaValue);
+      setIsOpen(!isOpen);
+      commentMutation.mutate({ ...comment, body: newTextAreaValue });
+    },
+    [isLoaded, isSignedIn, router, isOpen, commentMutation, comment],
+  );
 
   const productCardOptions = {
     showLatestReview: true,
@@ -145,9 +171,12 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
     showClaimThisProduct: true,
   };
 
-  const handleReply = useCallback(async (parentId: string, body: string) => {
-    replyMutation.mutate({ ...comment, body, parentId });
-  }, [replyMutation, comment]);
+  const handleReply = useCallback(
+    async (parentId: string, body: string) => {
+      replyMutation.mutate({ ...comment, body, parentId });
+    },
+    [replyMutation, comment],
+  );
 
   const handleEdit = async (commentId: string, body: string) => {
     editComment(commentId, body);
@@ -160,8 +189,8 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
       toast.message("Comment successfully deleted!");
     } else {
       toast.error(deleteResponse.message);
-    };
-  }
+    }
+  };
 
   const { data, isPending, isError } = useQuery({
     queryKey: ["review", reviewId],
@@ -174,14 +203,16 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
       const data: any = await getReviews(productId);
       setIsLoading(false);
       setAllReviews(data.data.reviews);
-      return data.data.reviews.find((review: iReview) => review.id === reviewId);
+      return data.data.reviews.find(
+        (review: iReview) => review.id === reviewId,
+      );
     },
     refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
     if (data) {
-      setComment(prevComment => ({
+      setComment((prevComment) => ({
         ...prevComment,
         reviewId: reviewId,
         body: textAreaValue,
@@ -194,10 +225,16 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
   }, [data, textAreaValue, currentUser, reviewAtom, reviewId]);
 
   const sortedCommentsAny = () => {
-    return data?.comments?.slice().sort((a: iComment, b: iComment) =>
-      new Date(b.createdDate!).valueOf() - new Date(a.createdDate!).valueOf()
-    ) || [];
-  }
+    return (
+      data?.comments
+        ?.slice()
+        .sort(
+          (a: iComment, b: iComment) =>
+            new Date(b.createdDate!).valueOf() -
+            new Date(a.createdDate!).valueOf(),
+        ) || []
+    );
+  };
   const sortedComments = sortedCommentsAny() as iComment[];
 
   //
@@ -217,7 +254,6 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
     }
   }, [isCommentLoaded]);
 
-
   if (isPending || isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
   if (!reviewData) return null;
@@ -225,7 +261,12 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
       <div className="mb-4 w-full">
-        <ProductCard product={reviewData?.product!} options={productCardOptions} reviews={allReviews} currentUserId={userId ? userId : null} />
+        <ProductCard
+          product={reviewData?.product!}
+          options={productCardOptions}
+          reviews={allReviews}
+          currentUserId={userId ? userId : null}
+        />
       </div>
       <ReviewCard review={reviewData} />
       <CommentForm
@@ -243,6 +284,7 @@ const ExpandedReview = ({ reviewId, productId, cId }: { reviewId: string, produc
               onReply={handleReply}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              currentUser={currentUser}
             />
           </Suspense>
         ) : (

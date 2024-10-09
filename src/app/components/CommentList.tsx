@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { iComment } from "../util/Interfaces";
-import Comment from './Comment';
+import React, { useEffect, useState } from "react";
+import { iComment, iUser } from "../util/Interfaces";
+import Comment from "./Comment";
 
 interface CommentListProps {
   comments: iComment[];
@@ -8,9 +8,17 @@ interface CommentListProps {
   onEdit: (commentId: string, body: string) => Promise<void>;
   onDelete: (commentId: string) => Promise<void>;
   clerkUserId: string;
+  currentUser: iUser;
 }
 
-const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, onDelete, clerkUserId }) => {
+const CommentList: React.FC<CommentListProps> = ({
+  comments,
+  onReply,
+  onEdit,
+  onDelete,
+  clerkUserId,
+  currentUser,
+}) => {
   const [organizedComments, setOrganizedComments] = useState<iComment[]>([]);
 
   // Function to organize comments into a tree structure
@@ -19,13 +27,13 @@ const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, on
     const rootComments: iComment[] = [];
 
     // First pass: create a map of all comments
-    comments.forEach(comment => {
+    comments.forEach((comment) => {
       comment.replies = [];
       commentMap.set(comment.id!, comment);
     });
 
     // Second pass: organize into tree structure
-    comments.forEach(comment => {
+    comments.forEach((comment) => {
       if (comment.parentId) {
         const parent = commentMap.get(comment.parentId);
         if (parent) {
@@ -52,14 +60,16 @@ const CommentList: React.FC<CommentListProps> = ({ comments, onReply, onEdit, on
       onEdit={onEdit}
       onDelete={onDelete}
       depth={depth}
+      currentUser={currentUser}
     >
-      {comment.replies && comment.replies.map(reply => renderComment(reply, depth + 1))}
+      {comment.replies &&
+        comment.replies.map((reply) => renderComment(reply, depth + 1))}
     </Comment>
   );
 
   return (
     <div className="flex flex-col w-full p-2 sm:pt-8 bg-myTheme-lightbg">
-      {organizedComments.map(comment => renderComment(comment))}
+      {organizedComments.map((comment) => renderComment(comment))}
     </div>
   );
 };

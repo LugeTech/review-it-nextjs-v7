@@ -34,7 +34,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.log("this is the parentID", reply)
     // Check if parentId exists
     if (!reply.parentId) {
       throw new Error("Parent comment ID is required for a reply");
@@ -62,10 +61,10 @@ export async function POST(request: NextRequest) {
         from_id: reply.user.id,
         from_name: reply.user.userName,
         parent_id: reply.parentId,
-        product_id: reply.review.productId
-      }
+        product_id: reply.review.productId,
+      };
       // console.log("about to send this usernotification package", userNotification)
-      createUserNotification(userNotification)
+      createUserNotification(userNotification);
     }
 
     return NextResponse.json({
@@ -73,10 +72,9 @@ export async function POST(request: NextRequest) {
       status: 200,
       data: createdReply,
     });
-
   } catch (error) {
     let e = error as Error;
-    console.log("oooooo", error)
+    console.log("oooooo", error);
     // Return an error response
     return NextResponse.json({
       success: false,
