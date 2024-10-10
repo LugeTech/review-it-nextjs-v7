@@ -50,7 +50,7 @@ export interface iUserNotification {
   from_id: string;
   created_at?: Date;
   parent_id: string;
-  product_id?: string
+  product_id?: string;
 }
 
 export interface ReviewLike {
@@ -144,6 +144,7 @@ export interface iComment {
 
 export interface iUser {
   id: string;
+  bio?: string | null;
   userName: string;
   avatar: string | null;
   createdDate: Date;

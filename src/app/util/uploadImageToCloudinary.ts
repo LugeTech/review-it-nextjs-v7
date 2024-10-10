@@ -1,4 +1,4 @@
-'use server'
+"use server";
 import { c } from "./cloudinary";
 
 interface CloudinaryUploadResult {
@@ -21,6 +21,14 @@ export async function uploadImageToCloudinary(data: any) {
     folder: "reviewit_products",
   });
 }
+
+export async function uploadProfilePicToCloudinary(data: any) {
+  return await c.uploader.upload(data, {
+    resource_type: "image",
+    folder: "reviewit_products",
+  });
+}
+
 // this should be a more perfoemant way bbut it dosen't work on vercel for some reason
 // when this service is self hosted we could revisit this
 // import { Readable } from 'stream';

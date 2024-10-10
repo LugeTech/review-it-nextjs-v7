@@ -21,7 +21,12 @@
  * that navigates to a review creation page with a pre-set rating of 3 stars.
  */
 "use client";
-import { iProduct, iReview, iCalculatedRating, iUser } from "@/app/util/Interfaces";
+import {
+  iProduct,
+  iReview,
+  iCalculatedRating,
+  iUser,
+} from "@/app/util/Interfaces";
 import Image from "next/legacy/image";
 import RatingModuleReadOnly from "./RatingModuleReadOnly";
 import Link from "next/link";
@@ -29,7 +34,14 @@ import { calculateAverageReviewRating } from "../util/calculateAverageReviewRati
 import VerticalLinks from "./VerticalLinks";
 import { useRouter } from "next/navigation";
 import ClaimProductComponent from "./ClaimProductComponent";
-import { MdEmail, MdPhone, MdLanguage, MdAccessTime, MdLocationOn, MdCalendarToday } from 'react-icons/md';
+import {
+  MdEmail,
+  MdPhone,
+  MdLanguage,
+  MdAccessTime,
+  MdLocationOn,
+  MdCalendarToday,
+} from "react-icons/md";
 import AccordianComponent from "./AccordianComponent";
 
 interface ProductCardProps {
@@ -42,26 +54,23 @@ interface ProductCardProps {
   };
   product?: iProduct | null;
   currentUserId: string | null;
-
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   reviews,
   options,
   product,
-  currentUserId
+  currentUserId,
 }) => {
   // const router = useRouter();
   if (!product) return <div>No product or reviews found</div>;
   const currentProduct =
     reviews && reviews.length > 0 ? reviews[0].product : product;
 
-  const allReviews = product.reviews || reviews as iReview[]
+  const allReviews = product.reviews || (reviews as iReview[]);
   const ratingResult = calculateAverageReviewRating(allReviews);
 
-
   const amITheOwner = product.business?.ownerId === currentUserId;
-  console.log("am i the owner", amITheOwner)
 
   // Type guard function
   function isCalculatedRating(result: any): result is iCalculatedRating {
@@ -79,7 +88,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   if (isCalculatedRating(ratingResult)) {
     roundedRating = ratingResult.roundedRating;
-    roundedRatingOneDecimalPlace = ratingResult.roundedRatingOneDecimalPlace.toString();
+    roundedRatingOneDecimalPlace =
+      ratingResult.roundedRatingOneDecimalPlace.toString();
     numberOfReviews = ratingResult.numberOfReviews;
   } else if (typeof ratingResult === "number") {
     roundedRating = ratingResult;
@@ -122,7 +132,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </p>
             {currentProduct?.openingHrs && currentProduct?.closingHrs && (
               <p className="text-xs sm:text-sm text-gray-600 mt-1 flex items-center">
-                <MdAccessTime className="mr-1" /> Hours: {currentProduct.openingHrs} - {currentProduct.closingHrs}
+                <MdAccessTime className="mr-1" /> Hours:{" "}
+                {currentProduct.openingHrs} - {currentProduct.closingHrs}
               </p>
             )}
             <div className="mt-2 text-xs sm:text-sm text-gray-600">
@@ -145,8 +156,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
               {allReviews?.length > 0 ? (
                 <>
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium text-white ${ratingColors[roundedRating as keyof typeof ratingColors]
-                      }`}
+                    className={`px-2 py-1 rounded-full text-xs font-medium text-white ${
+                      ratingColors[roundedRating as keyof typeof ratingColors]
+                    }`}
                   >
                     {roundedRatingOneDecimalPlace}
                   </span>
@@ -166,7 +178,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
             {currentProduct?.tags && currentProduct.tags.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-1">
                 {currentProduct.tags.map((tag, index) => (
-                  <span key={index} className="px-2 py-1 bg-gray-200 text-xs rounded-full">
+                  <span
+                    key={index}
+                    className="px-2 py-1 bg-gray-200 text-xs rounded-full"
+                  >
                     {tag}
                   </span>
                 ))}
@@ -183,12 +198,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </a>
             )}
             <p className="text-xs text-gray-500 mt-1 flex items-center">
-              <MdCalendarToday className="mr-1" /> Added on: {currentProduct?.createdDate ? new Date(currentProduct.createdDate).toLocaleDateString() : 'N/A'}
+              <MdCalendarToday className="mr-1" /> Added on:{" "}
+              {currentProduct?.createdDate
+                ? new Date(currentProduct.createdDate).toLocaleDateString()
+                : "N/A"}
             </p>
             {currentProduct?.hasOwner && (
-              <p className="text-xs text-gray-600 mt-1">
-                Claimed Business
-              </p>
+              <p className="text-xs text-gray-600 mt-1">Claimed Business</p>
             )}
           </div>
         </Link>
@@ -201,18 +217,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
         <div className="mt-3 flex items-center justify-between text-xs">
           <VerticalLinks />
-          {options.showClaimThisProduct && (currentProduct?.business === null) && <ClaimProductComponent product={product} />}
-          {(options.showWriteReview && !amITheOwner) || (!options.showWriteReview && !amITheOwner) ? (
+          {options.showClaimThisProduct &&
+            currentProduct?.business === null && (
+              <ClaimProductComponent product={product} />
+            )}
+          {(options.showWriteReview && !amITheOwner) ||
+          (!options.showWriteReview && !amITheOwner) ? (
             <Link
               href={`/cr/?id=${currentProduct?.id}&rating=3`}
               className="text-blue-600 hover:underline"
             >
               Write Review
             </Link>
-          ) :
-            <p className="font-light bg-myTheme-accent p-1 rounded-md text-white">You own this product</p>
-          }
-
+          ) : (
+            <p className="font-light bg-myTheme-accent p-1 rounded-md text-white">
+              You own this product
+            </p>
+          )}
         </div>
       </div>
     </div>

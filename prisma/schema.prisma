@@ -88,6 +88,7 @@ model Comment {
 
 model User {
   id           String     @id @default(uuid())
+  bio          String?
   userName     String     @unique
   avatar       String?
   createdDate  DateTime   @default(now())

@@ -117,7 +117,6 @@ export const getReview = async (id: string) => {
 };
 
 export const getReviews = async (id: string) => {
-  console.log("get reviews running");
   const body = {
     id,
     isPublic: true,

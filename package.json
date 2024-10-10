@@ -13,6 +13,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@clerk/express": "^1.2.2",
     "@clerk/nextjs": "^5.3.1",
     "@clerk/themes": "^1.7.18",
     "@ducanh2912/next-pwa": "^10.2.8",

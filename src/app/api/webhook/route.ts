@@ -52,10 +52,10 @@ export async function POST(req: Request) {
   }
 
   // Get the ID and type
-  // const { id } = evt.data;
-  // const eventType = evt.type;
+  const { id } = evt.data;
+  const eventType = evt.type;
 
-  // console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
+  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
   const user: iUser = await prisma.user.upsert({
     where: { email: payload.data.email_addresses[0].email_address },
     update: {},
