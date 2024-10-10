@@ -28,7 +28,6 @@ function useScrollToComment(
     let intervalId: NodeJS.Timeout | undefined;
 
     const checkAndScroll = () => {
-      console.log(`Attempt ${attempts + 1} to find and scroll to comment`);
       if (scrollToComment()) {
         setIsCommentLoaded(true);
       } else if (attempts >= maxAttempts) {
