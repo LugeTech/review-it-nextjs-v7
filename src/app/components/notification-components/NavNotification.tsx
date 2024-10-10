@@ -109,7 +109,7 @@ export default function NotificationDropdown() {
           variant="ghost"
           className="relative p-2 rounded-full hover:bg-gray-100 transition-colors"
         >
-          <BellIcon className="w-4 h-4 sm:w-6 sm:h-6 text-gray-600" />
+          <BellIcon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
           {totalCount > 0 && (
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
               {totalCount > 99 ? "99+" : totalCount}
