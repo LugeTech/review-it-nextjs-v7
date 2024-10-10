@@ -15,7 +15,6 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
   const auth = useAuth();
   const { userId } = auth;
 
-
   const handleSideLinkClick = () => {
     setIsDrawerOpen(false);
   };
@@ -58,7 +57,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
               </div>
             </div>
           </div>
-          <div className="mx-4 flex gap-4">
+          <div className="mx-1 sm:mx-4 flex gap-1 sm:gap-4">
             {userId && <NotificationDropdown />}
             <NavbarAuth />
           </div>
