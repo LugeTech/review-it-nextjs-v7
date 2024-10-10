@@ -83,7 +83,11 @@ const UserProfileComponent: React.FC<UserProfileComponentProps> = ({
 
   return (
     <div>
-      <UserInfo user={updatedUser || user} onUpdateUser={handleUpdateUser} />
+      <UserInfo
+        user={updatedUser || user}
+        onUpdateUser={handleUpdateUser}
+        initialAvatar={user.avatar || ""}
+      />
       {updateUserMutation.isPending && <p>Updating user information...</p>}
       {updateUserMutation.isError && (
         <p>
