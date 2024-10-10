@@ -56,7 +56,7 @@ const UserButtonComponent: React.FC = () => {
           alt="avatar"
           width={32}
           height={32}
-          className="rounded-full z-10"
+          className="rounded-full"
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>

@@ -20,7 +20,7 @@ export const sideLinks = [
   //   icon: "add",
   // },
   {
-    name: "My Activity",
+    name: "My Profile",
     link: "/userprofile",
     icon: "user",
   },
@@ -29,7 +29,6 @@ export const sideLinks = [
     link: "/mybusinesses",
     icon: "price",
   },
-
 ];
 
 export const topLinks = [
@@ -46,7 +45,7 @@ export const topLinks = [
   //   link: "/submit",
   // },
   {
-    name: "My Activity",
+    name: "My Profile",
     link: "/userprofile",
   },
   {
