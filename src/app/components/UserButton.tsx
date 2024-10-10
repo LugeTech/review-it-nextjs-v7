@@ -1,85 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useClerk, useUser, SignInButton } from "@clerk/nextjs";
-import { ChevronDown, LogOut, SquareUserRound } from "lucide-react";
+import { LogOut, SquareUserRound } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { getUser } from "../util/serverFunctions";
+import { iUser } from "../util/Interfaces";
 
 const UserButtonComponent: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const { isLoaded, isSignedIn, user } = useUser();
   const { signOut } = useClerk();
+  const [userInDb, setUserFromDb] = React.useState<iUser>();
+
+  useEffect(() => {
+    const getUserInDB = async () => {
+      if (user) {
+        const res = await getUser();
+        setUserFromDb(res.data);
+      }
+    };
+    getUserInDB();
+  }, [user?.id]);
 
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-6 h-6 rounded-full bg-gray-200 animate-pulse"></div>
+    );
   }
 
   if (!isSignedIn) {
     return <SignInButton />;
   }
 
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   const handleAccountClick = () => {
     router.push("/userprofile");
-    setIsMenuOpen(false);
   };
 
   const handleLogoutClick = () => {
     signOut();
     router.push("/");
-    setIsMenuOpen(false);
   };
 
   return (
-    <div className="relative h-full rounded ">
-      <button
-        onClick={handleMenuToggle}
-        className="flex items-center space-x-2 dark:text-dark-text sm:text-light-text text-base focus:outline-none"
-      >
-        <span className="hidden md:inline font-semibold">{user?.fullName}</span>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <Image
-          src={user?.imageUrl || ""}
+          src={userInDb?.avatar || user?.imageUrl || "/logo.png"}
           alt="avatar"
-          width={24}
-          height={24}
-          className="rounded-full shadow-xl"
+          width={32}
+          height={32}
+          className="rounded-full z-10"
         />
-        <ChevronDown size={16} />
-      </button>
-
-      {isMenuOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 font-semibold">
-          <div
-            className="py-1"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="options-menu"
-          >
-            <button
-              onClick={handleAccountClick}
-              className="block px-4 py-2 text-sm text-light-text dark:text-dark-text hover:bg-gray-100 w-full text-left"
-              role="menuitem"
-            >
-              <div className="flex gap-2 justify-start items-center">
-                <SquareUserRound /> My Profile
-              </div>
-            </button>
-            <button
-              onClick={handleLogoutClick}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-              role="menuitem"
-            >
-              <div className="flex gap-2 justify-start items-center">
-                <LogOut /> Logout
-              </div>
-            </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuItem className="flex items-center justify-between">
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">{user?.fullName}</p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {user?.primaryEmailAddress?.emailAddress}
+            </p>
           </div>
-        </div>
-      )}
-    </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleAccountClick}>
+          <SquareUserRound className="mr-2 h-4 w-4" />
+          <span>My Profile</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogoutClick}>
+          <LogOut className="mr-2 h-4 w-4" />
+          <span>Log out</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
