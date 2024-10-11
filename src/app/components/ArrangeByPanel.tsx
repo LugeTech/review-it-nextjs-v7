@@ -1,6 +1,7 @@
 import { iProduct } from "../util/Interfaces";
 import TagView from "@/app/components/TagView";
 import { useEffect, useState } from "react";
+
 const ArrangeByPanel = ({
   products,
   selectedRating,
@@ -8,6 +9,7 @@ const ArrangeByPanel = ({
   selectedTags,
   setSelectedTags,
   filteredProductsLength,
+  availableTags,
 }: {
   products: iProduct[];
   setSelectedRating: (rating: number | null) => void;
@@ -15,12 +17,11 @@ const ArrangeByPanel = ({
   selectedRating: number | null;
   setSelectedTags: (tags: string[]) => void;
   filteredProductsLength: number;
+  availableTags: string[];
 }) => {
-  const allTags = products.flatMap((item) => item.tags);
-  const uniqueTagsSet = new Set(allTags);
-  const uniqueTags = [...uniqueTagsSet];
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filterUniqueTags, setFilterUniqueTags] = useState<string[]>([]);
+
   const handleTagClick = (tag: string) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter((t) => t !== tag));
@@ -28,18 +29,25 @@ const ArrangeByPanel = ({
       setSelectedTags([...selectedTags, tag]);
     }
   };
+
   const handleClearAll = () => {
     setSelectedTags([]);
     setSelectedRating(null);
     setSearchTerm("");
   };
+
   useEffect(() => {
     if (searchTerm.length > 0) {
-      setFilterUniqueTags(uniqueTags.filter((tag) => tag.includes(searchTerm)));
+      setFilterUniqueTags(
+        availableTags.filter((tag) =>
+          tag.toLowerCase().includes(searchTerm.toLowerCase()),
+        ),
+      );
     } else {
-      setFilterUniqueTags(uniqueTags);
+      setFilterUniqueTags(availableTags);
     }
-  }, [searchTerm]);
+  }, [searchTerm, availableTags]);
+
   return (
     <div className="flex flex-col h-full bg-myTheme-lightbg rounded-lg shadow-md overflow-hidden">
       <div className="p-4">
@@ -123,4 +131,5 @@ const ArrangeByPanel = ({
     </div>
   );
 };
+
 export default ArrangeByPanel;

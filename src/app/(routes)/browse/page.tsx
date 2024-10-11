@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -56,6 +56,34 @@ const Page = () => {
   useEffect(() => {
     if (data?.data) setCurrentProduct(data.data);
   }, [data?.data, setCurrentProduct]);
+
+  useEffect(() => {
+    if (selectedRating !== null) {
+      // Reset selected tags when rating changes
+      setSelectedTags([]);
+    }
+  }, [selectedRating]);
+
+  const getFilteredTags = useMemo(() => {
+    if (!data?.data) return [];
+
+    const filteredProducts = (data.data as iProduct[]).filter((product) => {
+      if (product.reviews !== undefined) {
+        const rating = calculateAverageReviewRating(
+          product.reviews,
+        ) as unknown as iCalculatedRating;
+        return !selectedRating || rating.roundedRating === selectedRating;
+      }
+      return false;
+    });
+
+    const tagSet = new Set<string>();
+    filteredProducts.forEach((product) => {
+      product.tags.forEach((tag) => tagSet.add(tag));
+    });
+
+    return Array.from(tagSet);
+  }, [data?.data, selectedRating]);
 
   const handleRatingChange = (rating: number | null) => {
     setSelectedRating(rating);
@@ -127,6 +155,7 @@ const Page = () => {
             selectedTags={selectedTags}
             setSelectedTags={handleTagChange}
             filteredProductsLength={filteredProducts.length}
+            availableTags={getFilteredTags}
           />
         </div>
         <div className="flex flex-col w-full lg:w-1/2 items-center gap-2 rounded-lg sm:px-10">
