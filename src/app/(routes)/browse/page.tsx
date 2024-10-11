@@ -130,13 +130,6 @@ const Page = () => {
           />
         </div>
         <div className="flex flex-col w-full lg:w-1/2 items-center gap-2 rounded-lg sm:px-10">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            placeholder="Search products..."
-            className="w-full p-2 border rounded"
-          />
           {currentItems.length > 0 ? (
             currentItems.map((product: iProduct) => (
               <ProductCard
