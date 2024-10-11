@@ -6,6 +6,7 @@ import {
 } from "./Interfaces";
 
 export function createProductOwnerNotification(review: any) {
+  console.log("This is the review we are sending to go backend", review)
   const notificationUrl =
     process.env.NEXT_PUBLIC_NOTIFICATION_SERVER_LOCAL +
     "/notifications/product-owner";
