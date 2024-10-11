@@ -35,7 +35,6 @@ const Page = () => {
     const params = new URLSearchParams();
     if (selectedRating) params.set("rating", selectedRating.toString());
     if (selectedTags.length > 0) params.set("tags", selectedTags.join(","));
-    if (searchTerm) params.set("search", searchTerm);
 
     router.push(`${window.location.pathname}?${params.toString()}`, {
       scroll: false,
@@ -45,11 +44,9 @@ const Page = () => {
   useEffect(() => {
     const ratingParam = searchParams.get("rating");
     const tagsParam = searchParams.get("tags");
-    const searchParam = searchParams.get("search");
 
     setSelectedRating(ratingParam ? Number(ratingParam) : null);
     setSelectedTags(tagsParam ? tagsParam.split(",") : []);
-    setSearchTerm(searchParam || "");
   }, []);
 
   useEffect(() => {
