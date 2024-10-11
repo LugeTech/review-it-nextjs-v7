@@ -1,6 +1,5 @@
 import { iProduct } from "../util/Interfaces";
 import TagView from "@/app/components/TagView";
-import SearchBox from "@/app/components/SearchBox";
 import { useEffect, useState } from "react";
 
 const ArrangeByPanel = ({
@@ -10,6 +9,7 @@ const ArrangeByPanel = ({
   selectedTags,
   setSelectedTags,
   filteredProductsLength,
+  availableTags,
 }: {
   products: iProduct[];
   setSelectedRating: (rating: number | null) => void;
@@ -17,10 +17,8 @@ const ArrangeByPanel = ({
   selectedRating: number | null;
   setSelectedTags: (tags: string[]) => void;
   filteredProductsLength: number;
+  availableTags: string[];
 }) => {
-  const allTags = products.flatMap((item) => item.tags);
-  const uniqueTagsSet = new Set(allTags);
-  const uniqueTags = [...uniqueTagsSet];
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filterUniqueTags, setFilterUniqueTags] = useState<string[]>([]);
 
@@ -40,71 +38,95 @@ const ArrangeByPanel = ({
 
   useEffect(() => {
     if (searchTerm.length > 0) {
-      setFilterUniqueTags(uniqueTags.filter((tag) => tag.includes(searchTerm)));
+      setFilterUniqueTags(
+        availableTags.filter((tag) =>
+          tag.toLowerCase().includes(searchTerm.toLowerCase()),
+        ),
+      );
     } else {
-      setFilterUniqueTags(uniqueTags);
+      setFilterUniqueTags(availableTags);
     }
-  }, [searchTerm]);
+  }, [searchTerm, availableTags]);
 
   return (
-    <div className="flex flex-1 flex-col p-2 w-full bg-myTheme-lightbg ">
-      <div className="flex w-full">
-        <p className="flex-1 text-center">Arrange by rating</p>
-      </div>
-      <div className="btn-group flex w-full ">
-        <button
-          className="btn flex-1 bg-myTheme-secondary text-myTheme-dark "
-          onClick={() => setSelectedRating(null)}
-        >
-          Any
-        </button>
-        <button
-          className="btn flex-1 bg-myTheme-primary text-myTheme-dark "
-          onClick={() => setSelectedRating(3)}
-        >
-          3.0
-        </button>
-        <button
-          className="btn flex-1 bg-myTheme-primary text-myTheme-dark "
-          onClick={() => setSelectedRating(4)}
-        >
-          4.0
-        </button>
-        <button
-          className="btn flex-1 bg-myTheme-primary text-myTheme-dark "
-          onClick={() => setSelectedRating(5)}
-        >
-          4.5+
-        </button>
-      </div>
-      <div className="w-full">
-        <SearchBox
-          searchTerm={searchTerm.toLowerCase()}
-          setSearchTerm={setSearchTerm}
-        />
-      </div>
-      {(searchTerm.length > 0 ||
-        selectedRating !== null ||
-        selectedTags.length > 0) && (
-        <div className="flex w-full">
+    <div className="flex flex-col h-full bg-myTheme-lightbg rounded-lg shadow-md overflow-hidden">
+      <div className="p-4">
+        <h2 className="text-xl font-semibold text-myTheme-dark mb-4">
+          Arrange by
+        </h2>
+
+        <div className="mb-6">
+          <h3 className="text-lg font-medium text-myTheme-dark mb-2">Rating</h3>
+          <div className="grid grid-cols-4 gap-2">
+            {["Any", "3.0", "4.0", "4.5+"].map((rating, index) => (
+              <button
+                key={rating}
+                className={`btn ${
+                  (selectedRating === null && index === 0) ||
+                  (selectedRating === 3 && index === 1) ||
+                  (selectedRating === 4 && index === 2) ||
+                  (selectedRating === 5 && index === 3)
+                    ? "bg-myTheme-primary"
+                    : "bg-myTheme-secondary"
+                } text-myTheme-dark hover:opacity-90 transition-opacity`}
+                onClick={() =>
+                  setSelectedRating(index === 0 ? null : index + 2)
+                }
+              >
+                {rating}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <h3 className="text-lg font-medium text-myTheme-dark mb-2">
+            Search Tags
+          </h3>
+          <div className="relative">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search tags..."
+              className="w-full px-4 py-2 border border-myTheme-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-myTheme-primary focus:border-transparent"
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm("")}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-myTheme-dark hover:text-myTheme-primary"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        </div>
+
+        {(searchTerm.length > 0 ||
+          selectedRating !== null ||
+          selectedTags.length > 0) && (
           <button
-            className="btn btn-outline btn-primary"
+            className="btn btn-ghost text-myTheme-dark hover:bg-myTheme-secondary mb-4"
             onClick={handleClearAll}
           >
-            Clear
+            Clear All Filters
           </button>
+        )}
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex flex-wrap gap-2">
+          {filterUniqueTags.map((tag) => (
+            <div key={tag} className="flex-grow">
+              <TagView
+                tag={tag}
+                onClick={() => handleTagClick(tag)}
+                isSelected={selectedTags.includes(tag)}
+                count={filteredProductsLength}
+              />
+            </div>
+          ))}
         </div>
-      )}
-      <div className="flex flex-col w-full">
-        {filterUniqueTags.map((tag) => (
-          <TagView
-            tag={tag}
-            key={tag}
-            onClick={() => handleTagClick(tag)}
-            isSelected={selectedTags.includes(tag)}
-            count={filteredProductsLength}
-          />
-        ))}
       </div>
     </div>
   );

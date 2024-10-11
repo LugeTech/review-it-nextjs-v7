@@ -5,25 +5,30 @@ interface iTagViewProps {
   count: number;
 }
 
-const TagView = ({ tag, isSelected, count, onClick }: iTagViewProps) => {
+const TagView = ({
+  tag,
+  onClick,
+  isSelected,
+  count,
+}: {
+  tag: string;
+  onClick: () => void;
+  isSelected: boolean;
+  count: number;
+}) => {
   return (
-    <div
-      className={`flex items-start gap-2 cursor-pointer hover:bg-myTheme-primary hover:text-myTheme-dark rounded-md p-2 max-w-full ${
-        isSelected ? "bg-myTheme-primary text-myTheme-dark" : ""
-      }`}
+    <button
       onClick={onClick}
+      className={`w-full px-3 py-2 rounded-full text-sm font-medium transition-colors duration-200 ease-in-out ${
+        isSelected
+          ? "bg-myTheme-primary text-myTheme-dark"
+          : "bg-myTheme-secondary text-myTheme-dark hover:bg-myTheme-primary"
+      }`}
     >
-      <input
-        type="checkbox"
-        checked={isSelected}
-        value={tag}
-        className="flex-shrink-0 w-4 h-4 mt-0.5"
-        readOnly
-      />
       <span className="text-xs sm:text-base break-all overflow-hidden">
         {tag} {isSelected && count > 0 ? `(${count})` : ""}
       </span>
-    </div>
+    </button>
   );
 };
 
