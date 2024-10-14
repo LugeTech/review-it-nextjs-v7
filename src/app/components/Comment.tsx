@@ -67,8 +67,9 @@ const Comment: React.FC<CommentProps> = ({
         userId: userId as string,
         isDeleted: false,
         reviewId: comment.reviewId,
+        replies: comment.replies || [],
       };
-      setReplies([newReply, ...replies]);
+      setReplies([...replies, newReply]);
       setIsReplying(false);
       setReplyBody("");
       setShowReplies(true);
