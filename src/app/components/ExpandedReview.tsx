@@ -254,7 +254,7 @@ const ExpandedReview = ({
   if (isPending || isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
   if (!reviewData) return null;
-  console.log("00000000000000000000", sortedComments);
+  // console.log("00000000000000000000", sortedComments);
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
       <div className="mb-4 w-full">
