@@ -28,6 +28,7 @@ import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import useScrollToComment from "../util/UseScrollToComment";
+
 const CommentList = lazy(() => import("./CommentList"));
 
 const ExpandedReview = ({
@@ -114,16 +115,15 @@ const ExpandedReview = ({
         success: () => "Reply saved successfully!",
         error: "Error saving reply",
       });
-      // if (await data) {
-      //   queryClient.refetchQueries({ queryKey: ["review", reviewId] });
-      // }
     },
     onMutate: (newReply: iComment) => {
-      console.log("This is new reply!!!!!!!!!!!!!!!!!!", newReply);
+      console.log("New Reply:", newReply); // Log the incoming reply
       queryClient.setQueryData(["review", reviewId], (oldData: any) => {
+        console.log("Old Data before update:", oldData);
         let iReviewOldData: iReview = { ...oldData };
         const updatedComments = iReviewOldData.comments?.map((comment) => {
           if (comment.id === newReply.parentId) {
+            console.log("Found matching Parent Comment:", comment);
             return {
               ...comment,
               replies: [...(comment.replies || []), newReply],
@@ -131,13 +131,15 @@ const ExpandedReview = ({
           }
           return comment;
         });
+        console.log("Updated Comments:", updatedComments);
         iReviewOldData.comments = updatedComments;
+        console.log("Final Review Data:", iReviewOldData);
         return iReviewOldData;
       });
     },
     onError: (error: Error) => {
       <DisplayError error={error.message} />;
-      console.error(error);
+      console.error("Reply Mutation Error:", error);
     },
   });
 
@@ -252,6 +254,7 @@ const ExpandedReview = ({
   if (isPending || isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
   if (!reviewData) return null;
+  console.log("00000000000000000000", sortedComments);
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
       <div className="mb-4 w-full">
