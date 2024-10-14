@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useCallback } from "react";
 import { iComment, iUser } from "../util/Interfaces";
 import Comment from "./Comment";
 
@@ -19,20 +19,16 @@ const CommentList: React.FC<CommentListProps> = ({
   clerkUserId,
   currentUser,
 }) => {
-  const [organizedComments, setOrganizedComments] = useState<iComment[]>([]);
-
-  // Function to organize comments into a tree structure
-  const organizeComments = (comments: iComment[]): iComment[] => {
+  // Memoize the organizeComments function
+  const organizeComments = useCallback((comments: iComment[]): iComment[] => {
     const commentMap = new Map<string, iComment>();
     const rootComments: iComment[] = [];
 
-    // First pass: create a map of all comments
     comments.forEach((comment) => {
       comment.replies = [];
       commentMap.set(comment.id!, comment);
     });
 
-    // Second pass: organize into tree structure
     comments.forEach((comment) => {
       if (comment.parentId) {
         const parent = commentMap.get(comment.parentId);
@@ -45,26 +41,32 @@ const CommentList: React.FC<CommentListProps> = ({
     });
 
     return rootComments;
-  };
+  }, []);
 
-  useEffect(() => {
-    setOrganizedComments(organizeComments(comments));
-  }, [comments]);
+  // Use useMemo to organize comments
+  const organizedComments = useMemo(
+    () => organizeComments(comments),
+    [comments, organizeComments],
+  );
 
-  const renderComment = (comment: iComment, depth: number = 0) => (
-    <Comment
-      clerkUserId={clerkUserId}
-      key={comment.id || "no key"}
-      comment={comment}
-      onReply={(parentId, body) => onReply(parentId, body)}
-      onEdit={onEdit}
-      onDelete={onDelete}
-      depth={depth}
-      currentUser={currentUser}
-    >
-      {comment.replies &&
-        comment.replies.map((reply) => renderComment(reply, depth + 1))}
-    </Comment>
+  // Memoize the renderComment function
+  const renderComment = useCallback(
+    (comment: iComment, depth: number = 0) => (
+      <Comment
+        clerkUserId={clerkUserId}
+        key={comment.id || "no key"}
+        comment={comment}
+        onReply={(parentId, body) => onReply(parentId, body)}
+        onEdit={onEdit}
+        onDelete={onDelete}
+        depth={depth}
+        currentUser={currentUser}
+      >
+        {comment.replies &&
+          comment.replies.map((reply) => renderComment(reply, depth + 1))}
+      </Comment>
+    ),
+    [clerkUserId, onReply, onEdit, onDelete, currentUser],
   );
 
   return (
@@ -74,4 +76,4 @@ const CommentList: React.FC<CommentListProps> = ({
   );
 };
 
-export default CommentList;
+export default React.memo(CommentList);

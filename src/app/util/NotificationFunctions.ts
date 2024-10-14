@@ -5,8 +5,41 @@ import {
   iUserNotification,
 } from "./Interfaces";
 
+export async function markNotificationAsRead(
+  notificationId: string,
+  notificationType: "owner" | "user",
+) {
+  const notificationUrl = `${process.env.NEXT_PUBLIC_NOTIFICATION_SERVER_LOCAL}/notifications/${notificationId}/read?type=${notificationType}`;
+
+  try {
+    const response = await fetch(notificationUrl, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to mark notification as read: ${response.status} ${response.statusText}`,
+      );
+    }
+
+    const text = await response.text();
+    console.log("Server response:", text);
+
+    if (text === "Notification marked as read") {
+      console.log("Notification marked as read successfully");
+      return { success: true, message: text };
+    } else {
+      throw new Error("Unexpected server response");
+    }
+  } catch (error) {
+    console.error("Error marking notification as read:", error);
+    throw error;
+  }
+}
+
 export function createProductOwnerNotification(review: any) {
-  console.log("This is the review we are sending to go backend", review)
+  console.log("This is the review we are sending to go backend", review);
   const notificationUrl =
     process.env.NEXT_PUBLIC_NOTIFICATION_SERVER_LOCAL +
     "/notifications/product-owner";
