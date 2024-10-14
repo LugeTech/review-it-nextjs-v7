@@ -39,7 +39,7 @@ const SmartTags = ({ handleArrayInput, description, field }: Props) => {
   };
 
   const handleTagClick = (
-    e: React.MouseEvent<HTMLButtonElement>,
+    e: React.MouseEvent<HTMLParagraphElement>,
     tag: string,
   ) => {
     e.preventDefault();
@@ -63,21 +63,26 @@ const SmartTags = ({ handleArrayInput, description, field }: Props) => {
         </div>
       ) : displayedTags.length === 0 ? (
         <div className="flex items-center justify-center">
-          <p>Having trouble thinking of categories? Try using AI.</p>
-          <Button type="button" variant="ghost" onClick={onClickHandle}>
+          <p className="text-xs md:text-md">
+            Having trouble thinking of categories?
+          </p>
+          <span
+            className="text-sm md:md hover:cursor-pointer hover:underline text-blue-600 ml-2"
+            onClick={onClickHandle}
+          >
             Use AI
-          </Button>
+          </span>
         </div>
       ) : (
         displayedTags.map((tag, index) => (
           <div key={index}>
-            <Button
-              className="items-center rounded-full px-2 py-1 cursor-pointer bg-myTheme-white hover:bg-myTheme-primary transition duration-200 ease-in-out"
+            <p
+              className="items-center rounded-full px-2 md:py-1 p-0 text-sm md:text-md cursor-pointer bg-myTheme-secondary hover:bg-myTheme-primary transition duration-200 ease-in-out"
               onClick={(e) => handleTagClick(e, tag)}
               aria-label={`Add tag ${tag}`}
             >
               + {tag}
-            </Button>
+            </p>
           </div>
         ))
       )}

@@ -377,7 +377,7 @@ export default function ProductForm() {
               <Plus className="h-4 w-4" />
             </Button>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap md:gap-2 gap-4 mt-2">
             <SmartTags
               description={product.description}
               handleArrayInput={handleArrayInput}
@@ -385,7 +385,7 @@ export default function ProductForm() {
               field="tags"
             />
           </div>
-          <div className="mt-2 flex flex-wrap gap-2">
+          <div className="mt-2 flex flex-wrap md:gap-2 gap-4">
             {product.tags.map((tag, index) => (
               <div
                 key={index}

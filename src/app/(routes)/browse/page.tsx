@@ -95,11 +95,6 @@ const Page = () => {
     setCurrentPage(1);
   };
 
-  const handleSearchChange = (search: string) => {
-    setSearchTerm(search);
-    setCurrentPage(1);
-  };
-
   if (isLoading) {
     return (
       <div className="flex h-full">
