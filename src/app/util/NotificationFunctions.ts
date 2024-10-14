@@ -13,7 +13,7 @@ export async function markNotificationAsRead(
 
   try {
     const response = await fetch(notificationUrl, {
-      method: "PATCH",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
     });
 
