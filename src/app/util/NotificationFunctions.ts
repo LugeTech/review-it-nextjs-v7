@@ -106,7 +106,7 @@ export function createUserNotification(notification: iUserNotification) {
 
 export function createUserForNotification(user: iUser) {
   const notificationUrl =
-    process.env.NEXT_PUBLIC_NOTIFICATION_SERVER_LOCAL + "/notifications/reply";
+    process.env.NEXT_PUBLIC_NOTIFICATION_SERVER_LOCAL + "/users";
   fetch(notificationUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
