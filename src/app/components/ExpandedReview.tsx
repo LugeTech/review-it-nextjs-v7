@@ -237,13 +237,6 @@ const ExpandedReview = ({
   };
   const sortedComments = sortedCommentsAny() as iComment[];
 
-  //
-  // const sortedComments = useMemo(() => {
-  //   return data?.comments?.slice().sort((a: iComment, b: iComment) =>
-  //     new Date(b.createdDate!).valueOf() - new Date(a.createdDate!).valueOf()
-  //   ) || [];
-  // }, [data?.comments]);
-
   const reviewData = useMemo(() => {
     return reviewAtom || data;
   }, [reviewAtom, data]);
@@ -251,13 +244,14 @@ const ExpandedReview = ({
   //NOTE: scroll to the comment in the notification click
   useEffect(() => {
     if (isCommentLoaded) {
+      console.log("Comment has been scrolled to");
+      // here i maybe can flash the div
     }
   }, [isCommentLoaded]);
 
   if (isPending || isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
   if (!reviewData) return null;
-  // productcard makes it's own query for all the reviews for this product
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
       <div className="mb-4 w-full">

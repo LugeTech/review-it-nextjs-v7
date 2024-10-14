@@ -1,55 +1,42 @@
-import { useState, useEffect, useCallback } from "react";
+// UseScrollToComment.tsx
+import { useEffect, useState, useCallback } from "react";
 
-interface ScrollToCommentOptions {
-  maxAttempts?: number;
-  intervalDuration?: number;
-}
+const useScrollToComment = (
+  commentId: string,
+  options = { maxAttempts: 10, intervalDuration: 500 },
+) => {
+  const [isCommentLoaded, setIsCommentLoaded] = useState(false);
 
-function useScrollToComment(
-  cId: string,
-  options: ScrollToCommentOptions = {},
-): boolean {
-  const [isCommentLoaded, setIsCommentLoaded] = useState<boolean>(false);
-  const { maxAttempts = 20, intervalDuration = 500 } = options;
+  const scrollToComment = useCallback(() => {
+    let attempts = 0;
 
-  const scrollToComment = useCallback((): boolean => {
-    const commentElement = document.getElementById(cId);
-    if (commentElement) {
-      commentElement.scrollIntoView({ behavior: "smooth", block: "center" });
-      return true;
-    }
-    return false;
-  }, [cId]);
+    const tryScroll = () => {
+      const element = document.getElementById(commentId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        setIsCommentLoaded(true);
+      } else if (attempts < options.maxAttempts) {
+        attempts++;
+        setTimeout(tryScroll, options.intervalDuration);
+      } else {
+        setIsCommentLoaded(false);
+      }
+    };
+
+    tryScroll();
+  }, [commentId, options.maxAttempts, options.intervalDuration]);
 
   useEffect(() => {
-    if (cId === "") return;
-
-    let attempts = 0;
-    let intervalId: NodeJS.Timeout | undefined;
-
-    const checkAndScroll = () => {
-      if (scrollToComment()) {
-        setIsCommentLoaded(true);
-      } else if (attempts >= maxAttempts) {
-        console.log("Max attempts reached, stopping scroll attempts");
-        if (intervalId) clearInterval(intervalId);
-      }
-      attempts++;
-    };
-
-    // Start checking for the comment element
-    intervalId = setInterval(checkAndScroll, intervalDuration);
-
-    // Cleanup function
+    if (commentId) {
+      scrollToComment();
+    }
+    // Clean-up function
     return () => {
-      if (intervalId) clearInterval(intervalId);
+      setIsCommentLoaded(false);
     };
-  }, [cId, scrollToComment, maxAttempts, intervalDuration]);
-
-  // Early return if cId is empty
-  if (cId === "") return false;
+  }, [commentId, scrollToComment]);
 
   return isCommentLoaded;
-}
+};
 
 export default useScrollToComment;
