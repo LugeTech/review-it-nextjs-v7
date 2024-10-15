@@ -80,10 +80,9 @@ export default function NotificationDropdown() {
 
   useEffect(() => {
     if (notificationsData) {
-      const nd = getUnreadNotifications(notificationsData);
-      setUnReadNotifications(nd);
-      setUserNotificationsAtom(nd.userNotifications);
-      setOwnerNotificationsAtom(nd.ownerNotifications);
+      setUnReadNotifications(getUnreadNotifications(notificationsData));
+      setUserNotificationsAtom(notificationsData.userNotifications);
+      setOwnerNotificationsAtom(notificationsData.ownerNotifications);
     }
   }, [notificationsData, setUserNotificationsAtom, setOwnerNotificationsAtom]);
 
