@@ -9,7 +9,7 @@ export async function markNotificationAsRead(
   notificationId: string,
   notificationType: "owner" | "user",
 ) {
-  const notificationUrl = `${process.env.NEXT_PUBLIC_NOTIFICATION_SERVER_LOCAL}/notifications/${notificationId}/read?type=${notificationType}`;
+  const notificationUrl = `${process.env.NEXT_PUBLIC_NOTIFICATION_SERVER}/notifications/${notificationId}/read?type=${notificationType}`;
 
   try {
     const response = await fetch(notificationUrl, {
