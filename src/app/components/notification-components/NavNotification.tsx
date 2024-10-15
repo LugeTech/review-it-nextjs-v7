@@ -36,18 +36,35 @@ interface NotificationsData {
   ownerNotifications: iProductOwnerNotification[];
 }
 
+type NotificationType = iUserNotification | iProductOwnerNotification;
+
 export default function NotificationDropdown() {
   const router = useRouter();
   const auth = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const setUserNotificationsAtom = useSetAtom(userNotificationsAtom);
   const setOwnerNotificationsAtom = useSetAtom(ownerNotificationsAtom);
+  const [unReadNotifications, setUnReadNotifications] =
+    useState<NotificationsData>();
 
-  const { data: userData } = useQuery({
-    queryKey: ["user", auth.userId],
-    queryFn: getUser,
-    refetchOnWindowFocus: false,
-  });
+  // const { data: userData } = useQuery({
+  //   queryKey: ["user", auth.userId],
+  //   queryFn: getUser,
+  //   refetchOnWindowFocus: false,
+  // });
+
+  function getUnreadNotifications(
+    notifications: NotificationsData,
+  ): NotificationsData {
+    return {
+      userNotifications: notifications.userNotifications.filter(
+        (notification) => notification.read === false,
+      ),
+      ownerNotifications: notifications.ownerNotifications.filter(
+        (notification) => notification.read === false,
+      ),
+    };
+  }
 
   const {
     data: notificationsData,
@@ -63,22 +80,24 @@ export default function NotificationDropdown() {
 
   useEffect(() => {
     if (notificationsData) {
-      setUserNotificationsAtom(notificationsData.userNotifications);
-      setOwnerNotificationsAtom(notificationsData.ownerNotifications);
+      const nd = getUnreadNotifications(notificationsData);
+      setUnReadNotifications(nd);
+      setUserNotificationsAtom(nd.userNotifications);
+      setOwnerNotificationsAtom(nd.ownerNotifications);
     }
   }, [notificationsData, setUserNotificationsAtom, setOwnerNotificationsAtom]);
 
   if (isErrorNotifications)
     return <p className="text-red-500">{errorNotifications?.message}</p>;
 
-  const userCount = notificationsData?.userNotifications.length || 0;
-  const ownerCount = notificationsData?.ownerNotifications.length || 0;
+  const userCount = unReadNotifications?.userNotifications.length || 0;
+  const ownerCount = unReadNotifications?.ownerNotifications.length || 0;
   const totalCount = userCount + ownerCount;
 
   const latestUserNotifications =
-    notificationsData?.userNotifications.slice(0, 3) || [];
+    unReadNotifications?.userNotifications.slice(0, 3) || [];
   const latestOwnerNotifications =
-    notificationsData?.ownerNotifications.slice(0, 3) || [];
+    unReadNotifications?.ownerNotifications.slice(0, 3) || [];
 
   const handleOwnerNotiClick = (notification: iProductOwnerNotification) => {
     const params = new URLSearchParams({
