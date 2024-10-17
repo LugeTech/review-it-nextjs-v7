@@ -141,7 +141,7 @@ const Comment: React.FC<CommentProps> = ({
   return (
     <div
       id={comment.id}
-      className={`w-full bg-white border-b border-gray-100 p-3 ${depth > 0 ? "ml-2" : ""}`}
+      className={`w-full bg-white border-b border-l border-gray-200 p-3 ${depth > 0 ? "ml-2" : ""}`}
     >
       <div className="flex items-start space-x-2">
         <Avatar className="w-6 h-6">

@@ -1,19 +1,4 @@
 "use client";
-import ReviewCard from "./ReviewCard";
-import { useAtom } from "jotai";
-import { currentReviewAtom, currentUserAtom } from "../store/store";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { iReview, iComment } from "../util/Interfaces";
-import {
-  createCommentOnReview,
-  createReplyOnComment,
-  deleteComment,
-  editComment,
-  getReview,
-  getReviews,
-} from "../util/serverFunctions";
-import LoadingSpinner from "./LoadingSpinner";
-import CommentForm from "./CommentForm";
 import {
   useEffect,
   useMemo,
@@ -22,11 +7,26 @@ import {
   lazy,
   Suspense,
 } from "react";
+import { useAtom } from "jotai";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+
+import ReviewCard from "./ReviewCard";
+import { currentReviewAtom, currentUserAtom } from "../store/store";
+import { iReview, iComment } from "../util/Interfaces";
+import {
+  createCommentOnReview,
+  createReplyOnComment,
+  deleteComment,
+  editComment,
+  getReviews,
+} from "../util/serverFunctions";
+import LoadingSpinner from "./LoadingSpinner";
+import CommentForm from "./CommentForm";
 import DisplayError from "./DisplayError";
 import ProductCard from "./ProductCard";
-import { useAuth } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import useScrollToComment from "../util/UseScrollToComment";
 
 const CommentList = lazy(() => import("./CommentList"));
@@ -50,36 +50,19 @@ const ExpandedReview = ({
   const [isOpen, setIsOpen] = useState(true);
   const [textAreaValue, setTextAreaValue] = useState("");
   const [currentUser] = useAtom(currentUserAtom);
-  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const clerkUserId = userId as string;
   const [allReviews, setAllReviews] = useState<iReview[]>([]);
-
   const [isLoading, setIsLoading] = useState(true);
 
-  const mutations = useMutation({
-    mutationFn: async (comment: iComment) => {
-      const data = createCommentOnReview(comment);
-      toast.promise(data, {
-        loading: "Loading...",
-        success: () => "Comment saved successfully!",
-        error: "Error saving comment",
-      });
-    },
-    onMutate: (newData: iComment) => {
-      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
-        newData.reviewId = reviewId;
-        newData.isDeleted = false;
-        newData.user = currentUser;
-        let iReviewOldData: iReview = { ...oldData };
-        iReviewOldData.comments = [...(iReviewOldData.comments || []), newData];
-        return iReviewOldData;
-      });
-    },
-    onError: (error: Error) => {
-      <DisplayError error={error.message} />;
-      console.error(error);
-    },
+  const [comment, setComment] = useState<iComment>({
+    reviewId: "",
+    body: "",
+    createdDate: new Date(),
+    user: currentUser,
+    review: reviewAtom || ({} as iReview),
+    userId: currentUser?.id || "",
+    isDeleted: false,
   });
 
   const commentMutation = useMutation({
@@ -92,14 +75,19 @@ const ExpandedReview = ({
       });
     },
     onMutate: (newData: iComment) => {
-      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
-        newData.reviewId = reviewId;
-        newData.isDeleted = false;
-        newData.user = currentUser;
-        let iReviewOldData: iReview = { ...oldData };
-        iReviewOldData.comments = [...(iReviewOldData.comments || []), newData];
-        return iReviewOldData;
-      });
+      queryClient.setQueryData<iReview | undefined>(
+        ["review", reviewId],
+        (oldData) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            comments: [
+              ...(oldData.comments || []),
+              { ...newData, user: currentUser, isDeleted: false },
+            ],
+          };
+        },
+      );
     },
     onError: (error: Error) => {
       <DisplayError error={error.message} />;
@@ -109,48 +97,65 @@ const ExpandedReview = ({
 
   const replyMutation = useMutation({
     mutationFn: async (reply: iComment) => {
-      const data = createReplyOnComment(reply);
-      toast.promise(data, {
-        loading: "Saving reply...",
-        success: () => "Reply saved successfully!",
-        error: "Error saving reply",
-      });
+      const data = await createReplyOnComment(reply);
+      return data;
     },
     onMutate: (newReply: iComment) => {
-      console.log("New Reply:", newReply); // Log the incoming reply
-      queryClient.setQueryData(["review", reviewId], (oldData: any) => {
-        console.log("Old Data before update:", oldData);
-        let iReviewOldData: iReview = { ...oldData };
-        const updatedComments = iReviewOldData.comments?.map((comment) => {
-          if (comment.id === newReply.parentId) {
-            console.log("Found matching Parent Comment:", comment);
-            return {
-              ...comment,
-              replies: [...(comment.replies || []), newReply],
-            };
-          }
-          return comment;
-        });
-        console.log("Updated Comments:", updatedComments);
-        iReviewOldData.comments = updatedComments;
-        console.log("Final Review Data:", iReviewOldData);
-        return iReviewOldData;
-      });
-    },
-    onError: (error: Error) => {
-      <DisplayError error={error.message} />;
-      console.error("Reply Mutation Error:", error);
-    },
-  });
+      queryClient.cancelQueries({ queryKey: ["review", reviewId] });
+      const previousReview = queryClient.getQueryData<iReview>([
+        "review",
+        reviewId,
+      ]);
 
-  const [comment, setComment] = useState<iComment>({
-    reviewId: "",
-    body: "",
-    createdDate: new Date(),
-    user: currentUser,
-    review: reviewAtom || ({} as iReview),
-    userId: currentUser?.id || "",
-    isDeleted: false,
+      let isFirstReply = false;
+
+      queryClient.setQueryData<iReview | undefined>(
+        ["review", reviewId],
+        (old) => {
+          if (!old) return old;
+          const updatedComments =
+            old.comments?.map((comment) => {
+              if (comment.id === newReply.parentId) {
+                if (!comment.replies || comment.replies.length === 0) {
+                  isFirstReply = true;
+                }
+                return {
+                  ...comment,
+                  replies: [...(comment.replies || []), newReply],
+                };
+              }
+              return comment;
+            }) || [];
+
+          return {
+            ...old,
+            comments: updatedComments,
+          };
+        },
+      );
+
+      return { previousReview, isFirstReply };
+    },
+    onError: (
+      err,
+      newReply,
+      context:
+        | { previousReview: iReview | undefined; isFirstReply: boolean }
+        | undefined,
+    ) => {
+      if (context?.previousReview) {
+        queryClient.setQueryData<iReview>(
+          ["review", reviewId],
+          context.previousReview,
+        );
+      }
+    },
+    onSettled: (_, __, ___, context) => {
+      // Only refetch if it's the first reply
+      if (context?.isFirstReply) {
+        queryClient.invalidateQueries({ queryKey: ["review", reviewId] });
+      }
+    },
   });
 
   const handleCommentSubmit = useCallback(
@@ -166,16 +171,15 @@ const ExpandedReview = ({
     [isLoaded, isSignedIn, router, isOpen, commentMutation, comment],
   );
 
-  const productCardOptions = {
-    showLatestReview: true,
-    size: "rating-md",
-    showWriteReview: true,
-    showClaimThisProduct: true,
-  };
-
   const handleReply = useCallback(
     async (parentId: string, body: string) => {
-      replyMutation.mutate({ ...comment, body, parentId });
+      const newReply = {
+        ...comment,
+        body,
+        parentId,
+        id: Date.now().toString(),
+      };
+      replyMutation.mutate(newReply);
     },
     [replyMutation, comment],
   );
@@ -226,7 +230,7 @@ const ExpandedReview = ({
     }
   }, [data, textAreaValue, currentUser, reviewAtom, reviewId]);
 
-  const sortedCommentsAny = () => {
+  const sortedComments = useMemo(() => {
     return (
       data?.comments
         ?.slice()
@@ -236,25 +240,29 @@ const ExpandedReview = ({
             new Date(a.createdDate!).valueOf(),
         ) || []
     );
-  };
-  const sortedComments = sortedCommentsAny() as iComment[];
+  }, [data?.comments]);
 
   const reviewData = useMemo(() => {
     return reviewAtom || data;
   }, [reviewAtom, data]);
 
-  //NOTE: scroll to the comment in the notification click
   useEffect(() => {
     if (isCommentLoaded) {
       console.log("Comment has been scrolled to");
-      // here i maybe can flash the div
     }
   }, [isCommentLoaded]);
+
+  const productCardOptions = {
+    showLatestReview: true,
+    size: "rating-md",
+    showWriteReview: true,
+    showClaimThisProduct: true,
+  };
 
   if (isPending || isLoading) return <LoadingSpinner />;
   if (isError) return <p>fetch error</p>;
   if (!reviewData) return null;
-  // console.log("00000000000000000000", sortedComments);
+
   return (
     <div className="flex flex-col w-full p-2 md:px-36 sm:pt-8 bg-myTheme-lightbg ">
       <div className="mb-4 w-full">
@@ -276,6 +284,7 @@ const ExpandedReview = ({
         {sortedComments.length > 0 ? (
           <Suspense fallback={<LoadingSpinner />}>
             <CommentList
+              key={sortedComments.length}
               clerkUserId={clerkUserId}
               comments={sortedComments}
               onReply={handleReply}

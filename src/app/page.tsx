@@ -5,7 +5,6 @@ import ReviewCategories from "./components/CompanyCategories";
 import ManageYourBusiness from "./components/ManageYourBusiness";
 import InstallPwa from "./components/InstallPwa";
 import BenefitsSection from "./components/BenefitsSection";
-// import Token from "./components/Token";
 export default function Home() {
   return (
     <div className=" flex h-full w-full flex-col justify-start bg-myTheme-lightbg ">
