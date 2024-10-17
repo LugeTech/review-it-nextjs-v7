@@ -28,6 +28,7 @@ import {
 } from "@/app/store/store";
 import { getNotifications, getUser } from "@/app/util/serverFunctions";
 import LoadingSpinner from "../LoadingSpinner";
+import { handleMarkAsRead } from "@/app/util/markAsReadFunc";
 
 dayjs.extend(relativeTime);
 
@@ -103,6 +104,13 @@ export default function NotificationDropdown() {
       id: notification.review_id.toString(),
       productid: notification.product_id.toString(),
     });
+    handleMarkAsRead(
+      notification.id,
+      "owner",
+      setOwnerNotificationsAtom,
+      setUserNotificationsAtom,
+    );
+
     router.push(`/fr?${params.toString()}`);
     setIsOpen(false);
   };
@@ -113,6 +121,13 @@ export default function NotificationDropdown() {
       productid: notification.product_id!.toString(),
       cid: notification.id.toString(),
     });
+    handleMarkAsRead(
+      notification.id,
+      "user",
+      setOwnerNotificationsAtom,
+      setUserNotificationsAtom,
+    );
+
     router.push(`/fr?${params.toString()}`);
     setIsOpen(false);
   };

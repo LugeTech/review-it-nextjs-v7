@@ -1,14 +1,14 @@
-import { useSetAtom } from "jotai";
 import { iProductOwnerNotification, iUserNotification } from "./Interfaces";
 import { markNotificationAsRead } from "./NotificationFunctions";
-import { ownerNotificationsAtom, userNotificationsAtom } from "../store/store";
 
-const handleMarkAsRead = async (
+export const handleMarkAsRead = async (
   notificationId: string,
   notificationType: "owner" | "user",
+  setONA: (
+    updater: (prev: iProductOwnerNotification[]) => iProductOwnerNotification[],
+  ) => void,
+  setUNA: (updater: (prev: iUserNotification[]) => iUserNotification[]) => void,
 ) => {
-  const setONA = useSetAtom(ownerNotificationsAtom);
-  const setUNA = useSetAtom(userNotificationsAtom);
   console.log("Attempting to mark notification as read", notificationType);
   try {
     const result = await markNotificationAsRead(
