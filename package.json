@@ -72,6 +72,7 @@
     "next-pwa": "^5.6.0",
     "next-themes": "^0.3.0",
     "npm": "^10.8.2",
+    "pg": "^8.13.0",
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-datepicker": "^4.25.0",
@@ -93,6 +94,7 @@
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.52.0",
     "@types/dompurify": "^3.0.5",
+    "@types/pg": "^8.11.10",
     "@types/react-datepicker": "^4.19.6",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.5.14",
