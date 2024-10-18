@@ -149,14 +149,14 @@ export const getLatestReviews = async () => {
 };
 
 export const getProduct = async (id: string) => {
-  const product: iProduct = await fetch(`/api/get/product`, {
+  const product = await fetch(`/api/get/product`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ id }),
   }).then((res) => res.json());
-  return product;
+  return product.data as iProduct;
 };
 
 export const getProducts = async () => {

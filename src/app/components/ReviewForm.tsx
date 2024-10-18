@@ -27,7 +27,7 @@ const ReviewForm = () => {
   const { user } = useUser();
   const [linksArray, setLinksArray] = useState<string[]>([]);
   const [videosArray, setVideosArray] = useState<string[]>([]);
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
   const [allUploaded, setAllUploaded] = useState(false);
   // make sure there is an int in searchRating and make sure its between 1 and 5
   const [rating, setRating] = useState(
@@ -62,10 +62,12 @@ const ReviewForm = () => {
 
   useEffect(() => {
     if (linksArray.length > 0) {
-      setReviewData((prevData): iReview => ({
-        ...prevData,
-        images: linksArray,
-      }));
+      setReviewData(
+        (prevData): iReview => ({
+          ...prevData,
+          images: linksArray,
+        }),
+      );
     }
   }, [linksArray]);
 
@@ -118,12 +120,13 @@ const ReviewForm = () => {
     const { name, value } = e.target;
 
     setReviewData((prevData): iReview => {
-      if (name === 'videoUrl') {
+      if (name === "videoUrl") {
         return {
           ...prevData,
-          videos: prevData.videos.length > 0
-            ? [value, ...prevData.videos.slice(1)] // Update if array has items
-            : [value] // Create new array if empty
+          videos:
+            prevData.videos.length > 0
+              ? [value, ...prevData.videos.slice(1)] // Update if array has items
+              : [value], // Create new array if empty
         };
       } else {
         // Handle other fields normally
@@ -143,7 +146,11 @@ const ReviewForm = () => {
       setError("Please fill out all fields");
       return;
     }
-    if ((reviewData.body === "" || reviewData.body === null) && linksArray.length === 0 && reviewData.videos.length === 0) {
+    if (
+      (reviewData.body === "" || reviewData.body === null) &&
+      linksArray.length === 0 &&
+      reviewData.videos.length === 0
+    ) {
       setError((prevError) => (prevError = "Review body is empty"));
       setDisabled(false);
       return;
@@ -162,8 +169,8 @@ const ReviewForm = () => {
       }
 
       // else return getProduct(id)
-      const data: any = await getProduct(id);
-      return data.data;
+      // const data: any = await getProduct(id);
+      return await getProduct(id);
     },
     refetchOnWindowFocus: false,
   }) as any;
@@ -203,25 +210,32 @@ const ReviewForm = () => {
         )}
       </div>
     );
-
   }
-
 
   return (
     <div className="pt-8 flex flex-col h-full w-full sm:w-3/4 lg:w-1/2 items-center bg-myTheme-white  rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold mb-6 text-myTheme-niceGrey ">Write a Review</h1>
+      <h1 className="text-3xl font-bold mb-6 text-myTheme-niceGrey ">
+        Write a Review
+      </h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col w-full space-y-6 bg-myTheme-white  rounded-md p-6 overflow-y-auto"
       >
         {product && (
           <div className="flex justify-center items-center mb-4">
-            <ProductCard options={productCardOptions} product={product} currentUserId={user?.id ? user.id : null} />
+            <ProductCard
+              options={productCardOptions}
+              product={product}
+              currentUserId={user?.id ? user.id : null}
+            />
           </div>
         )}
 
         <div className="space-y-2 border-b  pb-4">
-          <label htmlFor="rating" className="block text-lg font-semibold text-myTheme-primary ">
+          <label
+            htmlFor="rating"
+            className="block text-lg font-semibold text-myTheme-primary "
+          >
             Rate your experience
           </label>
           <RatingModule
@@ -233,7 +247,10 @@ const ReviewForm = () => {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="title" className="block text-lg font-semibold text-myTheme-primary ">
+          <label
+            htmlFor="title"
+            className="block text-lg font-semibold text-myTheme-primary "
+          >
             Title your experience
           </label>
           <input
@@ -249,7 +266,10 @@ const ReviewForm = () => {
 
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1 space-y-2">
-            <label htmlFor="dateItHappened" className="block text-lg font-semibold text-myTheme-primary ">
+            <label
+              htmlFor="dateItHappened"
+              className="block text-lg font-semibold text-myTheme-primary "
+            >
               Date
             </label>
             <DatePicker
@@ -261,7 +281,10 @@ const ReviewForm = () => {
             />
           </div>
           <div className="flex-1 space-y-2">
-            <label htmlFor="transactionNumber" className="block text-lg font-semibold text-myTheme-primary ">
+            <label
+              htmlFor="transactionNumber"
+              className="block text-lg font-semibold text-myTheme-primary "
+            >
               Receipt #
             </label>
             <input
@@ -276,7 +299,10 @@ const ReviewForm = () => {
         </div>
 
         <div className="space-y-2 ">
-          <label htmlFor="experience" className="block text-lg font-semibold text-myTheme-primary ">
+          <label
+            htmlFor="experience"
+            className="block text-lg font-semibold text-myTheme-primary "
+          >
             Tell us more about your experience
           </label>
           <Editor onEditorValue={handleEditorValue} />
@@ -288,8 +314,8 @@ const ReviewForm = () => {
             name="videoUrl"
             value={url}
             onChange={(e) => {
-              setUrl(e.target.value)
-              handleChange(e)
+              setUrl(e.target.value);
+              handleChange(e);
             }}
             placeholder="Enter YouTube, Instagram, or TikTok video URL"
             className="w-full p-2 border rounded mb-4 bg-white"
@@ -297,7 +323,11 @@ const ReviewForm = () => {
           <VideoEmbed url={url} />
         </div>
         <div className="flex justify-center items-center w-full">
-          <MultiFileUpload setLinksArray={setLinksArray} setAllUploaded={setAllUploaded} allUploaded={allUploaded} />
+          <MultiFileUpload
+            setLinksArray={setLinksArray}
+            setAllUploaded={setAllUploaded}
+            allUploaded={allUploaded}
+          />
         </div>
 
         <div className="flex gap-2 h-full">
@@ -306,13 +336,15 @@ const ReviewForm = () => {
               <EditorPreview reviewData={reviewData} />
             </div>
           )}
-          {allUploaded && <button
-            disabled={disabled}
-            type="submit"
-            className="w-full bg-myTheme-primary hover:bg-myTheme-secondary text-white font-semibold py-3 px-6 rounded-md transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Submit Review
-          </button>}
+          {allUploaded && (
+            <button
+              disabled={disabled}
+              type="submit"
+              className="w-full bg-myTheme-primary hover:bg-myTheme-secondary text-white font-semibold py-3 px-6 rounded-md transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Submit Review
+            </button>
+          )}
         </div>
       </form>
       <DisplayError error={error} />

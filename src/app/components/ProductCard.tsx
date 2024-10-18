@@ -192,7 +192,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 href={currentProduct.website[0]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline text-xs mt-2 block flex items-center"
+                className="text-blue-600 hover:underline text-xs mt-2  flex items-center"
               >
                 <MdLanguage className="mr-1" /> Visit Website
               </a>
@@ -230,9 +230,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
               Write Review
             </Link>
           ) : (
-            <p className="font-light bg-myTheme-accent p-1 rounded-md text-white">
-              You own this product
-            </p>
+            <div className="font-light p-1 rounded-md text-gray-800">
+              You own this product{" "}
+              <Link
+                href={`/editproduct?pid=${product.id}`}
+                className="hover:bg-gray-300 underline rounded-md transition-colors duration-300"
+              >
+                Edit it
+              </Link>
+            </div>
           )}
         </div>
       </div>
