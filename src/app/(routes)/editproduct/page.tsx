@@ -6,7 +6,7 @@ import { getProduct } from "@/app/util/serverFunctions";
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 
-const page = () => {
+const EditPage = () => {
   const user = useUser();
   const searchParams = useSearchParams();
   const [product, setProduct] = useState<iProduct | null>(null);
@@ -30,4 +30,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default EditPage;
