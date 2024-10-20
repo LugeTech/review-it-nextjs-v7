@@ -1,5 +1,11 @@
 import { atom } from "jotai";
-import { iProduct, iProductOwnerNotification, iReview, iUser, iUserNotification } from "../util/Interfaces";
+import {
+  iProduct,
+  iProductOwnerNotification,
+  iReview,
+  iUser,
+  iUserNotification,
+} from "../util/Interfaces";
 import { getNotifications, getUser } from "../util/serverFunctions";
 import { iNotification } from "../util/Interfaces";
 
@@ -16,6 +22,7 @@ export const currentUserAtom = atom(async () => {
   const user = res.data as iUser;
   return user;
 });
+export const avatarTriggerAtom = atom<string | null>(null);
 
 // export const AllNotificationsAtom = atom(async (get) => {
 // const user = await get(currentUserAtom);
@@ -23,4 +30,3 @@ export const currentUserAtom = atom(async () => {
 // return { userNotifications, ownerNotifications };
 // })
 export const badWordsAtom = atom<string[]>([]);
-

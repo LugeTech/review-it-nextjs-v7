@@ -3,7 +3,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useClerk, useUser, SignInButton } from "@clerk/nextjs";
 import { LogOut, SquareUserRound } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { avatarTriggerAtom } from "@/app/store/store";
+import { useAtom } from "jotai";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +19,7 @@ const UserButtonComponent: React.FC = () => {
   const { isLoaded, isSignedIn, user } = useUser();
   const { signOut } = useClerk();
   const [userInDb, setUserFromDb] = React.useState<iUser>();
-
+  const [avatarFromAtom] = useAtom(avatarTriggerAtom);
   useEffect(() => {
     const getUserInDB = async () => {
       if (user) {
@@ -51,13 +52,20 @@ const UserButtonComponent: React.FC = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Image
-          src={userInDb?.avatar || user?.imageUrl || "/logo.png"}
-          alt="avatar"
-          width={32}
-          height={32}
-          className="rounded-full"
-        />
+        <div className="relative w-8 h-8 overflow-hidden rounded-full">
+          <Image
+            src={
+              avatarFromAtom ||
+              userInDb?.avatar ||
+              user?.imageUrl ||
+              "/logo.png"
+            }
+            alt="avatar"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-full"
+          />
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuItem className="flex items-center justify-between">

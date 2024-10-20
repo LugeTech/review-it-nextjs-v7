@@ -8,6 +8,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { avatarTriggerAtom } from "@/app/store/store";
+import { useAtom } from "jotai";
 import {
   MessageCircle,
   ThumbsUp,
@@ -58,6 +60,7 @@ export default function UserInfo({
   const [currentAvatar, setCurrentAvatar] = useState(
     initialAvatar || user.avatar || "",
   );
+  const [, setAvatarTrigger] = useAtom(avatarTriggerAtom);
 
   dayjs.extend(relativeTime);
 
@@ -101,6 +104,7 @@ export default function UserInfo({
           const imageUrl = res.secure_url;
           setCurrentAvatar(imageUrl); // Update local state with Cloudinary URL
           onUpdateUser({ avatar: imageUrl });
+          setAvatarTrigger(imageUrl);
         } catch (error) {
           console.error("Error uploading image:", error);
           // Keep the temporary URL if upload fails
@@ -128,16 +132,19 @@ export default function UserInfo({
       <CardHeader className="relative h-48 sm:h-64 overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative">
-            <Avatar
-              className="h-32 w-32 sm:h-40 sm:w-40 border-4 border-background cursor-pointer"
+            <div
+              className="relative h-32 w-32 sm:h-40 sm:w-40 cursor-pointer"
               onClick={handleAvatarClick}
             >
-              <AvatarImage
-                src={currentAvatar || ""}
-                alt={`${editedFirstName} ${editedLastName}`}
-              />
-              <AvatarFallback>{`${editedFirstName[0] || ""}${editedLastName[0] || ""}`}</AvatarFallback>
-            </Avatar>
+              <Avatar className="h-full w-full border-4 border-background">
+                <AvatarImage
+                  src={currentAvatar || ""}
+                  alt={`${editedFirstName} ${editedLastName}`}
+                  className="object-cover"
+                />
+                <AvatarFallback>{`${editedFirstName[0] || ""}${editedLastName[0] || ""}`}</AvatarFallback>
+              </Avatar>
+            </div>
             <div
               className="absolute bottom-0 right-0 bg-primary rounded-full p-2 cursor-pointer"
               onClick={handleAvatarClick}
