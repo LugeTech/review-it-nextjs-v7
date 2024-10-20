@@ -41,6 +41,8 @@ module.exports = {
           ratingGreen: "#22c55e",
           aliceblue: "#e8f1f2",
           skyblue: "#98D2EB",
+          read: "#99f0c9",
+          unread: "#ffc299",
         },
       },
       keyframes: {

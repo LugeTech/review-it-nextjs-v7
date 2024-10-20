@@ -18,6 +18,7 @@ import {
   ownerNotificationsAtom,
   userNotificationsAtom,
 } from "@/app/store/store";
+import Link from "next/link";
 
 interface NotificationsPageProps {
   ONA: iProductOwnerNotification[];
@@ -51,20 +52,17 @@ export default function NotificationsPage({
     notificationId: string,
     notificationType: "owner" | "user",
   ) => {
-    console.log("Attempting to mark notification as read", notificationType);
     try {
       const result = await markNotificationAsRead(
         notificationId,
         notificationType,
       );
-      console.log("API call result:", result);
 
       if (notificationType === "owner") {
         setONA((prevNotifications: iProductOwnerNotification[]) => {
           const updatedNotifications = prevNotifications.map((n) =>
             n.id === notificationId ? { ...n, read: true } : n,
           );
-          console.log("Updated owner notifications:", updatedNotifications);
           return updatedNotifications;
         });
       } else {
@@ -72,15 +70,12 @@ export default function NotificationsPage({
           const updatedNotifications = prevNotifications.map((n) =>
             n.id === notificationId ? { ...n, read: true } : n,
           );
-          console.log("Updated user notifications:", updatedNotifications);
           return updatedNotifications;
         });
       }
-
-      console.log("State update attempted");
     } catch (error) {
       console.error("Failed to mark notification as read:", error);
-      alert("Failed to mark notification as read. Please try again.");
+      // alert("Failed to mark notification as read. Please try again.");
     }
   };
 
@@ -260,16 +255,28 @@ function OwnerNotificationCard({
   ) => void;
 }) {
   return (
-    <Card className="mb-4">
+    <Card
+      className={`mb-4 ${notification.read ? "bg-myTheme-read" : "bg-myTheme-unread"}`}
+    >
       <CardContent className="p-4">
         <div className="flex items-start justify-between">
           <div>
             <h3 className="font-semibold text-lg">
-              {notification.review_title}
+              <Link
+                href={`/fr?id=${notification.review_id}&productid=${notification.product_id}`}
+              >
+                {notification.review_title}
+              </Link>
             </h3>
             <p className="text-sm text-muted-foreground">
-              From: {notification.from_name} | Product:{" "}
-              {notification.product_name}
+              From:{" "}
+              <Link href={`/userprofile/${notification.from_id}`}>
+                {notification.from_name}
+              </Link>{" "}
+              | Product:{" "}
+              <Link href={`/reviews?id=${notification.product_id}`}>
+                {notification.product_name}
+              </Link>
             </p>
             <p className="text-xs text-muted-foreground mt-1">
               {notification.created_at
@@ -298,10 +305,6 @@ function OwnerNotificationCard({
               Mark as Read
             </Button>
           )}
-          <Button size="sm" variant="outline" className="text-destructive">
-            <Trash2 className="mr-2 h-4 w-4" />
-            Delete
-          </Button>
         </div>
       </CardContent>
     </Card>
@@ -319,11 +322,21 @@ function UserNotificationCard({
   ) => void;
 }) {
   return (
-    <Card className="mb-4">
+    <Card
+      className={`mb-4 ${notification.read ? "bg-myTheme-read" : "bg-myTheme-unread"}`}
+    >
       <CardContent className="p-4">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="font-semibold text-lg">{notification.content}</h3>
+            <h3 className="font-semibold text-lg">
+              <Link
+                href={`/fr?id=${notification.review_id}&productid=${notification.product_id}`}
+              >
+                {notification.content.length > 120
+                  ? `${notification.content.substring(0, 120)}...`
+                  : notification.content}
+              </Link>
+            </h3>
             <p className="text-sm text-muted-foreground">
               From: {notification.from_name}
             </p>
@@ -342,8 +355,13 @@ function UserNotificationCard({
         </div>
         <div className="mt-4 flex space-x-2">
           <Button size="sm" variant="outline">
-            <Eye className="mr-2 h-4 w-4" />
-            View
+            <Link
+              href={`/fr?id=${notification.review_id}&productid=${notification.product_id}`}
+              className="flex"
+            >
+              <Eye className="mr-2 h-4 w-4" />
+              View
+            </Link>
           </Button>
           {!notification.read && (
             <Button
@@ -354,10 +372,6 @@ function UserNotificationCard({
               Mark as Read
             </Button>
           )}
-          <Button size="sm" variant="outline" className="text-destructive">
-            <Trash2 className="mr-2 h-4 w-4" />
-            Delete
-          </Button>
         </div>
       </CardContent>
     </Card>
