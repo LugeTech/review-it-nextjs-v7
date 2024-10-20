@@ -144,9 +144,6 @@ export function BusinessDashboardComponent() {
                     ) || []
                   }
                 />
-                <span className="ml-2 text-sm text-gray-600">
-                  new notifications
-                </span>
               </div>
               <p className="text-sm text-gray-700 mb-2" />
               <p className="text-sm text-gray-700 mb-2">

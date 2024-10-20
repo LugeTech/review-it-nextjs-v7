@@ -23,16 +23,17 @@ export default function NotificationBell({
   return (
     <Link
       href={{ pathname: "/notifications" }}
-      className="flex items-center p-2 rounded-full hover:bg-gray-100 transition-colors"
+      className="flex items-center hover:bg-gray-100 transition-colors my-2"
       onClick={handleClick}
     >
-      <div className="relative">
+      <div className="relative flex">
         <BellIcon className="w-6 h-6 text-gray-600" />
         {count > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
             {count > 99 ? "99+" : count}
           </span>
         )}
+        <span className="ml-2 text-sm text-gray-600">new notifications</span>
       </div>
     </Link>
   );
