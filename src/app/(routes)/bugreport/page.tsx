@@ -1,4 +1,5 @@
 "use client";
+import BugReportList from "@/app/components/BugReportList";
 import { useUser } from "@clerk/nextjs";
 import React, { useState, FormEvent, useEffect } from "react";
 
@@ -12,7 +13,7 @@ interface BugReport {
   description: string;
   device: Device;
   mobileOS: MobileOS;
-  userId: string | null;
+  username: string | null;
 }
 
 const initialBugReportState: BugReport = {
@@ -21,7 +22,7 @@ const initialBugReportState: BugReport = {
   description: "",
   device: "desktop",
   mobileOS: "",
-  userId: null,
+  username: null,
 };
 
 export default function BugReport() {
@@ -30,7 +31,7 @@ export default function BugReport() {
 
   useEffect(() => {
     if (user) {
-      setBugReport((prev) => ({ ...prev, userId: user.id }));
+      setBugReport((prev) => ({ ...prev, username: user.username }));
     }
   }, [user]);
 
@@ -61,7 +62,8 @@ export default function BugReport() {
 
       if (response.ok) {
         alert("Bug report submitted successfully!");
-        setBugReport({ ...initialBugReportState, userId: user.id });
+        setBugReport({ ...initialBugReportState, username: user.username });
+        window.location.reload();
       } else {
         const errorData = await response.json();
         console.error("Error response:", errorData);
@@ -175,9 +177,7 @@ export default function BugReport() {
       )}
 
       <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-4">All Reported Bugs</h2>
-        {/* TODO: Fetch and display reported bugs from your database */}
-        <p className="text-gray-600">No bugs reported yet.</p>
+        <BugReportList />
       </div>
     </div>
   );
