@@ -50,7 +50,7 @@ export async function PATCH(
     // Authenticate the request
     const { userId: clerkUserId } = auth();
 
-    if (!clerkUserId) {
+    if (!clerkUserId || userId !== clerkUserId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
