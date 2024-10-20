@@ -3,19 +3,19 @@ import pool from "@/app/util/db";
 
 export async function POST(req: NextRequest) {
   try {
-    const { userId, browser, title, description, device, mobileOS } =
+    const { username, browser, title, description, device, mobileOS } =
       await req.json();
 
     const client = await pool.connect();
     try {
       await client.query("BEGIN");
       const insertQuery = `
-        INSERT INTO bug_reports (user_id, browser, title, description, device, mobile_os)
+        INSERT INTO bug_reports (username, browser, title, description, device, mobile_os)
         VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING id
       `;
       const values = [
-        userId,
+        username,
         browser,
         title,
         description,
