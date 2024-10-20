@@ -3,8 +3,8 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 const isOnLockDownList = createRouteMatcher([
   "/cr(.*)",
   "/submit(.*)",
-  "/myactivity(.*)",
-  "/userprofile(.*)",
+  // "/myactivity(.*)",
+  // "/userprofile(.*)",
 ]);
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 
