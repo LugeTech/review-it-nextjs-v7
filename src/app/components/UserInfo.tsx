@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -22,22 +22,21 @@ import {
 import { iUser } from "../util/Interfaces";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import {
-  uploadImageToCloudinary,
-  uploadProfilePicToCloudinary,
-} from "../util/uploadImageToCloudinary";
+import { uploadProfilePicToCloudinary } from "../util/uploadImageToCloudinary";
 import { resizeImage } from "../util/clientFunctions";
 
 interface UserInfoProps {
   user: iUser;
   onUpdateUser: (updatedUser: Partial<iUser>) => void;
   initialAvatar: string;
+  isEditable: boolean;
 }
 
 export default function UserInfo({
   user,
   onUpdateUser,
   initialAvatar,
+  isEditable,
 }: UserInfoProps) {
   let {
     firstName,
@@ -81,15 +80,17 @@ export default function UserInfo({
   });
 
   const handleAvatarClick = () => {
-    fileInputRef.current?.click();
+    if (isEditable) {
+      fileInputRef.current?.click();
+    }
   };
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
+    if (!isEditable) return;
     const file = event.target.files?.[0];
     if (file) {
-      // Create a temporary URL for immediate display
       const tempUrl = URL.createObjectURL(file);
       setCurrentAvatar(tempUrl);
 
@@ -102,14 +103,12 @@ export default function UserInfo({
           const res = await uploadProfilePicToCloudinary(smallFile);
           console.log(res);
           const imageUrl = res.secure_url;
-          setCurrentAvatar(imageUrl); // Update local state with Cloudinary URL
+          setCurrentAvatar(imageUrl);
           onUpdateUser({ avatar: imageUrl });
           setAvatarTrigger(imageUrl);
         } catch (error) {
           console.error("Error uploading image:", error);
-          // Keep the temporary URL if upload fails
         } finally {
-          // Clean up the temporary URL
           URL.revokeObjectURL(tempUrl);
         }
       };
@@ -118,6 +117,7 @@ export default function UserInfo({
   };
 
   const handleSaveProfile = () => {
+    if (!isEditable) return;
     onUpdateUser({
       firstName: editedFirstName,
       lastName: editedLastName,
@@ -133,7 +133,9 @@ export default function UserInfo({
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative">
             <div
-              className="relative h-32 w-32 sm:h-40 sm:w-40 cursor-pointer"
+              className={`relative h-32 w-32 sm:h-40 sm:w-40 ${
+                isEditable ? "cursor-pointer" : ""
+              }`}
               onClick={handleAvatarClick}
             >
               <Avatar className="h-full w-full border-4 border-background">
@@ -142,28 +144,34 @@ export default function UserInfo({
                   alt={`${editedFirstName} ${editedLastName}`}
                   className="object-cover"
                 />
-                <AvatarFallback>{`${editedFirstName[0] || ""}${editedLastName[0] || ""}`}</AvatarFallback>
+                <AvatarFallback>{`${editedFirstName[0] || ""}${
+                  editedLastName[0] || ""
+                }`}</AvatarFallback>
               </Avatar>
             </div>
-            <div
-              className="absolute bottom-0 right-0 bg-primary rounded-full p-2 cursor-pointer"
-              onClick={handleAvatarClick}
-            >
-              <Camera className="h-4 w-4 text-white" />
-            </div>
+            {isEditable && (
+              <div
+                className="absolute bottom-0 right-0 bg-primary rounded-full p-2 cursor-pointer"
+                onClick={handleAvatarClick}
+              >
+                <Camera className="h-4 w-4 text-white" />
+              </div>
+            )}
           </div>
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-            accept="image/*"
-            className="hidden"
-          />
+          {isEditable && (
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              accept="image/*"
+              className="hidden"
+            />
+          )}
         </div>
       </CardHeader>
       <CardContent className="pt-4 sm:pt-6">
         <div className="text-center mb-6">
-          {isEditingProfile ? (
+          {isEditingProfile && isEditable ? (
             <div className="flex flex-col gap-2">
               <Input
                 value={editedFirstName}
@@ -200,14 +208,16 @@ export default function UserInfo({
               <p className="text-sm text-muted-foreground mt-2">
                 {editedBio || "No bio yet."}
               </p>
-              <Button
-                variant="ghost"
-                onClick={() => setIsEditingProfile(true)}
-                className="mt-2"
-              >
-                <Edit className="h-4 w-4 mr-2" />
-                Edit Profile
-              </Button>
+              {isEditable && (
+                <Button
+                  variant="ghost"
+                  onClick={() => setIsEditingProfile(true)}
+                  className="mt-2"
+                >
+                  <Edit className="h-4 w-4 mr-2" />
+                  Edit Profile
+                </Button>
+              )}
             </>
           )}
         </div>

@@ -81,12 +81,15 @@ const UserProfileComponent: React.FC<UserProfileComponentProps> = ({
 
   if (!user) return <p>No user data available</p>;
 
+  const isOwnAccount = !userIdFromParams || userIdFromParams === auth.userId;
+
   return (
     <div>
       <UserInfo
         user={updatedUser || user}
         onUpdateUser={handleUpdateUser}
         initialAvatar={user.avatar || ""}
+        isEditable={isOwnAccount}
       />
       {updateUserMutation.isPending && <p>Updating user information...</p>}
       {updateUserMutation.isError && (
