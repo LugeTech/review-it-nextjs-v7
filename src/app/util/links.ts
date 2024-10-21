@@ -20,6 +20,11 @@ export const sideLinks = [
   //   icon: "add",
   // },
   {
+    name: "Report a bug",
+    link: "/bugreport",
+    icon: "bug",
+  },
+  {
     name: "My Profile",
     link: "/userprofile",
     icon: "user",
@@ -51,5 +56,10 @@ export const topLinks = [
   {
     name: "My Businesses",
     link: "/mybusinesses",
+  },
+  {
+    name: "Report a bug",
+    link: "/bugreport",
+    icon: "bug",
   },
 ];
