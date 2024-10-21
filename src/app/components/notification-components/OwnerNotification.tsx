@@ -33,7 +33,9 @@ export default function NotificationBell({
             {count > 99 ? "99+" : count}
           </span>
         )}
-        <span className="ml-2 text-sm text-gray-600">new notifications</span>
+        <span className="ml-2 text-sm text-gray-600 hover:underline">
+          Notifications
+        </span>
       </div>
     </Link>
   );
