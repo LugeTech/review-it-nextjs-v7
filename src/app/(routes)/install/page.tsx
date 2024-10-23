@@ -151,7 +151,7 @@ const InstallPWA: React.FC = () => {
                     d="M384 176L256 48 128 176"
                   />
                 </svg>{" "}
-                and select "Add to Home Screen".
+                and select `&quot;`Add to Home Screen`&quot;`.
               </p>
             )}
             {isInstallable && !isIos() && (
